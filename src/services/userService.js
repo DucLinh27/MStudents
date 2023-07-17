@@ -23,7 +23,14 @@ let handleUserLogin = (email, password) => {
       if (isExist) {
         //user already exist
         let user = await db.User.findOne({
-          attributes: ["email", "roleId", "password", "firstName", "lastName"],
+          attributes: [
+            "id",
+            "email",
+            "roleId",
+            "password",
+            "firstName",
+            "lastName",
+          ],
           where: { email: email },
           raw: true,
         });
@@ -126,7 +133,7 @@ let createNewUser = (data) => {
           gender: data.gender,
           roleId: data.roleId,
           positionId: data.positionId,
-          image: data.avatar
+          image: data.avatar,
         });
         resolve({
           errCode: 0,
@@ -161,7 +168,7 @@ let deleteUSer = (userId) => {
 let updateUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.id || !data.roleId || !data.positionId  || !data.gender) {
+      if (!data.id || !data.roleId || !data.positionId || !data.gender) {
         resolve({
           errCode: 2,
           errMessage: "The user does not exist",
@@ -179,13 +186,11 @@ let updateUser = async (data) => {
           (user.roleId = data.roleId),
           (user.positionId = data.positionId),
           (user.gender = data.gender);
-          if (data.avatar){
+        if (data.avatar) {
+          user.image = data.avatar;
+        }
 
-            (user.image = data.avatar);
-          }
-
-
-          await user.save();
+        await user.save();
         resolve({
           errCode: 0,
           message: "The user has been updated successfully",
