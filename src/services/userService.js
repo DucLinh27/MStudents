@@ -1,6 +1,6 @@
 import db from "../models/index";
 import bcrypt from "bcryptjs";
-
+import { getRoles } from "./JWTService";
 const salt = bcrypt.genSaltSync(10);
 let hashUserPassword = (password) => {
   return new Promise(async (resolve, reject) => {
@@ -45,6 +45,9 @@ let handleUserLogin = (email, password) => {
           if (check) {
             userData.errCode = 0;
             userData.errMessage = "OK";
+            userData.DT = {
+              access_token: "",
+            };
 
             delete user.password;
             userData.user = user;
@@ -62,6 +65,7 @@ let handleUserLogin = (email, password) => {
         userData.errMessage = `Your's Email isn't exist in our system, plz try other email`;
       }
       resolve(userData);
+      await getRoles(userData);
     } catch (e) {
       reject(e);
     }
@@ -132,6 +136,41 @@ let createNewUser = (data) => {
           phonenumber: data.phonenumber,
           gender: data.gender,
           roleId: data.roleId,
+          positionId: data.positionId,
+          image: data.avatar,
+        });
+        resolve({
+          errCode: 0,
+          message: "Ok",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let registerNewUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check if email already exists
+      let check = await checkUserEmail(data.email);
+      if (check === true) {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address",
+        });
+      } else {
+        let hashPassWordFromBcrypt = await hashUserPassword(data.password);
+        await db.User.create({
+          email: data.email,
+          password: hashPassWordFromBcrypt,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          address: data.address,
+          phonenumber: data.phonenumber,
+          gender: data.gender,
+          roleId: "R3",
           positionId: data.positionId,
           image: data.avatar,
         });
@@ -238,4 +277,5 @@ module.exports = {
   deleteUSer: deleteUSer,
   updateUser: updateUser,
   getAllCodeService: getAllCodeService,
+  registerNewUser: registerNewUser,
 };

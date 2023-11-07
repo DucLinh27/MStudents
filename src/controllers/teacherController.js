@@ -1,22 +1,22 @@
-import doctorService from "../services/doctorService";
+import teacherService from "../services/teacherService";
 
-let getTopDoctorHome = async (req, res) => {
+let getTopTeacherHome = async (req, res) => {
   let limit = req.query.limit;
   if (!limit) limit = 10;
   try {
-    let response = await doctorService.getTopDoctorHome(+limit);
+    let response = await teacherService.getTopTeacherHome(+limit);
     return res.status(200).json(response);
   } catch (e) {
     console.log(e);
-    return res.status(200).JSON({
+    return res.status(200).json({
       errCode: -1,
       message: "Error from server...",
     });
   }
 };
-let getAllDoctors = async (req, res) => {
+let getAllTeachers = async (req, res) => {
   try {
-    let doctors = await doctorService.getAllDoctors();
+    let doctors = await teacherService.getAllTeachers();
     return res.status(200).json(doctors);
   } catch (e) {
     console.log(e);
@@ -26,9 +26,9 @@ let getAllDoctors = async (req, res) => {
     });
   }
 };
-let postInforDoctor = async (req, res) => {
+let postInforTeacher = async (req, res) => {
   try {
-    let response = await doctorService.saveDetailInforDoctor(req.body);
+    let response = await teacherService.saveDetailInforTeacher(req.body);
     return res.status(200).json(response);
   } catch (e) {
     console.log(e);
@@ -38,9 +38,9 @@ let postInforDoctor = async (req, res) => {
     });
   }
 };
-let getDetailDoctorById = async (req, res) => {
+let getDetailTeacherById = async (req, res) => {
   try {
-    let infor = await doctorService.getInforDoctorById(req.query.id);
+    let infor = await teacherService.getInforTeacherById(req.query.id);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -52,7 +52,7 @@ let getDetailDoctorById = async (req, res) => {
 };
 let bulkCreateSchedule = async (req, res) => {
   try {
-    let infor = await doctorService.bulkCreateSchedules(req.body);
+    let infor = await teacherService.bulkCreateSchedules(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -65,8 +65,8 @@ let bulkCreateSchedule = async (req, res) => {
 
 let getScheduleByDate = async (req, res) => {
   try {
-    let infor = await doctorService.getScheduleByDate(
-      req.query.doctorId,
+    let infor = await teacherService.getScheduleByDate(
+      req.query.teacherId,
       req.query.date
     );
     return res.status(200).json(infor);
@@ -78,9 +78,11 @@ let getScheduleByDate = async (req, res) => {
     });
   }
 };
-let getExtraInforDoctorById = async (req, res) => {
+let getExtraInforTeacherById = async (req, res) => {
   try {
-    let infor = await doctorService.getExtraInforDoctorById(req.query.doctorId);
+    let infor = await teacherService.getExtraInforTeacherById(
+      req.query.teacherId
+    );
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -90,9 +92,9 @@ let getExtraInforDoctorById = async (req, res) => {
     });
   }
 };
-let getProfileDoctorById = async (req, res) => {
+let getProfileTeacherById = async (req, res) => {
   try {
-    let infor = await doctorService.getProfileDoctorById(req.query.doctorId);
+    let infor = await teacherService.getProfileTeacherById(req.query.teacherId);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -103,10 +105,10 @@ let getProfileDoctorById = async (req, res) => {
   }
 };
 
-let getListPatientForDoctor = async (req, res) => {
+let getListPatientForTeacher = async (req, res) => {
   try {
-    let infor = await doctorService.getListPatientForDoctor(
-      req.query.doctorId,
+    let infor = await teacherService.getListPatientForTeacher(
+      req.query.teacherId,
       req.query.date
     );
     return res.status(200).json(infor);
@@ -120,7 +122,7 @@ let getListPatientForDoctor = async (req, res) => {
 };
 let sendRemedy = async (req, res) => {
   try {
-    let infor = await doctorService.sendRemedy(req.body);
+    let infor = await teacherService.sendRemedy(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -131,14 +133,14 @@ let sendRemedy = async (req, res) => {
   }
 };
 module.exports = {
-  getTopDoctorHome: getTopDoctorHome,
-  getAllDoctors: getAllDoctors,
-  postInforDoctor: postInforDoctor,
-  getDetailDoctorById: getDetailDoctorById,
+  getTopTeacherHome: getTopTeacherHome,
+  getAllTeachers: getAllTeachers,
+  postInforTeacher: postInforTeacher,
+  getDetailTeacherById: getDetailTeacherById,
   bulkCreateSchedule: bulkCreateSchedule,
   getScheduleByDate: getScheduleByDate,
-  getExtraInforDoctorById: getExtraInforDoctorById,
-  getProfileDoctorById: getProfileDoctorById,
-  getListPatientForDoctor: getListPatientForDoctor,
+  getExtraInforTeacherById: getExtraInforTeacherById,
+  getProfileTeacherById: getProfileTeacherById,
+  getListPatientForTeacher: getListPatientForTeacher,
   sendRemedy: sendRemedy,
 };

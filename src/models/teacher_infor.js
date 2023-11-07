@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Doctor_Infor extends Model {
+  class Teacher_Infor extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,44 +9,43 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Doctor_Infor.belongsTo(models.User, { foreignKey: "doctorId" });
+      Teacher_Infor.belongsTo(models.User, { foreignKey: "teacherId" });
 
-      Doctor_Infor.belongsTo(models.Allcode, {
+      Teacher_Infor.belongsTo(models.Allcode, {
         foreignKey: "priceId",
         targetkey: "keyMap",
         as: "priceTypeData",
       });
-      Doctor_Infor.belongsTo(models.Allcode, {
+      Teacher_Infor.belongsTo(models.Allcode, {
         foreignKey: "paymentId",
         targetkey: "keyMap",
         as: "paymentTypeData",
       });
-      Doctor_Infor.belongsTo(models.Allcode, {
+      Teacher_Infor.belongsTo(models.Allcode, {
         foreignKey: "provinceId",
         targetkey: "keyMap",
         as: "provinceTypeData",
       });
     }
   }
-  Doctor_Infor.init(
+  Teacher_Infor.init(
     {
-      doctorId: DataTypes.INTEGER,
-      specialtyId: DataTypes.INTEGER,
-      clinicId: DataTypes.INTEGER,
-
+      teacherId: DataTypes.INTEGER,
+      coursesId: DataTypes.INTEGER,
+      classesId: DataTypes.INTEGER,
       priceId: DataTypes.STRING,
       provinceId: DataTypes.STRING,
       paymentId: DataTypes.STRING,
-      addressClinic: DataTypes.STRING,
-      nameClinic: DataTypes.STRING,
+      addressClasses: DataTypes.STRING,
+      nameClasses: DataTypes.STRING,
       note: DataTypes.STRING,
       count: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "Doctor_Infor",
+      modelName: "Teacher_Infor",
       freezeTableName: true,
     }
   );
-  return Doctor_Infor;
+  return Teacher_Infor;
 };

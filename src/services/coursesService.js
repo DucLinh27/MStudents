@@ -1,7 +1,8 @@
 const db = require("../models");
 
-let createSpecialty = (data) => {
+let createCourses = (data) => {
   return new Promise(async (resolve, reject) => {
+    console.log(data);
     try {
       if (
         !data.name ||
@@ -14,7 +15,7 @@ let createSpecialty = (data) => {
           errMessage: "Missing parameter!",
         });
       } else {
-        await db.Specialty.create({
+        await db.Courses.create({
           name: data.name,
           image: data.imageBase64,
           descriptionHTML: data.descriptionHTML,
@@ -30,10 +31,10 @@ let createSpecialty = (data) => {
     }
   });
 };
-let getAllSpecialty = (data) => {
+let getAllCourses = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Specialty.findAll({});
+      let data = await db.Courses.findAll({});
 
       if (data && data.length > 0) {
         data.map((item) => {
@@ -51,7 +52,7 @@ let getAllSpecialty = (data) => {
     }
   });
 };
-let getDetailSpecialtyById = (inputId, location) => {
+let getDetailCoursesById = (inputId, location) => {
   return new Promise(async (resolve, reject) => {
     try {
       // if (!inputId || !location) {
@@ -93,7 +94,6 @@ let getDetailSpecialtyById = (inputId, location) => {
       //     data,
       //   });
       // }
-
       let data = {};
       // if (location === "ALL") {
       //   data = await db.Specialty.findOne({
@@ -104,11 +104,11 @@ let getDetailSpecialtyById = (inputId, location) => {
       //   });
       // }
       if (data) {
-        let doctorSpecialty = await db.Doctor_Infor.findAll({
+        let doctorSpecialty = await db.Teacher_Infor.findAll({
           where: {
             specialtyId: inputId,
           },
-          attributes: ["doctorId", "provinceId"],
+          attributes: ["teacherId", "provinceId"],
         });
         data.doctorSpecialty = doctorSpecialty;
       } else data = {};
@@ -123,7 +123,7 @@ let getDetailSpecialtyById = (inputId, location) => {
   });
 };
 module.exports = {
-  createSpecialty: createSpecialty,
-  getAllSpecialty: getAllSpecialty,
-  getDetailSpecialtyById: getDetailSpecialtyById,
+  createCourses: createCourses,
+  getAllCourses: getAllCourses,
+  getDetailCoursesById: getDetailCoursesById,
 };

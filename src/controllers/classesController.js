@@ -1,6 +1,6 @@
-import clinicService from "../services/clinicService";
+import clinicService from "../services/classesService";
 
-let getAllClinic = async (req, res) => {
+let getAllClasses = async (req, res) => {
   try {
     let infor = await clinicService.getAllClinic();
     return res.status(200).json(infor);
@@ -12,7 +12,7 @@ let getAllClinic = async (req, res) => {
     });
   }
 };
-let getDetailClinicById = async (req, res) => {
+let getDetailClassesById = async (req, res) => {
   try {
     let infor = await clinicService.getDetailClinicById(req.query.id);
     return res.status(200).json(infor);
@@ -24,9 +24,9 @@ let getDetailClinicById = async (req, res) => {
     });
   }
 };
-let createClinic = async (req, res) => {
+let createClasses = async (req, res) => {
   try {
-    let infor = await clinicService.createClinic(req.query.id);
+    let infor = await clinicService.createClinic(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -38,7 +38,7 @@ let createClinic = async (req, res) => {
 };
 
 module.exports = {
-  createClinic: createClinic,
-  getAllClinic: getAllClinic,
-  getDetailClinicById: getDetailClinicById,
+  createClasses: createClasses,
+  getAllClasses: getAllClasses,
+  getDetailClassesById: getDetailClassesById,
 };

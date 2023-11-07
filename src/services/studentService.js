@@ -11,7 +11,7 @@ let postBookAppointment = (data) => {
     try {
       if (
         !data.email ||
-        !data.doctorId ||
+        !data.teacherId ||
         !data.date ||
         !data.timeType ||
         !data.fullName ||
@@ -31,7 +31,7 @@ let postBookAppointment = (data) => {
           time: data.timeString,
           doctorName: data.doctorName,
           language: data.language,
-          redirectLink: buildUrlEmail(data.doctorId, token),
+          redirectLink: buildUrlEmail(data.teacherId, token),
         });
 
         //upsert patient
@@ -49,11 +49,11 @@ let postBookAppointment = (data) => {
         //create a booking record
         if (user && user[0]) {
           await db.Booking.findOrCreate({
-            where: { patientID: user[0].id },
+            where: { studentId: user[0].id },
             defaults: {
               statusId: "S1",
-              doctorId: data.doctorId,
-              patientID: user[0].id,
+              teacherId: data.teacherId,
+              studentId: user[0].id,
               date: data.date,
               timeType: data.timeType,
               token: token,
@@ -72,22 +72,26 @@ let postBookAppointment = (data) => {
   });
 };
 
-let buildUrlEmail = (doctorId, token) => {
-  let result = `${process.env.URL_REACT}/verify-booking?token=${token}&doctorId=${doctorId}`;
+let buildUrlEmail = (teacherId, token) => {
+  let result = `${process.env.URL_REACT}/verify-booking?token=${token}&teacherId=${teacherId}`;
   return result;
 };
 
 let postVerifyBookAppointment = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.token || !data.doctorId) {
+      if (!data.token || !data.teacherId) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
         });
       } else {
         let appointment = await db.Booking.findOne({
-          where: { doctorId: data.doctorId, token: data.token, statusId: "S1" },
+          where: {
+            teacherId: data.teacherId,
+            token: data.token,
+            statusId: "S1",
+          },
           raw: false,
         });
         if (appointment) {

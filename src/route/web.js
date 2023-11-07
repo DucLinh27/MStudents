@@ -1,11 +1,11 @@
 import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
-import doctorController from "../controllers/doctorController";
-import patientController from "../controllers/patientController";
-import specialtyController from "../controllers/specialtyController";
-import clinicController from "../controllers/clinicController";
-
+import teacherController from "../controllers/teacherController";
+import studentController from "../controllers/studentController";
+import coursesController from "../controllers/coursesController";
+import classesController from "../controllers/classesController";
+import orderController from "../controllers/orderController";
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -22,62 +22,73 @@ let initWebRoutes = (app) => {
   router.post("/api/login", userController.handleLoging);
   router.get("/api/get-all-users", userController.handleGetAllUsers);
   router.post("/api/create-new-user", userController.handleCreateNewUser);
+  router.post("/api/registerNewUser", userController.handleRegisterNewUser);
+
   router.put("/api/edit-user", userController.handleEditUser);
   router.delete("/api/delete-user", userController.handleDeleteUser); //restApi
   router.get("/api/allcode", userController.getAllCode);
 
   //doctorController
-  router.get("/api/top-doctor-home", doctorController.getTopDoctorHome);
-  router.get("/api/get-all-doctors", doctorController.getAllDoctors);
-  router.post("/api/save-infor-doctors", doctorController.postInforDoctor);
+  router.get("/api/top-doctor-home", teacherController.getTopTeacherHome);
+  router.get("/api/get-all-doctors", teacherController.getAllTeachers);
+  router.post("/api/save-infor-doctors", teacherController.postInforTeacher);
   router.get(
     "/api/get-detail-doctor-by-id",
-    doctorController.getDetailDoctorById
+    teacherController.getDetailTeacherById
   );
-  router.post("/api/bulk-create-schedule", doctorController.bulkCreateSchedule);
+  router.post(
+    "/api/bulk-create-schedule",
+    teacherController.bulkCreateSchedule
+  );
   router.get(
     "/api/get-schedule-doctor-by-date",
-    doctorController.getScheduleByDate
+    teacherController.getScheduleByDate
   );
   router.get(
     "/api/get-extra-infor-doctor-by-id",
-    doctorController.getExtraInforDoctorById
+    teacherController.getExtraInforTeacherById
   );
   router.get(
     "/api/get-profile-doctor-by-id",
-    doctorController.getProfileDoctorById
+    teacherController.getProfileTeacherById
   );
   router.get(
     "/api/get-list-patient-for-doctor",
-    doctorController.getListPatientForDoctor
+    teacherController.getListPatientForTeacher
   );
-  router.post("/api/send-remedy", doctorController.sendRemedy);
+  router.post("/api/send-remedy", teacherController.sendRemedy);
 
   //patientController
   router.post(
     "/api/patient-book-appointment",
-    patientController.postBookAppointment
+    studentController.postBookAppointment
   );
   router.post(
     "/api/verify-book-appointment",
-    patientController.postVerifyBookAppointment
+    studentController.postVerifyBookAppointment
   );
 
   //specialtyController
-  router.post("/api/create-new-specialty", specialtyController.createSpecialty);
-  router.get("/api/get-all-specialty", specialtyController.getAllSpecialty);
+  router.post("/api/create-new-courses", coursesController.createCourses);
+  router.get("/api/get-all-courses", coursesController.getAllCourses);
   router.get(
-    "/api/get-detail-specialty-by-id",
-    specialtyController.getDetailSpecialtyById
+    "/api/get-detail-courses-by-id",
+    coursesController.getDetailCoursesById
   );
 
-  //clinicController
-  router.post("/api/create-new-clinic", clinicController.createClinic);
-  router.get("/api/get-clinic", clinicController.getAllClinic);
+  //classesController
+  router.post("/api/create-new-classes", classesController.createClasses);
+  router.get("/api/get-classes", classesController.getAllClasses);
   router.get(
-    "/api/get-detail-clinic-by-id",
-    clinicController.getDetailClinicById
+    "/api/get-detail-classes-by-id",
+    classesController.getDetailClassesById
   );
+
+  //order
+  router.post("/api/create-order", orderController.createOrder);
+  router.get("/api/get-order", orderController.getOrder);
+  router.put("/api/edit-order", orderController.editOrder);
+  router.delete("/api/delete-order", orderController.deleteOrder);
 
   return app.use("/", router);
 };

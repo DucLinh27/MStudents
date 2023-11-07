@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "timeTypeData",
       });
       Schedule.belongsTo(models.User, {
-        foreignKey: "doctorId",
+        foreignKey: "teacherId",
         targetKey: "id",
         as: "doctorData",
       });
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       maxNumber: DataTypes.INTEGER,
       date: DataTypes.STRING,
       timeType: DataTypes.STRING,
-      doctorId: DataTypes.INTEGER,
+      teacherId: DataTypes.INTEGER,
     },
     {
       sequelize,

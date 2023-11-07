@@ -51,7 +51,7 @@ let getAllUser = () => {
         } catch (e) {
             reject(e);
         }
-    })
+    })``
 }
 
 let getUserInfoById = (userId) => {

@@ -15,7 +15,7 @@ let createClinic = (data) => {
           errMessage: "Missing parameter!",
         });
       } else {
-        await db.Clinic.create({
+        await db.Classes.create({
           name: data.name,
           address: data.address,
           image: data.imageBase64,
@@ -35,7 +35,7 @@ let createClinic = (data) => {
 let getAllClinic = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Clinic.findAll({});
+      let data = await db.Classes.findAll({});
 
       if (data && data.length > 0) {
         data.map((item) => {
@@ -62,7 +62,7 @@ let getDetailClinicById = (inputId) => {
           errMessage: "Missing parameter!",
         });
       } else {
-        let data = await db.Clinic.findOne({
+        let data = await db.Classes.findOne({
           where: {
             id: inputId,
           },
@@ -76,11 +76,11 @@ let getDetailClinicById = (inputId) => {
         if (data) {
           let doctorClinic = [];
 
-          doctorClinic = await db.Doctor_Infor.findAll({
+          doctorClinic = await db.Teacher_Infor.findAll({
             where: {
               clinicId: inputId,
             },
-            attributes: ["doctorId", "provinceId"],
+            attributes: ["teacherId", "provinceId"],
           });
           data.doctorClinic = doctorClinic;
         } else data = {};

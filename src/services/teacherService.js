@@ -1,10 +1,10 @@
 import db from "../models/index";
 require("dotenv").config();
 import _ from "lodash";
-import emailService from "../services/emailService";
+import emailService from "./emailService";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
-let getTopDoctorHome = (limitInput) => {
+let getTopTeacherHome = (limitInput) => {
   return new Promise(async (resolve, reject) => {
     try {
       let users = await db.User.findAll({
@@ -38,7 +38,7 @@ let getTopDoctorHome = (limitInput) => {
     }
   });
 };
-let getAllDoctors = () => {
+let getAllTeachers = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let doctors = await db.User.findAll({
@@ -59,7 +59,7 @@ let getAllDoctors = () => {
 
 let checkRequireFields = (inputData) => {
   let arrFields = [
-    "doctorId",
+    "teacherId",
     "contentHTML",
     "contentMarkdown",
     "action",
@@ -85,7 +85,7 @@ let checkRequireFields = (inputData) => {
     element: element,
   };
 };
-let saveDetailInforDoctor = async (inputData) => {
+let saveDetailInforTeacher = async (inputData) => {
   return new Promise(async (resolve, reject) => {
     try {
       let checkObj = checkRequireFields(inputData);
@@ -100,12 +100,12 @@ let saveDetailInforDoctor = async (inputData) => {
           await db.Markdown.create({
             contentHTML: inputData.contentHTML,
             contentMarkdown: inputData.contentMarkdown,
-            doctorId: inputData.doctorId,
+            teacherId: inputData.teacherId,
             description: inputData.description,
           });
         } else if (inputData.action === "EDIT") {
           let doctorMarkdown = await db.Markdown.findOne({
-            where: { doctorId: inputData.doctorId },
+            where: { teacherId: inputData.teacherId },
             raw: false,
           });
           if (doctorMarkdown) {
@@ -118,13 +118,13 @@ let saveDetailInforDoctor = async (inputData) => {
         }
 
         //update to Doctor infor table
-        let doctorInfor = await db.Doctor_Infor.findOne({
-          where: { doctorId: inputData.doctorId },
+        let doctorInfor = await db.Teacher_Infor.findOne({
+          where: { teacherIdv: inputData.teacherId },
         });
 
         if (doctorInfor) {
           //update
-          (doctorInfor.doctorId = inputData.doctorId),
+          (doctorInfor.teacherId = inputData.teacherId),
             (doctorInfor.priceId = inputData.selectedPrice),
             (doctorInfor.paymentId = inputData.selectedPayment),
             (doctorInfor.provinceId = inputData.selectedProvince),
@@ -136,8 +136,8 @@ let saveDetailInforDoctor = async (inputData) => {
             await doctorInfor.save();
         } else {
           //create
-          await db.Doctor_Infor.create({
-            doctorId: inputData.doctorId,
+          await db.Teacher_Infor.create({
+            teacherId: inputData.teacherId,
             priceId: inputData.selectedPrice,
             paymentId: inputData.selectedPayment,
             provinceId: inputData.selectedProvince,
@@ -158,7 +158,7 @@ let saveDetailInforDoctor = async (inputData) => {
     }
   });
 };
-let getInforDoctorById = async (inputId) => {
+let getInforTeacherById = async (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!inputId) {
@@ -185,9 +185,9 @@ let getInforDoctorById = async (inputId) => {
               attributes: ["valueEn", "valueVi"],
             },
             {
-              model: db.Doctor_Infor,
+              model: db.Teacher_Infor,
               attributes: {
-                exclude: ["id", "doctorId"],
+                exclude: ["id", "teacherId"],
               },
               include: [
                 {
@@ -229,7 +229,7 @@ let getInforDoctorById = async (inputId) => {
 let bulkCreateSchedules = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.arrSchedule || !data.doctorId || !data.formatedDate) {
+      if (!data.arrSchedule || !data.teacherId || !data.formatedDate) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
@@ -245,8 +245,8 @@ let bulkCreateSchedules = (data) => {
 
         //get all existing
         let existing = await db.Schedule.findAll({
-          where: { doctorId: data.doctorId, date: data.formatedDate },
-          attributes: ["timeType", "date", "doctorId", "maxNumber"],
+          where: { teacherId: data.teacherId, date: data.formatedDate },
+          attributes: ["timeType", "date", "teacherId", "maxNumber"],
           raw: true,
         });
 
@@ -278,10 +278,10 @@ let bulkCreateSchedules = (data) => {
     }
   });
 };
-let getScheduleByDate = (doctorId, date) => {
+let getScheduleByDate = (teacherId, date) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!doctorId || !date) {
+      if (!teacherId || !date) {
         resolve({
           errCode: 1,
           errMessage: "Messing required parameter missing",
@@ -289,7 +289,7 @@ let getScheduleByDate = (doctorId, date) => {
       } else {
         let dataSchedule = await db.Schedule.findAll({
           where: {
-            doctorId: doctorId,
+            teacherId: teacherId,
             date: date,
           },
           include: [
@@ -319,7 +319,7 @@ let getScheduleByDate = (doctorId, date) => {
     }
   });
 };
-let getExtraInforDoctorById = (idInput) => {
+let getExtraInforTeacherById = (idInput) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!idInput) {
@@ -328,12 +328,12 @@ let getExtraInforDoctorById = (idInput) => {
           errMessage: "Messing required parameter missing",
         });
       } else {
-        let data = await db.Doctor_Infor.findOne({
+        let data = await db.Teacher_Infor.findOne({
           where: {
-            doctorId: idInput,
+            teacherId: idInput,
           },
           attributes: {
-            exclude: ["id", "doctorId"],
+            exclude: ["id", "teacherId"],
           },
           include: [
             {
@@ -366,7 +366,7 @@ let getExtraInforDoctorById = (idInput) => {
     }
   });
 };
-let getProfileDoctorById = (inputId) => {
+let getProfileTeacherById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!inputId) {
@@ -393,9 +393,9 @@ let getProfileDoctorById = (inputId) => {
               attributes: ["valueEn", "valueVi"],
             },
             {
-              model: db.Doctor_Infor,
+              model: db.Teacher_Infor,
               attributes: {
-                exclude: ["id", "doctorId"],
+                exclude: ["id", "teacherId"],
               },
               include: [
                 {
@@ -433,17 +433,17 @@ let getProfileDoctorById = (inputId) => {
     }
   });
 };
-let getListPatientForDoctor = (doctorId, date) => {
+let getListPatientForTeacher = (teacherId, date) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!doctorId || !date) {
+      if (!teacherId || !date) {
         resolve({
           errCode: 1,
           errMessage: "Messing required parameter missing",
         });
       } else {
         let data = await db.Booking.findAll({
-          where: { statusId: "S2", doctorId: doctorId, date: date },
+          where: { statusId: "S2", teacherId: teacherIdteacherId, date: date },
           include: [
             {
               model: db.User,
@@ -479,7 +479,7 @@ let getListPatientForDoctor = (doctorId, date) => {
 let sendRemedy = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.email || !data.doctorId || !data.patientId || !data.timeType) {
+      if (!data.email || !data.teacherId || !data.studentId || !data.timeType) {
         resolve({
           errCode: 1,
           errMessage: "Messing required parameter missing",
@@ -488,8 +488,8 @@ let sendRemedy = (data) => {
         //updte patient status
         let appointment = await db.Booking.findOne({
           where: {
-            doctorId: data.doctorId,
-            patientId: data.patientId,
+            teacherId: data.teacherId,
+            studentId: data.studentId,
             timeType: data.timeType,
             statusId: "S2",
           },
@@ -512,14 +512,14 @@ let sendRemedy = (data) => {
   });
 };
 module.exports = {
-  getTopDoctorHome: getTopDoctorHome,
-  getAllDoctors: getAllDoctors,
-  saveDetailInforDoctor: saveDetailInforDoctor,
-  getInforDoctorById: getInforDoctorById,
+  getTopTeacherHome: getTopTeacherHome,
+  getAllTeachers: getAllTeachers,
+  saveDetailInforTeacher: saveDetailInforTeacher,
+  getInforTeacherById: getInforTeacherById,
   bulkCreateSchedules: bulkCreateSchedules,
   getScheduleByDate: getScheduleByDate,
-  getExtraInforDoctorById: getExtraInforDoctorById,
-  getProfileDoctorById: getProfileDoctorById,
-  getListPatientForDoctor: getListPatientForDoctor,
+  getExtraInforTeacherById: getExtraInforTeacherById,
+  getProfileTeachervrById: getProfileTeacherById,
+  getListPatientForTeacher: getListPatientForTeacher,
   sendRemedy: sendRemedy,
 };

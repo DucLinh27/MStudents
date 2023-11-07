@@ -1,7 +1,7 @@
-import specialtyService from "../services/specialtyService";
-let createSpecialty = async (req, res) => {
+import coursesService from "../services/coursesService";
+let createCourses = async (req, res) => {
   try {
-    let infor = await specialtyService.createSpecialty(req.body);
+    let infor = await coursesService.createCourses(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -11,9 +11,9 @@ let createSpecialty = async (req, res) => {
     });
   }
 };
-let getAllSpecialty = async (req, res) => {
+let getAllCourses = async (req, res) => {
   try {
-    let infor = await specialtyService.getAllSpecialty();
+    let infor = await coursesService.getAllCourses();
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -23,9 +23,9 @@ let getAllSpecialty = async (req, res) => {
     });
   }
 };
-let getDetailSpecialtyById = async (req, res) => {
+let getDetailCoursesById = async (req, res) => {
   try {
-    let infor = await specialtyService.getDetailSpecialtyById(
+    let infor = await coursesService.getDetailCoursesById(
       req.query.id,
       req.query.location
     );
@@ -39,7 +39,7 @@ let getDetailSpecialtyById = async (req, res) => {
   }
 };
 module.exports = {
-  createSpecialty: createSpecialty,
-  getAllSpecialty: getAllSpecialty,
-  getDetailSpecialtyById: getDetailSpecialtyById,
+  createCourses: createCourses,
+  getAllCourses: getAllCourses,
+  getDetailCoursesById: getDetailCoursesById,
 };
