@@ -1,0 +1,123 @@
+{
+    "home-header": {
+        "home": "Home",
+        "about": "About",
+        "courses": "Courses",
+        "pages": "Pages",
+        "blog": "Blog",
+        
+        "support": "Hỗ trợ",
+        "welcome": "Xin chào"
+        
+    },
+    "banner": {
+        "title1": "NỀN TẢNG Y TẾ",
+        "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
+        "child1": "Khám chuyên khoa",
+        "child2": "Khám từ xa",
+        "child3": "Khám tổng quát",
+        "child4": "Xét nghiệm y học",
+        "child5": "Sức khỏe tinh thần",
+        "child6": "Khám nha khoa"
+    },
+    "menu": {
+       
+        "admin":{
+            "manage-user": "Người dùng",
+            "manage-teacher": "Quản lý giáo viên",
+            "manage-admin": "Quản lý admin",
+            "crud": "CRUD User",
+            "crudredux": "CRUD Redux",
+            "manage-classes": "Lớp học",
+            "manage-courses": "Chuyên khoa",
+            "handbook": "Cẩm nang"
+        },
+        "doctor": {
+            "manage-schedule" : "Quản lý kế hoạch khám bệnh",
+            "manage-patient" : "Quản lý bệnh nhân"
+
+        }
+    },
+    "manage-user": {
+        "add": "Thêm mới người dùng",
+        "email":"Email",
+        "password": "Mật khẩu",
+        "firstname":"Tên",
+        "lastname":"Họ",
+        "gender":"Giới tính",
+        "phone-number": "Số điện thoại",
+        "position": "Chức danh",
+        "roleId": "Vai trò",
+        "address": "Địa chỉ",
+        "image": "Ảnh đại diện",
+        "save": " Lưu người dùng",
+        "edit": "Lưu thay đổi"
+    },
+    "homepage": {
+        "out-standing-doctor": "Giáo viên nổi bật tuần qua",
+        "see-more": "Xem Thêm",
+        "popular-speciality": "Chuyên khoa phổ biến",
+        "handbook":"Cẩm nang",
+        "outstanding-medical-facility": "Cơ sở y tế nổi bật",
+        "about": "Truyền thông nói về BookingCare"
+        
+    },
+    "manage-schedule": {
+        "title": "Quản lý kế hoạch dạy học của giáo viên",
+        "choose-teacher": "Chọn giáo viên",
+        "choose-date": "Chọn ngày",
+        "save": "Lưu thông tin"
+
+    },
+    "patient":{
+        "detail-teacher": {
+            "schedule": "Lịch học",
+            "no-schedule": "Giáo viên không có lịch dạy trong thời gian này, vui lòng chọn thời gian khác!",
+            "choose":"Chọn",
+            "book-free" : "và đặt (miễn phí)"
+        },
+        "extra-infor-doctor":{
+            "text-address":"Địa chỉ lớp học",
+            "price": "Gía môn học",
+            "detail": "Xem chi tiết",
+            "payment": "Học sinh có thể thanh toán chi phí bằng hình thức: ",
+            "hide-price":"Ẩn bảng giá"
+
+        },
+        "booking-modal":{
+            "title": "Thông tin học tập",
+            "fullname": "Họ và tên",
+            "phoneNumber": "Số điện thoại",
+            "email": "Địa chỉ email",
+            "address": "Địa chỉ liên lạc",
+            "birthday": "Ngày sinh",
+            "gender": "Giới tính",
+            "reason": "Mong muốn",
+            "confirm":"Xác nhận",
+            "cancel":"Hủy",
+            "prices": "Giá Lớp Học: ",
+            "freebooking":"Miễn phí đặt lịch"
+        }
+    },
+    "admin": {
+        "manage-teacher": {
+            "title": "Tạo thông tin Teachers",
+            "select-teacher": "Chọn giáo viên",
+            "intro": "Thông tin giới thiệu",
+            "add": "Tạo thông tin",
+            "save":"Lưu thông tin",
+            "price": "Giá khóa học",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "nameClasses": "Tên lớp học",
+            "addressClasses": "Địa chỉ lớp học",
+            "note": "Ghi chú",
+            "courses": "Chọn môn",
+            "select-classes": "Chọn lớp học"
+
+            
+        }
+    }
+    
+    
+}

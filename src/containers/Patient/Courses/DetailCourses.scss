@@ -1,0 +1,185 @@
+// .specialty-description {
+//   background-color: white !important;
+//   margin-top: 75px 0 15px 0;
+//   padding: 10px;
+
+//   h1,
+//   h2,
+//   h3 {
+//     font-size: 16px;
+//     font-weight: 600;
+//   }
+// }
+// .search-sp-doctor {
+//   margin-top: 10px;
+//   select {
+//     height: 30px;
+//     padding: 5px 8px;
+//     border: none;
+//     outline: none;
+//     border-radius: 3px;
+//     cursor: pointer;
+//   }
+// }
+// .each-doctor {
+//   display: flex;
+//   width: 100%;
+//   min-height: 300px;
+//   margin: 15px 0;
+//   padding: 10px;
+
+//   background-color: #fff;
+//   box-shadow: 0 1px 6px #20212447;
+//   border-radius: 8px;
+//   .content-left {
+//     width: 50%;
+//     border-right: 1px solid #ddd;
+//   }
+//   .content-right {
+//     width: 50%;
+//     padding: 10px;
+//     .doctor-schedule {
+//       .doctor-schedule-container {
+//         border-right: unset !important;
+//         .profile-doctor-container {
+//           .down {
+//             padding: 5px;
+//           }
+//         }
+//       }
+//     }
+//     .doctor-extra-infor {
+//       margin-top: 10px;
+//       padding-top: 10px;
+//       .doctor-extra-infor-container {
+//         padding-left: 0 !important;
+//       }
+//     }
+//   }
+// }
+// .detail-specialty-body {
+//   padding: 0 100px;
+//   background: #eee;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+//detail courses
+.detail-courses {
+  padding-top: 125px;
+  padding-bottom: 233px;
+  position: relative;
+  width: 1367px;
+  height: 3763px;
+  margin-top: 60px;
+
+  .left-content {
+    margin-left: 200px;
+    background-color: gray;
+
+    .header-courses {
+      h1 {
+        color: white;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-family: Newsreader, sans-serif;
+        font-size: 38px;
+        font-weight: 600;
+        line-height: 1.3em;
+      }
+      p {
+        max-width: 648px;
+        color: #e7eaee;
+        margin-bottom: 50px;
+      }
+      .image-left {
+      }
+    }
+    .container-courses {
+      h3 {
+        color: #0f437f;
+        margin-bottom: 16px;
+        font-family: Newsreader, sans-serif;
+        font-weight: 600;
+        line-height: 1.289em;
+        margin-top: 20px;
+        font-size: 32px;
+        line-height: 36px;
+      }
+      p {
+        color: #62778f;
+        font-family: Kumbh Sans, sans-serif;
+        font-size: 18px;
+        line-height: 1.667em;
+      }
+    }
+  }
+  .right-content {
+    margin-left: 20px;
+    background-color: aquamarine;
+    padding: 60px 32px 57px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px;
+    .right-up {
+      .price {
+        color: #1e3d60;
+        margin-bottom: 30px;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.063em;
+      }
+      p {
+        color: #62778f;
+        margin-bottom: 21px;
+      }
+      .select-courses {
+        min-height: 65px;
+        color: #62778f;
+        overflow: hidden;
+        .select {
+          border-radius: 100px;
+          padding-left: 30px;
+          padding-right: 30px;
+          min-height: 65px;
+          color: #62778f;
+          font-size: 18px;
+          line-height: 1.111em;
+          transition: color 0.3s;
+        }
+        .w-select {
+          width: 100%;
+          height: 38px;
+          color: #333;
+          vertical-align: middle;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          padding: 10px 30px;
+          font-size: 14px;
+          line-height: 1.42857;
+          display: block;
+        }
+      }
+      .button_content {
+        background-color: #064ea4;
+        color: white;
+        text-align: center;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transform-style: preserve-3d;
+        border-radius: 1000px;
+        padding: 24px 40px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.125em;
+        transition: transform 0.3s, background-color 0.3s;
+        cursor: pointer;
+        width: 100%;
+        display: block;
+      }
+    }
+    .right-down {
+      margin-top: 50px;
+    }
+  }
+}

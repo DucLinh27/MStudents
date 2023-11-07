@@ -1,0 +1,98 @@
+.register-background {
+  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+
+  .register-container {
+    max-width: 500px;
+    min-width: 300px;
+    height: 550px;
+    width: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: 50px;
+
+    .register-content {
+      padding: 20px;
+
+      .register-title {
+        font-size: 30px;
+        font-weight: 600;
+      }
+
+      .register-input {
+        margin: 12px 0px;
+        border: none;
+        border-radius: none;
+        outline: 0;
+        border-bottom: 1px solid #999;
+      }
+
+      .register-password {
+        position: relative;
+        .show-password {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          color: #777;
+          cursor: pointer;
+        }
+      }
+      .confirm-password {
+        position: relative;
+        .show-password {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          color: #777;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .account-password {
+    display: flex;
+    .forgot-password {
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 100px;
+      color: #777;
+    }
+    .account {
+      font-size: 12px;
+      font-weight: 600;
+      color: #777;
+      margin-left: 15px;
+    }
+  }
+  .btn-register {
+    width: 100%;
+    // margin: 1px 0px;
+    border: none;
+    color: #fff;
+    padding: 8px 0px;
+    border-radius: 25px;
+    cursor: pointer;
+    background: linear-gradient(
+      135deg,
+      rgba(34, 193, 195, 1) 0%,
+      rgba(253, 187, 45, 1) 100%
+    );
+  }
+  .login_inregis {
+    padding-top: 10px;
+  }
+  .login_inregis2 {
+    border-radius: 25px;
+    width: 100%;
+  }
+}

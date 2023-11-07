@@ -1,0 +1,173 @@
+.specialty-child {
+  cursor: pointer;
+}
+.specialty-name {
+  padding: 10px 0;
+  &:hover {
+    color: #45c3d2;
+  }
+}
+.section-share {
+  &.section-specialty {
+    background: #f5f5f5;
+  }
+  &.section-about {
+    height: 500px !important;
+    background: #f5f5f5;
+  }
+}
+
+.section-share {
+  height: 100%;
+  border: 1px solid #ccc;
+
+  .section-container {
+    margin: 0 190px;
+    display: flex;
+    flex-direction: column;
+    .section-header {
+      height: 60px;
+      margin-bottom: 30px;
+      padding-top: 30px;
+      text-align: center;
+      .title-section {
+        font-weight: 600;
+        font-size: 25px;
+      }
+      .btn-section {
+        float: right;
+        padding: 10px 15px;
+        display: block;
+        border: none;
+        outline: none;
+        background: #ebebeb;
+        color: black;
+        cursor: pointer;
+        text-transform: uppercase;
+
+        &:hover {
+          color: #fff;
+          background: #f7d800;
+        }
+      }
+    }
+    .section-body {
+      .section-customize {
+        .bg-image {
+          width: 567px;
+          height: px;
+          background-color: #eee;
+          background-position: center center;
+          background-repeat: no-repeat !important;
+          background-size: cover;
+          &.section-specialty {
+            // background-image: url("../../assets/specialty/co-xuong-khop.jpg");
+          }
+        }
+      }
+
+      //reset slick slider css
+
+      .slick-prev {
+        left: -10 !important;
+        z-index: 1000;
+        height: 48px !important;
+        width: 44px !important;
+        background: #fff !important;
+        border: 2px solid #d7d7d7 !important;
+        &:hover {
+          background: #d7d7d7 !important;
+        }
+      }
+      .slick-prev:before,
+      .slick-next:before {
+        font-family: "Glyphicons Halflings" !important;
+        color: rebeccapurple !important;
+      }
+      .slick-next {
+        right: -10 !important;
+        height: 48px !important;
+        z-index: 1000;
+        width: 44px !important;
+        background: #fff !important;
+        border: 2px solid #d7d7d7 !important;
+        &:hover {
+          background: #eceaea !important;
+        }
+      }
+      .slick-next:before {
+      }
+      .slick-prev:before {
+      }
+    }
+  }
+}
+.section-share {
+  .outer-bg {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .section-customize {
+    cursor: pointer;
+    padding: 5px;
+    .customize-border {
+      border: 1px solid gray;
+      padding: 20px;
+    }
+  }
+}
+.homeFooter {
+  text-align: center;
+  padding-top: 8px;
+  a {
+    text-decoration: unset;
+  }
+}
+.slick-disabled {
+  display: none !important;
+}
+.section-about {
+  padding: 0 175px;
+
+  .section-about-header {
+    padding: 20px 10px;
+    font-size: 25px;
+    font-weight: 700;
+  }
+  .section-about-content {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    .section-about-left {
+      width: 49%;
+    }
+    .section-about-right {
+      width: 49%;
+    }
+  }
+}
+.button_content {
+  margin-top: 50px;
+  text-align: center;
+
+  .button_courses {
+    margin-bottom: 100px;
+
+    margin-right: 26px;
+    background-color: #064ea4;
+    color: white;
+    text-align: center;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform-style: preserve-3d;
+    border-radius: 1000px;
+    padding: 24px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.125em;
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

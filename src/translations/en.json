@@ -1,0 +1,113 @@
+{
+    "home-header": {
+        "home": "Home",
+        "about": "About",
+        "courses": "Courses",
+        "pages": "Pages",
+        "blog": "Blog",
+        "support": "Support",
+        "welcome": "Welcome"
+    },
+    
+    "menu": {
+       
+        "admin":{
+            "manage-user": "Users",
+            "manage-teacher": "Manage Teachers",
+            "manage-admin": "Manage Admin",
+            "crud": "CRUD user",
+            "crudredux": "CRUD Redux",
+            "classes": "Classes",
+            "courses": "Courses",
+            "handbook": "Handbook",
+            "manage-classes": "Manage Classes",
+            "manage-courses": "Manage Courses",
+            "manage-handbook": "Manage Handbook"
+        },
+        "teacher": {
+            "manage-schedule" : "Manage Teacher's Schedule",
+            "manage-student" : "Manage Teacher's Student"
+
+        }
+    },
+    "manage-user": {
+        "add": "Add a new user",
+        "email":"Email",
+        "password": "Password",
+        "firstname":"Firstname",
+        "lastname":"Lastname",
+        "gender":"Gender",
+        "phone-number": "Phone Number",
+        "position": "Position",
+        "roleId": "RoleId",
+        "address": "Address",
+        "image": "Avatar",
+        "save": "Save user",
+        "edit": "Save Changes"
+    },
+    "homepage": {
+        "out-standing-doctor": "Out Standing Doctors",
+        "see-more": "See More",
+        "popular-speciality": "Popular Speciality",
+        "handbook":"Hand Book",
+        "outstanding-medical-facility": "Outstanding Medical Facility",
+        "about": "Media Talk about BookingCare"
+    },
+    "manage-schedule": {
+        "title": "Manage teacher's examination plan",
+        "choose-teacher": "Choose Teacher",
+        "choose-date": "Choose Date",
+        "save": "Save information"
+    },
+    "patient":{
+        "detail-teacher": {
+            "schedule": "Schedule",
+            "no-schedule": "The doctor does not have an appointment during this time, please choose another time!",
+            "choose":"Choose",
+            "book-free" : "and book (free)"
+
+        },
+        "extra-infor-teacher":{
+            "text-address":"Address of examination",
+            "price": "Price of examination",
+            "detail": "See details",
+            "payment": "The patient can pay the cost in the form of: ",
+            "hide-price":"Hide price list"
+
+        },
+        "booking-modal":{
+            "title": "Information to book a medical appointment",
+            "fullname": "Full Name",
+            "phoneNumber": "Phone Number",
+            "email": "Email",
+            "address": "Address",
+            "birthday": "Birthday",
+            "gender": "Genders",
+            "reason": "Reasons for medical examination",
+            "confirm":"Confirm",
+            "cancel":"Cancel",
+            "prices": "Price Check: ",
+            "freebooking":"Free Booking"
+        }
+    },
+    "admin": {
+        "manage-teacher": {
+            "title": "Create information Teachers",
+            "select-teacher": "Choose teachers",
+            "intro": "Introduction",
+            "add": "Create information",
+            "save":"Save information",
+            "price": "Price",
+            "payment": "Payment",
+            "province": "Province",
+            "nameClasses": "Class's name",
+            "addressClasses": "Class's address",
+            "note": "Note",
+            "courses": "Choose a courses",
+            "select-classes": "Choose a classes"
+
+            
+        }
+    }
+    
+}
