@@ -42,18 +42,17 @@ tr:nth-child(even) {
 }
 
 .modal-user-container {
-  .modal-content{
-    .modal-header{
-      button{
-        background-color:  transparent !important;
+  .modal-content {
+    .modal-header {
+      button {
+        background-color: transparent !important;
         border: none;
         color: white;
         font-size: 27px;
-
       }
     }
   }
-  
+
   .modal-user-body {
     display: flex;
     gap: 15px;
@@ -74,6 +73,32 @@ tr:nth-child(even) {
           padding: 0 10px;
         }
       }
+    }
+  }
+}
+
+//CartItem
+.modal-courses-containers {
+  width: 400px;
+  .modal-content {
+    .modal-header {
+      button {
+        background-color: transparent !important;
+        border: none;
+        color: white;
+        font-size: 27px;
+      }
+    }
+  }
+  .modal-courses-body {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-left: 85px;
+    .item-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
     }
   }
 }

@@ -9,6 +9,10 @@ export const path = {
   VERIFY_EMAIL_BOOKING: "/verify-booking",
   DETAIL_COURSES: "/detail-courses/:id",
   DETAIL_CLASSES: "/detail-classes/:id",
+  ORDER: "/order",
+  CART: "/cart",
+  CARTITEM: "/cartitem",
+  PAYMENT: "/payment",
 };
 
 export const LANGUAGES = {

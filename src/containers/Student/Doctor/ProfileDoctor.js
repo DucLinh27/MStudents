@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./ProfileDoctor.scss";
 import { FormattedMessage } from "react-intl";
-import { getProfileDoctorById } from "../../../services/userService";
+import { getProfileTeacherById } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import { NumericFormat } from "react-number-format";
 import _ from "lodash";
@@ -27,7 +27,7 @@ class ProfileDoctor extends Component {
   getInforDoctor = async (id) => {
     let result = {};
     if (id) {
-      let res = await getProfileDoctorById(id);
+      let res = await getProfileTeacherById(id);
       if (res && res.errCode === 0) {
         result = res.data;
       }

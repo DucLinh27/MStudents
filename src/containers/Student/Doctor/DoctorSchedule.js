@@ -4,7 +4,7 @@ import "./DoctorSchedule.scss";
 import moment from "moment/moment";
 import localization from "moment/locale/vi";
 import { LANGUAGES } from "../../../utils";
-import { getScheduleDoctorByDate } from "../../../services/userService";
+import { getScheduleTeacherByDate } from "../../../services/userService";
 import { FormattedMessage } from "react-intl";
 import BookingModal from "./Modal/BookingModal";
 
@@ -24,7 +24,7 @@ class DoctorSchedule extends Component {
     let { language } = this.props;
     let allDays = this.setArrDays(language);
     if (this.props.doctorIdFromParent) {
-      let res = await getScheduleDoctorByDate(
+      let res = await getScheduleTeacherByDate(
         this.props.doctorIdFromParent,
         allDays[0].value
       );
@@ -82,7 +82,7 @@ class DoctorSchedule extends Component {
     }
     if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
       let allDays = this.setArrDays(this.props.language);
-      let res = await getScheduleDoctorByDate(
+      let res = await getScheduleTeacherByDate(
         this.props.doctorIdFromParent,
         allDays[0].value
       );
@@ -96,7 +96,7 @@ class DoctorSchedule extends Component {
     if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
       let doctorId = this.props.doctorIdFromParent;
       let date = event.target.value;
-      let res = await getScheduleDoctorByDate(doctorId, date);
+      let res = await getScheduleTeacherByDate(doctorId, date);
       if (res && res.errCode === 0) {
         this.setState({
           allAvalableTime: res.data ? res.data : [],

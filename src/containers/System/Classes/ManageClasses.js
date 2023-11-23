@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
-import { createNewClinic } from "../../../services/userService";
+import { createNewClasses } from "../../../services/userService";
 import { toast } from "react-toastify";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -52,7 +52,7 @@ class ManageClasses extends Component {
     }
   };
   handleSaveNewClinic = async () => {
-    let res = await createNewClinic(this.state);
+    let res = await createNewClasses(this.state);
     if (res && res.errCode === 0) {
       toast.success("Add new class successfully");
       this.setState({

@@ -18,10 +18,14 @@ import ConfirmModal from "../components/ConfirmModal";
 import HomePage from "./HomePage/HomePage.js";
 import CustomScrollbars from "../components/CustomScrollbars";
 import Teacher from "../routes/Teacher";
-import DetailDoctor from "./Patient/DetailDoctor";
-import VerifyEmail from "./Patient/VerifyEmail";
-import DetailCourses from "./Patient/Courses/DetailCourses";
-import DetailClasses from "./Patient/Classes/DetailClasses";
+import DetailDoctor from "./Student/DetailDoctor";
+import VerifyEmail from "./Student/VerifyEmail";
+import DetailCourses from "./Student/Courses/DetailCourses";
+import DetailClasses from "./Student/Classes/DetailClasses";
+import Order from "../containers/Cart/Order";
+import CartItem from "../containers/Cart/CartItem";
+import Cart from "../containers/Cart/Cart";
+import PaymentReturn from "../containers/Cart/PaymentReturn";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -74,6 +78,10 @@ class App extends Component {
                   <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                   <Route path={path.DETAIL_COURSES} component={DetailCourses} />
                   <Route path={path.DETAIL_CLASSES} component={DetailClasses} />
+                  <Route path={path.ORDER} component={Order} />
+                  <Route path={path.CART} component={Cart} />
+                  <Route path={path.CARTITEM} component={CartItem} />
+                  <Route path={path.PAYMENT} component={PaymentReturn} />
 
                   <Route
                     path={path.VERIFY_EMAIL_BOOKING}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slider from "react-slick";
 import { FormattedMessage } from "react-intl";
-import { getAllClinic } from "../../../services/userService";
+import { getAllClasses } from "../../../services/userService";
 import { withRouter } from "react-router";
 import "./MedicalFacility.scss";
 
@@ -15,7 +15,7 @@ class MedicalFacility extends Component {
   }
 
   async componentDidMount() {
-    let res = await getAllClinic();
+    let res = await getAllClasses();
     if (res && res.errCode === 0) {
       this.setState({
         dataClinics: res.data ? res.data : [],

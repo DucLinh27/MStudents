@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "./HomeHeader";
-import Specialty from "./Section/Courses";
-import MedicalFacility from "./Section/MedicalFacility";
+import Courses from "./Section/Courses";
 import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import OutStandingDoctor from "./Section/OutStandingDoctor";
+import MedicalFacility from "./Section/MedicalFacility";
+
 import HandBook from "./Section/HandBook";
 import About from "./Section/About";
 import HomeFooter from "./HomeFooter";
@@ -35,7 +36,7 @@ class HomePage extends Component {
     return (
       <div>
         <HomeHeader isShowBanner={true} />
-        <Specialty settings={settings} />
+        <Courses settings={settings} />
         <OutStandingDoctor settings={settings2} />
         {/* <MedicalFacility settings={settings} />
         <HandBook settings={settings} />

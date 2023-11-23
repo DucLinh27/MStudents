@@ -4,7 +4,7 @@ import "./ManageStudent.scss";
 import { FormattedMessage } from "react-intl";
 import DatePicker from "../../../components/Input/DatePicker.js";
 import {
-  getAllPatientForDoctor,
+  getAllStudentForTeacher,
   postSendRemedy,
 } from "../../../services/userService";
 import moment from "moment";
@@ -33,7 +33,7 @@ class ManageStudent extends Component {
     let { user } = this.props;
     let { currentDate } = this.state;
     let formatedDate = new Date(currentDate).getTime();
-    let res = await getAllPatientForDoctor({
+    let res = await getAllStudentForTeacher({
       doctorId: user.id,
       date: formatedDate,
     });

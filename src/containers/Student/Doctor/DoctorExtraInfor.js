@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DoctorExtraInfor.scss";
 import { LANGUAGES } from "../../../utils";
-import { getExtraInforDoctorById } from "../../../services/userService";
+import { getExtraInforTeacherById } from "../../../services/userService";
 import { FormattedMessage } from "react-intl";
 import { NumericFormat } from "react-number-format";
 
@@ -18,7 +18,7 @@ class DoctorExtraInfor extends Component {
   //just run 1 time
   async componentDidMount() {
     if (this.props.doctorIdFromParent) {
-      let res = await getExtraInforDoctorById(this.props.doctorIdFromParent);
+      let res = await getExtraInforTeacherById(this.props.doctorIdFromParent);
       if (res && res.errCode === 0) {
         this.setState({
           extraInfor: res.data,
@@ -30,7 +30,7 @@ class DoctorExtraInfor extends Component {
     if (this.props.language !== prevProps.language) {
     }
     if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
-      let res = await getExtraInforDoctorById(this.props.doctorIdFromParent);
+      let res = await getExtraInforTeacherById(this.props.doctorIdFromParent);
       if (res && res.errCode === 0) {
         this.setState({
           extraInfor: res.data,

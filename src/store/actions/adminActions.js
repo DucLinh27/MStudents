@@ -5,11 +5,11 @@ import {
   getAllUsers,
   deleteUserServices,
   editUserServices,
-  getTopDoctorHomeService,
-  getAllDoctors,
-  saveDetailDoctorService,
+  getTopTeacherHomeService,
+  getAllTeachers,
+  saveDetailTeacherService,
   getALlSpecialty,
-  getAllClinic,
+  getAllClasses,
   createRegisterUserServices,
 } from "../../services/userService";
 import { toast } from "react-toastify";
@@ -212,11 +212,10 @@ export const fetchAllUsersFailded = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILDED,
 });
 
-// let res1 = await getTopDoctorHomeService(3);
 export const fetchTopDoctor = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await getTopDoctorHomeService("");
+      let res = await getTopTeacherHomeService("");
       if (res && res.errCode === 0) {
         dispatch({
           type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
@@ -237,7 +236,7 @@ export const fetchTopDoctor = () => {
 export const fetchAllDoctors = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await getAllDoctors();
+      let res = await getAllTeachers();
       if (res && res.errCode === 0) {
         dispatch({
           type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
@@ -258,7 +257,7 @@ export const fetchAllDoctors = () => {
 export const saveDetailDoctor = (data) => {
   return async (dispatch, getState) => {
     try {
-      let res = await saveDetailDoctorService(data);
+      let res = await saveDetailTeacherService(data);
       if (res && res.errCode === 0) {
         toast.success("SAVE INFOR DOCTOR SUCCESS");
         dispatch({
@@ -311,7 +310,7 @@ export const getRequireDoctorInfor = () => {
       let resPayment = await getAllCodeServices("PAYMENT");
       let resProvince = await getAllCodeServices("PROVINCE");
       let resSpecialty = await getALlSpecialty();
-      let resClinic = await getAllClinic();
+      let resClinic = await getAllClasses();
 
       if (
         resPrice &&

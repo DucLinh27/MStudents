@@ -46,8 +46,23 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      .cart-icon {
+        padding-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        i {
+          font-size: 20px;
+          padding-left: 5px;
+        }
+        .cart-count {
+          padding-left: 10px;
+          font-size: 20px;
+          font-weight: 700;
+        }
+      }
       .support {
-        padding-right: 50px;
+        padding-right: 10px;
         display: flex;
         align-items: center;
         cursor: pointer;

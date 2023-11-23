@@ -30,30 +30,30 @@ const editUserServices = (inputData) => {
 const getAllCodeServices = (inputType) => {
   return axios.get(`/api/allcode?type=${inputType}`);
 };
-const getTopDoctorHomeService = (limit) => {
+const getTopTeacherHomeService = (limit) => {
   return axios.get(`/api/top-doctor-home?limit=${limit}`);
 };
-const getAllDoctors = (limit) => {
+const getAllTeachers = (limit) => {
   return axios.get(`/api/get-all-doctors`);
 };
-const saveDetailDoctorService = (data) => {
+const saveDetailTeacherService = (data) => {
   return axios.post("/api/save-infor-doctors", data);
 };
-const getDetailInforDoctor = (inputId) => {
+const getDetailInforTeacher = (inputId) => {
   return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
 };
-const saveBulkScheduleDoctor = (data) => {
+const saveBulkScheduleTeacher = (data) => {
   return axios.post(`/api/bulk-create-schedule`, data);
 };
-const getScheduleDoctorByDate = (doctorId, date) => {
+const getScheduleTeacherByDate = (doctorId, date) => {
   return axios.get(
     `/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`
   );
 };
-const getExtraInforDoctorById = (doctorId) => {
+const getExtraInforTeacherById = (doctorId) => {
   return axios.get(`/api/get-extra-infor-doctor-by-id?doctorId=${doctorId}`);
 };
-const getProfileDoctorById = (doctorId) => {
+const getProfileTeacherById = (doctorId) => {
   return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
 };
 const postPatientBookAppointment = (data) => {
@@ -72,25 +72,23 @@ const getALlSpecialty = (doctorId) => {
   return axios.get(`/api/get-all-courses`);
 };
 
-const getAllDetailSpecialtyById = (data) => {
-  return axios.get(
-    `/api/get-detail-courses-by-id?id=${data.id}&location=${data.location}`
-  );
+const getDetailCoursesById = (id) => {
+  return axios.get(`/api/get-detail-courses-by-id?id=${id}`);
 };
 
 //Clinic
-const createNewClinic = (data) => {
+const createNewClasses = (data) => {
   return axios.post("/api/create-new-classes", data);
 };
-const getAllClinic = (doctorId) => {
+const getAllClasses = (doctorId) => {
   return axios.get(`/api/get-classes`);
 };
 
-const getAllDetailClinicById = (data) => {
+const getAllDetailClassesById = (data) => {
   return axios.get(`/api/get-detail-classes-by-id?id=${data.id}`);
 };
 
-const getAllPatientForDoctor = (data) => {
+const getAllStudentForTeacher = (data) => {
   return axios.get(
     `/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`
   );
@@ -98,22 +96,7 @@ const getAllPatientForDoctor = (data) => {
 const postSendRemedy = (data) => {
   return axios.post("/api/send-remedy", data);
 };
-//Order
-const createOrderService = (data) => {
-  return axios.post("/api/create-order", data);
-};
 
-const getOrderService = () => {
-  return axios.get(`/api/get-order`);
-};
-
-const editOrderService = (data) => {
-  return axios.put("/api/edit-order", data);
-};
-
-const deleteOrderService = (orderCode) => {
-  return axios.delete("/api/delete-order", { data: { orderCode: orderCode } });
-};
 export {
   handleLoginApi,
   getAllUsers,
@@ -122,26 +105,22 @@ export {
   deleteUserServices,
   editUserServices,
   getAllCodeServices,
-  getTopDoctorHomeService,
-  getAllDoctors,
-  saveDetailDoctorService,
-  getDetailInforDoctor,
-  saveBulkScheduleDoctor,
-  getScheduleDoctorByDate,
-  getExtraInforDoctorById,
-  getProfileDoctorById,
+  getTopTeacherHomeService,
+  getAllTeachers,
+  saveDetailTeacherService,
+  getDetailInforTeacher,
+  saveBulkScheduleTeacher,
+  getScheduleTeacherByDate,
+  getExtraInforTeacherById,
+  getProfileTeacherById,
   postPatientBookAppointment,
   postVerifyBookAppointment,
   createNewSpecialty,
   getALlSpecialty,
-  getAllDetailSpecialtyById,
-  createNewClinic,
-  getAllClinic,
-  getAllDetailClinicById,
-  getAllPatientForDoctor,
+  getDetailCoursesById,
+  createNewClasses,
+  getAllClasses,
+  getAllDetailClassesById,
+  getAllStudentForTeacher,
   postSendRemedy,
-  createOrderService,
-  getOrderService,
-  editOrderService,
-  deleteOrderService,
 };

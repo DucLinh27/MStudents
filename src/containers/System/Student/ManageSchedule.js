@@ -10,7 +10,7 @@ import DatePicker from "../../../components/Input/DatePicker";
 import moment from "moment";
 import { toast } from "react-toastify";
 import _ from "lodash";
-import { saveBulkScheduleDoctor } from "../../../services/userService";
+import { saveBulkScheduleTeacher } from "../../../services/userService";
 
 class ManageSchedule extends Component {
   constructor(props) {
@@ -114,7 +114,7 @@ class ManageSchedule extends Component {
         return;
       }
     }
-    let res = await saveBulkScheduleDoctor({
+    let res = await saveBulkScheduleTeacher({
       arrSchedule: result,
       doctorId: selectedDoctor.value,
       formatedDate: formatedDate,
@@ -123,8 +123,8 @@ class ManageSchedule extends Component {
     if (res && res.errCode === 0) {
       toast.success("Save Informations Success");
     } else {
-      toast.error("Error saveBulkScheduleDoctor");
-      console.log("error saveBulkScheduleDoctor: ", res);
+      toast.error("Error saveBulkScheduleTeacher");
+      console.log("error saveBulkScheduleTeacher: ", res);
     }
   };
 

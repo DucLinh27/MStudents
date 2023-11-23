@@ -8,10 +8,10 @@ import DoctorSchedule from "../Doctor/DoctorSchedule";
 import DoctorExtraInfor from "../Doctor/DoctorExtraInfor";
 import {
   getAllCodeServices,
-  getExtraInforDoctorById,
+  getExtraInforTeacherById,
 } from "../../../services/userService";
 import ProfileDoctor from "../Doctor/ProfileDoctor";
-import { getAllDetailClinicById } from "../../../services/userService";
+import { getAllDetailClassesById } from "../../../services/userService";
 import DetailDoctor from "../DetailDoctor";
 import _ from "lodash";
 import { LANGUAGES } from "../../../utils";
@@ -33,7 +33,7 @@ class DetailClasses extends Component {
       this.props.match.params.id
     ) {
       let id = this.props.match.params.id;
-      let res = await getAllDetailClinicById({
+      let res = await getAllDetailClassesById({
         id: id,
       });
       if (res && res.errCode === 0) {

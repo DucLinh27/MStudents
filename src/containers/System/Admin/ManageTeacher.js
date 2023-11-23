@@ -8,7 +8,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import "./ManageTeacher.scss";
 import Select from "react-select";
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
-import { getDetailInforDoctor } from "../../../services/userService";
+import { getDetailInforTeacher } from "../../../services/userService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -192,7 +192,7 @@ class ManageTeacher extends Component {
     let { listPrice, listPayment, listProvince, listSpecialty, listClinic } =
       this.state;
 
-    let res = await getDetailInforDoctor(selectedOption.value);
+    let res = await getDetailInforTeacher(selectedOption.value);
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown;
 

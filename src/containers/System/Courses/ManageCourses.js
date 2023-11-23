@@ -16,6 +16,7 @@ class ManageCourses extends Component {
     this.state = {
       name: "",
       imageBase64: "",
+      price: "",
       descriptionHTML: "",
       descriptionMarkdown: "",
     };
@@ -56,6 +57,7 @@ class ManageCourses extends Component {
       this.setState({
         name: "",
         imageBase64: "",
+        price: "",
         descriptionHTML: "",
         descriptionMarkdown: "",
       });
@@ -79,7 +81,17 @@ class ManageCourses extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
-          <div className="col-6 form-group">
+          <div className="col-3 form-group">
+            <label>Price</label>
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.price}
+              onChange={(event) => this.handleOnChangeInput(event, "price")}
+            />
+          </div>
+
+          <div className="col-3 form-group">
             <label>Ảnh Bài Học</label>
             <input
               className="form-control-file"

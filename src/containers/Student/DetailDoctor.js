@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
-import { getDetailInforDoctor } from "../../services/userService";
+import { getDetailInforTeacher } from "../../services/userService";
 import { LANGUAGES } from "../../utils";
 import DoctorSchedule from "./Doctor/DoctorSchedule";
 import DoctorExtraInfor from "./Doctor/DoctorExtraInfor";
@@ -25,7 +25,7 @@ class DetailDoctor extends Component {
       this.setState({
         currentDoctorId: id,
       });
-      let res = await getDetailInforDoctor(id);
+      let res = await getDetailInforTeacher(id);
       if (res && res.errCode === 0) {
         this.setState({ detailDoctor: res.data });
       }

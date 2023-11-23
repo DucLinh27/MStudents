@@ -1,280 +1,143 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
+import HomeHeader from "../HomePage/HomeHeader";
+import HomeFooter from "../HomePage/HomeFooter";
+import { withRouter } from "react-router";
+import _ from "lodash";
+import "./Cart.scss";
+import { LANGUAGES } from "../../utils";
+import imgCourses from "../../assets/imgCourses.jpg";
+import imglearn from "../../assets/imglearn.jpg";
 import * as actions from "../../store/actions";
-import Drawer from "@mui/material/Drawer";
-import {
-  Button,
-  Divider,
-  FormControl,
-  IconButton,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  MenuItem,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import CloseIcon from "@mui/icons-material/Close";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
-import CounterInput from "react-counter-input";
-import { NumericFormat } from "react-number-format";
-import FlatList from "flatlist-react";
-import CartItem from "./CartItem";
-import Order from "./Order";
+import imageS from "../../assets/image_223258.jpg";
 
-const Cart = (props) => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  let TotalCart = 0;
-  let TransportFee = 10000;
-  let VAT = 5000;
-  Object.keys(props.Carts).forEach(function (item) {
-    TotalCart +=
-      props.Carts[item].quantity *
-        (Math.round(
-          (props.Carts[item].price -
-            props.Carts[item].price * props.Carts[item].discount) /
-            1000
-        ) *
-          1000) +
-      TransportFee +
-      VAT;
-  });
-  function TotalPrice(price, tonggia) {
-    return price * tonggia;
+class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrDoctorId: [],
+      dataDetailSpecialty: {},
+      listProvince: [],
+      isOpenModalUser: false,
+      cartItems: [],
+    };
   }
-  return (
-    <Drawer
-      anchor={"right"}
-      open={props.isOpen}
-      onClose={() => props.isClose()}
-    >
-      <Box
-        sx={{
-          minWidth: "300px",
-          width: { sm: "500px", xs: "100vw" },
-          overflowY: "hidden",
-        }}
-      >
-        <Stack
-          sx={{
-            p: { sm: "1em", xs: "0.5em" },
-          }}
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="h6" color="success">
-            Your cart
-          </Typography>
-          <IconButton
-            onClick={() => props.isClose()}
-            size="large"
-            color="success"
-          >
-            <CloseIcon />
-          </IconButton>
-        </Stack>
-        <Divider />
 
-        <Box
-          sx={{
-            width: "100%",
-          }}
-        >
-          <List
-            sx={{
-              height: "70vh",
-              overflowY: "scroll",
-            }}
-          >
-            {props.Carts?.map((item, index) => {
-              let priceDiscounted =
-                Math.round((item.price - item.price * item.discount) / 1000) *
-                1000;
-              let priceMain = Math.round(item.price);
-              return (
-                <CartItem
-                  key={index}
-                  book={item}
-                  priceMain={TotalPrice(priceMain, item.quantity)}
-                  priceDiscounted={TotalPrice(priceDiscounted, item.quantity)}
-                  deleteCart={() => props.DeleteCart(item)}
-                  increase={() => props.IncreaseQuantity(index)}
-                  decrease={() => props.DecreaseQuantity(index)}
-                />
-              );
-            })}
-          </List>
-        </Box>
+  //just run 1 time
+  async componentDidMount() {}
 
-        <Box
-          sx={{
-            width: "100%",
-            p: { sm: "1em", xs: "0.5em" },
-            bgcolor: "#fff",
-            position: "absolute",
-            bottom: 0,
-            right: 0,
-          }}
-        >
-          <Divider sx={{ mb: "1em" }} />
-          <Stack
-            sx={{ width: "100%" }}
-            direction="row"
-            justifyContent="space-between"
-            spacing={1}
-            alignItems={{ sm: "center", xs: "flex-end" }}
-          >
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontWeight: 400,
-              }}
-            >
-              Transport fee:
-            </Typography>
-            <NumericFormat
-              value={props.numberCart > 0 ? TransportFee : 0}
-              thousandsGroupStyle="thousands"
-              thousandSeparator=","
-              suffix={" VND"}
-              displayType="text"
-              renderText={(value) => (
-                <Typography
-                  color="error"
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: 400,
-                  }}
-                >
-                  {value}
-                </Typography>
-              )}
-            />
-          </Stack>
-          <Stack
-            sx={{ width: "100%" }}
-            direction="row"
-            justifyContent="space-between"
-            spacing={1}
-            alignItems={{ sm: "center", xs: "flex-end" }}
-          >
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontWeight: 400,
-              }}
-            >
-              VAT:
-            </Typography>
-            <NumericFormat
-              value={props.numberCart > 0 ? VAT : 0}
-              thousandsGroupStyle="thousands"
-              thousandSeparator=","
-              suffix={" VND"}
-              displayType="text"
-              renderText={(value) => (
-                <Typography
-                  color="error"
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: 400,
-                  }}
-                >
-                  {value}
-                </Typography>
-              )}
-            />
-          </Stack>
-          <Stack
-            sx={{ width: "100%", mb: "2em" }}
-            direction={{ sm: "row", xs: "column" }}
-            justifyContent="space-between"
-            alignItems={{ sm: "center", xs: "flex-end" }}
-          >
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 700,
-                mt: "1em",
-                textTransform: "uppercase",
-              }}
-            >
-              Total to pay
-            </Typography>
-            <NumericFormat
-              value={TotalCart}
-              thousandsGroupStyle="thousands"
-              thousandSeparator=","
-              suffix={" VND"}
-              displayType="text"
-              renderText={(value) => (
-                <Typography
-                  color="error"
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: 700,
-                  }}
-                >
-                  {value}
-                </Typography>
-              )}
-            />
-          </Stack>
+  async componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.language !== prevProps.language) {
+    }
+  }
 
-          <Stack
-            sx={{
-              width: "100%",
-            }}
-            direction="row"
-            justifyContent="flex-end"
-            alignItem="flex-end"
-          >
-            <Button
-              color="success"
-              variant="contained"
-              disabled={props.numberCart > 0 ? false : true}
-              onClick={handleClickOpen}
-            >
-              Next payment Information
-            </Button>
-          </Stack>
-          <Order
-            cart={props.Carts}
-            open={open}
-            onClose={handleClose}
-            total={TotalCart}
-          />
-        </Box>
-      </Box>
-    </Drawer>
-  );
+  handleCart = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/cart`);
+    }
+  };
+  toggleCartModal = () => {
+    this.setState({
+      isOpenModalUser: !this.state.isOpenModalUser,
+    });
+  };
+  handleCartItem = () => {
+    this.setState({
+      isOpenModalUser: true,
+    });
+  };
+  handleDeleteCartItem = (courseId) => {
+    this.props.DeleteCart(courseId);
+  };
+  render() {
+    let { cartItems } = this.props;
+    console.log("cart products", cartItems);
+    return (
+      <>
+        <HomeHeader />
+        <div className="container-cart">
+          <div className="title-cart">Your Cart</div>
+          <div className="row">
+            <div className="left-content col-7">
+              <div className="select-cart d-flex">
+                <div className="d-flex">
+                  <div>
+                    <input type="checkbox" className="select-checkbox" />
+                  </div>
+                  <div className="select-products">Select All Products</div>
+                </div>
+                <div className="quantity-total d-flex">
+                  <div className="quantity">So luong</div>
+                  <div className="total">Thanh Tien</div>
+                </div>
+              </div>
+              {/* //Products */}
+              {cartItems.map((item, index) => (
+                <div className="product-cart" key={index}>
+                  <div className="d-flex">
+                    <div>
+                      <input type="checkbox" className="select-checkbox" />
+                    </div>
+                    <div
+                      className="image-products"
+                      style={{
+                        backgroundImage: `url(${item.image})`,
+                      }}
+                    ></div>
+                    <div className="detail-course">
+                      <div className="name_couses">{item.name}</div>
+                      <div className="price_courses">{item.price}</div>
+                    </div>
+                  </div>
+                  <div className="quantity-total d-flex">
+                    <div className="quantity">
+                      <a className="negative">-</a>
+                      <input type="text" className="quantity-checkbox" />
+                      <a className="posotive">+</a>
+                    </div>
+                    <div className="total">
+                      <div className="price-total">{item.price}</div>
+                      <i
+                        class="fas fa-trash-alt"
+                        onClick={() => this.handleDeleteCartItem()}
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="right-content col-3">
+              <div className="total-cart">
+                <div className="string-left">Thanh Tien</div>
+                <div className="number-right">0 Đ</div>
+              </div>
+              <div className="total-last">
+                <div className="string-left">Tong So Tien</div>
+                <div className="number-right">0 Đ</div>
+              </div>
+              <div className="checkout">
+                <span className="btn btn-warning">Thanh Toan</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <HomeFooter />
+      </>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    language: state.app.language,
+    cartItems: state.cart.Carts,
+  };
 };
-
-const mapStateToProps = (state) => ({
-  Carts: state.cart.Carts,
-  numberCart: state.cart.numberCart,
-});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeToCart: (book) => dispatch(actions.removeToCart(book)),
-    IncreaseQuantity: (book) => dispatch(actions.IncreaseQuantity(book)),
-    DecreaseQuantity: (book) => dispatch(actions.DecreaseQuantity(book)),
-    DeleteCart: (book) => dispatch(actions.DeleteCart(book)),
+    DeleteCart: (courseId) => dispatch(actions.DeleteCart(courseId)),
   };
 };
 
