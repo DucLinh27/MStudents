@@ -7,6 +7,7 @@ let createCourses = (data) => {
       if (
         !data.name ||
         !data.imageBase64 ||
+        !data.price ||
         !data.descriptionHTML ||
         !data.descriptionMarkdown
       ) {
@@ -18,6 +19,7 @@ let createCourses = (data) => {
         await db.Courses.create({
           name: data.name,
           image: data.imageBase64,
+          price: data.price,
           descriptionHTML: data.descriptionHTML,
           descriptionMarkdown: data.descriptionMarkdown,
         });
@@ -52,76 +54,48 @@ let getAllCourses = (data) => {
     }
   });
 };
-let getDetailCoursesById = (inputId, location) => {
+
+let getDetailCoursesById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // if (!inputId || !location) {
-      //   resolve({
-      //     errCode: 1,
-      //     errMessage: "Missing parameter!",
-      //   });
-      // } else {
-      //   let data = await db.Specialty.findOne({
-      //     where: {
-      //       id: inputId,
-      //     },
-      //     attributes: ["descriptionHTML", "descriptionMarkdown"],
-      //   });
-      //   if (data) {
-      //     let doctorSpecialty = [];
-      //     if (location === "ALL") {
-      //       doctorSpecialty = await db.Doctor_Infor.findAll({
-      //         where: {
-      //           specialtyId: inputId,
-      //         },
-      //         attributes: ["doctorId", "provinceId"],
-      //       });
-      //     } else {
-      //       //find by location
-      //       doctorSpecialty = await db.Doctor_Infor.findAll({
-      //         where: {
-      //           specialtyId: inputId,
-      //           provinceId: location,
-      //         },
-      //         attributes: ["doctorId", "provinceId"],
-      //       });
-      //     }
-      //     data.doctorSpecialty = doctorSpecialty;
-      //   } else data = {};
-      //   resolve({
-      //     errCode: 0,
-      //     errMessage: "OK!",
-      //     data,
-      //   });
-      // }
-      let data = {};
-      // if (location === "ALL") {
-      //   data = await db.Specialty.findOne({
-      //     where: {
-      //       id: inputId,
-      //     },
-      //     attributes: ["descriptionHTML", "descriptionMarkdown"],
-      //   });
-      // }
-      if (data) {
-        let doctorSpecialty = await db.Teacher_Infor.findAll({
-          where: {
-            specialtyId: inputId,
-          },
-          attributes: ["teacherId", "provinceId"],
+      if (!inputId) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
         });
-        data.doctorSpecialty = doctorSpecialty;
-      } else data = {};
-      resolve({
-        errCode: 0,
-        errMessage: "OK!",
-        data,
-      });
+      } else {
+        let data = await db.Courses.findOne({
+          where: {
+            id: inputId,
+          },
+          attributes: ["name", "price", "image", "descriptionMarkdown"],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Course not found!",
+            data,
+          });
+        }
+        resolve({
+          errCode: 0,
+          errMessage: "OK!",
+          data,
+        });
+      }
     } catch (e) {
       reject(e);
     }
   });
 };
+
 module.exports = {
   createCourses: createCourses,
   getAllCourses: getAllCourses,

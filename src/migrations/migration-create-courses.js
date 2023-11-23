@@ -20,6 +20,9 @@ module.exports = {
       image: {
         type: Sequelize.BLOB("long"),
       },
+      price: {
+        type: Sequelize.INTEGER,
+      },
       descriptionHTML: {
         type: Sequelize.TEXT,
       },

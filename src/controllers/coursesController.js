@@ -25,10 +25,7 @@ let getAllCourses = async (req, res) => {
 };
 let getDetailCoursesById = async (req, res) => {
   try {
-    let infor = await coursesService.getDetailCoursesById(
-      req.query.id,
-      req.query.location
-    );
+    let infor = await coursesService.getDetailCoursesById(req.query.id);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);

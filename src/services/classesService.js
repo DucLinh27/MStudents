@@ -90,30 +90,6 @@ let getDetailClinicById = (inputId) => {
           data,
         });
       }
-
-      //   let data = {};
-      //   if (location === "ALL") {
-      //     data = await db.Specialty.findOne({
-      //       where: {
-      //         id: inputId,
-      //       },
-      //       attributes: ["descriptionHTML", "descriptionMarkdown"],
-      //     });
-      //   }
-      //   if (data) {
-      //     let doctorSpecialty = await db.Doctor_Infor.findAll({
-      //       where: {
-      //         specialtyId: inputId,
-      //       },
-      //       attributes: ["doctorId", "provinceId"],
-      //     });
-      //     data.doctorSpecialty = doctorSpecialty;
-      //   } else data = {};
-      //   resolve({
-      //     errCode: 0,
-      //     errMessage: "OK!",
-      //     data,
-      //   });
     } catch (e) {
       reject(e);
     }
