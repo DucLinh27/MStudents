@@ -5,10 +5,7 @@ import { FormattedMessage } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
 import HomeFooter from "../../HomePage/HomeFooter";
 import { withRouter } from "react-router";
-import {
-  getALlSpecialty,
-  getDetailCoursesById,
-} from "../../../services/userService";
+import { getDetailCoursesById } from "../../../services/userService";
 import _ from "lodash";
 import { LANGUAGES } from "../../../utils";
 import imglearn from "../../../assets/imglearn.jpg";
@@ -35,12 +32,12 @@ class DetailCourses extends Component {
       if (courseDetails && courseDetails.errCode === 0) {
         console.log(courseDetails.data);
         this.setState({ dataDetailCourse: courseDetails.data });
-        if (courseDetails.data.image) {
-          this.setState({ dataDetailCourse: courseDetails.data });
-          console.log(courseDetails.data.image);
-        } else {
-          throw new Error("Invalid image URL");
-        }
+        // if (courseDetails.data.image) {
+        //   this.setState({ dataDetailCourse: courseDetails.data });
+        //   console.log(courseDetails.data.image);
+        // } else {
+        //   throw new Error("Invalid image URL");
+        // }
       }
     } catch (error) {
       console.error("Error fetching course details:", error);
@@ -102,7 +99,7 @@ class DetailCourses extends Component {
     // let { language } = this.props.language;
     let { dataDetailCourse } = this.state;
     console.log(dataDetailCourse);
-    console.log("Image URL:", dataDetailCourse.image);
+
     return (
       <>
         <HomeHeader />

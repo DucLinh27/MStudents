@@ -11,10 +11,13 @@ import {
 } from "../../services/paymentService.js";
 import actionTypes from "./actionTypes";
 
-export const addToCart = (courses) => ({
-  type: actionTypes.ADD_TO_CART_SUCCESS,
-  data: courses,
-});
+export const addToCart = (item) => {
+  console.log(item);
+  return {
+    type: actionTypes.ADD_TO_CART,
+    item,
+  };
+};
 
 export const removeToCart = (courses) => ({
   type: actionTypes.REMOVE_TO_CART,
@@ -41,6 +44,7 @@ export function UpdateCart(payload) {
   };
 }
 export function DeleteCart(payload) {
+  console.log("payload", payload);
   return {
     type: "DELETE_CART",
     payload,

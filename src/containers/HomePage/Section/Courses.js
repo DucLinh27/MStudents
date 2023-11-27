@@ -10,7 +10,7 @@ class Courses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSpecialty: [],
+      dataSpecialty: {},
     };
   }
   async componentDidMount() {

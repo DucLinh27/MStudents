@@ -16,11 +16,9 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrDoctorId: [],
-      dataDetailSpecialty: {},
-      listProvince: [],
       isOpenModalUser: false,
       cartItems: [],
+      quantities: {},
     };
   }
 
@@ -31,8 +29,21 @@ class Cart extends Component {
     if (this.props.language !== prevProps.language) {
     }
   }
-
+  handleOrder = () => {
+    if (this.props.history) {
+      this.props.history.push({
+        pathname: "/order",
+        state: { cartItems: this.props.cartItems },
+      });
+    }
+  };
   handleCart = (item) => {
+    this.setState((prevState) => ({
+      quantities: {
+        ...prevState.quantities,
+        [item.id]: prevState.quantities[item.id] || 1,
+      },
+    }));
     if (this.props.history) {
       this.props.history.push(`/cart`);
     }
@@ -50,6 +61,25 @@ class Cart extends Component {
   handleDeleteCartItem = (courseId) => {
     this.props.DeleteCart(courseId);
   };
+  // Add two new methods to increase and decrease quantity
+  increaseQuantity = (itemId) => {
+    this.setState((prevState) => ({
+      quantities: {
+        ...prevState.quantities,
+        [itemId]: (prevState.quantities[itemId] || 1) + 1,
+      },
+    }));
+  };
+
+  decreaseQuantity = (itemId) => {
+    this.setState((prevState) => ({
+      quantities: {
+        ...prevState.quantities,
+        [itemId]: Math.max((prevState.quantities[itemId] || 1) - 1, 1),
+      },
+    }));
+  };
+
   render() {
     let { cartItems } = this.props;
     console.log("cart products", cartItems);
@@ -72,7 +102,6 @@ class Cart extends Component {
                   <div className="total">Thanh Tien</div>
                 </div>
               </div>
-              {/* //Products */}
               {cartItems.map((item, index) => (
                 <div className="product-cart" key={index}>
                   <div className="d-flex">
@@ -92,15 +121,32 @@ class Cart extends Component {
                   </div>
                   <div className="quantity-total d-flex">
                     <div className="quantity">
-                      <a className="negative">-</a>
-                      <input type="text" className="quantity-checkbox" />
-                      <a className="posotive">+</a>
+                      <a
+                        className="negative"
+                        onClick={() => this.decreaseQuantity(item.id)}
+                      >
+                        -
+                      </a>
+                      <input
+                        type="text"
+                        className="quantity-checkbox"
+                        value={this.state.quantities[item.id] || 1}
+                        readOnly
+                      />
+                      <a
+                        className="positive"
+                        onClick={() => this.increaseQuantity(item.id)}
+                      >
+                        +
+                      </a>
                     </div>
                     <div className="total">
-                      <div className="price-total">{item.price}</div>
+                      <div className="price-total">
+                        {item.price * (this.state.quantities[item.id] || 1)}
+                      </div>
                       <i
                         class="fas fa-trash-alt"
-                        onClick={() => this.handleDeleteCartItem()}
+                        onClick={() => this.handleDeleteCartItem(item.id)}
                       ></i>
                     </div>
                   </div>
@@ -110,18 +156,32 @@ class Cart extends Component {
             <div className="right-content col-3">
               <div className="total-cart">
                 <div className="string-left">Thanh Tien</div>
-                <div className="number-right">0 Đ</div>
+                {cartItems.map((item, index) => (
+                  <div className="number-right">
+                    {item.price * (this.state.quantities[item.id] || 0)} Đ
+                  </div>
+                ))}
               </div>
               <div className="total-last">
                 <div className="string-left">Tong So Tien</div>
-                <div className="number-right">0 Đ</div>
+                {cartItems.map((item, index) => (
+                  <div className="number-right">
+                    {item.price * (this.state.quantities[item.id] || 0)} Đ
+                  </div>
+                ))}
               </div>
               <div className="checkout">
-                <span className="btn btn-warning">Thanh Toan</span>
+                <span
+                  className="btn btn-warning"
+                  onClick={() => this.handleOrder()}
+                >
+                  Thanh Toan
+                </span>
               </div>
             </div>
           </div>
         </div>
+
         <HomeFooter />
       </>
     );

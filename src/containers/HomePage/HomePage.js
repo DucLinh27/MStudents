@@ -6,9 +6,7 @@ import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import OutStandingDoctor from "./Section/OutStandingDoctor";
-import MedicalFacility from "./Section/MedicalFacility";
 
-import HandBook from "./Section/HandBook";
 import About from "./Section/About";
 import HomeFooter from "./HomeFooter";
 class HomePage extends Component {
@@ -38,9 +36,6 @@ class HomePage extends Component {
         <HomeHeader isShowBanner={true} />
         <Courses settings={settings} />
         <OutStandingDoctor settings={settings2} />
-        {/* <MedicalFacility settings={settings} />
-        <HandBook settings={settings} />
-        <About settings={settings} /> */}
         <HomeFooter settings={settings} />
       </div>
     );

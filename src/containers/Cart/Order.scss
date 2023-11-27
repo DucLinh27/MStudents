@@ -1,0 +1,179 @@
+.order-container {
+  margin-top: 60px;
+  margin-left: 140px;
+  margin-right: 140px;
+  .address-container {
+    border: 1px solid grey;
+    form {
+      margin-left: 10px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      padding: 10px 0;
+      border: 1px solod red;
+    }
+    input {
+      height: 30px;
+      font-weight: normal;
+      font-size: 1em;
+      width: 500px;
+    }
+    label {
+      font-weight: normal;
+    }
+    .username {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 65px;
+      }
+    }
+    .email {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 95px;
+      }
+    }
+    .phone-number {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 35px;
+      }
+    }
+    .nation {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 90px;
+      }
+    }
+    .country {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 30px;
+      }
+    }
+    .district {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 55px;
+      }
+    }
+    .wards {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 65px;
+      }
+    }
+    .address {
+      flex-direction: column;
+      margin-bottom: 20px;
+      label {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 15px;
+      }
+    }
+  }
+  .transport-container {
+    margin-top: 50px;
+
+    label {
+      margin-left: 10px;
+    }
+    input {
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      left: 0;
+    }
+  }
+  .payment-container {
+    margin-top: 50px;
+
+    label {
+      margin-left: 10px;
+    }
+    input {
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      left: 0;
+    }
+  }
+  .orther-information {
+    margin-top: 50px;
+
+    label {
+      margin-left: 10px;
+    }
+    input {
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      left: 0;
+    }
+  }
+  .recheck-products {
+    margin: 50px 0;
+    .transport {
+      border: 1px solid grey;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 40px;
+      height: 157px;
+    }
+  }
+}

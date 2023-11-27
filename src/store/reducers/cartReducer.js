@@ -6,10 +6,18 @@ const initialState = {
   Carts: [],
   urlPayment: {},
   order: [],
+  items: [],
+  quantity: 0,
 };
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.ADD_TO_CART:
+      console.log(state.quantity);
+      return {
+        ...state,
+        items: [...state.items, action.item],
+      };
     case actionTypes.GET_ORDER:
       return {
         ...state,
@@ -54,29 +62,40 @@ const cartReducer = (state = initialState, action) => {
         numberCart: state.numberCart + 1,
       };
 
-    case actionTypes.INCREASE_QUANTITY:
-      state.numberCart++;
-      state.Carts[action.payload].quantity++;
+    // case actionTypes.INCREASE_QUANTITY:
+    //   const indexIncrease = state.Carts.findIndex(
+    //     (item) => item.id === action.payload
+    //   );
+    //   if (indexIncrease !== -1) {
+    //     state.numberCart++;
+    //     state.Carts[indexIncrease].quantity++;
+    //   }
 
-      return {
-        ...state,
-      };
-    case actionTypes.DECREASE_QUANTITY:
-      let quantity = state.Carts[action.payload].quantity;
-      if (quantity > 1) {
-        state.numberCart--;
-        state.Carts[action.payload].quantity--;
-      }
+    //   return {
+    //     ...state,
+    //   };
 
-      return {
-        ...state,
-      };
+    // case actionTypes.DECREASE_QUANTITY:
+    //   const indexDecrease = state.Carts.findIndex(
+    //     (item) => item.id === action.payload
+    //   );
+    //   if (indexDecrease !== -1 && state.Carts[indexDecrease].quantity > 1) {
+    //     state.numberCart--;
+    //     state.Carts[indexDecrease].quantity--;
+    //   }
+    //   console.log(action.payload);
+    //   return {
+    //     ...state,
+    //   };
     case actionTypes.DELETE_CART:
+      console.log("action.payload", action.payload);
       return {
         ...state,
         numberCart: state.numberCart - action.payload.quantity,
         Carts: state.Carts.filter((item) => {
-          return item.id !== action.payload.id;
+          console.log("item.id", item.id);
+          console.log("action.payload.id", action.payload);
+          return item.id !== action.payload;
         }),
       };
 
