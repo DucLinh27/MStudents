@@ -32,7 +32,7 @@ class Order extends Component {
         <div className="order-container">
           <div className="address-container ">
             <form>
-              <h3>Dia Chi Giao Hang</h3>
+              <h3>Thông tin đặt hàng</h3>
               <div className="username">
                 <label for="username">
                   <b>Username :</b>
@@ -66,78 +66,9 @@ class Order extends Component {
                   required
                 />
               </div>
-              <div className="nation">
-                <label for="nation">
-                  <b>Nation :</b>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter Nation"
-                  name="nation"
-                  required
-                />
-              </div>
-              <div className="country">
-                <label for="country">
-                  <b>Tinh/Thanh Pho :</b>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter Country"
-                  name="country"
-                  required
-                />
-              </div>
-              <div className="district">
-                <label for="district">
-                  <b>Quan/huyen :</b>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter District"
-                  name="district"
-                  required
-                />
-              </div>
-              <div className="wards">
-                <label for="wards">
-                  <b>Phuong/xa :</b>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter Wards"
-                  name="wards"
-                  required
-                />
-              </div>
-              <div className="address">
-                <label for="address">
-                  <b>Dia chi nhan hang :</b>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter Address"
-                  name="address"
-                  required
-                />
-              </div>
             </form>
           </div>
-          <div className="transport-container">
-            <div className="transport">
-              <h3>Phương Thức Vận Chuyển</h3>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">Giao hàng tiêu chuẩn: 31.000 đ</label>
-                <div>Thứ 4 - 29/11</div>
-              </form>
-            </div>
-          </div>
+
           <div className="payment-container">
             <div className="payment">
               <h3>Phương Thức Thanh Toán</h3>
@@ -179,29 +110,7 @@ class Order extends Component {
               </form>
             </div>
           </div>
-          <div className="orther-information">
-            <div className="infor-orther">
-              <h3>Thông tin khác</h3>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">Ghi chú</label>
-              </form>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">Xuất hóa đơn GTGT</label>
-              </form>
-            </div>
-          </div>
+
           <div className="recheck-products">
             <h3>Kiểm tra lại đơn hàng</h3>
             {Array.isArray(cart) &&
@@ -213,12 +122,14 @@ class Order extends Component {
                   <div className="quantity align-self-center">
                     {quantities[course.id]}
                   </div>
-                  <div className="total align-self-center">{totalPrice}</div>
+                  <div className="total align-self-center">
+                    {course.price * quantities[course.id]}
+                  </div>
                 </div>
               ))}
           </div>
         </div>
-        <Checkout />
+        <Checkout totalPrice={totalPrice} />
       </>
     );
   }

@@ -29,15 +29,11 @@ class Checkout extends Component {
           <div className="top-content ">
             <div className="price d-flex">
               <div className="mr-5">Thành tiền</div>
-              <div>295.900 đ</div>
-            </div>
-            <div className="transport d-flex">
-              <div className="mr-5">Phí vận chuyển (Giao hàng tiêu chuẩn)</div>
-              <div>31.000 đ</div>
+              <div>{this.props.totalPrice} đ</div>
             </div>
             <div className="total d-flex">
               <div className="mr-5">Tổng Số Tiền (gồm VAT)</div>
-              <div>326.900 đ</div>
+              <div>{this.props.totalPrice} đ</div>
             </div>
           </div>
           <div className="bottom-content d-flex">
