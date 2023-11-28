@@ -47,16 +47,16 @@ export const adminMenu = [
       },
     ],
   },
-  // {
-  //   //quản lý Cẩm nang
-  //   name: "menu.admin.handbook",
-  //   menus: [
-  //     {
-  //       name: "menu.admin.handbook",
-  //       link: "/system/handbook",
-  //     },
-  //   ],
-  // },
+  {
+    //quản lý chuyên khoa
+    name: "menu.admin.manage-order",
+    menus: [
+      {
+        name: "menu.admin.manage-order",
+        link: "/system/manage-order",
+      },
+    ],
+  },
 ];
 export const doctorMenu = [
   {

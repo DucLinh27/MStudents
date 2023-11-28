@@ -22,6 +22,10 @@ class Checkout extends Component {
       this.props.history.push(`/cart`);
     }
   };
+  handleConfirm = (event) => {
+    event.preventDefault();
+    this.props.onSubmit();
+  };
   render() {
     return (
       <React.Fragment>
@@ -41,7 +45,12 @@ class Checkout extends Component {
               <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
               <div>Quay về giỏ hàng</div>
             </div>
-            <button className="confirm">Xác nhận Thanh Toán</button>
+            <button
+              className="confirm"
+              onClick={(event) => this.handleConfirm(event)}
+            >
+              Xác nhận Thanh Toán
+            </button>
           </div>
         </div>
       </React.Fragment>

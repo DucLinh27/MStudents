@@ -7,6 +7,7 @@ import Header from "../containers/Header/Header";
 import ManageTeacher from "../containers/System/Admin/ManageTeacher";
 import ManageCourses from "../containers/System/Courses/ManageCourses";
 import ManageClasses from "../containers/System/Classes/ManageClasses";
+import ManageOrder from "../containers/System/Order/ManageOrder";
 
 class System extends Component {
   render() {
@@ -22,6 +23,7 @@ class System extends Component {
               <Route path="/system/manage-teacher" component={ManageTeacher} />
               <Route path="/system/manage-courses" component={ManageCourses} />
               <Route path="/system/manage-classes" component={ManageClasses} />
+              <Route path="/system/manage-order" component={ManageOrder} />
 
               {/* <Route
                 path="/doctor/manage-schedule"

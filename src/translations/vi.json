@@ -28,9 +28,10 @@
             "manage-admin": "Quản lý admin",
             "crud": "CRUD User",
             "crudredux": "CRUD Redux",
-            "manage-classes": "Lớp học",
-            "manage-courses": "Chuyên khoa",
-            "handbook": "Cẩm nang"
+            "manage-classes": "Quản lý Lớp học",
+            "manage-courses": "Quản Lý Tài liệu",
+            "manage-order": "Quản Lý Đặt hàng"
+      
         },
         "doctor": {
             "manage-schedule" : "Quản lý kế hoạch khám bệnh",

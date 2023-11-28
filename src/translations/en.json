@@ -22,7 +22,7 @@
             "handbook": "Handbook",
             "manage-classes": "Manage Classes",
             "manage-courses": "Manage Courses",
-            "manage-handbook": "Manage Handbook"
+            "manage-order": "Manage Order"
         },
         "teacher": {
             "manage-schedule" : "Manage Teacher's Schedule",

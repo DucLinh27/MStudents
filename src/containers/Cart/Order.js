@@ -4,25 +4,66 @@ import { FormattedMessage } from "react-intl";
 import HomeHeader from "../HomePage/HomeHeader";
 import "./Order.scss";
 import Checkout from "../HomePage/Section/Checkout";
+import { createOrderService } from "../../services/orderService";
+
 class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // cart: [],
+      username: "",
+      email: "",
+      phonenumber: "",
+      payment: "VN Pay",
+      courses: "",
+      totalPrice: "",
     };
   }
-
   //just run 1 time
   async componentDidMount() {
     console.log(this.props.location.state);
     if (this.props.location.state) {
       const { cartItems, quantities, totalPrice } = this.props.location.state;
-      this.setState({ cart: cartItems });
+      this.setState({ cart: cartItems, totalPrice: totalPrice });
     }
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {}
 
+  handleSubmit = async (event) => {
+    // event.preventDefault();
+
+    const { username, email, phonenumber, payment, cart, totalPrice } =
+      this.state;
+
+    const orderData = {
+      username,
+      email,
+      phonenumber,
+      payment,
+      courses: cart,
+      totalPrice,
+    };
+
+    try {
+      const response = await createOrderService(orderData);
+      console.log(orderData);
+      console.log(response);
+      // Handle successful order creation here
+    } catch (error) {
+      console.error(error);
+      // Handle errors here
+    }
+  };
+  handleOnChangeInput = (event, id) => {
+    console.log(event.target.value);
+    let stateCopy = { ...this.state };
+    stateCopy[id] = event.target.value;
+    this.setState({
+      ...stateCopy,
+    });
+  };
+
   render() {
+    console.log(this.state.payment);
     let { cart } = this.state;
     let { quantities, totalPrice } = this.props.location.state;
     console.log(cart);
@@ -38,10 +79,12 @@ class Order extends Component {
                   <b>Username :</b>
                 </label>
                 <input
+                  className="username"
                   type="text"
-                  placeholder="Enter Username"
-                  name="username"
-                  required
+                  value={this.state.username}
+                  onChange={(event) =>
+                    this.handleOnChangeInput(event, "username")
+                  }
                 />
               </div>
               <div className="email">
@@ -49,10 +92,10 @@ class Order extends Component {
                   <b>Email : </b>
                 </label>
                 <input
+                  className="email"
                   type="text"
-                  placeholder="Enter Email"
-                  name="email"
-                  required
+                  value={this.state.email}
+                  onChange={(event) => this.handleOnChangeInput(event, "email")}
                 />
               </div>
               <div className="phone-number">
@@ -60,55 +103,31 @@ class Order extends Component {
                   <b>Phone number :</b>
                 </label>
                 <input
+                  className="phonenumber"
                   type="text"
-                  placeholder="Enter Phone number"
-                  name="phonenumber"
-                  required
+                  value={this.state.phonenumber}
+                  onChange={(event) =>
+                    this.handleOnChangeInput(event, "phonenumber")
+                  }
                 />
               </div>
             </form>
           </div>
-
           <div className="payment-container">
-            <div className="payment">
-              <h3>Phương Thức Thanh Toán</h3>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">VN Pay</label>
-              </form>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">Ví ShopeePay</label>
-              </form>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">ATM / Internet Banking</label>
-              </form>
-              <form>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Courses"
-                />
-                <label for="vehicle1">Thanh toán khi nhận hàng</label>
-              </form>
-            </div>
+            <select
+              className="payment"
+              value={this.state.payment}
+              onChange={(event) => this.handleOnChangeInput(event, "payment")}
+            >
+              <option value="VN Pay">VN Pay</option>
+              <option value="Ví ShopeePay">Ví ShopeePay</option>
+              <option value="ATM / Internet Banking">
+                ATM / Internet Banking
+              </option>
+              <option value="Thanh toán khi nhận hàng">
+                Thanh toán khi nhận hàng
+              </option>
+            </select>
           </div>
 
           <div className="recheck-products">
@@ -129,7 +148,7 @@ class Order extends Component {
               ))}
           </div>
         </div>
-        <Checkout totalPrice={totalPrice} />
+        <Checkout totalPrice={totalPrice} onSubmit={this.handleSubmit} />
       </>
     );
   }
