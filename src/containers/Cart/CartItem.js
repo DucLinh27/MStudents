@@ -33,6 +33,12 @@ class CartItem extends Component {
     } catch (error) {
       console.error("Error fetching course details:", error);
     }
+    let cart = localStorage.getItem("cart");
+    if (cart) {
+      cart = JSON.parse(cart);
+      // Dispatch action to restore cart
+      this.props.restoreCart(cart);
+    }
   }
 
   toggle = () => {
@@ -43,13 +49,28 @@ class CartItem extends Component {
     // Dispatch action to add item to the cart
     this.props.addToCart(this.state.dataDetailCourse);
 
+    // Update localStorage
+    let cart = localStorage.getItem("cart");
+    if (cart) {
+      cart = JSON.parse(cart);
+    } else {
+      cart = [];
+    }
+
+    // Check if item is already in the cart
+    if (!cart.some((item) => item.id === this.state.dataDetailCourse.id)) {
+      // If not, add it
+      cart.push(this.state.dataDetailCourse);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
     // Close the modal
     this.toggle();
   };
 
   render() {
     let { dataDetailCourse } = this.state;
-
+    console.log(dataDetailCourse);
     return (
       <>
         {dataDetailCourse && (
@@ -107,12 +128,15 @@ class CartItem extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    cart: state.cart,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item) => dispatch(actions.AddCart(item)),
+    restoreCart: (cart) => dispatch(actions.setCartItems(cart)),
   };
 };
 

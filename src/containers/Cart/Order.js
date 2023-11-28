@@ -8,19 +8,24 @@ class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: [],
+      // cart: [],
     };
   }
 
   //just run 1 time
   async componentDidMount() {
-    const cartItems = this.props.location.state.cartItems;
-    this.setState({ cart: cartItems });
+    console.log(this.props.location.state);
+    if (this.props.location.state) {
+      const { cartItems, quantities, totalPrice } = this.props.location.state;
+      this.setState({ cart: cartItems });
+    }
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {}
 
   render() {
-    let { cart } = this.props;
+    let { cart } = this.state;
+    let { quantities, totalPrice } = this.props.location.state;
+    console.log(cart);
     return (
       <>
         <HomeHeader />
@@ -206,9 +211,9 @@ class Order extends Component {
                   <div className="name align-self-center">{course.name}</div>
                   <div className="price align-self-center">{course.price}</div>
                   <div className="quantity align-self-center">
-                    {course.quantity}
+                    {quantities[course.id]}
                   </div>
-                  <div className="total align-self-center">{course.total}</div>
+                  <div className="total align-self-center">{totalPrice}</div>
                 </div>
               ))}
           </div>

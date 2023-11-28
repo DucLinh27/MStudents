@@ -71,6 +71,8 @@ const actionTypes = Object.freeze({
   GET_ORDER: "GET_ORDER",
   EDIT_ORDER: "EDIT_ORDER",
   DELETE_ORDER: "DELETE_ORDER",
+
+  SET_CART_ITEMS: "SET_CART_ITEMS",
 });
 
 export default actionTypes;

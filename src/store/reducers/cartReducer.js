@@ -105,6 +105,11 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case actionTypes.SET_CART_ITEMS:
+      return {
+        ...state,
+        Carts: action.payload,
+      };
 
     default:
       return state;

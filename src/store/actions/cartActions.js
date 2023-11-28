@@ -43,11 +43,34 @@ export function UpdateCart(payload) {
     payload,
   };
 }
+// export function DeleteCart(payload) {
+//   console.log("payload", payload);
+//   return {
+//     type: "DELETE_CART",
+//     payload,
+//   };
+// }
 export function DeleteCart(payload) {
-  console.log("payload", payload);
-  return {
-    type: "DELETE_CART",
-    payload,
+  return (dispatch) => {
+    // Get cart from localStorage
+    let cart = localStorage.getItem("cart");
+    if (cart) {
+      cart = JSON.parse(cart);
+    } else {
+      cart = [];
+    }
+
+    // Find item in the cart and remove it
+    cart = cart.filter((item) => item.id !== payload);
+
+    // Update localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Dispatch action to update Redux state
+    dispatch({
+      type: "DELETE_CART",
+      payload,
+    });
   };
 }
 
@@ -61,6 +84,12 @@ export function DecreaseQuantity(payload) {
   return {
     type: "DECREASE_QUANTITY",
     payload,
+  };
+}
+export function setCartItems(cartItems) {
+  return {
+    type: actionTypes.SET_CART_ITEMS,
+    payload: cartItems,
   };
 }
 

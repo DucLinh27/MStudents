@@ -15,10 +15,18 @@ import imageS from "../../assets/image_223258.jpg";
 class Cart extends Component {
   constructor(props) {
     super(props);
+    const savedQuantities = localStorage.getItem("quantities");
+    let quantities = savedQuantities ? JSON.parse(savedQuantities) : {};
+    if (Object.keys(quantities).length === 0 && props.cartItems) {
+      quantities = props.cartItems.reduce((acc, item) => {
+        acc[item.id] = 1;
+        return acc;
+      }, {});
+    }
     this.state = {
       isOpenModalUser: false,
       cartItems: [],
-      quantities: {},
+      quantities: quantities,
     };
   }
 
@@ -31,9 +39,18 @@ class Cart extends Component {
   }
   handleOrder = () => {
     if (this.props.history) {
+      let { cartItems } = this.props;
+      const totalPrice = cartItems.reduce((total, item) => {
+        return total + item.price * (this.state.quantities[item.id] || 0);
+      }, 0);
+
       this.props.history.push({
         pathname: "/order",
-        state: { cartItems: this.props.cartItems },
+        state: {
+          cartItems: this.props.cartItems,
+          quantities: this.state.quantities,
+          totalPrice: totalPrice,
+        },
       });
     }
   };
@@ -63,25 +80,32 @@ class Cart extends Component {
   };
   // Add two new methods to increase and decrease quantity
   increaseQuantity = (itemId) => {
-    this.setState((prevState) => ({
-      quantities: {
+    this.setState((prevState) => {
+      const newQuantities = {
         ...prevState.quantities,
         [itemId]: (prevState.quantities[itemId] || 1) + 1,
-      },
-    }));
+      };
+      localStorage.setItem("quantities", JSON.stringify(newQuantities));
+      return { quantities: newQuantities };
+    });
   };
 
   decreaseQuantity = (itemId) => {
-    this.setState((prevState) => ({
-      quantities: {
+    this.setState((prevState) => {
+      const newQuantities = {
         ...prevState.quantities,
-        [itemId]: Math.max((prevState.quantities[itemId] || 1) - 1, 1),
-      },
-    }));
+        [itemId]: (prevState.quantities[itemId] || 1) - 1,
+      };
+      localStorage.setItem("quantities", JSON.stringify(newQuantities));
+      return { quantities: newQuantities };
+    });
   };
 
   render() {
     let { cartItems } = this.props;
+    const totalPrice = cartItems.reduce((total, item) => {
+      return total + item.price * (this.state.quantities[item.id] || 0);
+    }, 0);
     console.log("cart products", cartItems);
     return (
       <>
@@ -156,19 +180,13 @@ class Cart extends Component {
             <div className="right-content col-3">
               <div className="total-cart">
                 <div className="string-left">Thanh Tien</div>
-                {cartItems.map((item, index) => (
-                  <div className="number-right">
-                    {item.price * (this.state.quantities[item.id] || 0)} Đ
-                  </div>
-                ))}
+
+                <div className="number-right">{totalPrice} Đ</div>
               </div>
               <div className="total-last">
                 <div className="string-left">Tong So Tien</div>
-                {cartItems.map((item, index) => (
-                  <div className="number-right">
-                    {item.price * (this.state.quantities[item.id] || 0)} Đ
-                  </div>
-                ))}
+
+                <div className="number-right">{totalPrice} Đ</div>
               </div>
               <div className="checkout">
                 <span
