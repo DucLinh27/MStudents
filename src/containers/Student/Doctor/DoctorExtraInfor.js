@@ -50,7 +50,7 @@ class DoctorExtraInfor extends Component {
       <div className="doctor-extra-infor-container">
         <div className="content-up">
           <div className="text-address">
-            <FormattedMessage id="patient.extra-infor-doctor.text-address" />
+            <FormattedMessage id="student.extra-infor-teacher.text-address" />
           </div>
           <div className="name-clinic">
             {extraInfor && extraInfor.nameClinic ? extraInfor.nameClinic : ""}
@@ -64,7 +64,7 @@ class DoctorExtraInfor extends Component {
         <div className="content-down">
           {isShowDetailInfor === false && (
             <div className="short-infor">
-              <FormattedMessage id="patient.extra-infor-doctor.price" />
+              <FormattedMessage id="student.extra-infor-teacher.price" />
 
               {extraInfor &&
                 extraInfor.priceTypeData &&
@@ -92,7 +92,7 @@ class DoctorExtraInfor extends Component {
                 className="detail"
                 onClick={() => this.showHideDetailInfor(true)}
               >
-                <FormattedMessage id="patient.extra-infor-doctor.detail" />
+                <FormattedMessage id="student.extra-infor-teacher.detail" />
               </span>
             </div>
           )}

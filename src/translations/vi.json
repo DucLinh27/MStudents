@@ -70,14 +70,14 @@
         "save": "Lưu thông tin"
 
     },
-    "patient":{
+    "student":{
         "detail-teacher": {
             "schedule": "Lịch học",
             "no-schedule": "Giáo viên không có lịch dạy trong thời gian này, vui lòng chọn thời gian khác!",
             "choose":"Chọn",
             "book-free" : "và đặt (miễn phí)"
         },
-        "extra-infor-doctor":{
+        "extra-infor-teacher":{
             "text-address":"Địa chỉ lớp học",
             "price": "Gía môn học",
             "detail": "Xem chi tiết",

@@ -95,11 +95,6 @@ class DetailCourses extends Component {
     console.log(dataDetailCourse);
     console.log(dataDetailCourse.image);
     // Convert Buffer to base64
-    let base64Image = null;
-    if (dataDetailCourse.image) {
-      const imageBuffer = dataDetailCourse.image.data;
-      base64Image = Buffer.from(imageBuffer).toString("base64");
-    }
     return (
       <>
         <HomeHeader />
@@ -119,12 +114,11 @@ class DetailCourses extends Component {
                   <div
                     className="image-lefts"
                     style={{
-                      backgroundImage: `url("${dataDetailCourse.image}")`,
+                      backgroundImage: `url(${
+                        dataDetailCourse.image ? dataDetailCourse.image : ""
+                      })`,
                     }}
                   ></div>
-                  {base64Image && (
-                    <img src={`data:image/jpeg;base64,${base64Image}`} />
-                  )}
                 </div>
                 <div className="container-courses">
                   <div className="about-courses">

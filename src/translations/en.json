@@ -59,7 +59,7 @@
         "choose-date": "Choose Date",
         "save": "Save information"
     },
-    "patient":{
+    "student":{
         "detail-teacher": {
             "schedule": "Schedule",
             "no-schedule": "The doctor does not have an appointment during this time, please choose another time!",

@@ -146,7 +146,11 @@ class ModalEditOrder extends Component {
                 onChange={(event) => {
                   this.handleOnChangeInput(event, "courses");
                 }}
-                value={this.state.courses}
+                value={
+                  Array.isArray(this.state.courses)
+                    ? this.state.courses.map((course) => course.name).join(", ")
+                    : ""
+                }
               />
             </div>
             <div className="input-container max-width-input">

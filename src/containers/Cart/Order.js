@@ -135,7 +135,14 @@ class Order extends Component {
             {Array.isArray(cart) &&
               cart.map((course, index) => (
                 <div className="transport d-flex " key={index}>
-                  <div className="image align-self-center">Image</div>
+                  <div
+                    className="image align-self-center"
+                    style={{
+                      backgroundImage: `url(${
+                        course.image ? course.image : ""
+                      })`,
+                    }}
+                  ></div>
                   <div className="name align-self-center">{course.name}</div>
                   <div className="price align-self-center">{course.price}</div>
                   <div className="quantity align-self-center">

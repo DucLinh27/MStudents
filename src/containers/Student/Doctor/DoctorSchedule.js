@@ -147,7 +147,7 @@ class DoctorSchedule extends Component {
             <div className="text-calendar">
               <i className="fas fa-calendar-alt">
                 <span>
-                  <FormattedMessage id="patient.detail-doctor.schedule" />
+                  <FormattedMessage id="student.detail-teacher.schedule" />
                 </span>
               </i>
             </div>
@@ -176,15 +176,15 @@ class DoctorSchedule extends Component {
 
                   <div className="book-free">
                     <span>
-                      <FormattedMessage id="patient.detail-doctor.choose" />
+                      <FormattedMessage id="student.detail-teacher.choose" />
                       <i className="far fa-hand-point-up"></i>{" "}
-                      <FormattedMessage id="patient.detail-doctor.book-free" />
+                      <FormattedMessage id="student.detail-teacher.book-free" />
                     </span>
                   </div>
                 </>
               ) : (
                 <div className="no-schedule">
-                  <FormattedMessage id="patient.detail-doctor.no-schedule" />
+                  <FormattedMessage id="student.detail-teacher.no-schedule" />
                 </div>
               )}
             </div>

@@ -41,12 +41,10 @@ class DetailDoctor extends Component {
   render() {
     let { language } = this.props;
     let { detailDoctor } = this.state;
+    console.log(detailDoctor);
     let nameEn = " ",
       nameVi = "";
-    if (detailDoctor && detailDoctor.positionData) {
-      nameVi = `${detailDoctor.positionData.valueVi},${detailDoctor.lastName} ${detailDoctor.firstName} `;
-      nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
-    }
+
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -79,7 +77,8 @@ class DetailDoctor extends Component {
             </div>
             <div className="content-right">
               <DoctorExtraInfor
-                doctorId FromParent={this.state.currentDoctorId}
+                doctorId
+                FromParent={this.state.currentDoctorId}
               />
             </div>
           </div>

@@ -110,7 +110,7 @@ class ManageOrder extends Component {
                     <td>{item.payment}</td>
                     <td>
                       {Array.isArray(item.courses)
-                        ? item.courses.join(", ")
+                        ? item.courses.map((course) => course.name).join(", ")
                         : ""}
                     </td>
                     <td>{item.totalPrice}</td>
