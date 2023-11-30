@@ -180,32 +180,10 @@ let getInforTeacherById = async (inputId) => {
               attributes: ["description", "contentHTML", "contentMarkdown"],
             },
             {
-              model: db.Allcode,
-              as: "positionData",
-              attributes: ["valueEn", "valueVi"],
-            },
-            {
               model: db.Teacher_Infor,
               attributes: {
                 exclude: ["id", "teacherId"],
               },
-              include: [
-                {
-                  model: db.Allcode,
-                  as: "priceTypeData",
-                  attributes: ["valueEn", "valueVi"],
-                },
-                {
-                  model: db.Allcode,
-                  as: "paymentTypeData",
-                  attributes: ["valueEn", "valueVi"],
-                },
-                {
-                  model: db.Allcode,
-                  as: "provinceTypeData",
-                  attributes: ["valueEn", "valueVi"],
-                },
-              ],
             },
           ],
           raw: false,
@@ -214,7 +192,6 @@ let getInforTeacherById = async (inputId) => {
         if (data && data.image) {
           data.image = new Buffer(data.image, "base64").toString("binary");
         }
-
         if (!data) data = {};
         resolve({
           errCode: 0,

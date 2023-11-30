@@ -11,21 +11,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Teacher_Infor.belongsTo(models.User, { foreignKey: "teacherId" });
 
-      Teacher_Infor.belongsTo(models.Allcode, {
-        foreignKey: "priceId",
-        targetkey: "keyMap",
-        as: "priceTypeData",
-      });
-      Teacher_Infor.belongsTo(models.Allcode, {
-        foreignKey: "paymentId",
-        targetkey: "keyMap",
-        as: "paymentTypeData",
-      });
-      Teacher_Infor.belongsTo(models.Allcode, {
-        foreignKey: "provinceId",
-        targetkey: "keyMap",
-        as: "provinceTypeData",
-      });
+      // Teacher_Infor.belongsTo(models.Allcode, {
+      //   foreignKey: "priceId",
+      //   targetkey: "keyMap",
+      //   as: "priceTypeData",
+      // });
+      // Teacher_Infor.belongsTo(models.Allcode, {
+      //   foreignKey: "paymentId",
+      //   targetkey: "keyMap",
+      //   as: "paymentTypeData",
+      // });
+      // Teacher_Infor.belongsTo(models.Allcode, {
+      //   foreignKey: "provinceId",
+      //   targetkey: "keyMap",
+      //   as: "provinceTypeData",
+      // });
     }
   }
   Teacher_Infor.init(

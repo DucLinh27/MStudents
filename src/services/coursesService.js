@@ -91,6 +91,9 @@ let getDetailCoursesById = (inputId) => {
             data,
           });
         }
+        if (data && data.image) {
+          data.image = new Buffer(data.image, "base64").toString("binary");
+        }
         resolve({
           errCode: 0,
           errMessage: "OK!",
