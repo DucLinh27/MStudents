@@ -14,18 +14,18 @@ let getTopTeacherHome = (limitInput) => {
         attributes: {
           exclude: ["password"],
         },
-        include: [
-          {
-            model: db.Allcode,
-            as: "positionData",
-            attributes: ["valueEn", "valueVi"],
-          },
-          {
-            model: db.Allcode,
-            as: "genderData",
-            attributes: ["valueEn", "valueVi"],
-          },
-        ],
+        // include: [
+        //   {
+        //     model: db.Allcode,
+        //     as: "positionData",
+        //     attributes: ["valueEn", "valueVi"],
+        //   },
+        //   {
+        //     model: db.Allcode,
+        //     as: "genderData",
+        //     attributes: ["valueEn", "valueVi"],
+        //   },
+        // ],
         raw: true,
         nest: true,
       });
@@ -58,18 +58,16 @@ let getAllTeachers = () => {
 };
 
 let checkRequireFields = (inputData) => {
+  console.log(inputData);
   let arrFields = [
     "teacherId",
     "contentHTML",
     "contentMarkdown",
-    "action",
-    "selectedPrice",
-    "selectedPayment",
-    "selectedProvince",
-    "nameClinic",
-    "addressClinic",
+    "addressClasses",
+    "nameClasses",
     "note",
-    "specialtyId",
+    "coursesId",
+    "classesId",
   ];
   let isValid = true;
   let element = "";
@@ -119,33 +117,27 @@ let saveDetailInforTeacher = async (inputData) => {
 
         //update to Doctor infor table
         let doctorInfor = await db.Teacher_Infor.findOne({
-          where: { teacherIdv: inputData.teacherId },
+          where: { teacherId: inputData.teacherId },
         });
 
         if (doctorInfor) {
           //update
           (doctorInfor.teacherId = inputData.teacherId),
-            (doctorInfor.priceId = inputData.selectedPrice),
-            (doctorInfor.paymentId = inputData.selectedPayment),
-            (doctorInfor.provinceId = inputData.selectedProvince),
-            (doctorInfor.nameClinic = inputData.nameClinic),
-            (doctorInfor.addressClinic = inputData.addressClinic),
+            (doctorInfor.nameClasses = inputData.nameClasses),
+            (doctorInfor.addressClasses = inputData.addressClasses),
             (doctorInfor.note = inputData.note),
-            (doctorInfor.specialtyId = inputData.specialtyId),
-            (doctorInfor.clinicId = inputData.clinicId),
+            (doctorInfor.classesId = inputData.classesId),
+            (doctorInfor.coursesId = inputData.coursesId),
             await doctorInfor.save();
         } else {
           //create
           await db.Teacher_Infor.create({
             teacherId: inputData.teacherId,
-            priceId: inputData.selectedPrice,
-            paymentId: inputData.selectedPayment,
-            provinceId: inputData.selectedProvince,
-            nameClinic: inputData.nameClinic,
-            addressClinic: inputData.addressClinic,
+            nameClasses: inputData.nameClasses,
+            addressClasses: inputData.addressClasses,
             note: inputData.note,
-            specialtyId: inputData.specialtyId,
-            clinicId: inputData.clinicId,
+            coursesId: inputData.coursesId,
+            classesId: inputData.classesId,
           });
         }
         resolve({
