@@ -12,6 +12,11 @@ import {
   getAllClasses,
   createRegisterUserServices,
 } from "../../services/userService";
+import {
+  getOrderService,
+  editOrderService,
+  deleteOrderService,
+} from "../../services/orderService";
 import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
 //     type: actionTypes.FETCH_GENDER_START,
@@ -156,6 +161,7 @@ export const deleteUserFailed = () => ({
   type: actionTypes.DELETE_USER_FAILED,
 });
 
+//Edit User
 export const editUser = (data) => {
   return async (dispatch, getState) => {
     try {
@@ -212,6 +218,7 @@ export const fetchAllUsersFailded = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILDED,
 });
 
+//DOCTOR
 export const fetchTopDoctor = () => {
   return async (dispatch, getState) => {
     try {
@@ -347,3 +354,60 @@ export const fetchDoctorRequireSuccess = (allRequireData) => ({
 export const fetchDoctorRequireFaided = () => ({
   type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_FAILDED,
 });
+
+//ORDER
+export const editOrder = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editOrderService(data);
+      if (res && res.errCode === 0) {
+        toast.success("EDIT ORDER SUCCESS");
+        dispatch(editOrderSuccess());
+        dispatch(fetchAllUsersStart());
+      } else {
+        toast.error("EDIT ORDER FAILED");
+        dispatch(editOrderFailed());
+      }
+    } catch (e) {
+      dispatch(editOrderFailed());
+    }
+  };
+};
+
+export const editOrderSuccess = () => ({
+  type: actionTypes.EDIT_ORDER_SUCCESS,
+});
+export const editOrderFailed = () => ({
+  type: actionTypes.EDIT_ORDER_FAILED,
+});
+
+//Fetch Order
+export const fetchAllOrdersStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getOrderService();
+      if (res && res.errCode === 0) {
+        dispatch(fetchAllOrdersSuccess(res.orders.reverse()));
+      } else {
+        dispatch(fetchAllOrdersFailded());
+      }
+    } catch (e) {
+      dispatch(fetchAllOrdersFailded());
+    }
+  };
+};
+
+export const fetchAllOrdersSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_ORDERS_SUCCESS,
+  users: data,
+});
+
+export const fetchAllOrdersFailded = () => ({
+  type: actionTypes.FETCH_ALL_ORDERS_FAILDED,
+});
+export const deleteOrder = (order) => {
+  return {
+    type: actionTypes.DELETE_ORDER,
+    payload: order,
+  };
+};

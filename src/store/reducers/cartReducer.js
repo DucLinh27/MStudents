@@ -8,6 +8,7 @@ const initialState = {
   order: [],
   items: [],
   quantity: 0,
+  orders: [],
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -109,6 +110,11 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         Carts: action.payload,
+      };
+    case actionTypes.DELETE_ORDER:
+      return {
+        ...state,
+        orders: state.orders.filter((order) => order.id !== action.payload.id),
       };
 
     default:

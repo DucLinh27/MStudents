@@ -32,12 +32,6 @@ class DetailCourses extends Component {
       if (courseDetails && courseDetails.errCode === 0) {
         console.log(courseDetails.data);
         this.setState({ dataDetailCourse: courseDetails.data });
-        // if (courseDetails.data.image) {
-        //   this.setState({ dataDetailCourse: courseDetails.data });
-        //   console.log(courseDetails.data.image);
-        // } else {
-        //   throw new Error("Invalid image URL");
-        // }
       }
     } catch (error) {
       console.error("Error fetching course details:", error);
@@ -99,7 +93,13 @@ class DetailCourses extends Component {
     // let { language } = this.props.language;
     let { dataDetailCourse } = this.state;
     console.log(dataDetailCourse);
-
+    console.log(dataDetailCourse.image);
+    // Convert Buffer to base64
+    let base64Image = null;
+    if (dataDetailCourse.image) {
+      const imageBuffer = dataDetailCourse.image.data;
+      base64Image = Buffer.from(imageBuffer).toString("base64");
+    }
     return (
       <>
         <HomeHeader />
@@ -122,6 +122,9 @@ class DetailCourses extends Component {
                       backgroundImage: `url("${dataDetailCourse.image}")`,
                     }}
                   ></div>
+                  {base64Image && (
+                    <img src={`data:image/jpeg;base64,${base64Image}`} />
+                  )}
                 </div>
                 <div className="container-courses">
                   <div className="about-courses">

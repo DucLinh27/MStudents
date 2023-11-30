@@ -12,8 +12,8 @@ const editOrderService = (data) => {
   return axios.put("/api/edit-order", data);
 };
 
-const deleteOrderService = (orderCode) => {
-  return axios.delete("/api/delete-order", { data: { orderCode: orderCode } });
+const deleteOrderService = (inputId) => {
+  return axios.delete("/api/delete-order", { data: { id: inputId } });
 };
 export {
   createOrderService,
