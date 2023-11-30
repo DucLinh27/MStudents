@@ -4,15 +4,13 @@ import HomeHeader from "../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import { getDetailInforTeacher } from "../../services/userService";
 import { LANGUAGES } from "../../utils";
-import DoctorSchedule from "./Doctor/DoctorSchedule";
-import DoctorExtraInfor from "./Doctor/DoctorExtraInfor";
 
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      detailDoctor: {},
-      currentDoctorId: -1,
+      detailTeacher: {},
+      currentTeacherId: -1,
     };
   }
   async componentDidMount() {
@@ -23,11 +21,11 @@ class DetailDoctor extends Component {
     ) {
       let id = this.props.match.params.id;
       this.setState({
-        currentDoctorId: id,
+        currentTeacherId: id,
       });
       let res = await getDetailInforTeacher(id);
       if (res && res.errCode === 0) {
-        this.setState({ detailDoctor: res.data });
+        this.setState({ detailTeacher: res.data });
       }
     }
   }
@@ -40,8 +38,8 @@ class DetailDoctor extends Component {
   }
   render() {
     let { language } = this.props;
-    let { detailDoctor } = this.state;
-    console.log(detailDoctor);
+    let { detailTeacher } = this.state;
+    console.log(detailTeacher);
     let nameEn = " ",
       nameVi = "";
 
@@ -54,41 +52,46 @@ class DetailDoctor extends Component {
               className="content-left"
               style={{
                 backgroundImage: `url(${
-                  detailDoctor.image ? detailDoctor.image : ""
+                  detailTeacher.image ? detailTeacher.image : ""
                 })`,
               }}
             ></div>
+            <div className="content-left">{detailTeacher.email}</div>
+            <div className="content-left">{detailTeacher.firstName}</div>
+            <div className="content-left">{detailTeacher.phonenumber}</div>
+            <div className="content-left">{detailTeacher.gender}</div>
+
             <div className="content-right">
               <div className="up">
                 {language === LANGUAGES.VI ? nameVi : nameEn}
               </div>
               <div className="down">
-                {detailDoctor &&
-                  detailDoctor.Markdown &&
-                  detailDoctor.Markdown.description && (
-                    <span> {detailDoctor.Markdown.description}</span>
+                {detailTeacher &&
+                  detailTeacher.Markdown &&
+                  detailTeacher.Markdown.description && (
+                    <span> {detailTeacher.Markdown.description}</span>
                   )}
               </div>
             </div>
           </div>
-          <div className="schedule-doctor">
+          {/* <div className="schedule-doctor">
             <div className="content-left">
-              <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} />
+              <DoctorSchedule doctorIdFromParent={this.state.currentTeacherId} />
             </div>
             <div className="content-right">
               <DoctorExtraInfor
                 doctorId
-                FromParent={this.state.currentDoctorId}
+                FromParent={this.state.currentTeacherId}
               />
             </div>
-          </div>
+          </div> */}
           <div className="detail-infor-doctor">
-            {detailDoctor &&
-              detailDoctor.Markdown &&
-              detailDoctor.Markdown.contentHTML && (
+            {detailTeacher &&
+              detailTeacher.Markdown &&
+              detailTeacher.Markdown.contentHTML && (
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: detailDoctor.Markdown.contentHTML,
+                    __html: detailTeacher.Markdown.contentHTML,
                   }}
                 ></div>
               )}
