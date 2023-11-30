@@ -7,31 +7,27 @@ let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       await db.Order.create({
-        orderCode: data.orderCode,
-        createOn: data.createOn,
-        createBy: data.createBy,
+        username: data.username,
         totalPrice: data.totalPrice,
-        shippingAddress: data.shippingAddress,
-        shippingPhone: data.shippingPhone,
         courses: data.courses,
-        deliveryOption: data.deliveryOption,
-        status: data.status,
         email: data.email,
+        phonenumber: data.phonenumber,
+        payment: data.payment,
       });
 
-      emailService.sentMail({
-        orderCode: data.orderCode,
-        email: data.email,
-        name: data.createBy,
-        total: data.totalPrice,
-        address: data.shippingAddress,
-        phone: data.shippingPhone,
-        courses: data.courses,
-        deliveryOption: data.deliveryOption,
-        status: data.status,
-        link: data.link,
-        createOn: data.createOn,
-      });
+      // emailService.sentMail({
+      //   orderCode: data.orderCode,
+      //   email: data.email,
+      //   name: data.createBy,
+      //   total: data.totalPrice,
+      //   address: data.shippingAddress,
+      //   phone: data.shippingPhone,
+      //   courses: data.courses,
+      //   deliveryOption: data.deliveryOption,
+      //   status: data.status,
+      //   link: data.link,
+      //   createOn: data.createOn,
+      // });
 
       resolve({
         errCode: 0,
@@ -46,7 +42,7 @@ let createOrderService = (data) => {
 let getOrderService = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let order = await db.Order.findAll();
+      let order = await db.Order.findAll({});
       if (order) {
         resolve(order);
       } else {
@@ -66,10 +62,7 @@ let getOderByUserService = (user) => {
     try {
       if (user) {
         let order = await db.Order.findOne({
-          where: { createBy: user },
-          // include: [
-          //     { model: db.Book, as: "orderData" },
-          // ],
+          where: { username: user },
           raw: true,
           nest: true,
         });
@@ -88,26 +81,22 @@ let getOderByUserService = (user) => {
 let editOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.orderCode) {
+      if (!data.username) {
         resolve({
           errCode: 2,
           errMessage: "Missing required parameters!",
         });
       }
       let order = await db.Order.findOne({
-        where: { orderCode: data.orderCode },
+        where: { username: data.username },
         raw: false,
       });
       if (order) {
-        order.orderCode = data.orderCode;
-        order.createOn = data.createOn;
-        order.createBy = data.createBy;
+        order.username = data.username;
         order.totalPrice = data.totalPrice;
-        order.shippingAddress = data.shippingAddress;
-        order.shippingPhone = data.shippingPhone;
+        order.payment = data.payment;
+        order.phonenumber = data.phonenumber;
         order.courses = data.courses;
-        order.deliveryOption = data.deliveryOption;
-        order.status = data.status;
         order.email = data.email;
         await order.save();
         resolve({
@@ -126,10 +115,10 @@ let editOrderService = (data) => {
   });
 };
 
-let deleteOrderService = (orderCode) => {
+let deleteOrderService = (inputId) => {
   return new Promise(async (resolve, reject) => {
     let order = await db.Order.findOne({
-      where: { orderCode: orderCode },
+      where: { inputId: id },
     });
     if (!order) {
       resolve({
@@ -138,7 +127,7 @@ let deleteOrderService = (orderCode) => {
       });
     }
     await db.Order.destroy({
-      where: { orderCode: orderCode },
+      where: { inputId: id },
     });
     resolve({
       errCode: 0,

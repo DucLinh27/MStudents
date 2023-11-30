@@ -8,37 +8,30 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      orderCode: {
+      username: {
         allowNull: false,
-        type: Sequelize.STRING,
-      },
-      createOn: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      createBy: {
         type: Sequelize.STRING,
       },
       totalPrice: {
         type: Sequelize.FLOAT,
       },
-      shippingAddress: {
-        type: Sequelize.STRING,
-      },
-      shippingPhone: {
-        type: Sequelize.STRING,
-      },
-      book: {
+      courses: {
         type: Sequelize.TEXT("long"),
+        get: function () {
+          return JSON.parse(this.getDataValue("courses"));
+        },
+        set: function (value) {
+          return this.setDataValue("courses", JSON.stringify(value));
+        },
       },
-      deliveryOption: {
-        type: Sequelize.STRING,
-      },
-      status: {
+      payment: {
         type: Sequelize.STRING,
       },
       email: {
         type: Sequelize.STRING,
+      },
+      phonenumber: {
+        type: Sequelize.INTEGER,
       },
 
       createdAt: {

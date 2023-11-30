@@ -6,13 +6,16 @@ let createOrder = async (req, res) => {
 };
 
 let getOrder = async (req, res) => {
-  let id = req.query.id;
-  let order = await orderService.getOrderService(id);
-  return res.status(200).json({
-    errCode: 0,
-    message: "get order success",
-    order,
-  });
+  try {
+    let order = await orderService.getOrderService();
+    return res.status(200).json(order);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
 };
 
 let editOrder = async (req, res) => {

@@ -68,7 +68,14 @@ let getDetailCoursesById = (inputId) => {
           where: {
             id: inputId,
           },
-          attributes: ["name", "price", "image", "descriptionMarkdown"],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "quantity",
+            "descriptionMarkdown",
+          ],
         });
         if (data) {
           resolve({

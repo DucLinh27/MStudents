@@ -6,6 +6,8 @@ import studentController from "../controllers/studentController";
 import coursesController from "../controllers/coursesController";
 import classesController from "../controllers/classesController";
 import orderController from "../controllers/orderController";
+import paymentController from "../controllers/paymentController";
+
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -89,6 +91,10 @@ let initWebRoutes = (app) => {
   router.get("/api/get-order", orderController.getOrder);
   router.put("/api/edit-order", orderController.editOrder);
   router.delete("/api/delete-order", orderController.deleteOrder);
+
+  //payment
+  router.post("/create_payment_url", paymentController.create_payment_url);
+  router.get("/vnp_return", paymentController.get_payment_return);
 
   return app.use("/", router);
 };

@@ -13,15 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Order.init(
     {
-      orderCode: DataTypes.STRING,
-      createOn: DataTypes.DATE,
-      createBy: DataTypes.STRING,
+      username: DataTypes.STRING,
       totalPrice: DataTypes.FLOAT,
-      shippingAddress: DataTypes.STRING,
-      shippingPhone: DataTypes.STRING,
-      deliveryOption: DataTypes.STRING,
-      status: DataTypes.STRING,
       email: DataTypes.STRING,
+      phonenumber: DataTypes.INTEGER,
+      payment: DataTypes.STRING,
       courses: {
         type: DataTypes.TEXT("long"),
         get: function () {
