@@ -81,17 +81,18 @@ let getOderByUserService = (user) => {
 let editOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.username) {
+      if (!data.id) {
         resolve({
           errCode: 2,
           errMessage: "Missing required parameters!",
         });
       }
       let order = await db.Order.findOne({
-        where: { username: data.username },
+        where: { id: data.id },
         raw: false,
       });
       if (order) {
+        order.id = data.id;
         order.username = data.username;
         order.totalPrice = data.totalPrice;
         order.payment = data.payment;
@@ -117,17 +118,18 @@ let editOrderService = (data) => {
 
 let deleteOrderService = (inputId) => {
   return new Promise(async (resolve, reject) => {
+    // console.log(inputId);
     let order = await db.Order.findOne({
-      where: { inputId: id },
+      where: { id: inputId.id },
     });
     if (!order) {
-      resolve({
+      return reject({
         errCode: 2,
         errMessage: "This order does not exist!",
       });
     }
     await db.Order.destroy({
-      where: { inputId: id },
+      where: { id: inputId.id },
     });
     resolve({
       errCode: 0,

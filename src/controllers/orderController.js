@@ -25,13 +25,13 @@ let editOrder = async (req, res) => {
 };
 
 let deleteOrder = async (req, res) => {
-  if (!req.body.orderCode) {
+  if (!req.body.id) {
     return res.status(200).json({
       errCode: 1,
       errMessage: "Missing required parameters!",
     });
   }
-  let message = await orderService.deleteOrderService(req.body.orderCode);
+  let message = await orderService.deleteOrderService(req.body.id);
   return res.status(200).json(message);
 };
 
