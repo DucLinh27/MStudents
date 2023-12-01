@@ -113,16 +113,6 @@ class ModalEditOrder extends Component {
                 value={this.state.phonenumber}
               />
             </div>
-            {/* <div className="input-container">
-              <label>Payment</label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "payment");
-                }}
-                value={this.state.payment}
-              />
-            </div> */}
             <div className="payment-container">
               <select
                 className="payment"

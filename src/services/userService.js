@@ -15,6 +15,9 @@ const createNewUserServices = (data) => {
 const createRegisterUserServices = (data) => {
   return axios.post("api/registerNewUser", data);
 };
+const changeUserPassword = (data) => {
+  return axios.post("/api/change-password", data);
+};
 const deleteUserServices = (userId) => {
   return axios.delete("api/delete-user", {
     data: {
@@ -123,4 +126,5 @@ export {
   getAllDetailClassesById,
   getAllStudentForTeacher,
   postSendRemedy,
+  changeUserPassword,
 };

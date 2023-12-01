@@ -26,6 +26,7 @@ import Order from "../containers/Cart/Order";
 import CartItem from "../containers/Cart/CartItem";
 import Cart from "../containers/Cart/Cart";
 import PaymentReturn from "../containers/Cart/PaymentReturn";
+import ProfileUser from "./Student/ProfileUser.js";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -52,11 +53,9 @@ class App extends Component {
         <Router history={history}>
           <div className="main-container">
             <ConfirmModal />
-
             <div className="content-container">
               <CustomScrollbars style={{ height: "100vh", width: "100%" }}>
                 <Switch>
-                  <Route path={path.HOME} exact component={Home} />
                   <Route
                     path={path.LOGIN}
                     component={userIsNotAuthenticated(Login)}
@@ -73,7 +72,7 @@ class App extends Component {
                     path={"/teacher/"}
                     component={userIsAuthenticated(Teacher)}
                   />
-
+                  <Route path={path.HOME} exact component={Home} />
                   <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                   <Route path={path.DETAIL_COURSES} component={DetailCourses} />
@@ -82,6 +81,7 @@ class App extends Component {
                   <Route path={path.CART} component={Cart} />
                   <Route path={path.CARTITEM} component={CartItem} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />
+                  <Route path={path.PROFILE} exact component={ProfileUser} />
 
                   <Route
                     path={path.VERIFY_EMAIL_BOOKING}

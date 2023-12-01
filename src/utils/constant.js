@@ -13,6 +13,7 @@ export const path = {
   CART: "/cart",
   CARTITEM: "/cartitem",
   PAYMENT: "/payment",
+  PROFILE: "/profile",
 };
 
 export const LANGUAGES = {

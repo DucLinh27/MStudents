@@ -4,13 +4,13 @@ import "./DetailClasses.scss";
 import { FormattedMessage } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
 import { withRouter } from "react-router";
-import DoctorSchedule from "../Doctor/DoctorSchedule";
-import DoctorExtraInfor from "../Doctor/DoctorExtraInfor";
+import DoctorSchedule from "../Teacher/DoctorSchedule";
+import DoctorExtraInfor from "../Teacher/DoctorExtraInfor";
 import {
   getAllCodeServices,
   getExtraInforTeacherById,
 } from "../../../services/userService";
-import ProfileDoctor from "../Doctor/ProfileDoctor";
+import ProfileDoctor from "../Teacher/ProfileDoctor";
 import { getAllDetailClassesById } from "../../../services/userService";
 import DetailDoctor from "../DetailDoctor";
 import _ from "lodash";

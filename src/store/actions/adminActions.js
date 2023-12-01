@@ -187,6 +187,31 @@ export const editUserFailed = () => ({
   type: actionTypes.EDIT_USER_FAILED,
 });
 
+//Edit User
+export const editProfileUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editUserServices(data);
+      if (res && res.errCode === 0) {
+        toast.success("EDIT USER SUCCESS");
+        dispatch(editProfileUserSuccess());
+        dispatch(fetchAllUsersStart());
+      } else {
+        toast.error("EDIT USER FAILED");
+        dispatch(editProfileUserFailed());
+      }
+    } catch (e) {
+      dispatch(editProfileUserFailed());
+    }
+  };
+};
+
+export const editProfileUserSuccess = () => ({
+  type: actionTypes.EDIT_PROFILE_USER_SUCCESS,
+});
+export const editProfileUserFailed = () => ({
+  type: actionTypes.EDIT_PROFILE_USER_FAILED,
+});
 export const saveUserSuccess = () => ({
   type: actionTypes.CREATE_USER_SUCCESS,
 });

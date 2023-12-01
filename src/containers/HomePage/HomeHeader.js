@@ -26,6 +26,11 @@ class HomeHeader extends Component {
       this.props.history.push(`/home`);
     }
   };
+  returnDetailUser = (doctor) => {
+    if (this.props.history) {
+      this.props.history.push(`/profile`);
+    }
+  };
   componentDidMount() {
     this.checkIfDetailPage();
   }
@@ -105,7 +110,10 @@ class HomeHeader extends Component {
             </div>
             <div className="right-content">
               {this.props.isLoggedIn ? (
-                <span className="welcome mr-3">
+                <span
+                  className="welcome mr-3"
+                  onClick={() => this.returnDetailUser()}
+                >
                   <FormattedMessage id="home-header.welcome" />{" "}
                   {userInfo && userInfo.firstName ? userInfo.firstName : " "}!
                 </span>

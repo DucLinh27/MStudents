@@ -1,0 +1,56 @@
+.manage-user-container {
+  padding: 5px;
+  margin-top: 100px;
+  margin-right: 100px;
+  margin-left: 100px;
+
+  .content-left {
+    border: 1px solid #e8e8e8;
+  }
+  .content-right {
+    border: 1px solid #e8e8e8;
+    padding-left: 50px;
+    .changePassword {
+      padding: 5px;
+
+      label {
+        cursor: pointer;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+      input {
+        height: 17px;
+        width: 17px;
+      }
+    }
+    .button-password {
+      background: #c92127;
+      height: 40px;
+      width: 200px;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      font-weight: 600;
+      border-radius: 8px;
+    }
+    .button-edit {
+      background: #c92127;
+      height: 40px;
+      width: 200px;
+      color: white;
+      font-weight: 500;
+      font-size: 16px;
+      border: none;
+      font-weight: 700;
+      border-radius: 8px;
+    }
+  }
+  .more-infor {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 15px;
+    .password {
+    }
+  }
+}
