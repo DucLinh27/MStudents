@@ -14,18 +14,7 @@ let getTopTeacherHome = (limitInput) => {
         attributes: {
           exclude: ["password"],
         },
-        // include: [
-        //   {
-        //     model: db.Allcode,
-        //     as: "positionData",
-        //     attributes: ["valueEn", "valueVi"],
-        //   },
-        //   {
-        //     model: db.Allcode,
-        //     as: "genderData",
-        //     attributes: ["valueEn", "valueVi"],
-        //   },
-        // ],
+        
         raw: true,
         nest: true,
       });
@@ -304,23 +293,7 @@ let getExtraInforTeacherById = (idInput) => {
           attributes: {
             exclude: ["id", "teacherId"],
           },
-          include: [
-            {
-              model: db.Allcode,
-              as: "priceTypeData",
-              attributes: ["valueEn", "valueVi"],
-            },
-            {
-              model: db.Allcode,
-              as: "paymentTypeData",
-              attributes: ["valueEn", "valueVi"],
-            },
-            {
-              model: db.Allcode,
-              as: "provinceTypeData",
-              attributes: ["valueEn", "valueVi"],
-            },
-          ],
+
           raw: false,
           nest: true,
         });

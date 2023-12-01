@@ -30,6 +30,9 @@ let handleUserLogin = (email, password) => {
             "password",
             "firstName",
             "lastName",
+            "address",
+            "gender",
+            "phonenumber",
           ],
           where: { email: email },
           raw: true,
@@ -87,6 +90,26 @@ let checkUserEmail = (userEmail) => {
       reject(e);
     }
   });
+};
+let changePassword = async (userId, oldPassword, newPassword) => {
+  let user = await db.User.findOne({ where: { id: userId } });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  let isMatch = await bcrypt.compare(oldPassword, user.password);
+
+  if (!isMatch) {
+    throw new Error("Old password is incorrect");
+  }
+
+  let hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  user.password = hashedPassword;
+  await user.save();
+
+  return user;
 };
 
 let getAllUsers = (userId) => {
@@ -207,7 +230,7 @@ let deleteUSer = (userId) => {
 let updateUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.id || !data.roleId || !data.positionId || !data.gender) {
+      if (!data.id || !data.gender) {
         resolve({
           errCode: 2,
           errMessage: "The user does not exist",
@@ -278,4 +301,5 @@ module.exports = {
   updateUser: updateUser,
   getAllCodeService: getAllCodeService,
   registerNewUser: registerNewUser,
+  changePassword: changePassword,
 };

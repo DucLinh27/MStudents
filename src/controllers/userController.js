@@ -17,6 +17,40 @@ let handleLoging = async (req, res) => {
     user: userData.user ? userData.user : {},
   });
 };
+// userController.js
+let changePasswordService = async (req, res) => {
+  let userId = req.body.userId;
+  let oldPassword = req.body.oldPassword;
+  let newPassword = req.body.newPassword;
+  let confirmNewPassword = req.body.confirmNewPassword;
+
+  if (!userId || !oldPassword || !newPassword || !confirmNewPassword) {
+    return res.status(400).json({
+      errCode: 1,
+      errMessage: "Missing inputs parameter!",
+    });
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    return res.status(400).json({
+      errCode: 2,
+      errMessage: "New password and confirm new password do not match!",
+    });
+  }
+
+  try {
+    await userService.changePassword(userId, oldPassword, newPassword);
+    return res.status(200).json({
+      errCode: 0,
+      errMessage: "Password changed successfully!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      errCode: 3,
+      errMessage: error.message,
+    });
+  }
+};
 
 let handleGetAllUsers = async (req, res) => {
   let id = req.query.id; //All, id
@@ -81,4 +115,5 @@ module.exports = {
   handleDeleteUser: handleDeleteUser,
   getAllCode: getAllCode,
   handleRegisterNewUser: handleRegisterNewUser,
+  changePasswordService: changePasswordService,
 };
