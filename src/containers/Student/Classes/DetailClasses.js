@@ -1,20 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DetailClasses.scss";
-import { FormattedMessage } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
-import { withRouter } from "react-router";
 import DoctorSchedule from "../Teacher/DoctorSchedule";
 import DoctorExtraInfor from "../Teacher/DoctorExtraInfor";
-import {
-  getAllCodeServices,
-  getExtraInforTeacherById,
-} from "../../../services/userService";
+
 import ProfileDoctor from "../Teacher/ProfileDoctor";
 import { getAllDetailClassesById } from "../../../services/userService";
-import DetailDoctor from "../DetailDoctor";
 import _ from "lodash";
-import { LANGUAGES } from "../../../utils";
 
 class DetailClasses extends Component {
   constructor(props) {

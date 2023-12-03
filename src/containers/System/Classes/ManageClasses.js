@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./ManageClasses.scss";
-import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
-import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
+import { CommonUtils } from "../../../utils";
 import { createNewClasses } from "../../../services/userService";
 import { toast } from "react-toastify";
 

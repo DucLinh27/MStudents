@@ -12,11 +12,7 @@ import {
   getAllClasses,
   createRegisterUserServices,
 } from "../../services/userService";
-import {
-  getOrderService,
-  editOrderService,
-  deleteOrderService,
-} from "../../services/orderService";
+import { getOrderService, editOrderService } from "../../services/orderService";
 import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
 //     type: actionTypes.FETCH_GENDER_START,

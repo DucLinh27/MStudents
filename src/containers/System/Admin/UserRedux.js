@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import { getAllCodeServices } from "../../../services/userService";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
@@ -38,11 +37,8 @@ class UserRedux extends Component {
     this.props.getGenderStart();
     this.props.getPositionStart();
     this.props.getRoleStart();
-
-    
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    
     if (prevProps.genderRedux !== this.props.genderRedux) {
       let arrGenders = this.props.genderRedux;
       this.setState({

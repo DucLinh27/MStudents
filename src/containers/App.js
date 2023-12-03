@@ -27,6 +27,10 @@ import CartItem from "../containers/Cart/CartItem";
 import Cart from "../containers/Cart/Cart";
 import PaymentReturn from "../containers/Cart/PaymentReturn";
 import ProfileUser from "./Student/ProfileUser.js";
+import AllCourses from "./HomePage/Section/AllCourses.js";
+import AllTeacher from "./HomePage/Section/AllTeacher.js";
+import Blog from "./HomePage/Section/Blog.js";
+import About from "./HomePage/Section/About.js";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -76,13 +80,16 @@ class App extends Component {
                   <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                   <Route path={path.DETAIL_COURSES} component={DetailCourses} />
+                  <Route path={path.ALL_COURSES} component={AllCourses} />
+                  <Route path={path.ALL_TEACHER} component={AllTeacher} />
+                  <Route path={path.ABOUT} component={About} />
+                  <Route path={path.BLOG} component={Blog} />=
                   <Route path={path.DETAIL_CLASSES} component={DetailClasses} />
                   <Route path={path.ORDER} component={Order} />
                   <Route path={path.CART} component={Cart} />
                   <Route path={path.CARTITEM} component={CartItem} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />
                   <Route path={path.PROFILE} exact component={ProfileUser} />
-
                   <Route
                     path={path.VERIFY_EMAIL_BOOKING}
                     component={VerifyEmail}

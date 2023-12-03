@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManager.scss";
 import {
@@ -11,7 +10,6 @@ import {
 import ModalUser from "./ModalUser";
 import { emitter } from "../../utils/emitter";
 import ModalEditUser from "./ModalEditUser";
-import Register from "../Auth/Register";
 
 class UserManage extends Component {
   constructor(props) {

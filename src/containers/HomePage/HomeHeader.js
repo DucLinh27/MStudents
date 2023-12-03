@@ -1,8 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import logoeducation from "../../assets/logoeducation.svg";
-import imgcontent from "../../assets/imgcontent.jpg";
 import { LANGUAGES } from "../../utils/constant";
 import { changeLanguageApp } from "../../store/actions";
 import { FormattedMessage } from "react-intl";
@@ -24,6 +24,16 @@ class HomeHeader extends Component {
   returnToHome = () => {
     if (this.props.history) {
       this.props.history.push(`/home`);
+    }
+  };
+  handleAboutPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/about`);
+    }
+  };
+  handleBlogPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/blog`);
     }
   };
   returnDetailUser = (doctor) => {
@@ -74,14 +84,14 @@ class HomeHeader extends Component {
             <div className="center-content">
               <div className="child-content">
                 <div>
-                  <b>
+                  <b onClick={() => this.returnToHome()}>
                     <FormattedMessage id="home-header.home" />
                   </b>
                 </div>
               </div>
               <div className="child-content">
                 <div>
-                  <b>
+                  <b onClick={() => this.handleAboutPage()}>
                     <FormattedMessage id="home-header.about" />
                   </b>
                 </div>
@@ -102,7 +112,7 @@ class HomeHeader extends Component {
               </div>
               <div className="child-content">
                 <div>
-                  <b>
+                  <b onClick={() => this.handleBlogPage()}>
                     <FormattedMessage id="home-header.blog" />
                   </b>
                 </div>

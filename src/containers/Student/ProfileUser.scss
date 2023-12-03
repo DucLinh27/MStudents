@@ -6,6 +6,19 @@
 
   .content-left {
     border: 1px solid #e8e8e8;
+    .infor-account {
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 0;
+    }
+    .products {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 0;
+    }
+    .evalute {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 0;
+    }
   }
   .content-right {
     border: 1px solid #e8e8e8;
@@ -23,18 +36,11 @@
         width: 17px;
       }
     }
-    .button-password {
-      background: #c92127;
-      height: 40px;
-      width: 200px;
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
-      border: none;
-      font-weight: 600;
-      border-radius: 8px;
+    .password-container {
+      .password {
+      }
     }
-    .button-edit {
+    .button-save {
       background: #c92127;
       height: 40px;
       width: 200px;
@@ -44,6 +50,7 @@
       border: none;
       font-weight: 700;
       border-radius: 8px;
+      margin-top: 20px;
     }
   }
   .more-infor {
@@ -51,6 +58,19 @@
     gap: 15px;
     padding-bottom: 15px;
     .password {
+    }
+  }
+  .infor-courses {
+    .video-content {
+      border: 1px solid #c92127;
+      width: 300px;
+      height: 300px;
+    }
+    .name-content {
+      border: 1px solid green;
+    }
+    .comment-content {
+      border: 1px solid grey;
     }
   }
 }

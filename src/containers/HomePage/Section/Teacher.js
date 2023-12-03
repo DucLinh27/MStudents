@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import Slider from "react-slick";
-import { LANGUAGES } from "../../../utils";
-import { FormattedMessage } from "react-intl";
 import { withRouter } from "react-router";
 import HomeHeader from "../HomeHeader";
-class OutStandingDoctor extends Component {
+class AllTeacher extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +26,11 @@ class OutStandingDoctor extends Component {
       this.props.history.push(`/detail-doctor/${doctor.id}`);
     }
   };
-
+  handleAllCourses = () => {
+    if (this.props.history) {
+      this.props.history.push(`/allteacher`);
+    }
+  };
   render() {
     let arrDoctors = this.state.arrDoctors;
     let { language } = this.props;
@@ -88,9 +90,14 @@ class OutStandingDoctor extends Component {
             </div>
           </div>
           <div className="button_content">
-            <a href="/becometeacher" className="button_courses">
-              BECOME A TEACHER
-            </a>
+            <buton
+              href="/allteacher"
+              className="button_courses"
+              type="submit"
+              onClick={() => this.handleAllCourses()}
+            >
+              EXPLORE A TEACHER
+            </buton>
           </div>
         </div>
       </>
@@ -113,5 +120,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor)
+  connect(mapStateToProps, mapDispatchToProps)(AllTeacher)
 );

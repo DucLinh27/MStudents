@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { getALlSpecialty } from "../../../services/userService";
 import Slider from "react-slick";
-import "./About.scss";
+import "./AllCourses.scss";
 import { withRouter } from "react-router";
 import HomeHeader from "../HomeHeader";
 
-class About extends Component {
+class AllCourses extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +34,7 @@ class About extends Component {
         <HomeHeader />
         <div className="allcourses-container">
           <div className="section-header">
-            <h1 className="title-section">About</h1>
+            <h1 className="title-section">All Courses</h1>
           </div>
           <div className="section-body row">
             {dataSpecialty &&
@@ -83,4 +83,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(About));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AllCourses)
+);

@@ -5,7 +5,7 @@ import Courses from "./Section/Courses";
 import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import OutStandingDoctor from "./Section/OutStandingDoctor";
+import OutStandingDoctor from "./Section/Teacher";
 
 import About from "./Section/About";
 import HomeFooter from "./HomeFooter";

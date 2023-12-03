@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "../HomePage/HomeHeader";
 import "./ProfileUser.scss";
-import { getDetailInforTeacher } from "../../services/userService";
-import { LANGUAGES } from "../../utils";
-import { FormattedMessage } from "react-intl";
-import Select from "react-select";
-import { emitter } from "../../utils/emitter";
 import _ from "lodash";
 import { changeUserPassword } from "../../services/userService";
 import * as actions from "../../store/actions";
@@ -25,6 +20,7 @@ class ProfileUser extends Component {
       newPassword: "",
       confirmPassword: "",
       changePassword: false,
+      activeTab: "personalInfo",
     };
   }
   async componentDidMount() {
@@ -133,6 +129,16 @@ class ProfileUser extends Component {
       this.handleSaveUser();
     }
   };
+  showPersonalInfo = () => {
+    this.setState({ activeTab: "personalInfo" });
+  };
+
+  showMyCourses = () => {
+    this.setState({ activeTab: "myCourses" });
+  };
+  showMyComments = () => {
+    this.setState({ activeTab: "myComments" });
+  };
   render() {
     let { language } = this.props;
     const { userInfo } = this.props;
@@ -143,137 +149,162 @@ class ProfileUser extends Component {
         <div className="manage-user-container row">
           <div className="content-left col-4">
             <h1>Tài Khoản</h1>
-            <div className="infor-account">Tài khoản</div>
-            <div className="products">Đơn hàng của tôi</div>
-            <div className="evalute">Nhận xét</div>
+            <div className="infor-account" onClick={this.showPersonalInfo}>
+              Thông tin cá nhân
+            </div>
+            <div className="products" onClick={this.showMyCourses}>
+              Khóa học của tôi
+            </div>
+            <div className="evalute" onClick={this.showMyComments}>
+              Nhận xét
+            </div>
           </div>
           <div className="content-right col-8">
-            <h1>Thông tin cá nhân</h1>
-            <div className="more-infor row">
-              <div className="email col-6">
-                <label>Email</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event, "email");
-                  }}
-                  value={this.state.email}
-                />
-              </div>
-              <div className="firstName col-6">
-                <label>FisrtName</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event, "firstName");
-                  }}
-                  value={this.state.firstName}
-                />
-              </div>
-              <div className="lastName col-6">
-                <label>LastName</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event, "lastName");
-                  }}
-                  value={this.state.lastName}
-                />
-              </div>
-              <div className="phonenumber  col-6">
-                <label>Phone number </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event, "phonenumber");
-                  }}
-                  value={this.state.phonenumber}
-                />
-              </div>
-              <div className="address col-6">
-                <label>Address</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event, "address");
-                  }}
-                  value={this.state.address}
-                />
-              </div>
-              <div className="gender  col-6">
-                <label>Gender</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event, "gender");
-                  }}
-                  value={this.state.gender}
-                />
-              </div>
-            </div>
-            <div className="changePassword">
-              <input
-                type="checkbox"
-                name="change_password"
-                id="change_password"
-                value="1"
-                title="Đổi mật khẩu"
-                onChange={this.handleCheckboxChange}
-              />
-              <label className="fhs-checkbox">
-                Đổi mật khẩu <span class="checkmark"></span>
-              </label>
-            </div>
-            {this.state.changePassword && (
-              <>
-                <div className="password col-6">
-                  <label>Current Password</label>
-                  <input
-                    className="form-control"
-                    type="password"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "password");
-                    }}
-                    value={this.state.password}
-                  />
+            {this.state.activeTab === "personalInfo" && (
+              <div className="infor-user">
+                <h1>Thông tin cá nhân</h1>
+                <div className="more-infor row">
+                  <div className="email col-6">
+                    <label>Email</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "email");
+                      }}
+                      value={this.state.email}
+                    />
+                  </div>
+                  <div className="firstName col-6">
+                    <label>FisrtName</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "firstName");
+                      }}
+                      value={this.state.firstName}
+                    />
+                  </div>
+                  <div className="lastName col-6">
+                    <label>LastName</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "lastName");
+                      }}
+                      value={this.state.lastName}
+                    />
+                  </div>
+                  <div className="phonenumber  col-6">
+                    <label>Phone number </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "phonenumber");
+                      }}
+                      value={this.state.phonenumber}
+                    />
+                  </div>
+                  <div className="address col-6">
+                    <label>Address</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "address");
+                      }}
+                      value={this.state.address}
+                    />
+                  </div>
+                  <div className="gender  col-6">
+                    <label>Gender</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "gender");
+                      }}
+                      value={this.state.gender}
+                    />
+                  </div>
                 </div>
-                <div className="newPassword col-6">
-                  <label>New Password</label>
+                <div className="changePassword">
                   <input
-                    className="form-control"
-                    type="password"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "newPassword");
-                    }}
-                    value={this.state.newPassword}
+                    type="checkbox"
+                    name="change_password"
+                    id="change_password"
+                    value="1"
+                    title="Đổi mật khẩu"
+                    onChange={this.handleCheckboxChange}
                   />
+                  <label className="fhs-checkbox">
+                    Đổi mật khẩu <span class="checkmark"></span>
+                  </label>
                 </div>
-                <div className="confirmPassword col-6">
-                  <label>Confirm Password</label>
-                  <input
-                    className="form-control"
-                    type="password"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "confirmPassword");
-                    }}
-                    value={this.state.confirmPassword}
-                  />
-                </div>
-              </>
+                {this.state.changePassword && (
+                  <div className="password-container">
+                    <div className="password col-6">
+                      <label>Current Password</label>
+                      <input
+                        className="form-control"
+                        type="password"
+                        onChange={(event) => {
+                          this.handleOnChangeInput(event, "password");
+                        }}
+                        value={this.state.password}
+                      />
+                    </div>
+                    <div className="newPassword col-6">
+                      <label>New Password</label>
+                      <input
+                        className="form-control"
+                        type="password"
+                        onChange={(event) => {
+                          this.handleOnChangeInput(event, "newPassword");
+                        }}
+                        value={this.state.newPassword}
+                      />
+                    </div>
+                    <div className="confirmPassword col-6">
+                      <label>Confirm Password</label>
+                      <input
+                        className="form-control"
+                        type="password"
+                        onChange={(event) => {
+                          this.handleOnChangeInput(event, "confirmPassword");
+                        }}
+                        value={this.state.confirmPassword}
+                      />
+                    </div>
+                  </div>
+                )}
+                <button
+                  className="button-save"
+                  type="submit"
+                  onClick={this.handleButtonClick}
+                >
+                  {this.state.changePassword ? "Save" : "Save"}
+                </button>
+              </div>
             )}
-            <button
-              className="button-edit"
-              type="submit"
-              onClick={this.handleButtonClick}
-            >
-              {this.state.changePassword ? "Save" : "Save"}
-            </button>
+            {this.state.activeTab === "myCourses" && (
+              <div className="infor-courses">
+                <h1>Khoá Học Của Tôi</h1>
+                <div className="item-content">
+                  <div className="video-content">Video</div>
+                  <div className="name-content">Name</div>
+                  <div className="comment-content">Comment</div>
+                </div>
+              </div>
+            )}
+            {this.state.activeTab === "myComments" && (
+              <div className="commments" onClick={this.showMyComments}>
+                <h1>Comments</h1>
+              </div>
+            )}
           </div>
         </div>
       </>

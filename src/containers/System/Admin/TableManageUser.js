@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
@@ -19,7 +18,7 @@ function handleEditorChange({ html, text }) {
   console.log("handleEditorChange", html, text);
 }
 
-class TableManageUser extends Component { 
+class TableManageUser extends Component {
   constructor(props) {
     super(props);
     this.state = {

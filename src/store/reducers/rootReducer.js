@@ -27,17 +27,18 @@ const appPersistConfig = {
   whitelist: ["language"],
 };
 
-const adminPersistConfig = {
-  ...persistCommonConfig,
-  key: "admin",
-  whitelist: ["language"],
-};
+// const adminPersistConfig = {
+//   ...persistCommonConfig,
+//   key: "admin",
+//   whitelist: ["language"],
+// };
 const cartPersistConfig = {
   ...persistCommonConfig,
   key: "cart",
   whitelist: ["Carts"],
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (history) =>
   combineReducers({
     router: connectRouter(history),

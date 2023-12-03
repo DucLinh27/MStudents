@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./RemedyModal.scss";
-import { FormattedMessage } from "react-intl";
-import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, Button } from "reactstrap";
 import _ from "lodash";
-import { toast } from "react-toastify";
-import moment from "moment";
-import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
+import { CommonUtils } from "../../../utils";
 
 class RemedyModal extends Component {
   constructor(props) {

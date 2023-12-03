@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
 import HomeHeader from "../HomePage/HomeHeader";
 import "./Order.scss";
 import Checkout from "../HomePage/Section/Checkout";

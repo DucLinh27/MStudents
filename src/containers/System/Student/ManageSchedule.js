@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect, Route, Switch } from "react-router-dom";
 import "./ManageSchedule.scss";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import * as actions from "../../../store/actions";
-import { LANGUAGES, dateFormat } from "../../../utils";
+import { LANGUAGES } from "../../../utils";
 import DatePicker from "../../../components/Input/DatePicker";
-import moment from "moment";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { saveBulkScheduleTeacher } from "../../../services/userService";
@@ -36,10 +34,6 @@ class ManageSchedule extends Component {
     if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
       let data = this.props.allScheduleTime;
       if (data && data.length > 0) {
-        // data.map((item, index) => {
-        //   item.isSelected = false;
-        //   return item;
-        // });
         data = data.map((item, index) => ({ ...item, isSelected: false }));
       }
 
@@ -96,7 +90,6 @@ class ManageSchedule extends Component {
       toast.error("Invalid selected doctor!");
       return;
     }
-    // let formatDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
     let formatedDate = new Date(currentDate).getTime();
 
     if (rangeTime && rangeTime.length > 0) {

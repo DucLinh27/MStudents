@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DetailCourses.scss";
-import { FormattedMessage } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
 import HomeFooter from "../../HomePage/HomeFooter";
-import { withRouter } from "react-router";
 import { getDetailCoursesById } from "../../../services/userService";
 import _ from "lodash";
-import { LANGUAGES } from "../../../utils";
 import imglearn from "../../../assets/imglearn.jpg";
 import * as actions from "../../../store/actions";
 import CartItem from "../../Cart/CartItem";

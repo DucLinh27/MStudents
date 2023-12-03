@@ -1,6 +1,8 @@
 export const path = {
   HOME: "/",
   HOMEPAGE: "/home",
+  ABOUT: "/about",
+  BLOG: "/blog",
   LOGIN: "/login",
   REGISTER: "/register",
   LOG_OUT: "/logout",
@@ -8,6 +10,8 @@ export const path = {
   DETAIL_DOCTOR: "/detail-doctor/:id",
   VERIFY_EMAIL_BOOKING: "/verify-booking",
   DETAIL_COURSES: "/detail-courses/:id",
+  ALL_COURSES: "/allcourses",
+  ALL_TEACHER: "/allteacher",
   DETAIL_CLASSES: "/detail-classes/:id",
   ORDER: "/order",
   CART: "/cart",

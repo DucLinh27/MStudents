@@ -20,9 +20,14 @@ class Courses extends Component {
       this.setState({ dataSpecialty: res.data ? res.data : [] });
     }
   }
-  handleDetailSpecialty = (item) => {
+  handleDetailCourses = (item) => {
     if (this.props.history) {
       this.props.history.push(`/detail-courses/${item.id}`);
+    }
+  };
+  handleAllCourses = () => {
+    if (this.props.history) {
+      this.props.history.push(`/allcourses`);
     }
   };
   render() {
@@ -43,7 +48,7 @@ class Courses extends Component {
                     <div
                       className="section-customize specialty-child"
                       key={index}
-                      onClick={() => this.handleDetailSpecialty(item)}
+                      onClick={() => this.handleDetailCourses(item)}
                     >
                       <div
                         className="bg-image section-specialty"
@@ -68,9 +73,13 @@ class Courses extends Component {
           </div>
         </div>
         <div className="button_content">
-          <a href="/allcourses" className="button_courses">
+          <button
+            className="button_courses"
+            type="submit"
+            onClick={() => this.handleAllCourses()}
+          >
             EXPLORE ALL COURSES
-          </a>
+          </button>
         </div>
       </div>
     );

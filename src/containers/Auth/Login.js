@@ -5,8 +5,9 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
 import { FormattedMessage } from "react-intl";
-// import { userService } from '../../services/userService';
 import { handleLoginApi } from "../../services/userService";
+import LoginGoogleButton from "./LoginGoogleButton";
+// import { GoogleLogin } from "react-google-login";
 
 class Login extends Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class Login extends Component {
         });
       }
       if (data && data.errCode === 0) {
+        // Store the JWT in localStorage
+        localStorage.setItem("token", data.token);
+
         this.props.userLoginSuccess(data.user);
         console.log("loging success");
       }
@@ -76,7 +80,11 @@ class Login extends Component {
       this.props.history.push(`/register`);
     }
   };
-
+  responseGoogle = (response) => {
+    console.log(response);
+    // You can access the Google Id Token as response.tokenId
+    // You can also access the user's profile information as response.profileObj
+  };
   render() {
     return (
       <div className="login-background">
@@ -141,10 +149,17 @@ class Login extends Component {
             </div>
             <div className="col-12 social-login">
               <i className="fab fa-facebook social-icon fb"></i>
+              {/* <GoogleLogin
+                clientId="yourClientId"
+                buttonText="Login with Google"
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseGoogle}
+              /> */}
               <i className="fab fa-google-plus social-icon gg"></i>
             </div>
           </div>
         </div>
+        <LoginGoogleButton />
       </div>
     );
   }
