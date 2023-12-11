@@ -36,6 +36,11 @@ class HomeHeader extends Component {
       this.props.history.push(`/blog`);
     }
   };
+  handleCoursesPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/allcourses`);
+    }
+  };
   returnDetailUser = (doctor) => {
     if (this.props.history) {
       this.props.history.push(`/profile`);
@@ -98,7 +103,7 @@ class HomeHeader extends Component {
               </div>
               <div className="child-content">
                 <div>
-                  <b>
+                  <b onClick={() => this.handleCoursesPage()}>
                     <FormattedMessage id="home-header.courses" />
                   </b>
                 </div>

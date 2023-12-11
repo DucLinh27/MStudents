@@ -7,7 +7,7 @@ import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import "./ManageTeacher.scss";
 import Select from "react-select";
-import { CRUD_ACTIONS } from "../../../utils";
+import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
 import { getDetailInforTeacher } from "../../../services/userService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -42,40 +42,39 @@ class ManageTeacher extends Component {
     this.props.fetchAllDoctors();
     this.props.getAllRequiredDoctorInfor();
   }
-  // buildDataInputSelect = (inputData, type) => {
-  //   let result = [];
-  //   let { language } = this.props;
-  //   if (inputData && inputData.length > 0) {
-  //     if (type === "USERS") {
-  //       inputData.map((item, index) => {
-  //         let object = {};
-  //         let labelVi = `${item.lastName} ${item.firstName}`;
-  //         let labelEn = `${item.firstName} ${item.lastName} `;
-  //         object.label = language === LANGUAGES.VI ? labelVi : labelEn;
-  //         object.value = item.id;
-  //         result.push(object);
-  //       });
-  //     }
-  //     if (type === "SPECIALTY") {
-  //       inputData.map((item, index) => {
-  //         let object = {};
-  //         object.label = item.name;
-  //         object.value = item.id;
-  //         result.push(object);
-  //       });
-  //     }
-  //     if (type === "CLINIC") {
-  //       inputData.map((item, index) => {
-  //         let object = {};
-  //         object.label = item.name;
-  //         object.value = item.id;
-  //         result.push(object);
-  //       });
-  //     }
-  //   }
-
-  //   return result;
-  // };
+  buildDataInputSelect = (inputData, type) => {
+    let result = [];
+    let { language } = this.props;
+    if (inputData && inputData.length > 0) {
+      if (type === "USERS") {
+        inputData.map((item, index) => {
+          let object = {};
+          let labelVi = `${item.lastName} ${item.firstName}`;
+          let labelEn = `${item.firstName} ${item.lastName} `;
+          object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+          object.value = item.id;
+          result.push(object);
+        });
+      }
+      if (type === "SPECIALTY") {
+        inputData.map((item, index) => {
+          let object = {};
+          object.label = item.name;
+          object.value = item.id;
+          result.push(object);
+        });
+      }
+      if (type === "CLINIC") {
+        inputData.map((item, index) => {
+          let object = {};
+          object.label = item.name;
+          object.value = item.id;
+          result.push(object);
+        });
+      }
+    }
+    return result;
+  };
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.allDoctors !== this.props.allDoctors) {
       let dataSelect = this.buildDataInputSelect(
