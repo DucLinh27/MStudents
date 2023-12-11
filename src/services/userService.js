@@ -2,6 +2,7 @@ import db from "../models/index";
 import bcrypt from "bcryptjs";
 import { getRoles } from "./JWTService";
 const salt = bcrypt.genSaltSync(10);
+
 let hashUserPassword = (password) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -48,9 +49,6 @@ let handleUserLogin = (email, password) => {
           if (check) {
             userData.errCode = 0;
             userData.errMessage = "OK";
-            userData.DT = {
-              access_token: "",
-            };
 
             delete user.password;
             userData.user = user;
@@ -67,6 +65,7 @@ let handleUserLogin = (email, password) => {
         userData.errCode = 1;
         userData.errMessage = `Your's Email isn't exist in our system, plz try other email`;
       }
+
       resolve(userData);
       await getRoles(userData);
     } catch (e) {
@@ -74,7 +73,6 @@ let handleUserLogin = (email, password) => {
     }
   });
 };
-
 let checkUserEmail = (userEmail) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -111,7 +109,6 @@ let changePassword = async (userId, oldPassword, newPassword) => {
 
   return user;
 };
-
 let getAllUsers = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -140,6 +137,8 @@ let getAllUsers = (userId) => {
 let createNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log("Cookies: ", req.cookies);
+      res.cookie("Signed Cookies: ", "test coookie");
       //check if email already exists
       let check = await checkUserEmail(data.email);
       if (check === true) {
@@ -251,7 +250,6 @@ let updateUser = async (data) => {
         if (data.avatar) {
           user.image = data.avatar;
         }
-
         await user.save();
         resolve({
           errCode: 0,

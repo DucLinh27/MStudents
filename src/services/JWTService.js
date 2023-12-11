@@ -1,12 +1,13 @@
 import db from "../models/index";
 
-const getGroupWithRole = async (email) => {
-  let roles = await db.Allcode.findOne({
-    where: { id: Allcode.roleId },
-    include: [{ model: db.User }],
+const getUserWithRole = async (email) => {
+  let user = await db.User.findOne({
+    where: { email: email },
+    include: [{ model: db.Allcode, as: "Role" }], // 'Role' is the alias you've defined for the association
   });
-  console.log("check roles" + roles);
+  console.log("User with role: ", user);
 };
+
 module.exports = {
-  getGroupWithRole,
+  getUserWithRole,
 };

@@ -1,8 +1,7 @@
 require("dotenv").config();
 import jwt from "jsonwebtoken";
 
-const createJWT = () => {
-  let payload = { name: "Linh", address: "Hue" };
+const createJWT = (payload) => {
   let key = process.env.JWT_SECRET;
   let token = null;
   try {
@@ -25,4 +24,20 @@ const verifyToken = (token) => {
   }
   return data;
 };
-module.exports = { createJWT, verifyToken };
+
+const authMiddleware = (req, res, next, payload) => {
+  const token = createJWT(req.header("Authorization"), payload);
+
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const decoded = jwt.verify(token.replace("Bearer ", ""), secretKey);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid token" });
+  }
+};
+module.exports = { createJWT, verifyToken, authMiddleware };

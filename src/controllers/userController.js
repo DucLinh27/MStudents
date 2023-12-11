@@ -1,4 +1,9 @@
 import userService from "../services/userService";
+const JWT = require("jsonwebtoken");
+import { getUserWithRole } from "../services/JWTService";
+import { createJWT, verifyToken } from "../middleware/JWTAction";
+import cache from "memory-cache";
+require("dotenv").config();
 
 let handleLoging = async (req, res) => {
   let email = req.body.email;
@@ -11,10 +16,22 @@ let handleLoging = async (req, res) => {
     });
   }
   let userData = await userService.handleUserLogin(email, password);
+
+  let userWithRole = await getUserWithRole(userData.user.email);
+  let payload = {
+    email: userData.user.email,
+    userWithRole,
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  };
+  let token = createJWT(payload);
+  res.cookie("jwt", token, { maxAge: 900000, httpOnly: true });
+  console.log("token", req.cookies.jwt);
   return res.status(200).json({
     errCode: userData.errCode,
     message: userData.errMessage,
     user: userData.user ? userData.user : {},
+    token,
+    userWithRole,
   });
 };
 // userController.js
@@ -62,6 +79,8 @@ let handleGetAllUsers = async (req, res) => {
     });
   }
   let users = await userService.getAllUsers(id);
+  cache.clear();
+
   return res.status(200).json({
     errCode: 0,
     errMessage: "Ok",

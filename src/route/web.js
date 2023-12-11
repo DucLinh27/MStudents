@@ -7,9 +7,10 @@ import coursesController from "../controllers/coursesController";
 import classesController from "../controllers/classesController";
 import orderController from "../controllers/orderController";
 import paymentController from "../controllers/paymentController";
-
+import { verify } from "jsonwebtoken";
+import { authMiddleware } from "../middleware/JWTAction";
 let router = express.Router();
-
+import cacheMiddleware from "../middleware/cacheMiddleware";
 let initWebRoutes = (app) => {
   router.get("/", homeController.getHomePage);
   router.get("/about", homeController.getAboutPage);
@@ -19,83 +20,153 @@ let initWebRoutes = (app) => {
   router.get("/edit-crud", homeController.getEditCRUD);
   router.post("/put-crud", homeController.putCRUD);
   router.get("/delete-crud", homeController.deleteCRUD);
-
   //userController
   router.post("/api/login", userController.handleLoging);
-  router.get("/api/get-all-users", userController.handleGetAllUsers);
-  router.post("/api/create-new-user", userController.handleCreateNewUser);
   router.post("/api/registerNewUser", userController.handleRegisterNewUser);
-  router.post("/api/change-password", userController.changePasswordService);
 
-  router.put("/api/edit-user", userController.handleEditUser);
-  router.delete("/api/delete-user", userController.handleDeleteUser); //restApi
-  router.get("/api/allcode", userController.getAllCode);
+  //User
+  router.get(
+    "/api/get-all-users",
+    cacheMiddleware(300),
+    authMiddleware,
+    userController.handleGetAllUsers
+  );
+  router.post(
+    "/api/create-new-user",
+    authMiddleware,
+    userController.handleCreateNewUser
+  );
+  router.post(
+    "/api/change-password",
+    authMiddleware,
+    userController.changePasswordService
+  );
+  router.put("/api/edit-user", authMiddleware, userController.handleEditUser);
+  router.delete(
+    "/api/delete-user",
+    authMiddleware,
+    userController.handleDeleteUser
+  );
+  //restApi
+  router.get("/api/allcode", authMiddleware, userController.getAllCode);
 
-  //doctorController
-  router.get("/api/top-doctor-home", teacherController.getTopTeacherHome);
-  router.get("/api/get-all-doctors", teacherController.getAllTeachers);
-  router.post("/api/save-infor-doctors", teacherController.postInforTeacher);
+  //teacherController
+  router.get(
+    "/api/top-doctor-home",
+    authMiddleware,
+    teacherController.getTopTeacherHome
+  );
+  router.get(
+    "/api/get-all-doctors",
+    cacheMiddleware(300),
+    authMiddleware,
+    teacherController.getAllTeachers
+  );
+  router.post(
+    "/api/save-infor-doctors",
+    authMiddleware,
+    teacherController.postInforTeacher
+  );
   router.get(
     "/api/get-detail-doctor-by-id",
+    authMiddleware,
     teacherController.getDetailTeacherById
   );
   router.post(
     "/api/bulk-create-schedule",
+    authMiddleware,
     teacherController.bulkCreateSchedule
   );
   router.get(
     "/api/get-schedule-doctor-by-date",
+    authMiddleware,
     teacherController.getScheduleByDate
   );
   router.get(
     "/api/get-extra-infor-doctor-by-id",
+    authMiddleware,
     teacherController.getExtraInforTeacherById
   );
   router.get(
     "/api/get-profile-doctor-by-id",
+    authMiddleware,
     teacherController.getProfileTeacherById
   );
   router.get(
     "/api/get-list-patient-for-doctor",
+    authMiddleware,
     teacherController.getListPatientForTeacher
   );
-  router.post("/api/send-remedy", teacherController.sendRemedy);
+  router.post("/api/send-remedy", authMiddleware, teacherController.sendRemedy);
 
-  //patientController
+  //StudentController
   router.post(
     "/api/patient-book-appointment",
+    authMiddleware,
     studentController.postBookAppointment
   );
   router.post(
     "/api/verify-book-appointment",
+    authMiddleware,
     studentController.postVerifyBookAppointment
   );
 
-  //specialtyController
-  router.post("/api/create-new-courses", coursesController.createCourses);
-  router.get("/api/get-all-courses", coursesController.getAllCourses);
+  //CoursesController
+  router.post(
+    "/api/create-new-courses",
+    authMiddleware,
+    coursesController.createCourses
+  );
+  router.get(
+    "/api/get-all-courses",
+    cacheMiddleware(300),
+    authMiddleware,
+    coursesController.getAllCourses
+  );
   router.get(
     "/api/get-detail-courses-by-id",
+    authMiddleware,
     coursesController.getDetailCoursesById
   );
 
   //classesController
-  router.post("/api/create-new-classes", classesController.createClasses);
-  router.get("/api/get-classes", classesController.getAllClasses);
+  router.post(
+    "/api/create-new-classes",
+    authMiddleware,
+    classesController.createClasses
+  );
+  router.get(
+    "/api/get-classes",
+    authMiddleware,
+    classesController.getAllClasses
+  );
   router.get(
     "/api/get-detail-classes-by-id",
+    authMiddleware,
     classesController.getDetailClassesById
   );
 
   //order
-  router.post("/api/create-order", orderController.createOrder);
-  router.get("/api/get-order", orderController.getOrder);
-  router.put("/api/edit-order", orderController.editOrder);
-  router.delete("/api/delete-order", orderController.deleteOrder);
+  router.post("/api/create-order", authMiddleware, orderController.createOrder);
+  router.get("/api/get-order", authMiddleware, orderController.getOrder);
+  router.put("/api/edit-order", authMiddleware, orderController.editOrder);
+  router.delete(
+    "/api/delete-order",
+    authMiddleware,
+    orderController.deleteOrder
+  );
 
   //payment
-  router.post("/create_payment_url", paymentController.create_payment_url);
-  router.get("/vnp_return", paymentController.get_payment_return);
+  router.post(
+    "/create_payment_url",
+    authMiddleware,
+    paymentController.create_payment_url
+  );
+  router.get(
+    "/vnp_return",
+    authMiddleware,
+    paymentController.get_payment_return
+  );
 
   return app.use("/", router);
 };

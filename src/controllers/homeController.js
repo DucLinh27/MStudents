@@ -18,6 +18,8 @@ let getAboutPage = (req, res) => {
 };
 
 let getCRUD = (req, res) => {
+  console.log("Cookies: ", req.cookies);
+  res.cookie("user", "nguyen van a"); 
   return res.render("crud.ejs");
 };
 
