@@ -4,15 +4,17 @@ import { connect } from "react-redux";
 class HomeFooter extends Component {
   render() {
     return (
-      <div className="homeFooter ">
-        <p>
-          &copy; 2023 Bookingcare.com.
-          More information, pls visit my youtube channel. 
-          <a target="_blank" href="https://www.facebook.com/">
-            &#8594; Click here
-            &#8592;
-          </a>
-        </p>
+      <div className="footer-container">
+        <div className="footer-content">
+          <div className="logo-footer row">
+            <div>Home</div>
+            <div>About</div>
+            <div>Courses</div>
+            <div>Blog</div>
+            <div>Contact</div>
+          </div>
+          <div className="contact-footer">© 2022 Company, Inc</div>
+        </div>
       </div>
     );
   }

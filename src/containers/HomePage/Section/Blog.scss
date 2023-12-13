@@ -1,18 +1,35 @@
-.allcourses-container {
-  margin-top: 100px;
-  .section-header {
-    text-align: center;
-    font-weight: 900;
-  }
-  .section-body {
-    margin: 0 150px;
-    .item-courses {
-      margin-right: 90px;
-      .bg-image {
-        width: 550px;
-        height: 300px;
-        border-radius: 10px;
-      }
+.blog-container {
+  height: 550px;
+  margin: 0 160px;
+  .left-content {
+    margin: auto;
+    margin-top: 150px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 20px;
+    h1 {
+      color: #0f437f;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.289em;
     }
+    p {
+      line-height: 34px;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: #8c97aa;
+    }
+  }
+  .right-contents {
+    background: url("../../../assets/teaching-kids.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    flex-direction: column;
+    border-radius: 10px;
+    height: 400px;
+    margin: auto;
   }
 }

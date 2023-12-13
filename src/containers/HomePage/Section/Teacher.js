@@ -92,7 +92,7 @@ class AllTeacher extends Component {
           <div className="button_content">
             <buton
               href="/allteacher"
-              className="button_courses"
+              className="button_courses btn btn-primary"
               type="submit"
               onClick={() => this.handleAllCourses()}
             >

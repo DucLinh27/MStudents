@@ -9,6 +9,8 @@ import OutStandingDoctor from "./Section/Teacher";
 
 import About from "./Section/About";
 import HomeFooter from "./HomeFooter";
+import Teacher from "./Section/Teacher";
+import Blog from "./Section/Blog";
 class HomePage extends Component {
   // handleAfterChange = (index, dontAnimate) => {
 
@@ -18,7 +20,7 @@ class HomePage extends Component {
       dots: false,
       infinite: false,
       speed: 500,
-      slidesToShow: 2,
+      slidesToShow: 3,
       slidesToScroll: 1,
       // slickGoTo: this.handleAfterChange
     };
@@ -34,8 +36,9 @@ class HomePage extends Component {
     return (
       <div>
         <HomeHeader isShowBanner={true} />
+        <Blog />
         <Courses settings={settings} />
-        <OutStandingDoctor settings={settings2} />
+        <Teacher settings={settings2} />
         <HomeFooter settings={settings} />
       </div>
     );

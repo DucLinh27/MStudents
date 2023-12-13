@@ -20,24 +20,19 @@ class Courses extends Component {
       this.setState({ dataSpecialty: res.data ? res.data : [] });
     }
   }
-  handleDetailCourses = (item) => {
+  handleDetailSpecialty = (item) => {
     if (this.props.history) {
       this.props.history.push(`/detail-courses/${item.id}`);
-    }
-  };
-  handleAllCourses = () => {
-    if (this.props.history) {
-      this.props.history.push(`/allcourses`);
     }
   };
   render() {
     let { dataSpecialty } = this.state;
     console.log("data", dataSpecialty);
     return (
-      <div className="section-share section-specialty">
+      <div className="section-share section-specialtys">
         <div className="section-container">
           <div className="section-header">
-            <h2 className="title-section">Browse our popular courses</h2>
+            <h2 className="title-section">Popular courses</h2>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>
@@ -48,7 +43,7 @@ class Courses extends Component {
                     <div
                       className="section-customize specialty-child"
                       key={index}
-                      onClick={() => this.handleDetailCourses(item)}
+                      onClick={() => this.handleDetailSpecialty(item)}
                     >
                       <div
                         className="bg-image section-specialty"
@@ -73,13 +68,9 @@ class Courses extends Component {
           </div>
         </div>
         <div className="button_content">
-          <button
-            className="button_courses"
-            type="submit"
-            onClick={() => this.handleAllCourses()}
-          >
+          <a href="/allcourses" className="button_courses">
             EXPLORE ALL COURSES
-          </button>
+          </a>
         </div>
       </div>
     );

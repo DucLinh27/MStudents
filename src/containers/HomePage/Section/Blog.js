@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "./Blog.scss";
 import { withRouter } from "react-router";
 import HomeHeader from "../HomeHeader";
-
+import { kids_on_tablets_in_class } from "../../../assets/kids_on_tablets_in_class.jpg";
 class Blog extends Component {
   constructor(props) {
     super(props);
@@ -32,39 +32,17 @@ class Blog extends Component {
     return (
       <>
         <HomeHeader />
-        <div className="allcourses-container">
-          <div className="section-header">
-            <h1 className="title-section">Blog</h1>
+        <div className="blog-container row">
+          <div className="left-content col-6">
+            <h1>Apply now, start at interhigh this september</h1>
+            <p>
+              A very warm welcome to Our School. We are a Co-Educational
+              Independent Day School. We value the uniqueness of each individual
+              and therefore we also welcome children of all faiths and cultures.
+            </p>
+            <button className="btn btn-primary">Apply Now</button>
           </div>
-          <div className="section-body row">
-            {dataSpecialty &&
-              dataSpecialty.length > 0 &&
-              dataSpecialty.map((item, index) => {
-                return (
-                  <div className="item-courses col-5" key={index}>
-                    <div
-                      className="bg-image"
-                      onClick={() => this.handleDetailSpecialty(item)}
-                      style={{
-                        backgroundImage: `url(${item.image})`,
-                      }}
-                    ></div>
-                    <div className="section-item">
-                      <div
-                        className="specialty-name"
-                        onClick={() => this.handleDetailSpecialty(item)}
-                      >
-                        {item.name}
-                      </div>
-                      <div className="specialty-subname">
-                        {item.descriptionMarkdown}
-                      </div>
-                      <div className="specialty-avatar">NAME TEACHER</div>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+          <div className="right-contents col-6"></div>
         </div>
       </>
     );
