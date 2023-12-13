@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import logoeducation from "../../assets/logoeducation.svg";
+import backgroundenglish from "../../assets/backgroundenglish.png";
+
 import { LANGUAGES } from "../../utils/constant";
 import { changeLanguageApp } from "../../store/actions";
 import { FormattedMessage } from "react-intl";
@@ -203,24 +205,13 @@ class HomeHeader extends Component {
         {this.props.isShowBanner === true && (
           <div className="home-header-banner">
             <div className="content-up row">
-              <div className="content-left col-7 ">
-                <div className="content-home">
-                  <h1>Grow your skills, define your future</h1>
-                  <p>
-                    Presenting Academy, the tech school of the future. We teach
-                    you the right skills to be prepared for tomorrow.
-                  </p>
-                  <div className="button_content">
-                    <a href="/courses" className="button_courses">
-                      EXPLORE COURSES
-                    </a>
-                    <a href="/more" className="button_more">
-                      LEARN MORE
-                    </a>
-                  </div>
-                </div>
+              <div className="content-background">
+                <p>Start Online Education</p>
+                <h1>
+                  Free Online education template for elearning and online
+                  education institute.
+                </h1>
               </div>
-              <div className="content-right col-5"></div>
             </div>
           </div>
         )}

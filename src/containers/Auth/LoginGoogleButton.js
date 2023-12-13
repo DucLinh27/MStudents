@@ -1,19 +1,21 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 function LoginGoogleButton() {
   const history = useHistory();
+  const [user, setUser] = useState(null);
   const handleLogin = async (user) => {
     try {
       // Replace with your API endpoint
       const response = await axios.post(
-        "http://localhost:8080/api/login",
+        "http://localhost:8080/api/users",
         user
       );
       console.log(response.data);
+      setUser(user);
     } catch (error) {
       console.error(error);
     }
@@ -27,12 +29,18 @@ function LoginGoogleButton() {
           console.log(credentialResponse);
           console.log(decode);
           handleLogin(decode);
-          history.push("/Home");
+          history.push("/home");
         }}
         onError={() => {
           console.log("Login Failed");
         }}
       />
+      {user && (
+        <div className="header">
+          <h1>Welcome, {user.name}!</h1>
+          <p>Your email: {user.email}</p>
+        </div>
+      )}
     </GoogleOAuthProvider>
   );
 }
