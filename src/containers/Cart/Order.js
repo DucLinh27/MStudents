@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "../HomePage/HomeHeader";
 import "./Order.scss";
-import Checkout from "../HomePage/Section/Checkout";
 import { createOrderService } from "../../services/orderService";
+import HomeFooter from "../HomePage/HomeFooter";
 
 class Order extends Component {
   constructor(props) {
@@ -61,6 +61,15 @@ class Order extends Component {
     });
   };
 
+  handleCart = () => {
+    if (this.props.history) {
+      this.props.history.push(`/cart`);
+    }
+  };
+  handleConfirm = (event) => {
+    event.preventDefault();
+    this.props.onSubmit();
+  };
   render() {
     console.log(this.state.payment);
     let { cart } = this.state;
@@ -113,6 +122,7 @@ class Order extends Component {
             </form>
           </div>
           <div className="payment-container">
+            <h3>Phương thức thanh toán</h3>
             <select
               className="payment"
               value={this.state.payment}
@@ -153,8 +163,36 @@ class Order extends Component {
                 </div>
               ))}
           </div>
+          <div className="content-checkout">
+            <div className="top-content ">
+              <div className="price d-flex">
+                <div className="mr-5">Thành tiền</div>
+                <div>{this.props.totalPrice} VNĐ</div>
+              </div>
+              <div className="total d-flex">
+                <div className="mr-5">Tổng Số Tiền (gồm VAT)</div>
+                <div>{this.props.totalPrice} VNĐ</div>
+              </div>
+            </div>
+            <div className="bottom-content d-flex">
+              <div
+                className="back-cart d-flex"
+                onClick={() => this.handleCart()}
+              >
+                <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
+                <div>Quay về giỏ hàng</div>
+              </div>
+              <button
+                className="confirm"
+                onClick={(event) => this.handleConfirm(event)}
+              >
+                Xác nhận Thanh Toán
+              </button>
+            </div>
+          </div>
         </div>
-        <Checkout totalPrice={totalPrice} onSubmit={this.handleSubmit} />
+        <HomeFooter />
+        {/* <Checkout totalPrice={totalPrice} onSubmit={this.handleSubmit} /> */}
       </>
     );
   }

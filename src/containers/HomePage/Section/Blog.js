@@ -31,7 +31,6 @@ class Blog extends Component {
     console.log("data", dataSpecialty);
     return (
       <>
-        <HomeHeader />
         <div className="blog-container row">
           <div className="left-content col-6">
             <h1>Apply now, start at interhigh this september</h1>
@@ -40,7 +39,11 @@ class Blog extends Component {
               Independent Day School. We value the uniqueness of each individual
               and therefore we also welcome children of all faiths and cultures.
             </p>
-            <button className="btn btn-primary">Apply Now</button>
+            <div className="button_contents">
+              <a href="/allcourses" className="button_courses">
+                Apply Now
+              </a>
+            </div>
           </div>
           <div className="right-contents col-6"></div>
         </div>

@@ -86,20 +86,15 @@ class CartItem extends Component {
             <ModalBody>
               <div className="modal-courses-body">
                 <div className="cart-item">
-                  {/* Display specialty details */}
-                  <div className="item-details">
-                    <div className="item-name">
-                      Name: {dataDetailCourse.name}
-                    </div>
-                    <div
-                      className="item-image"
-                      style={{
-                        backgroundImage: `url(${dataDetailCourse.image})`,
-                      }}
-                    ></div>
-                    <div className="item-price">
-                      Price: {dataDetailCourse.price}
-                    </div>
+                  <div className="item-name">Name: {dataDetailCourse.name}</div>
+                  <div
+                    className="item-image"
+                    style={{
+                      backgroundImage: `url(${dataDetailCourse.image})`,
+                    }}
+                  ></div>
+                  <div className="item-price">
+                    Price: {dataDetailCourse.price}
                   </div>
                 </div>
               </div>

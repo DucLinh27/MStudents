@@ -32,7 +32,11 @@ class Courses extends Component {
       <div className="section-share section-specialtys">
         <div className="section-container">
           <div className="section-header">
-            <h2 className="title-section">Popular courses</h2>
+            <h2 className="title-section">NEW COURSES</h2>
+            <p>
+              Presenting Academy, the tech school of the future. We teach you
+              the right skills to be prepared for tomorrow.
+            </p>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>

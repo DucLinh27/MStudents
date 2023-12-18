@@ -79,26 +79,39 @@ tr:nth-child(even) {
 
 //CartItem
 .modal-courses-containers {
-  width: 400px;
+  width: 450px;
   .modal-content {
     .modal-header {
       button {
         background-color: transparent !important;
         border: none;
         color: white;
-        font-size: 27px;
+        font-size: 27px; 
       }
     }
   }
   .modal-courses-body {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
-    margin-left: 85px;
-    .item-image {
-      width: 200px;
-      height: 200px;
-      border-radius: 10px;
+    .cart-item {
+      margin-left: 25px;
+      .item-name {
+        font-size: 20px;
+        font-weight: 600;
+        padding-bottom: 20px;
+      }
+
+      .item-image {
+        width: 370px;
+        height: 300px;
+        border-radius: 10px;
+      }
+      .item-price {
+        padding-top: 20px;
+
+        font-size: 20px;
+        font-weight: 600;
+      }
     }
   }
 }

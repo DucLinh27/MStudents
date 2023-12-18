@@ -14,9 +14,6 @@ import {
 } from "../../services/userService";
 import { getOrderService, editOrderService } from "../../services/orderService";
 import { toast } from "react-toastify";
-// export const fetchGenderStart = () => ({
-//     type: actionTypes.FETCH_GENDER_START,
-// })
 
 export const fetchGenderStart = () => {
   return async (dispatch, getState) => {
@@ -62,7 +59,6 @@ export const fetchPositionSuccess = (positionData) => ({
   type: actionTypes.FETCH_POSITION_SUCCESS,
   data: positionData,
 });
-
 export const fetchPositionFaided = () => ({
   type: actionTypes.FETCH_POSITION_FAIDED,
 });
@@ -86,7 +82,6 @@ export const fetchRoleSuccess = (roleData) => ({
   type: actionTypes.FETCH_ROLE_SUCCESS,
   data: roleData,
 });
-
 export const fetchRoleFaided = () => ({
   type: actionTypes.FETCH_ROLE_FAIDED,
 });

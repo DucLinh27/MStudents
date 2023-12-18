@@ -8,7 +8,10 @@ export const userLoginSuccess = (userInfo) => ({
   type: actionTypes.USER_LOGIN_SUCCESS,
   userInfo: userInfo,
 });
-
+export const setUser = (user) => ({
+  type: actionTypes.SET_USER,
+  payload: user,
+});
 export const userLoginFail = () => ({
   type: actionTypes.USER_LOGIN_FAIL,
 });

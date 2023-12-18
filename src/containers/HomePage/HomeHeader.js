@@ -3,13 +3,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import logoeducation from "../../assets/logoeducation.svg";
-import backgroundenglish from "../../assets/backgroundenglish.png";
-
 import { LANGUAGES } from "../../utils/constant";
 import { changeLanguageApp } from "../../store/actions";
 import { FormattedMessage } from "react-intl";
 import { withRouter } from "react-router";
 import * as actions from "../../store/actions";
+import { useSelector } from "react-redux";
 
 class HomeHeader extends Component {
   constructor(props) {
@@ -33,6 +32,7 @@ class HomeHeader extends Component {
       this.props.history.push(`/about`);
     }
   };
+
   handleBlogPage = () => {
     if (this.props.history) {
       this.props.history.push(`/blog`);
@@ -50,13 +50,13 @@ class HomeHeader extends Component {
   };
   componentDidMount() {
     this.checkIfDetailPage();
+    console.log(this.props.user);
   }
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.checkIfDetailPage();
     }
   }
-
   checkIfDetailPage() {
     const { pathname } = this.props.location;
     const isDetailPage = pathname.startsWith("/detail-courses/");
@@ -74,8 +74,13 @@ class HomeHeader extends Component {
   };
   render() {
     let languages = this.props.language;
-    const { userInfo, processLogout } = this.props;
+    const { userInfo, processLogout, user } = this.props;
     const { isCartVisible, isCartVisible2, cartItems } = this.state;
+    console.log(user);
+    console.log(userInfo);
+    let userGoogle = user.user;
+    // console.log(userGoogle.name);
+    //Check isLogin
 
     return (
       <React.Fragment>
@@ -132,7 +137,7 @@ class HomeHeader extends Component {
                   onClick={() => this.returnDetailUser()}
                 >
                   <FormattedMessage id="home-header.welcome" />{" "}
-                  {userInfo && userInfo.firstName ? userInfo.firstName : " "}!
+                  {userGoogle && userGoogle.name ? userGoogle.name : " "}!
                 </span>
               ) : (
                 <div
@@ -187,7 +192,6 @@ class HomeHeader extends Component {
                   </span>
                 </div>
               )}
-
               {isCartVisible || isCartVisible2 ? (
                 <div></div>
               ) : (
@@ -224,6 +228,7 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     userInfo: state.user.userInfo,
+    user: state.user,
     language: state.app.language,
     //inject
   };

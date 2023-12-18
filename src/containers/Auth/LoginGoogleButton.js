@@ -4,18 +4,24 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/actions";
 function LoginGoogleButton() {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const [user, setUser] = useState(null);
-  const handleLogin = async (user) => {
+  const handleLogin = async (decodedUser) => {
     try {
+      const { email, name, sub: googleId } = decodedUser;
+      console.log(name);
       // Replace with your API endpoint
-      const response = await axios.post(
-        "http://localhost:8080/api/users",
-        user
-      );
+      const response = await axios.post("http://localhost:8080/api/users", {
+        email,
+        name,
+        googleId,
+      });
       console.log(response.data);
-      setUser(user);
+
+      dispatch(setUser({ ...decodedUser, isLoggedIn: true }));
     } catch (error) {
       console.error(error);
     }
@@ -27,6 +33,7 @@ function LoginGoogleButton() {
         onSuccess={(credentialResponse) => {
           var decode = jwtDecode(credentialResponse.credential);
           console.log(credentialResponse);
+
           console.log(decode);
           handleLogin(decode);
           history.push("/home");
@@ -35,12 +42,6 @@ function LoginGoogleButton() {
           console.log("Login Failed");
         }}
       />
-      {user && (
-        <div className="header">
-          <h1>Welcome, {user.name}!</h1>
-          <p>Your email: {user.email}</p>
-        </div>
-      )}
     </GoogleOAuthProvider>
   );
 }

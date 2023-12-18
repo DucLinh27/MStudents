@@ -106,8 +106,6 @@ class DetailCourses extends Component {
             <div className="row">
               <div className="left-content col-6">
                 <div className="header-courses">
-                  <h1>{dataDetailCourse.name}</h1>
-                  <p>{dataDetailCourse.descriptionMarkdown}</p>
                   <div
                     className="image-lefts"
                     style={{
@@ -116,6 +114,8 @@ class DetailCourses extends Component {
                       })`,
                     }}
                   ></div>
+                  <h1>{dataDetailCourse.name}</h1>
+                  <p>{dataDetailCourse.descriptionMarkdown}</p>
                 </div>
                 <div className="container-courses">
                   <div className="about-courses">
@@ -137,49 +137,16 @@ class DetailCourses extends Component {
                       est ultricies integer quis. Semper eget duis at tellus.
                     </p>
                   </div>
-                  <div className="results-courses">
-                    <h3>Results after course completion</h3>
-                    <p>
-                      Eget aliquet nibh praesent tristique magna sit amet purus.
-                      Consequat id porta nibh venenatis cras sed felis. Nisl
-                      rhoncus mattis rhoncus urna neque viverra justo nec.
-                      Habitant morbi tristique senectus et netus et malesuada
-                      fames ac. Et tortor consequat id porta nibh venenatis cras
-                      sed felis. Mi sit amet mauris commodo quis. Eget arcu
-                      dictum varius duis at consectetur lorem.Venenatis cras sed
-                      felis eget velit aliquet.
-                    </p>
-                    <div className="image-right">
-                      <img
-                        src={imglearn}
-                        alt="Courses"
-                        width="650"
-                        height="405"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
-              <div className="right-content col-4">
+              <div className="right-content col-3">
                 <div className="right-up">
-                  <div className="price">{dataDetailCourse.price}</div>
+                  <div className="price">{dataDetailCourse.price} VND</div>
                   <p>
                     Lorem ipsum dolor sit amet, dolor consectetur adipiscing
                     elit purus vivera.
                   </p>
-                  <div className="select-courses">
-                    <select className="select w-select">
-                      <option selected value>
-                        Select Course Plan
-                      </option>
-                      <option selected value>
-                        Basic
-                      </option>
-                      <option selected value>
-                        Premium
-                      </option>
-                    </select>
-                  </div>
+
                   <button
                     className="button_content"
                     onClick={() => this.handleCartItem()}
@@ -189,11 +156,22 @@ class DetailCourses extends Component {
                 </div>
 
                 <div className="right-down">
-                  <div>Level: Medium</div>
-                  <div>Duration: 7hr 24m</div>
-                  <div>Lessons: 50</div>
-                  <div>Lifetime Access</div>
-                  <div>Access From Any Computer, Tablet or Mobile</div>
+                  <div className="item">
+                    <i class="fas fa-sort-amount-up mr-3"></i>Level: Medium
+                  </div>
+                  <div className="item">
+                    <i class="far fa-clock  mr-3"></i>Duration: 7hr 24m
+                  </div>
+                  <div className="item">
+                    <i class="fas fa-video mr-3"></i>Lessons: 50
+                  </div>
+                  <div className="item">
+                    <i class="far fa-star mr-3"></i>Lifetime Access
+                  </div>
+                  <div className="item">
+                    <i class="fas fa-mobile-alt mr-4"></i>Access From Any
+                    Computer, Tablet or Mobile
+                  </div>
                 </div>
               </div>
             </div>

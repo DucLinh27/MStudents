@@ -81,10 +81,7 @@ class Login extends Component {
       this.props.history.push(`/register`);
     }
   };
-  useGoogleLogin = {
-    clientId:
-      "1052696457949-1oda41m6npg90b9q0ecd4njt2u6l0rfm.apps.googleusercontent.com",
-  };
+
   render() {
     return (
       <div className="login-background">
@@ -169,7 +166,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    // userLoginFail: () => dispatch(actions.adminLoginFail()),
     userLoginSuccess: (userInfo) =>
       dispatch(actions.userLoginSuccess(userInfo)),
   };

@@ -179,14 +179,14 @@ class Cart extends Component {
             </div>
             <div className="right-content col-3">
               <div className="total-cart">
-                <div className="string-left">Thanh Tien</div>
+                <div className="string-left">Thanh Tien :</div>
 
-                <div className="number-right">{totalPrice} Đ</div>
+                <div className="number-right">{totalPrice} VNĐ</div>
               </div>
               <div className="total-last">
-                <div className="string-left">Tong So Tien</div>
+                <div className="string-left">Tong So Tien :</div>
 
-                <div className="number-right">{totalPrice} Đ</div>
+                <div className="number-right">{totalPrice} VNĐ</div>
               </div>
               <div className="checkout">
                 <span

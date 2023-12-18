@@ -1,9 +1,12 @@
 .order-container {
-  margin-top: 60px;
-  margin-left: 140px;
-  margin-right: 140px;
+  padding: 60px 140px;
+
+  background-color: rgb(243, 239, 235);
   .address-container {
-    border: 1px solid grey;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding: 10px;
     form {
       margin-left: 10px;
     }
@@ -127,22 +130,15 @@
       }
     }
   }
-  .transport-container {
-    margin-top: 50px;
 
-    label {
-      margin-left: 10px;
-    }
-    input {
-      height: 15px;
-      width: 15px;
-      border-radius: 50%;
-      left: 0;
-    }
-  }
   .payment-container {
     margin-top: 50px;
-
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 10px;
+    h3 {
+      padding-bottom: 20px;
+    }
     label {
       margin-left: 10px;
     }
@@ -153,34 +149,61 @@
       left: 0;
     }
     .payment {
-      width: 50px;
+      width: 200px;
+      height: 30px;
     }
   }
-  .orther-information {
-    margin-top: 50px;
 
-    label {
-      margin-left: 10px;
-    }
-    input {
-      height: 15px;
-      width: 15px;
-      border-radius: 50%;
-      left: 0;
-    }
-  }
   .recheck-products {
-    margin: 50px 0;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 50px;
+    padding: 10px;
     .transport {
-      border: 1px solid grey;
       justify-content: space-between;
       padding-left: 20px;
       padding-right: 40px;
       height: 157px;
+      border: 1px solid gray;
+      margin-bottom: 20px;
     }
     .image {
       width: 100px;
       height: 120px;
+    }
+  }
+  .content-checkout {
+    background-color: white;
+    margin-top: 50px;
+    border-radius: 10px;
+
+    .top-content {
+      padding-top: 30px;
+      flex-direction: column;
+      align-items: flex-end;
+      display: flex;
+      justify-content: space-between;
+      width: 97%;
+    }
+    .bottom-content {
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 20px;
+      margin-right: 20px;
+      .back-cart {
+        margin-top: 15px;
+      }
+      .confirm {
+        background: #c92127;
+        color: white;
+        border: none;
+        font-weight: 700;
+        transition: all 0.3s;
+        padding: 8px 0;
+        margin: 8px 0;
+        border-radius: 5px;
+        width: 250px;
+      }
     }
   }
 }
