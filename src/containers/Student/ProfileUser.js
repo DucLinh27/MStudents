@@ -141,8 +141,10 @@ class ProfileUser extends Component {
   };
   render() {
     let { language } = this.props;
-    const { userInfo } = this.props;
-    console.log(userInfo);
+    const { userInfo, orderData } = this.props;
+    console.log(orderData);
+    const courses = orderData ? orderData.courses : [];
+
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -293,11 +295,13 @@ class ProfileUser extends Component {
             {this.state.activeTab === "myCourses" && (
               <div className="infor-courses">
                 <h1>Khoá Học Của Tôi</h1>
-                <div className="item-content">
-                  <div className="video-content">Video</div>
-                  <div className="name-content">Name</div>
-                  <div className="comment-content">Comment</div>
-                </div>
+                {courses.map((course, index) => (
+                  <div className="item-content d-flex" key={index}>
+                    <div className="video-content">Video</div>
+                    <div className="name-content">{course.name}</div>
+                    <div className="comment-content">Comment</div>
+                  </div>
+                ))}
               </div>
             )}
             {this.state.activeTab === "myComments" && (
@@ -316,6 +320,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     userInfo: state.user.userInfo,
+    orderData: state.orderData,
   };
 };
 

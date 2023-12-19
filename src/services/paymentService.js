@@ -1,11 +1,10 @@
 import axios from "../axios";
 
-const createPaymentService = (data) => {
-  return axios.post("/create_payment_url", data);
+const getConfig = async () => {
+  const res = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/payment/config`
+  );
+  return res.data;
 };
 
-const getPaymentReturnService = () => {
-  return axios.post("/vnp_return");
-};
-
-export { createPaymentService, getPaymentReturnService };
+export { getConfig };

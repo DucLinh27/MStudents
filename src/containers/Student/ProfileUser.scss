@@ -61,16 +61,20 @@
     }
   }
   .infor-courses {
-    .video-content {
-      border: 1px solid #c92127;
-      width: 300px;
-      height: 300px;
-    }
-    .name-content {
-      border: 1px solid green;
-    }
-    .comment-content {
-      border: 1px solid grey;
+    .item-content {
+      .video-content {
+        border: 1px solid #c92127;
+        height: 80px;
+        width: 100%;
+      }
+      .name-content {
+        border: 1px solid green;
+        width: 100%;
+      }
+      .comment-content {
+        border: 1px solid grey;
+        width: 100%;
+      }
     }
   }
 }

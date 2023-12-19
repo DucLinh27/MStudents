@@ -78,6 +78,8 @@ class HomeHeader extends Component {
     const { isCartVisible, isCartVisible2, cartItems } = this.state;
     console.log(user);
     console.log(userInfo);
+    // console.log(userInfo.firstName);
+
     let userGoogle = user.user;
     // console.log(userGoogle.name);
     //Check isLogin
@@ -137,6 +139,7 @@ class HomeHeader extends Component {
                   onClick={() => this.returnDetailUser()}
                 >
                   <FormattedMessage id="home-header.welcome" />{" "}
+                  {userInfo && userInfo.firstName ? userInfo.firstName : " "}
                   {userGoogle && userGoogle.name ? userGoogle.name : " "}!
                 </span>
               ) : (

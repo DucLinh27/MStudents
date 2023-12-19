@@ -4,7 +4,8 @@ import HomeHeader from "../HomePage/HomeHeader";
 import "./Order.scss";
 import { createOrderService } from "../../services/orderService";
 import HomeFooter from "../HomePage/HomeFooter";
-
+import { PayPalButton } from "react-paypal-button-v2";
+import { getConfig } from "../../services/paymentService";
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +16,19 @@ class Order extends Component {
       payment: "VN Pay",
       courses: "",
       totalPrice: "",
+      sdkReady: false,
+      showPaypal: false,
     };
   }
   //just run 1 time
   async componentDidMount() {
+    if (!window.paypal) {
+      this.addPaypalScript();
+    } else {
+      this.setState({
+        sdkReady: true,
+      });
+    }
     console.log(this.props.location.state);
     if (this.props.location.state) {
       const { cartItems, quantities, totalPrice } = this.props.location.state;
@@ -68,13 +78,58 @@ class Order extends Component {
   };
   handleConfirm = (event) => {
     event.preventDefault();
-    this.props.onSubmit();
+    // this.props.onSubmit();
+    this.setState({ showPaypal: true });
+  };
+  addPaypalScript = async () => {
+    let data = await getConfig();
+    let script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+    script.async = true;
+    script.onload = () => {
+      this.setState({
+        sdkReady: true,
+      });
+    };
+    document.body.appendChild(script);
+    console.log(data);
+  };
+  onSuccessPaypal = (details, data) => {
+    // You can access the order data from the details and data parameters
+    console.log("Payment completed successfully", details, data);
+
+    // Here you would typically send these details to your server for further processing
+    // For example, you might want to update the order status in your database
+    // You can use the createOrderService function you've defined earlier
+
+    const orderData = {
+      username: this.state.username,
+      email: this.state.email,
+      phonenumber: this.state.phonenumber,
+      payment: "PayPal",
+      courses: this.state.cart,
+      totalPrice: this.state.totalPrice,
+    };
+
+    createOrderService(orderData)
+      .then((response) => {
+        console.log("Order created successfully", response);
+        // Handle successful order creation here
+        this.props.history.push("/payment-return", { orderData });
+      })
+      .catch((error) => {
+        console.error("Error creating order", error);
+        // Handle errors here
+      });
   };
   render() {
     console.log(this.state.payment);
     let { cart } = this.state;
     let { quantities, totalPrice } = this.props.location.state;
     console.log(cart);
+    console.log(totalPrice);
+    const { showPaypal } = this.state;
     return (
       <>
         <HomeHeader />
@@ -128,17 +183,12 @@ class Order extends Component {
               value={this.state.payment}
               onChange={(event) => this.handleOnChangeInput(event, "payment")}
             >
-              <option value="VN Pay">VN Pay</option>
-              <option value="Ví ShopeePay">Ví ShopeePay</option>
-              <option value="ATM / Internet Banking">
-                ATM / Internet Banking
-              </option>
+              <option value="VN Pay">PayPal</option>
               <option value="Thanh toán khi nhận hàng">
                 Thanh toán khi nhận hàng
               </option>
             </select>
           </div>
-
           <div className="recheck-products">
             <h3>Kiểm tra lại đơn hàng</h3>
             {Array.isArray(cart) &&
@@ -167,11 +217,21 @@ class Order extends Component {
             <div className="top-content ">
               <div className="price d-flex">
                 <div className="mr-5">Thành tiền</div>
-                <div>{this.props.totalPrice} VNĐ</div>
+                <div>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(totalPrice)}
+                </div>
               </div>
               <div className="total d-flex">
                 <div className="mr-5">Tổng Số Tiền (gồm VAT)</div>
-                <div>{this.props.totalPrice} VNĐ</div>
+                <div>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(totalPrice)}
+                </div>
               </div>
             </div>
             <div className="bottom-content d-flex">
@@ -182,17 +242,26 @@ class Order extends Component {
                 <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
                 <div>Quay về giỏ hàng</div>
               </div>
-              <button
-                className="confirm"
-                onClick={(event) => this.handleConfirm(event)}
-              >
-                Xác nhận Thanh Toán
-              </button>
+
+              {!showPaypal && (
+                <button className="confirm" onClick={this.handleConfirm}>
+                  Xác nhận Thanh Toán
+                </button>
+              )}
+              {showPaypal && (
+                <PayPalButton
+                  amount={totalPrice}
+                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                  onSuccess={this.onSuccessPaypal}
+                  onError={() => {
+                    alert("Error ");
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
         <HomeFooter />
-        {/* <Checkout totalPrice={totalPrice} onSubmit={this.handleSubmit} /> */}
       </>
     );
   }

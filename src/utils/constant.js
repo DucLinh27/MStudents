@@ -14,6 +14,7 @@ export const path = {
   ALL_TEACHER: "/allteacher",
   DETAIL_CLASSES: "/detail-classes/:id",
   ORDER: "/order",
+  PAYMENT_RETURN: "/payment-return",
   CART: "/cart",
   CARTITEM: "/cartitem",
   PAYMENT: "/payment",

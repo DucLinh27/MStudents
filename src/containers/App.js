@@ -86,6 +86,7 @@ class App extends Component {
                   <Route path={path.BLOG} component={Blog} />=
                   <Route path={path.DETAIL_CLASSES} component={DetailClasses} />
                   <Route path={path.ORDER} component={Order} />
+                  <Route path={path.PAYMENT_RETURN} component={PaymentReturn} />
                   <Route path={path.CART} component={Cart} />
                   <Route path={path.CARTITEM} component={CartItem} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />

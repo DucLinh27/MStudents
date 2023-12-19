@@ -101,6 +101,7 @@ const postSendRemedy = (data) => {
 };
 
 export {
+
   handleLoginApi,
   getAllUsers,
   createNewUserServices,

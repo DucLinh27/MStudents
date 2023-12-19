@@ -1,5 +1,6 @@
 .order-container {
   padding: 60px 140px;
+  height: 140%;
 
   background-color: rgb(243, 239, 235);
   .address-container {
@@ -159,6 +160,9 @@
     border-radius: 10px;
     margin-top: 50px;
     padding: 10px;
+    .payment-name {
+      padding-left: 100px;
+    }
     .transport {
       justify-content: space-between;
       padding-left: 20px;

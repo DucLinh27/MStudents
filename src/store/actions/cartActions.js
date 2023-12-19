@@ -6,7 +6,7 @@ import {
   getOrderService,
 } from "../../services/orderService";
 import {
-  createPaymentService,
+  handlePaymentPaypal,
   getPaymentReturnService,
 } from "../../services/paymentService.js";
 import actionTypes from "./actionTypes";
@@ -43,13 +43,6 @@ export function UpdateCart(payload) {
     payload,
   };
 }
-// export function DeleteCart(payload) {
-//   console.log("payload", payload);
-//   return {
-//     type: "DELETE_CART",
-//     payload,
-//   };
-// }
 export function DeleteCart(payload) {
   return (dispatch) => {
     // Get cart from localStorage
@@ -167,22 +160,8 @@ export const deleteOrder = (orderCode) => {
 };
 
 // Payment
-export const createPayment = (data) => {
-  return async (dispatch, getState) => {
-    let res = await createPaymentService(data);
-    if (res) {
-      dispatch(createPaymentSuccess(res));
-    }
-  };
-};
 
-export const createPaymentSuccess = (data) => ({
-  type: actionTypes.CREATE_PAYMENT,
-  data: data,
+export const storeOrderData = (orderData) => ({
+  type: actionTypes.STORE_ORDER_DATA,
+  payload: orderData,
 });
-
-export const get_payment_return = (payload) => {
-  return async (dispatch, getState) => {
-    let res = await getPaymentReturnService();
-  };
-};

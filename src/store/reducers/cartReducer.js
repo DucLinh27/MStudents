@@ -8,6 +8,7 @@ const initialState = {
   items: [],
   quantity: 0,
   orders: [],
+  orderData: null,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -115,7 +116,11 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         orders: state.orders.filter((order) => order.id !== action.payload.id),
       };
-
+    case actionTypes.STORE_ORDER_DATA:
+      return {
+        ...state,
+        orderData: action.payload,
+      };
     default:
       return state;
   }
