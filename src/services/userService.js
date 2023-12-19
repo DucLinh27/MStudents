@@ -290,7 +290,32 @@ let getAllCodeService = (typeInput) => {
     }
   });
 };
-
+let handleUserGoogle = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check if email already exists
+      let check = await checkUserEmail(data.email);
+      if (check === true) {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address GOOGLE",
+        });
+      } else {
+        await db.User.create({
+          email: data.email,
+          firstName: data.name,
+        });
+        resolve({
+          errCode: 0,
+          message: "Ok",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
@@ -300,4 +325,5 @@ module.exports = {
   getAllCodeService: getAllCodeService,
   registerNewUser: registerNewUser,
   changePassword: changePassword,
+  handleUserGoogle: handleUserGoogle,
 };

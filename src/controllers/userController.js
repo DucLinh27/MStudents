@@ -5,6 +5,10 @@ import { createJWT, verifyToken } from "../middleware/JWTAction";
 import cache from "memory-cache";
 require("dotenv").config();
 
+let handleUserGoogle = async (req, res) => {
+  let message = await userService.handleUserGoogle(req.body);
+  return res.status(200).json(message);
+};
 let handleLoging = async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
@@ -135,4 +139,5 @@ module.exports = {
   getAllCode: getAllCode,
   handleRegisterNewUser: handleRegisterNewUser,
   changePasswordService: changePasswordService,
+  handleUserGoogle: handleUserGoogle,
 };

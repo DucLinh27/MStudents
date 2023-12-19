@@ -1,111 +1,87 @@
-import config from "../config/VNPay";
-import QueryString from "qs";
+// const paypal = require("paypal-rest-sdk");
 
-function sortObject(obj) {
-  let sorted = {};
-  let str = [];
-  let key;
-  for (key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      str.push(encodeURIComponent(key));
-    }
-  }
-  str.sort();
-  for (key = 0; key < str.length; key++) {
-    sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
-  }
-  return sorted;
-}
+// paypal.configure({
+//   mode: "sandbox", //sandbox or live
+//   client_id:
+//     "AclsyktkK-QOw-GHnMtuC0E1o2j-GcwgkjCe28yVu2VweLCsuv6HVXeiOAhVyyw7KgFl0CAyEraeAQK3",
+//   client_secret: "PAYPAL_SCRET",
+// });
 
-let create_payment_url = (req, res) => {
-  let tmnCode = config.vnp_TmnCode;
-  let secretKey = config.vnp_HashSecret;
-  let vnpUrl = config.vnp_Url;
-  let returnUrl = config.vnp_ReturnUrl;
-  let date = new Date();
-  let createDate =
-    date.getFullYear() +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    ("0" + date.getDate()).slice(-2) +
-    ("0" + date.getHours()).slice(-2) +
-    ("0" + date.getMinutes()).slice(-2) +
-    ("0" + date.getSeconds()).slice(-2);
-  console.log("checkdate", createDate);
-  let orderId =
-    ("0" + date.getHours()).slice(-2) +
-    ("0" + date.getMinutes()).slice(-2) +
-    ("0" + date.getSeconds()).slice(-2);
+// let handlePaypalPayment = async (req, res) => {
+//   const paymentAmount = req.body.total;
 
-  let ipAddr =
-    req.headers["x-forwarded-for"] ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    req.connection.socket.remoteAddress;
+//   const create_payment_json = {
+//     intent: "sale",
+//     payer: {
+//       payment_method: "paypal",
+//     },
+//     redirect_urls: {
+//       return_url: "http://return.url",
+//       cancel_url: "http://cancel.url",
+//     },
+//     transactions: [
+//       {
+//         item_list: {
+//           items: [
+//             {
+//               name: "item",
+//               sku: "item",
+//               price: paymentAmount.toString(),
+//               currency: "USD",
+//               quantity: 1,
+//             },
+//           ],
+//         },
+//         amount: {
+//           currency: "USD",
+//           total: paymentAmount.toString(),
+//         },
+//         description: "This is the payment description.",
+//       },
+//     ],
+//   };
 
-  let bankCode = "";
-  let amount = req.body.total;
+//   paypal.payment.create(create_payment_json, function (error, payment) {
+//     if (error) {
+//       throw error;
+//     } else {
+//       for (let i = 0; i < payment.links.length; i++) {
+//         if (payment.links[i].rel === "approval_url") {
+//           res.redirect(payment.links[i].href);
+//         }
+//       }
+//     }
+//   });
+// };
 
-  let locale = "vn";
-  let currCode = "VND";
-  let vnp_Params = {};
+// let handleSuccess = async (req, res) => {
+//   const payerId = req.query.PayerID;
+//   const paymentId = req.query.paymentId;
 
-  vnp_Params["vnp_Version"] = "2.1.0";
-  vnp_Params["vnp_Command"] = "pay";
-  vnp_Params["vnp_TmnCode"] = tmnCode;
-  // vnp_Params['vnp_Merchant'] = ''
-  vnp_Params["vnp_Locale"] = locale;
-  vnp_Params["vnp_CurrCode"] = currCode;
-  vnp_Params["vnp_TxnRef"] = orderId;
-  vnp_Params["vnp_OrderInfo"] = req.body.orderCode;
-  vnp_Params["vnp_OrderType"] = "thanh toan online";
-  vnp_Params["vnp_Amount"] = amount * 100;
-  vnp_Params["vnp_ReturnUrl"] = returnUrl;
-  vnp_Params["vnp_IpAddr"] = ipAddr;
-  vnp_Params["vnp_CreateDate"] = createDate;
+//   const execute_payment_json = {
+//     payer_id: payerId,
+//   };
 
-  if (bankCode !== null && bankCode !== "") {
-    vnp_Params["vnp_BankCode"] = bankCode;
-  }
-  vnp_Params = sortObject(vnp_Params);
-  let signData = QueryString.stringify(vnp_Params, { encode: false });
-  let crypto = require("crypto");
-  let hmac = crypto.createHmac("sha512", secretKey);
-  let signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
-  vnp_Params["vnp_SecureHash"] = signed;
-  vnpUrl += "?" + QueryString.stringify(vnp_Params, { encode: false });
-  console.log("check vnpUrl: " + vnpUrl);
-  // res.redirect(vnpUrl)
-  res.status(200).json({ url: vnpUrl });
-};
+//   paypal.payment.execute(
+//     paymentId,
+//     execute_payment_json,
+//     function (error, payment) {
+//       if (error) {
+//         console.error(error.response);
+//         throw error;
+//       } else {
+//         console.log(JSON.stringify(payment));
+//         res.send("Payment successful!");
+//       }
+//     }
+//   );
+// };
+// let handleCancel = async (req, res) => {
+//   res.send("Payment canceled.");
+// };
 
-let get_payment_return = (req, res) => {
-  let vnp_Params = req.query;
-
-  let secureHash = vnp_Params["vnp_SecureHash"];
-
-  delete vnp_Params["vnp_SecureHash"];
-  delete vnp_Params["vnp_SecureHashType"];
-
-  vnp_Params = sortObject(vnp_Params);
-
-  let secretKey = config.vnp_HashSecret;
-
-  let querystring = require("qs");
-  let signData = querystring.stringify(vnp_Params, { encode: false });
-  let crypto = require("crypto");
-  let hmac = crypto.createHmac("sha512", secretKey);
-  let signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
-
-  if (secureHash === signed) {
-    res.redirect(
-      `http://localhost:3000/payment-return/${vnp_Params["vnp_ResponseCode"]}/${vnp_Params["vnp_OrderInfo"]}`
-    );
-  } else {
-    res.redirect(`http://localhost:3000/payment-return/97/payment-fail`);
-  }
-};
-
-module.exports = {
-  create_payment_url: create_payment_url,
-  get_payment_return: get_payment_return,
-};
+// module.exports = (req, res) => {
+//   handleSuccess;
+//   handleCancel;
+//   handlePaypalPayment; 
+// };
