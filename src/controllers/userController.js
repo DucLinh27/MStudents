@@ -12,7 +12,8 @@ let handleUserGoogle = async (req, res) => {
 let handleLoging = async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
-
+  console.log("email:", email);
+  console.log("password:", password);
   if (!email || !password) {
     return res.status(500).json({
       errCode: 1,
@@ -20,8 +21,19 @@ let handleLoging = async (req, res) => {
     });
   }
   let userData = await userService.handleUserLogin(email, password);
+  let userWithRole;
 
-  let userWithRole = await getUserWithRole(userData.user.email);
+  console.log("userData:", userData);
+  if (userData && userData.user) {
+    userWithRole = await getUserWithRole(userData.user.email);
+    // rest of your code
+  } else {
+    console.log("userData or userData.user is undefined");
+    return res.status(500).json({
+      errCode: 1,
+      message: "userData or userData.user is undefined",
+    });
+  }
   let payload = {
     email: userData.user.email,
     userWithRole,

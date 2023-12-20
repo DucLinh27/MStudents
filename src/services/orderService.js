@@ -7,6 +7,7 @@ let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       await db.Order.create({
+        userId: data.userId,
         username: data.username,
         totalPrice: data.totalPrice,
         courses: data.courses,
@@ -39,10 +40,14 @@ let createOrderService = (data) => {
   });
 };
 
-let getOrderService = () => {
+let getOrderService = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let order = await db.Order.findAll({});
+      let order = await db.Order.findAll({
+        where: {
+          id: userId,
+        },
+      });
       if (order) {
         resolve(order);
       } else {
@@ -93,6 +98,7 @@ let editOrderService = (data) => {
       });
       if (order) {
         order.id = data.id;
+        order.userId = data.userId;
         order.username = data.username;
         order.totalPrice = data.totalPrice;
         order.payment = data.payment;
