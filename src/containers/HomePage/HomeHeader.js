@@ -32,7 +32,6 @@ class HomeHeader extends Component {
       this.props.history.push(`/about`);
     }
   };
-
   handleBlogPage = () => {
     if (this.props.history) {
       this.props.history.push(`/blog`);
@@ -50,7 +49,6 @@ class HomeHeader extends Component {
   };
   componentDidMount() {
     this.checkIfDetailPage();
-    console.log(this.props.user);
   }
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
@@ -78,10 +76,9 @@ class HomeHeader extends Component {
     const { isCartVisible, isCartVisible2, cartItems } = this.state;
     console.log(user);
     console.log(userInfo);
-    // console.log(userInfo.firstName);
-
     let userGoogle = user.user;
-    // console.log(userGoogle.name);
+    console.log(userGoogle);
+
     //Check isLogin
 
     return (
@@ -139,8 +136,12 @@ class HomeHeader extends Component {
                   onClick={() => this.returnDetailUser()}
                 >
                   <FormattedMessage id="home-header.welcome" />{" "}
-                  {userInfo && userInfo.firstName ? userInfo.firstName : " "}
-                  {userGoogle && userGoogle.name ? userGoogle.name : " "}!
+                  {userInfo
+                    ? userInfo.firstName
+                    : userGoogle
+                    ? userGoogle.name
+                    : ""}
+                  !
                 </span>
               ) : (
                 <div

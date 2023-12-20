@@ -121,6 +121,13 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         orderData: action.payload,
       };
+
+    case actionTypes.CLEAR_CART:
+      return initialState;
+    // Handle other actions...
+    case actionTypes.CLEAR_ORDER:
+      return initialState;
+    // Handle other actions...
     default:
       return state;
   }

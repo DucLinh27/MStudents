@@ -165,3 +165,11 @@ export const storeOrderData = (orderData) => ({
   type: actionTypes.STORE_ORDER_DATA,
   payload: orderData,
 });
+
+export const clearCart = () => ({
+  type: actionTypes.CLEAR_CART,
+});
+
+export const clearOrder = () => ({
+  type: actionTypes.CLEAR_ORDER,
+});

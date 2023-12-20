@@ -5,71 +5,34 @@ import "./ProfileUser.scss";
 import _ from "lodash";
 import { changeUserPassword } from "../../services/userService";
 import * as actions from "../../store/actions";
+import { getOrderService } from "../../services/orderService";
 
 class ProfileUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
-      email: "",
-      gender: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      phonenumber: "",
       newPassword: "",
       confirmPassword: "",
       changePassword: false,
       activeTab: "personalInfo",
+      arrOrders: [],
     };
   }
   async componentDidMount() {
-    let user = this.props.currentUser;
-    if (user && !_.isEmpty(user)) {
+    try {
+      const orders = await getOrderService();
+      console.log("Orders:", orders);
+      const ordersArray = Array.isArray(orders)
+        ? orders
+        : Object.values(orders);
       this.setState({
-        id: user.id,
-        email: user.email,
-        password: "harcode",
-        firstName: user.firstName,
-        lastName: user.lastName,
-        address: user.address,
-        phonenumber: user.phonenumber,
-        gender: user.gender,
+        arrOrders: ordersArray,
       });
-    } else {
-      // Get user info from localStorage if it exists
-      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      if (userInfo) {
-        this.setState({
-          id: userInfo.id,
-          email: userInfo.email,
-          password: "harcode",
-          firstName: userInfo.firstName,
-          lastName: userInfo.lastName,
-          address: userInfo.address,
-          phonenumber: userInfo.phonenumber,
-          gender: userInfo.gender,
-        });
-      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
     }
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.userInfo !== prevProps.userInfo) {
-      this.setState({
-        id: this.props.userInfo.id,
-        email: this.props.userInfo.email,
-        password: "harcode",
-        firstName: this.props.userInfo.firstName,
-        lastName: this.props.userInfo.lastName,
-        address: this.props.userInfo.address,
-        phonenumber: this.props.userInfo.phonenumber,
-        gender: this.props.userInfo.gender,
-      });
-
-      // Save userInfo to localStorage
-      localStorage.setItem("userInfo", JSON.stringify(this.props.userInfo));
-    }
-  }
+  componentDidUpdate(prevProps, prevState, snapshot) {}
   handleOnChangeInput = (event, id) => {
     let copyState = { ...this.state };
     copyState[id] = event.target.value;
@@ -139,11 +102,16 @@ class ProfileUser extends Component {
   showMyComments = () => {
     this.setState({ activeTab: "myComments" });
   };
+  handleConfirm = () => {
+    alert("Detail Couses");
+  };
   render() {
     let { language } = this.props;
-    const { userInfo, orderData } = this.props;
-    console.log(orderData);
-    const courses = orderData ? orderData.courses : [];
+    const { userInfo, orderData, user } = this.props;
+    console.log(userInfo);
+    let userGoogle = user.user;
+    console.log(userGoogle);
+    let arrOrders = this.state.arrOrders;
 
     return (
       <>
@@ -174,7 +142,14 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "email");
                       }}
-                      value={this.state.email}
+                      // value={userInfo ? userInfo.email : ""}
+                      value={
+                        userInfo
+                          ? userInfo.email
+                          : userGoogle
+                          ? userGoogle.email
+                          : ""
+                      }
                     />
                   </div>
                   <div className="firstName col-6">
@@ -185,7 +160,13 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "firstName");
                       }}
-                      value={this.state.firstName}
+                      value={
+                        userInfo
+                          ? userInfo.firstName
+                          : userGoogle
+                          ? userGoogle.name
+                          : ""
+                      }
                     />
                   </div>
                   <div className="lastName col-6">
@@ -196,7 +177,7 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "lastName");
                       }}
-                      value={this.state.lastName}
+                      value={userInfo ? userInfo.lastName : ""}
                     />
                   </div>
                   <div className="phonenumber  col-6">
@@ -207,7 +188,7 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "phonenumber");
                       }}
-                      value={this.state.phonenumber}
+                      value={userInfo ? userInfo.phonenumber : ""}
                     />
                   </div>
                   <div className="address col-6">
@@ -218,7 +199,7 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "address");
                       }}
-                      value={this.state.address}
+                      value={userInfo ? userInfo.address : ""}
                     />
                   </div>
                   <div className="gender  col-6">
@@ -229,7 +210,7 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "gender");
                       }}
-                      value={this.state.gender}
+                      value={userInfo ? userInfo.gender : ""}
                     />
                   </div>
                 </div>
@@ -295,13 +276,38 @@ class ProfileUser extends Component {
             {this.state.activeTab === "myCourses" && (
               <div className="infor-courses">
                 <h1>Khoá Học Của Tôi</h1>
-                {courses.map((course, index) => (
-                  <div className="item-content d-flex" key={index}>
-                    <div className="video-content">Video</div>
-                    <div className="name-content">{course.name}</div>
-                    <div className="comment-content">Comment</div>
-                  </div>
-                ))}
+
+                <div className="item-content d-flex">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Courses</th>
+                        <th>Action</th>
+                      </tr>
+                      {arrOrders.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>
+                              {Array.isArray(item.courses)
+                                ? item.courses
+                                    .map((course) => course.name)
+                                    .join(", ")
+                                : ""}
+                            </td>
+                            <td>
+                              <button
+                                className="btn btn-primary"
+                                onClick={this.handleConfirm}
+                              >
+                                Xem chi tiết
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
             {this.state.activeTab === "myComments" && (
@@ -320,7 +326,8 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     userInfo: state.user.userInfo,
-    orderData: state.orderData,
+    user: state.user,
+    orderData: state.cart.orderData,
   };
 };
 

@@ -196,7 +196,7 @@ class Cart extends Component {
                   Thanh Toan
                 </span>
               </div>
-            </div>
+            </div> 
           </div>
         </div>
 

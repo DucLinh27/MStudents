@@ -93,6 +93,7 @@ class ManageOrder extends Component {
           <table>
             <tbody>
               <tr>
+                <th>UserId</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Phone Number</th>
@@ -104,6 +105,7 @@ class ManageOrder extends Component {
               {arrOrders.map((item, index) => {
                 return (
                   <tr key={index}>
+                    <td>{item.userId}</td>
                     <td>{item.username}</td>
                     <td>{item.email}</td>
                     <td>{item.phonenumber}</td>

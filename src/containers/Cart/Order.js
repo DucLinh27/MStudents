@@ -5,7 +5,9 @@ import "./Order.scss";
 import { createOrderService } from "../../services/orderService";
 import HomeFooter from "../HomePage/HomeFooter";
 import { PayPalButton } from "react-paypal-button-v2";
+import * as actions from "../../store/actions";
 import { getConfig } from "../../services/paymentService";
+
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class Order extends Component {
       username: "",
       email: "",
       phonenumber: "",
-      payment: "VN Pay",
+      payment: "PayPal",
       courses: "",
       totalPrice: "",
       sdkReady: false,
@@ -43,7 +45,10 @@ class Order extends Component {
     const { username, email, phonenumber, payment, cart, totalPrice } =
       this.state;
 
+    const { userId } = this.props;
+
     const orderData = {
+      userId,
       username,
       email,
       phonenumber,
@@ -104,6 +109,7 @@ class Order extends Component {
     // You can use the createOrderService function you've defined earlier
 
     const orderData = {
+      userId: this.props.userId,
       username: this.state.username,
       email: this.state.email,
       phonenumber: this.state.phonenumber,
@@ -117,12 +123,16 @@ class Order extends Component {
         console.log("Order created successfully", response);
         // Handle successful order creation here
         this.props.history.push("/payment-return", { orderData });
+        // Clear the cart and order
+        this.props.clearCart();
+        this.props.clearOrder();
       })
       .catch((error) => {
         console.error("Error creating order", error);
         // Handle errors here
       });
   };
+
   render() {
     console.log(this.state.payment);
     let { cart } = this.state;
@@ -130,6 +140,8 @@ class Order extends Component {
     console.log(cart);
     console.log(totalPrice);
     const { showPaypal } = this.state;
+    const { userId } = this.props;
+    console.log(userId);
     return (
       <>
         <HomeHeader />
@@ -271,11 +283,15 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     cart: state.cart,
+    userId: state.user.userInfo.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    clearCart: () => dispatch(actions.clearCart()),
+    clearOrder: () => dispatch(actions.clearOrder()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);
