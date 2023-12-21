@@ -28,11 +28,10 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Khởi tạo Passport
 app.use(passport.initialize());
+app.use(passport.session());
 
 //config app
 // app.use(bodyParser.json());

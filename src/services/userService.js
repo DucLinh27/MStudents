@@ -167,7 +167,7 @@ let createNewUser = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      reject(e); 
     }
   });
 };
@@ -294,21 +294,23 @@ let handleUserGoogle = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       //check if email already exists
-      let check = await checkUserEmail(data.email);
-      if (check === true) {
+      let user = await db.User.findOne({ where: { email: data.email } });
+      if (user) {
         resolve({
           errCode: 1,
           errMessage:
             "Your email already exists, Plz try another email address GOOGLE",
+          userId: user.id,
         });
       } else {
-        await db.User.create({
+        let newUser = await db.User.create({
           email: data.email,
           firstName: data.name,
         });
         resolve({
           errCode: 0,
           message: "Ok",
+          userId: newUser.id,
         });
       }
     } catch (e) {
@@ -316,6 +318,7 @@ let handleUserGoogle = async (data) => {
     }
   });
 };
+
 module.exports = {
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,

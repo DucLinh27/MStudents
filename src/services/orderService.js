@@ -39,15 +39,12 @@ let createOrderService = (data) => {
     }
   });
 };
-
-let getOrderService = (userId) => {
+let getOrderService = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let order = await db.Order.findAll({
-        where: {
-          id: userId,
-        },
-      });
+      let order = await db.Order.findAll(
+        
+      );
       if (order) {
         resolve(order);
       } else {
