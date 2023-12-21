@@ -7,7 +7,8 @@ let createOrder = async (req, res) => {
 
 let getOrder = async (req, res) => {
   try {
-    let order = await orderService.getOrderService();
+    const userId = req.params.userId;
+    let order = await orderService.getOrderService(userId);
     return res.status(200).json(order);
   } catch (e) {
     console.log(e);
@@ -17,7 +18,25 @@ let getOrder = async (req, res) => {
     });
   }
 };
+// Phần service trong Node.js
+let getOderByUserService = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    console.log(userId);
+    let orders = await orderService.getOrderByUserService(userId);
 
+    // Lọc ra các đơn đặt hàng có userId khớp với id của người dùng
+    const filteredOrders = orders.filter((order) => order.userId === userId);
+
+    return res.status(200).json(filteredOrders);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 let editOrder = async (req, res) => {
   let data = req.body;
   let message = await orderService.editOrderService(data);
@@ -40,4 +59,5 @@ module.exports = {
   getOrder: getOrder,
   editOrder: editOrder,
   deleteOrder: deleteOrder,
+  getOderByUserService: getOderByUserService,
 };

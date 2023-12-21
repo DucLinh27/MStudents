@@ -167,7 +167,7 @@ let createNewUser = (data) => {
         });
       }
     } catch (e) {
-      reject(e); 
+      reject(e);
     }
   });
 };
@@ -312,6 +312,7 @@ let handleUserGoogle = async (data) => {
           message: "Ok",
           userId: newUser.id,
         });
+        console.log(userId)
       }
     } catch (e) {
       reject(e);

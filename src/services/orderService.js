@@ -42,9 +42,7 @@ let createOrderService = (data) => {
 let getOrderService = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let order = await db.Order.findAll(
-        
-      );
+      let order = await db.Order.findAll();
       if (order) {
         resolve(order);
       } else {
@@ -59,12 +57,12 @@ let getOrderService = () => {
   });
 };
 
-let getOderByUserService = (user) => {
+let getOderByUserService = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (user) {
         let order = await db.Order.findOne({
-          where: { username: user },
+          where: { userId: userId },
           raw: true,
           nest: true,
         });

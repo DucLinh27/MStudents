@@ -151,7 +151,11 @@ let initWebRoutes = (app) => {
   //order
   router.post("/api/create-order", authMiddleware, orderController.createOrder);
   router.get("/api/get-order", authMiddleware, orderController.getOrder);
-
+  router.get(
+    "/api/get-order-by-user",
+    authMiddleware,
+    orderController.getOderByUserService
+  );
   router.put("/api/edit-order", authMiddleware, orderController.editOrder);
   router.delete(
     "/api/delete-order",
