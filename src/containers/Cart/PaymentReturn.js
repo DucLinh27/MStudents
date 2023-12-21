@@ -18,14 +18,6 @@ class PaymentReturn extends Component {
   }
 
   async componentDidMount() {
-    // if (this.props.location.state) {
-    //   const { orderData } = this.props.location.state;
-    //   this.setState({ orderData });
-
-    //   // Dispatch the action to store the order data in the Redux store
-    //   this.props.storeOrderData(orderData);
-    //   localStorage.setItem("userInfo", JSON.stringify(orderData.userInfo));
-    // }
     try {
       const orders = await getOrderService();
       console.log("Orders:", orders);
@@ -64,7 +56,7 @@ class PaymentReturn extends Component {
             <table>
               <tbody>
                 <tr>
-                  {/* <th>UserId</th> */}
+                  <th>UserId</th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>Phone Number</th>
@@ -77,7 +69,7 @@ class PaymentReturn extends Component {
                 {arrOrders.map((item, index) => {
                   return (
                     <tr key={index}>
-                      {/* <td>{item.userId}</td> */}
+                      <td>{item.userId}</td>
                       <td>{item.username}</td>
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>
@@ -223,7 +215,6 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     cart: state.cart,
-    // orderData: state.cart.orderData, // Add this line
   };
 };
 

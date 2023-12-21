@@ -27,7 +27,7 @@ const appReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: false,
         userInfo: null,
-        user: null,
+        user: null
       };
     case actionTypes.SET_USER:
       console.log(action.payload);

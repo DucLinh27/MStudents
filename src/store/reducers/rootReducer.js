@@ -27,11 +27,11 @@ const appPersistConfig = {
   whitelist: ["language"],
 };
 
-// const adminPersistConfig = {
-//   ...persistCommonConfig,
-//   key: "admin",
-//   whitelist: ["language"],
-// };
+const adminPersistConfig = {
+  ...persistCommonConfig,
+  key: "admin",
+  whitelist: ["language"],
+};
 const cartPersistConfig = {
   ...persistCommonConfig,
   key: "cart",
@@ -44,6 +44,7 @@ export default (history) =>
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
+    admin: persistReducer(adminPersistConfig, adminReducer),
     cart: persistReducer(cartPersistConfig, cartReducer),
-    admin: adminReducer,
+    // admin: adminReducer,
   });

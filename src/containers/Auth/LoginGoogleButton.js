@@ -11,17 +11,22 @@ function LoginGoogleButton() {
   const history = useHistory();
   const handleLogin = async (decodedUser) => {
     try {
-      const { email, name, sub: googleId } = decodedUser;
-      console.log(name);
+      const { email, name } = decodedUser;
       // Replace with your API endpoint
       const response = await axios.post("http://localhost:8080/api/users", {
         email,
         name,
-        googleId,
       });
       console.log(response.data);
 
-      dispatch(setUser({ ...decodedUser, isLoggedIn: true }));
+      // Assuming response.data contains the userId
+      const userId = response.data.userId;
+      console.log(userId);
+
+      // Add userId to decodedUser
+      const updatedUser = { ...decodedUser, userId };
+
+      dispatch(setUser({ ...updatedUser, isLoggedIn: true }));
     } catch (error) {
       console.error(error);
     }

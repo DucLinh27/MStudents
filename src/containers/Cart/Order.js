@@ -31,7 +31,6 @@ class Order extends Component {
         sdkReady: true,
       });
     }
-    console.log(this.props.location.state);
     if (this.props.location.state) {
       const { cartItems, quantities, totalPrice } = this.props.location.state;
       this.setState({ cart: cartItems, totalPrice: totalPrice });
@@ -44,11 +43,10 @@ class Order extends Component {
 
     const { username, email, phonenumber, payment, cart, totalPrice } =
       this.state;
+    const { userIdNormal } = this.props;
 
-    const { userId } = this.props;
-
-    const orderData = {
-      userId,
+    const orderData = await {
+      userIdNormal,
       username,
       email,
       phonenumber,
@@ -107,9 +105,9 @@ class Order extends Component {
     // Here you would typically send these details to your server for further processing
     // For example, you might want to update the order status in your database
     // You can use the createOrderService function you've defined earlier
-
+    const userId = this.props.userIdNormal || this.props.userIdGoogle;
     const orderData = {
-      userId: this.props.userId,
+      userId,
       username: this.state.username,
       email: this.state.email,
       phonenumber: this.state.phonenumber,
@@ -137,11 +135,9 @@ class Order extends Component {
     console.log(this.state.payment);
     let { cart } = this.state;
     let { quantities, totalPrice } = this.props.location.state;
-    console.log(cart);
-    console.log(totalPrice);
     const { showPaypal } = this.state;
-    const { userId } = this.props;
-    console.log(userId);
+    const { userIdNormal, userIdGoogle } = this.props;
+    console.log(userIdNormal);
     return (
       <>
         <HomeHeader />
@@ -283,7 +279,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     cart: state.cart,
-    userId: state.user.userInfo.id,
+    userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
   };
 };
 

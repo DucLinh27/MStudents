@@ -107,7 +107,7 @@ class ProfileUser extends Component {
   };
   render() {
     let { language } = this.props;
-    const { userInfo, orderData, user } = this.props;
+    const { userInfo, user } = this.props;
     console.log(userInfo);
     let userGoogle = user.user;
     console.log(userGoogle);
@@ -327,7 +327,6 @@ const mapStateToProps = (state) => {
     language: state.app.language,
     userInfo: state.user.userInfo,
     user: state.user,
-    orderData: state.cart.orderData,
   };
 };
 
