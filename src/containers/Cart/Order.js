@@ -136,7 +136,7 @@ class Order extends Component {
     let { cart } = this.state;
     let { quantities, totalPrice } = this.props.location.state;
     const { showPaypal } = this.state;
-    const { userIdNormal, userIdGoogle } = this.props;
+    const { userIdNormal } = this.props;
     console.log(userIdNormal);
     return (
       <>

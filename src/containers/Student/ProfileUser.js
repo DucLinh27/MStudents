@@ -20,13 +20,16 @@ class ProfileUser extends Component {
   }
   async componentDidMount() {
     try {
-      const orders = await getOrderService();
+      const userId = this.props.userId;
+      console.log(userId);
+      const orders = await getOrderService(userId);
       console.log("Orders:", orders);
-      const ordersArray = Array.isArray(orders)
-        ? orders
-        : Object.values(orders);
+      const filteredOrders = Array.isArray(orders)
+        ? orders.filter((order) => order.userId === userId)
+        : Object.values(orders).filter((order) => order.userId === userId);
+
       this.setState({
-        arrOrders: ordersArray,
+        arrOrders: filteredOrders,
       });
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -327,6 +330,7 @@ const mapStateToProps = (state) => {
     language: state.app.language,
     userInfo: state.user.userInfo,
     user: state.user,
+    userId: state.user.userInfo?.id || state.user.user?.userId,
   };
 };
 
