@@ -5,10 +5,7 @@ import {
   editOrderService,
   getOrderService,
 } from "../../services/orderService";
-import {
-  handlePaymentPaypal,
-  getPaymentReturnService,
-} from "../../services/paymentService.js";
+
 import actionTypes from "./actionTypes";
 
 export const addToCart = (item) => {

@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DetailClasses.scss";
-import HomeHeader from "../../HomePage/HomeHeader";
-import DoctorSchedule from "../Teacher/DoctorSchedule";
-import DoctorExtraInfor from "../Teacher/DoctorExtraInfor";
-
-import ProfileDoctor from "../Teacher/ProfileDoctor";
-import { getAllDetailClassesById } from "../../../services/userService";
+import HomeHeader from "../../HomePage/Header/HomeHeader";
+import TeacherSchedule from "../Teacher/TeacherSchedule";
+import TeacherExtraInfor from "../Teacher/TeacherExtraInfor";
+import ProfileTeacher from "../Teacher/ProfileTeacher";
+import { getAllDetailClassesById } from "../../../services/classesService";
 import _ from "lodash";
 
 class DetailClasses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrDoctorId: [],
-      dataDetailClinic: {},
+      arrTeacherId: [],
+      dataDetailClasses: {},
     };
   }
 
@@ -31,18 +30,18 @@ class DetailClasses extends Component {
       });
       if (res && res.errCode === 0) {
         let data = res.data;
-        let arrDoctorId = [];
+        let arrTeacherId = [];
         if (data && !_.isEmpty(res.data)) {
           let arr = data.doctorSpecialty;
           if (arr && arr.length > 0) {
             arr.map((item) => {
-              arrDoctorId.push(item.doctorId);
+              arrTeacherId.push(item.doctorId);
             });
           }
         }
         this.setState({
-          dataDetailClinic: res.data,
-          arrDoctorId: arrDoctorId,
+          dataDetailClasses: res.data,
+          arrTeacherId: arrTeacherId,
         });
       }
     }
@@ -54,7 +53,7 @@ class DetailClasses extends Component {
   }
 
   render() {
-    let { arrDoctorId, dataDetailClinic } = this.state;
+    let { arrTeacherId, dataDetailClasses } = this.state;
     console.log("check state", this.state);
     let { language } = this.props.language;
 
@@ -63,26 +62,26 @@ class DetailClasses extends Component {
         <HomeHeader />
         <div className="detail-specialty-body">
           <div className="specialty-description">
-            {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
+            {dataDetailClasses && !_.isEmpty(dataDetailClasses) && (
               <>
-                <div className="name">{dataDetailClinic.name}</div>
+                <div className="name">{dataDetailClasses.name}</div>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: dataDetailClinic.descriptionHTML,
+                    __html: dataDetailClasses.descriptionHTML,
                   }}
                 ></div>
               </>
             )}
           </div>
 
-          {arrDoctorId &&
-            arrDoctorId.length > 0 &&
-            arrDoctorId.map((item, index) => {
+          {arrTeacherId &&
+            arrTeacherId.length > 0 &&
+            arrTeacherId.map((item, index) => {
               return (
                 <div className="each-doctor" key={index}>
                   <div className="content-left">
                     <div className="profile-doctor">
-                      <ProfileDoctor
+                      <ProfileTeacher
                         doctorId={item}
                         isShowDescriptionDoctor={true}
                         isShowLinkDetail={true}
@@ -92,11 +91,11 @@ class DetailClasses extends Component {
                   </div>
                   <div className="content-right">
                     <div className="doctor-schedule">
-                      <DoctorSchedule doctorIdFromParent={item} />
+                      <TeacherSchedule doctorIdFromParent={item} />
                     </div>
 
                     <div className="doctor-extra-infor">
-                      <DoctorExtraInfor doctorIdFromParent={item} />
+                      <TeacherExtraInfor doctorIdFromParent={item} />
                     </div>
                   </div>
                 </div>

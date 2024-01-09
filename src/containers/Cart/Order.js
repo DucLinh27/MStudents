@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import HomeHeader from "../HomePage/HomeHeader";
+import HomeHeader from "../HomePage/Header/HomeHeader";
 import "./Order.scss";
 import { createOrderService } from "../../services/orderService";
-import HomeFooter from "../HomePage/HomeFooter";
+import HomeFooter from "../HomePage/Header/HomeFooter";
 import { PayPalButton } from "react-paypal-button-v2";
 import * as actions from "../../store/actions";
 import { getConfig } from "../../services/paymentService";

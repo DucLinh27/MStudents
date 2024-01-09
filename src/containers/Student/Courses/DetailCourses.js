@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DetailCourses.scss";
-import HomeHeader from "../../HomePage/HomeHeader";
-import HomeFooter from "../../HomePage/HomeFooter";
-import { getDetailCoursesById } from "../../../services/userService";
+import HomeHeader from "../../HomePage/Header/HomeHeader";
+import HomeFooter from "../../HomePage/Header/HomeFooter";
+import { getDetailCoursesById } from "../../../services/coursesService";
 import _ from "lodash";
 import imglearn from "../../../assets/imglearn.jpg";
 import * as actions from "../../../store/actions";

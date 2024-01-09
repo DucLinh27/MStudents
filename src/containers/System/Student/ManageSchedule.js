@@ -8,7 +8,7 @@ import { LANGUAGES } from "../../../utils";
 import DatePicker from "../../../components/Input/DatePicker";
 import { toast } from "react-toastify";
 import _ from "lodash";
-import { saveBulkScheduleTeacher } from "../../../services/userService";
+import { saveBulkScheduleTeacher } from "../../../services/teacherService";
 
 class ManageSchedule extends Component {
   constructor(props) {

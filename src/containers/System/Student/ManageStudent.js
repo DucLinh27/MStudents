@@ -6,7 +6,7 @@ import DatePicker from "../../../components/Input/DatePicker.js";
 import {
   getAllStudentForTeacher,
   postSendRemedy,
-} from "../../../services/userService";
+} from "../../../services/teacherService.js";
 import moment from "moment";
 import { LANGUAGES } from "../../../utils";
 import RemedyModal from "./RemedyModal";

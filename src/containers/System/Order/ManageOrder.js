@@ -3,9 +3,9 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./ManageOrder.scss";
 import { getOrderService } from "../../../services/orderService";
-import ModalUser from "../ModalUser";
+import ModalUser from "../Users/ModalUser";
 import { emitter } from "../../../utils/emitter";
-import ModalEditOrder from "../ModalEditOrder";
+import ModalEditOrder from "./ModalEditOrder";
 import {
   deleteOrderService,
   editOrderService,

@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
-import HomeHeader from "../HomePage/HomeHeader";
-import HomeFooter from "../HomePage/HomeFooter";
+import HomeHeader from "../HomePage/Header/HomeHeader";
+import HomeFooter from "../HomePage/Header/HomeFooter";
 import { withRouter } from "react-router";
 import _ from "lodash";
 import "./Cart.scss";
 import { LANGUAGES } from "../../utils";
-import imgCourses from "../../assets/imgCourses.jpg";
-import imglearn from "../../assets/imglearn.jpg";
 import * as actions from "../../store/actions";
-import imageS from "../../assets/image_223258.jpg";
 
 class Cart extends Component {
   constructor(props) {
@@ -27,6 +24,7 @@ class Cart extends Component {
       isOpenModalUser: false,
       cartItems: [],
       quantities: quantities,
+      selectedItems: {},
     };
   }
 
@@ -80,31 +78,49 @@ class Cart extends Component {
   };
   // Add two new methods to increase and decrease quantity
   increaseQuantity = (itemId) => {
-    this.setState((prevState) => {
-      const newQuantities = {
-        ...prevState.quantities,
-        [itemId]: (prevState.quantities[itemId] || 1) + 1,
-      };
-      localStorage.setItem("quantities", JSON.stringify(newQuantities));
-      return { quantities: newQuantities };
-    });
+    let { cartItems } = this.props;
+    let item = cartItems.find((item) => item.id === itemId);
+    if (item) {
+      item.quantity = (item.quantity || 1) + 1;
+      this.setState({ cartItems });
+    }
   };
 
   decreaseQuantity = (itemId) => {
-    this.setState((prevState) => {
-      const newQuantities = {
-        ...prevState.quantities,
-        [itemId]: (prevState.quantities[itemId] || 1) - 1,
-      };
-      localStorage.setItem("quantities", JSON.stringify(newQuantities));
-      return { quantities: newQuantities };
-    });
+    let { cartItems } = this.props;
+    let item = cartItems.find((item) => item.id === itemId);
+    if (item) {
+      item.quantity = (item.quantity || 1) - 1;
+      if (item.quantity < 1) {
+        this.handleDeleteCartItem(itemId);
+        item.quantity = 0;
+      }
+      this.setState({ cartItems });
+    }
   };
-
+  handleSelectItem = (itemId, isSelected) => {
+    this.setState((prevState) => ({
+      selectedItems: {
+        ...prevState.selectedItems,
+        [itemId]: isSelected,
+      },
+    }));
+  };
+  handleSelectAllItems = (isSelected) => {
+    const selectedItems = {};
+    this.props.cartItems.forEach((item) => {
+      selectedItems[item.id] = isSelected;
+    });
+    this.setState({ selectedItems });
+  };
   render() {
     let { cartItems } = this.props;
     const totalPrice = cartItems.reduce((total, item) => {
-      return total + item.price * (this.state.quantities[item.id] || 0);
+      if (this.state.selectedItems[item.id]) {
+        return total + item.price * (item.quantity || 0);
+      } else {
+        return total;
+      }
     }, 0);
     console.log("cart products", cartItems);
     return (
@@ -117,7 +133,13 @@ class Cart extends Component {
               <div className="select-cart d-flex">
                 <div className="d-flex">
                   <div>
-                    <input type="checkbox" className="select-checkbox" />
+                    <input
+                      type="checkbox"
+                      className="select-checkbox"
+                      onChange={(e) =>
+                        this.handleSelectAllItems(e.target.checked)
+                      }
+                    />
                   </div>
                   <div className="select-products">Select All Products</div>
                 </div>
@@ -130,7 +152,14 @@ class Cart extends Component {
                 <div className="product-cart" key={index}>
                   <div className="d-flex">
                     <div>
-                      <input type="checkbox" className="select-checkbox" />
+                      <input
+                        type="checkbox"
+                        className="select-checkbox"
+                        checked={this.state.selectedItems[item.id] || false}
+                        onChange={(e) =>
+                          this.handleSelectItem(item.id, e.target.checked)
+                        }
+                      />
                     </div>
                     <div
                       className="image-products"
@@ -154,7 +183,7 @@ class Cart extends Component {
                       <input
                         type="text"
                         className="quantity-checkbox"
-                        value={this.state.quantities[item.id] || 1}
+                        value={item.quantity || 1}
                         readOnly
                       />
                       <a
@@ -196,7 +225,7 @@ class Cart extends Component {
                   Thanh Toan
                 </span>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
 

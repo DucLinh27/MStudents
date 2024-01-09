@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import UserManage from "../containers/System/UserManage";
-import UserRedux from "../containers/System/Admin/UserRedux";
-import Header from "../containers/Header/Header";
+import UserManage from "../containers/System/Users/UserManage";
+import UserRedux from "../containers/System/Users/UserRedux";
+import Header from "../containers/RoleUser/Roles";
 import ManageTeacher from "../containers/System/Admin/ManageTeacher";
 import ManageCourses from "../containers/System/Courses/ManageCourses";
 import ManageClasses from "../containers/System/Classes/ManageClasses";

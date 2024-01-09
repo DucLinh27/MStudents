@@ -8,7 +8,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import "./ManageTeacher.scss";
 import Select from "react-select";
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
-import { getDetailInforTeacher } from "../../../services/userService";
+import { getDetailInforTeacher } from "../../../services/teacherService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 

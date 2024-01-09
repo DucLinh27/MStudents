@@ -13,24 +13,23 @@ import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import System from "../routes/System";
-import { CustomToastCloseButton } from "../components/CustomToast";
 import ConfirmModal from "../components/ConfirmModal";
-import HomePage from "./HomePage/HomePage.js";
+import HomePage from "./HomePage/Header/HomePage.js";
 import CustomScrollbars from "../components/CustomScrollbars";
 import Teacher from "../routes/Teacher";
-import DetailDoctor from "./Student/DetailDoctor";
-import VerifyEmail from "./Student/VerifyEmail";
+import DetailTeacher from "./Student/Teacher/DetailTeacher.js";
+import VerifyEmail from "./Student/Emails/VerifyEmail";
 import DetailCourses from "./Student/Courses/DetailCourses";
 import DetailClasses from "./Student/Classes/DetailClasses";
 import Order from "../containers/Cart/Order";
 import CartItem from "../containers/Cart/CartItem";
 import Cart from "../containers/Cart/Cart";
 import PaymentReturn from "../containers/Cart/PaymentReturn";
-import ProfileUser from "./Student/ProfileUser.js";
-import AllCourses from "./HomePage/Section/AllCourses.js";
-import AllTeacher from "./HomePage/Section/AllTeacher.js";
-import Blog from "./HomePage/Section/Blog.js";
-import About from "./HomePage/Section/About.js";
+import ProfileUser from "./Student/Users/ProfileUser.js";
+import AllCourses from "./HomePage/Body/AllCourses.js";
+import AllTeacher from "./HomePage/Body/AllTeacher.js";
+import Blog from "./HomePage/Body/Blog.js";
+import About from "./HomePage/Body/About.js";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -78,7 +77,7 @@ class App extends Component {
                   />
                   <Route path={path.HOME} exact component={Home} />
                   <Route path={path.HOMEPAGE} component={HomePage} />
-                  <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                  <Route path={path.DETAIL_TEACHER} component={DetailTeacher} />
                   <Route path={path.DETAIL_COURSES} component={DetailCourses} />
                   <Route path={path.ALL_COURSES} component={AllCourses} />
                   <Route path={path.ALL_TEACHER} component={AllTeacher} />

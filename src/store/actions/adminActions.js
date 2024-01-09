@@ -5,13 +5,17 @@ import {
   getAllUsers,
   deleteUserServices,
   editUserServices,
+  createRegisterUserServices,
+} from "../../services/userService";
+import {
   getTopTeacherHomeService,
   getAllTeachers,
   saveDetailTeacherService,
-  getALlSpecialty,
-  getAllClasses,
-  createRegisterUserServices,
-} from "../../services/userService";
+} from "../../services/teacherService";
+
+import { getAllCourses } from "../../services/coursesService";
+import { getAllClasses } from "../../services/classesService";
+
 import { getOrderService, editOrderService } from "../../services/orderService";
 import { toast } from "react-toastify";
 
@@ -235,7 +239,7 @@ export const fetchAllUsersFailded = () => ({
 });
 
 //DOCTOR
-export const fetchTopDoctor = () => {
+export const fetchTopTeacher = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getTopTeacherHomeService("");
@@ -332,7 +336,7 @@ export const getRequireDoctorInfor = () => {
       let resPrice = await getAllCodeServices("PRICE");
       let resPayment = await getAllCodeServices("PAYMENT");
       let resProvince = await getAllCodeServices("PROVINCE");
-      let resSpecialty = await getALlSpecialty();
+      let resSpecialty = await getAllCourses();
       let resClinic = await getAllClasses();
 
       if (

@@ -4,7 +4,7 @@ import "./ManageClasses.scss";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { CommonUtils } from "../../../utils";
-import { createNewClasses } from "../../../services/userService";
+import { createNewClasses } from "../../../services/classesService";
 import { toast } from "react-toastify";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);

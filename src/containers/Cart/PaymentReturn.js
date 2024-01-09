@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import HomeHeader from "../HomePage/HomeHeader";
+import HomeHeader from "../HomePage/Header/HomeHeader";
 import "./Order.scss";
-import HomeFooter from "../HomePage/HomeFooter";
+import HomeFooter from "../HomePage/Header/HomeFooter";
 import Modal from "react-bootstrap/Modal";
 import { storeOrderData } from "../../store/actions"; // Import the action
 import { getOrderService } from "../../services/orderService";
@@ -19,7 +19,14 @@ class PaymentReturn extends Component {
 
   async componentDidMount() {
     try {
-      const userId = this.props.userId;
+      let userId = this.props.userId;
+      if (!userId) {
+        // If userId is not in props, try to get it from localStorage
+        userId = localStorage.getItem("userId");
+      } else {
+        // If userId is in props, save it to localStorage
+        localStorage.setItem("userId", userId);
+      }
       console.log(userId);
       const orders = await getOrderService(userId);
       console.log("Orders:", orders);

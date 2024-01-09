@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { emitter } from "../../utils/emitter";
-import { getDetailCoursesById } from "../../services/userService";
+import { getDetailCoursesById } from "../../services/coursesService";
 import * as actions from "../../store/actions";
 
 class CartItem extends Component {

@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
-import { createNewSpecialty } from "../../../services/userService";
+import { createNewCourses } from "../../../services/coursesService";
 import { toast } from "react-toastify";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -51,7 +51,7 @@ class ManageCourses extends Component {
     }
   };
   handleSaveNewSpecialty = async () => {
-    let res = await createNewSpecialty(this.state);
+    let res = await createNewCourses(this.state);
     if (res && res.errCode === 0) {
       toast.success("Add new specialty successfully");
       this.setState({
