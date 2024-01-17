@@ -76,6 +76,13 @@ let getDetailCoursesById = (inputId) => {
             "quantity",
             "descriptionMarkdown",
           ],
+          include: [
+            {
+              model: db.Videos,
+              as: 'videos',
+              attributes: ["id", "name"],
+            },
+          ],
         });
         if (data) {
           resolve({
@@ -105,9 +112,48 @@ let getDetailCoursesById = (inputId) => {
     }
   });
 };
+let getVideosByCourseId = (courseId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!courseId) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let course = await db.Courses.findOne({
+          where: { id: courseId },
+          include: [
+            {
+              model: db.Videos,
+              as: "videos",
+              attributes: ["id", "name"],
+              // attributes: ['id', 'title', 'description', 'url'],
+            },
+          ],
+        });
 
+        if (!course) {
+          resolve({
+            errCode: 2,
+            errMessage: "Course not found!",
+          });
+        } else {
+          resolve({
+            errCode: 0,
+            data: course.videos,
+          });
+          console.log("videos", data);
+        }
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   createCourses: createCourses,
   getAllCourses: getAllCourses,
   getDetailCoursesById: getDetailCoursesById,
+  getVideosByCourseId: getVideosByCourseId,
 };

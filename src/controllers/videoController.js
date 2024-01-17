@@ -1,8 +1,7 @@
-import classesService from "../services/classesService";
-
-let getAllClasses = async (req, res) => {
+import videoService from "../services/videoService";
+let createVideos = async (req, res) => {
   try {
-    let infor = await classesService.getAllClasses();
+    let infor = await videoService.createVideos(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -12,9 +11,9 @@ let getAllClasses = async (req, res) => {
     });
   }
 };
-let getDetailClassesById = async (req, res) => {
+let getAllVideos = async (req, res) => {
   try {
-    let infor = await classesService.getDetailClassesById(req.query.id);
+    let infor = await videoService.getAllVideos();
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -24,9 +23,9 @@ let getDetailClassesById = async (req, res) => {
     });
   }
 };
-let createClasses = async (req, res) => {
+let getDetailVideosById = async (req, res) => {
   try {
-    let infor = await classesService.createClasses(req.body);
+    let infor = await videoService.getDetailVideosById(req.query.id);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -38,7 +37,7 @@ let createClasses = async (req, res) => {
 };
 
 module.exports = {
-  createClasses: createClasses,
-  getAllClasses: getAllClasses,
-  getDetailClassesById: getDetailClassesById,
+  createVideos: createVideos,
+  getAllVideos: getAllVideos,
+  getDetailVideosById: getDetailVideosById,
 };

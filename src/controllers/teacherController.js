@@ -16,8 +16,8 @@ let getTopTeacherHome = async (req, res) => {
 };
 let getAllTeachers = async (req, res) => {
   try {
-    let doctors = await teacherService.getAllTeachers();
-    return res.status(200).json(doctors);
+    let teachers = await teacherService.getAllTeachers();
+    return res.status(200).json(teachers);
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -34,7 +34,7 @@ let postInforTeacher = async (req, res) => {
     console.log(e);
     return res.status(200).json({
       errCode: -1,
-      errMessage: "Error from server...",
+      errMessage: "Error from server...s",
     });
   }
 };
@@ -105,9 +105,9 @@ let getProfileTeacherById = async (req, res) => {
   }
 };
 
-let getListPatientForTeacher = async (req, res) => {
+let getListStudentForTeacher = async (req, res) => {
   try {
-    let infor = await teacherService.getListPatientForTeacher(
+    let infor = await teacherService.getListStudentForTeacher(
       req.query.teacherId,
       req.query.date
     );
@@ -141,6 +141,6 @@ module.exports = {
   getScheduleByDate: getScheduleByDate,
   getExtraInforTeacherById: getExtraInforTeacherById,
   getProfileTeacherById: getProfileTeacherById,
-  getListPatientForTeacher: getListPatientForTeacher,
+  getListStudentForTeacher: getListStudentForTeacher,
   sendRemedy: sendRemedy,
 };

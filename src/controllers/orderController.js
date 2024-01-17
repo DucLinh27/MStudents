@@ -8,6 +8,7 @@ let createOrder = async (req, res) => {
 let getOrder = async (req, res) => {
   try {
     const userId = req.params.userId;
+    console.log(userId);
     let order = await orderService.getOrderService(userId);
     return res.status(200).json(order);
   } catch (e) {

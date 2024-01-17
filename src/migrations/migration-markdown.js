@@ -24,11 +24,11 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER,
       },
-      specialtyId: {
+      coursesId: {
         allowNull: true,
         type: Sequelize.INTEGER,
       },
-      clinicid: {
+      classesId: {
         allowNull: true,
         type: Sequelize.INTEGER,
       },

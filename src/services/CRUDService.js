@@ -23,7 +23,6 @@ let createNewUser = async (data) => {
             reject(e);
         }
     })
-
 }
 
 let hashUserPassword = (password) => {
@@ -37,7 +36,6 @@ let hashUserPassword = (password) => {
         } catch (e) {
             reject(e);
         }
-
     })
 }
 

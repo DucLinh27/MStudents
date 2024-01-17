@@ -137,8 +137,8 @@ let getAllUsers = (userId) => {
 let createNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log("Cookies: ", req.cookies);
-      res.cookie("Signed Cookies: ", "test coookie");
+      // console.log("Cookies: ", req.cookies);
+      // res.cookie("Signed Cookies: ", "test coookie");
       //check if email already exists
       let check = await checkUserEmail(data.email);
       if (check === true) {
@@ -312,7 +312,7 @@ let handleUserGoogle = async (data) => {
           message: "Ok",
           userId: newUser.id,
         });
-        console.log(userId)
+        console.log(userId);
       }
     } catch (e) {
       reject(e);

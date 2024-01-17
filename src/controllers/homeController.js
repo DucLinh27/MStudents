@@ -1,5 +1,4 @@
 import db from "../models/index";
-import user from "../models/user";
 import CRUDService from "../services/CRUDService";
 
 let getHomePage = async (req, res) => {
@@ -19,7 +18,7 @@ let getAboutPage = (req, res) => {
 
 let getCRUD = (req, res) => {
   console.log("Cookies: ", req.cookies);
-  res.cookie("user", "nguyen van a"); 
+  res.cookie("user", "nguyen van a");
   return res.render("crud.ejs");
 };
 
@@ -52,7 +51,6 @@ let getEditCRUD = async (req, res) => {
 let putCRUD = async (req, res) => {
   let data = req.body;
   let allUsers = await CRUDService.updateUserData(data);
-
   return res.render("displayCRUD.ejs", {
     dataTable: allUsers,
   });

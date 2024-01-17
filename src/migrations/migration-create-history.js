@@ -1,39 +1,36 @@
-'use strict';
+"use strict";
 module.exports = {
-    up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('histories', {
-            // patientId: DataTypes.INTEGER,
-            // doctorId: DataTypes.INTEGER,
-            // description: DataTypes.TEXT,
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
-            },
-            studentId: {
-                type: Sequelize.INTEGER
-            },
-            teacherId: {
-                type: Sequelize.INTEGER
-            },
-            description: {
-                type: Sequelize.TEXT
-            },
-            files: {
-                type: Sequelize.TEXT
-            },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE
-            }
-        });
-    },
-    down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('histories');
-    }
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("histories", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      studentId: {
+        type: Sequelize.INTEGER,
+      },
+      teacherId: {
+        type: Sequelize.INTEGER,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      files: {
+        type: Sequelize.TEXT,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("histories");
+  },
 };

@@ -1,26 +1,19 @@
 const db = require("../models");
 
-let createClasses = (data) => {
+let createVideos = (data) => {
   return new Promise(async (resolve, reject) => {
+    console.log(data);
     try {
-      if (
-        !data.name ||
-        !data.address ||
-        !data.imageBase64 ||
-        !data.descriptionHTML ||
-        !data.descriptionMarkdown
-      ) {
+      if (!data.name || !data.video || !data.coursesId) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
         });
       } else {
-        await db.Classes.create({
+        await db.Videos.create({
           name: data.name,
-          address: data.address,
-          image: data.imageBase64,
-          descriptionHTML: data.descriptionHTML,
-          descriptionMarkdown: data.descriptionMarkdown,
+          video: data.video,
+          coursesId: data.coursesId.value,
         });
         resolve({
           errCode: 0,
@@ -32,10 +25,10 @@ let createClasses = (data) => {
     }
   });
 };
-let getAllClasses = (data) => {
+let getAllVideos = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Classes.findAll({});
+      let data = await db.Videos.findAll({});
 
       if (data && data.length > 0) {
         data.map((item) => {
@@ -53,7 +46,8 @@ let getAllClasses = (data) => {
     }
   });
 };
-let getDetailClassesById = (inputId) => {
+
+let getDetailVideosById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!inputId) {
@@ -62,28 +56,36 @@ let getDetailClassesById = (inputId) => {
           errMessage: "Missing parameter!",
         });
       } else {
-        let data = await db.Classes.findOne({
+        let data = await db.Videos.findOne({
           where: {
             id: inputId,
           },
-          attributes: [
-            "name",
-            "address",
-            "descriptionHTML",
-            "descriptionMarkdown",
+          attributes: ["id", "name", "coursesId"],
+          include: [
+            {
+              model: db.Videos,
+              as: "videos",
+              attributes: ["id", "name", "coursesId"],
+            },
           ],
         });
         if (data) {
-          let teacherClasses = [];
-
-          teacherClasses = await db.Teacher_Infor.findAll({
-            where: {
-              clinicId: inputId,
-            },
-            attributes: ["teacherId", "provinceId"],
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
           });
-          data.teacherClasses = teacherClasses;
-        } else data = {};
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Video not found!",
+            data,
+          });
+        }
+        if (data && data.image) {
+          data.image = new Buffer(data.image, "base64").toString("binary");
+        }
         resolve({
           errCode: 0,
           errMessage: "OK!",
@@ -95,8 +97,9 @@ let getDetailClassesById = (inputId) => {
     }
   });
 };
+
 module.exports = {
-  createClasses: createClasses,
-  getAllClasses: getAllClasses,
-  getDetailClassesById: getDetailClassesById,
+  createVideos: createVideos,
+  getAllVideos: getAllVideos,
+  getDetailVideosById: getDetailVideosById,
 };

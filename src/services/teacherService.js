@@ -14,7 +14,7 @@ let getTopTeacherHome = (limitInput) => {
         attributes: {
           exclude: ["password"],
         },
-        
+
         raw: true,
         nest: true,
       });
@@ -30,7 +30,7 @@ let getTopTeacherHome = (limitInput) => {
 let getAllTeachers = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let doctors = await db.User.findAll({
+      let teachers = await db.User.findAll({
         where: { roleId: "R2" },
         attributes: {
           exclude: ["password", "image"],
@@ -38,7 +38,7 @@ let getAllTeachers = () => {
       });
       resolve({
         errCode: 0,
-        data: doctors,
+        data: teachers,
       });
     } catch (e) {
       reject(e);
@@ -91,33 +91,33 @@ let saveDetailInforTeacher = async (inputData) => {
             description: inputData.description,
           });
         } else if (inputData.action === "EDIT") {
-          let doctorMarkdown = await db.Markdown.findOne({
+          let teacherMarkdown = await db.Markdown.findOne({
             where: { teacherId: inputData.teacherId },
             raw: false,
           });
-          if (doctorMarkdown) {
-            (doctorMarkdown.contentHTML = inputData.contentHTML),
-              (doctorMarkdown.contentMarkdown = inputData.contentMarkdown),
-              (doctorMarkdown.description = inputData.description),
-              (doctorMarkdown.updateAt = new Date());
-            await doctorMarkdown.save();
+          if (teacherMarkdown) {
+            (teacherMarkdown.contentHTML = inputData.contentHTML),
+              (teacherMarkdown.contentMarkdown = inputData.contentMarkdown),
+              (teacherMarkdown.description = inputData.description),
+              (teacherMarkdown.updateAt = new Date());
+            await teacherMarkdown.save();
           }
         }
 
-        //update to Doctor infor table
-        let doctorInfor = await db.Teacher_Infor.findOne({
+        //update to Teacher infor table
+        let teacherInfor = await db.Teacher_Infor.findOne({
           where: { teacherId: inputData.teacherId },
         });
 
-        if (doctorInfor) {
+        if (teacherInfor) {
           //update
-          (doctorInfor.teacherId = inputData.teacherId),
-            (doctorInfor.nameClasses = inputData.nameClasses),
-            (doctorInfor.addressClasses = inputData.addressClasses),
-            (doctorInfor.note = inputData.note),
-            (doctorInfor.classesId = inputData.classesId),
-            (doctorInfor.coursesId = inputData.coursesId),
-            await doctorInfor.save();
+          (teacherInfor.teacherId = inputData.teacherId),
+            (teacherInfor.nameClasses = inputData.nameClasses),
+            (teacherInfor.addressClasses = inputData.addressClasses),
+            (teacherInfor.note = inputData.note),
+            (teacherInfor.coursesId = inputData.coursesId),
+            (teacherInfor.classesId = inputData.classesId),
+            await teacherInfor.save();
         } else {
           //create
           await db.Teacher_Infor.create({
@@ -131,7 +131,7 @@ let saveDetailInforTeacher = async (inputData) => {
         }
         resolve({
           errCode: 0,
-          errMessage: "Save infor doctor successd!",
+          errMessage: "Save infor teacher successd!",
         });
       }
     } catch (e) {
@@ -258,7 +258,7 @@ let getScheduleByDate = (teacherId, date) => {
             },
             {
               model: db.User,
-              as: "doctorData",
+              as: "teacherData",
               attributes: ["firstName", "lastName"],
             },
           ],
@@ -375,7 +375,7 @@ let getProfileTeacherById = (inputId) => {
     }
   });
 };
-let getListPatientForTeacher = (teacherId, date) => {
+let getListStudentForTeacher = (teacherId, date) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!teacherId || !date) {
@@ -462,6 +462,6 @@ module.exports = {
   getScheduleByDate: getScheduleByDate,
   getExtraInforTeacherById: getExtraInforTeacherById,
   getProfileTeachervrById: getProfileTeacherById,
-  getListPatientForTeacher: getListPatientForTeacher,
+  getListStudentForTeacher: getListStudentForTeacher,
   sendRemedy: sendRemedy,
 };
