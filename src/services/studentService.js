@@ -6,7 +6,7 @@ import emailService from "./emailService";
 import { v4 as uuidv4 } from "uuid";
 import { raw } from "body-parser";
 
-let postBookAppointment = (data) => {
+let postOrderCourses = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (
@@ -27,9 +27,9 @@ let postBookAppointment = (data) => {
 
         await emailService.sendSimpleEmail({
           reciverEmail: data.email,
-          patientName: data.fullName,
+          studentName: data.fullName,
           time: data.timeString,
-          doctorName: data.doctorName,
+          teacherName: data.teacherName,
           language: data.language,
           redirectLink: buildUrlEmail(data.teacherId, token),
         });
@@ -63,7 +63,7 @@ let postBookAppointment = (data) => {
 
         resolve({
           errCode: 0,
-          errMessage: "Save infor patient successfully",
+          errMessage: "Save infor student successfully",
         });
       }
     } catch (e) {
@@ -77,7 +77,7 @@ let buildUrlEmail = (teacherId, token) => {
   return result;
 };
 
-let postVerifyBookAppointment = (data) => {
+let postVerifyBookCourses = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!data.token || !data.teacherId) {
@@ -99,12 +99,12 @@ let postVerifyBookAppointment = (data) => {
           await appointment.save();
           resolve({
             errCode: 0,
-            errMessage: "Update appointment successfully",
+            errMessage: "Update courses successfully",
           });
         } else {
           resolve({
             errCode: 2,
-            errMessage: "Appointment has been activeted or does not exist",
+            errMessage: "Courses has been activeted or does not exist",
           });
         }
       }
@@ -114,7 +114,7 @@ let postVerifyBookAppointment = (data) => {
   });
 };
 module.exports = {
-  postBookAppointment: postBookAppointment,
+  postOrderCourses: postOrderCourses,
   buildUrlEmail: buildUrlEmail,
-  postVerifyBookAppointment: postVerifyBookAppointment,
+  postVerifyBookCourses: postVerifyBookCourses,
 };

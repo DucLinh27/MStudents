@@ -12,12 +12,9 @@ module.exports = {
         type: Sequelize.STRING,
       },
       image: {
-        type: Sequelize.BLOB("long"),
+        type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.INTEGER,
-      },
-      quantity: {
         type: Sequelize.INTEGER,
       },
       descriptionHTML: {

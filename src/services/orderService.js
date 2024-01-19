@@ -6,34 +6,41 @@ import emailService from "./emailService";
 let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await db.Order.create({
-        userId: data.userId,
-        username: data.username,
-        totalPrice: data.totalPrice,
-        courses: data.courses,
-        email: data.email,
-        phonenumber: data.phonenumber,
-        payment: data.payment,
+      // Check if the order already exists
+      let existingOrder = await db.Order.findOne({
+        where: {
+          userId: data.userId,
+          // courses: data.courses,
+        },
+        // include: [
+        //   {
+        //     model: db.Courses,
+        //     as: "orderedCourses", // Use the correct alias here
+        //     where: { id: data.courses },
+        //   },
+        // ],
       });
 
-      // emailService.sentMail({
-      //   orderCode: data.orderCode,
-      //   email: data.email,
-      //   name: data.createBy,
-      //   total: data.totalPrice,
-      //   address: data.shippingAddress,
-      //   phone: data.shippingPhone,
-      //   courses: data.courses,
-      //   deliveryOption: data.deliveryOption,
-      //   status: data.status,
-      //   link: data.link,
-      //   createOn: data.createOn,
-      // });
-
-      resolve({
-        errCode: 0,
-        errMessage: "oke",
-      });
+      if (existingOrder) {
+        resolve({
+          errCode: 1,
+          errMessage: "Order already exists",
+        });
+      } else {
+        await db.Order.create({
+          userId: data.userId,
+          username: data.username,
+          totalPrice: data.totalPrice,
+          courses: data.courses,
+          email: data.email,
+          phonenumber: data.phonenumber,
+          payment: data.payment,
+        });
+        resolve({
+          errCode: 0,
+          errMessage: "oke",
+        });
+      }
     } catch (e) {
       reject(e);
     }

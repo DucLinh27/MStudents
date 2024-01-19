@@ -120,21 +120,6 @@ const specs = require("./docs/swagger"); // Import the Swagger configuration
 // // Apply rate limiting to all requests
 // app.use(limiter);
 
-// Endpoint to fetch YouTube videos
-app.get("/api/youtube/:searchTerm", async (req, res) => {
-  try {
-    const { searchTerm } = req.params;
-    const apiKey = "AIzaSyDfIXLdRaYLXIuWgEQVrTApJ4yObk94qFA"; // Replace with your API Key
-    const apiUrl = `https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&q=${searchTerm}&key=${apiKey}`;
-
-    const response = await axios.get(apiUrl);
-    res.json(response.data);
-  } catch (error) {
-    console.error("Error fetching YouTube videos:", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 viewEngine(app);
 initUsersRoutes(app);
 initCoursesRoutes(app);

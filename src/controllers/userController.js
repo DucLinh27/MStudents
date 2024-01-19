@@ -4,7 +4,25 @@ import { getUserWithRole } from "../services/JWTService";
 import { createJWT, verifyToken } from "../middleware/JWTAction";
 import cache from "memory-cache";
 require("dotenv").config();
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
+let refreshAccessToken = (req, res) => {
+  const refreshToken = req.header("Refresh-Token");
 
+  if (!refreshToken) {
+    return res.status(401).json({ error: "No refresh token provided" });
+  }
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: "Invalid refresh token" });
+    }
+    const newAccessToken = generateAccessToken({
+      id: user.id,
+      username: user.username,
+    });
+    res.json({ token: newAccessToken });
+  });
+};
 let handleUserGoogle = async (req, res) => {
   let message = await userService.handleUserGoogle(req.body);
   return res.status(200).json(message);
@@ -152,4 +170,5 @@ module.exports = {
   handleRegisterNewUser: handleRegisterNewUser,
   changePasswordService: changePasswordService,
   handleUserGoogle: handleUserGoogle,
+  refreshAccessToken: refreshAccessToken,
 };

@@ -6,7 +6,7 @@ let createClasses = (data) => {
       if (
         !data.name ||
         !data.address ||
-        !data.imageBase64 ||
+        !data.image ||
         !data.descriptionHTML ||
         !data.descriptionMarkdown
       ) {
@@ -18,7 +18,7 @@ let createClasses = (data) => {
         await db.Classes.create({
           name: data.name,
           address: data.address,
-          image: data.imageBase64,
+          image: data.image,
           descriptionHTML: data.descriptionHTML,
           descriptionMarkdown: data.descriptionMarkdown,
         });

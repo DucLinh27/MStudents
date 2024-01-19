@@ -1,8 +1,8 @@
 import studentService from "../services/studentService";
 
-let postBookAppointment = async (req, res) => {
+let postOrderCourses = async (req, res) => {
   try {
-    let infor = await studentService.postBookAppointment(req.body);
+    let infor = await studentService.postOrderCourses(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -12,9 +12,9 @@ let postBookAppointment = async (req, res) => {
     });
   }
 };
-let postVerifyBookAppointment = async (req, res) => {
+let postVerifyBookCourses = async (req, res) => {
   try {
-    let infor = await studentService.postVerifyBookAppointment(req.body);
+    let infor = await studentService.postVerifyBookCourses(req.body);
     return res.status(200).json(infor);
   } catch (e) {
     console.log(e);
@@ -25,6 +25,6 @@ let postVerifyBookAppointment = async (req, res) => {
   }
 };
 module.exports = {
-  postBookAppointment: postBookAppointment,
-  postVerifyBookAppointment: postVerifyBookAppointment,
+  postOrderCourses: postOrderCourses,
+  postVerifyBookCourses: postVerifyBookCourses,
 };

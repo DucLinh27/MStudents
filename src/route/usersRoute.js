@@ -19,7 +19,7 @@ let initUsersRoutes = (app) => {
   router.post("/api/login", userController.handleLoging);
   router.post("/api/users", userController.handleUserGoogle);
   router.post("/api/registerNewUser", userController.handleRegisterNewUser);
-
+  router.post("/refresh-token", userController.refreshAccessToken);
   //User
   router.get(
     "/api/get-all-users",

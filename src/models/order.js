@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       phonenumber: DataTypes.INTEGER,
       payment: DataTypes.STRING,
+      // coursesId: DataTypes.INTEGER,
       courses: {
         type: DataTypes.TEXT("long"),
         get: function () {

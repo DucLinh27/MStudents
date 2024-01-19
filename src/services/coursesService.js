@@ -6,7 +6,7 @@ let createCourses = (data) => {
     try {
       if (
         !data.name ||
-        !data.imageBase64 ||
+        !data.image ||
         !data.price ||
         !data.descriptionHTML ||
         !data.descriptionMarkdown
@@ -18,7 +18,7 @@ let createCourses = (data) => {
       } else {
         await db.Courses.create({
           name: data.name,
-          image: data.imageBase64,
+          image: data.image,
           price: data.price,
           descriptionHTML: data.descriptionHTML,
           descriptionMarkdown: data.descriptionMarkdown,
@@ -68,19 +68,12 @@ let getDetailCoursesById = (inputId) => {
           where: {
             id: inputId,
           },
-          attributes: [
-            "id",
-            "name",
-            "price",
-            "image",
-            "quantity",
-            "descriptionMarkdown",
-          ],
+          attributes: ["id", "name", "price", "image", "descriptionMarkdown"],
           include: [
             {
               model: db.Videos,
-              as: 'videos',
-              attributes: ["id", "name"],
+              as: "videos",
+              attributes: ["id", "name", "video"],
             },
           ],
         });
@@ -98,9 +91,7 @@ let getDetailCoursesById = (inputId) => {
             data,
           });
         }
-        if (data && data.image) {
-          data.image = new Buffer(data.image, "base64").toString("binary");
-        }
+
         resolve({
           errCode: 0,
           errMessage: "OK!",

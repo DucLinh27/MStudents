@@ -6,14 +6,14 @@ let router = express.Router();
 let initStudentsRoutes = (app) => {
   //StudentController
   router.post(
-    "/api/student-book-appointment",
+    "/api/student-order-courses",
     authMiddleware,
-    studentController.postBookAppointment
+    studentController.postOrderCourses
   );
   router.post(
-    "/api/verify-book-appointment",
+    "/api/verify-book-courses",
     authMiddleware,
-    studentController.postVerifyBookAppointment
+    studentController.postVerifyBookCourses
   );
   return app.use("/", router);
 };
