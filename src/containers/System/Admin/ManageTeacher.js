@@ -21,11 +21,10 @@ class ManageTeacher extends Component {
       contentHTML: "",
       selectedOption: "",
       description: "",
-      listTeachers: [],
       hashOldData: false,
 
       //save to doctor infor table
-
+      listTeachers: [],
       listClasses: [],
       listCourses: [],
 
@@ -40,7 +39,7 @@ class ManageTeacher extends Component {
   }
   componentDidMount() {
     this.props.fetchAllDoctors();
-    this.props.getAllRequiredDoctorInfor();
+    this.props.getRequireDoctorInfor();
   }
   buildDataInputSelect = (inputData, type) => {
     let result = [];
@@ -56,7 +55,7 @@ class ManageTeacher extends Component {
           result.push(object);
         });
       }
-      if (type === "SPECIALTY") {
+      if (type === "COURSES") {
         inputData.map((item, index) => {
           let object = {};
           object.label = item.name;
@@ -64,7 +63,7 @@ class ManageTeacher extends Component {
           result.push(object);
         });
       }
-      if (type === "CLINIC") {
+      if (type === "CLASSES") {
         inputData.map((item, index) => {
           let object = {};
           object.label = item.name;
@@ -85,19 +84,16 @@ class ManageTeacher extends Component {
         listTeachers: dataSelect,
       });
     }
-
     if (
       prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor
     ) {
-      let { resSpecialty, resClinic } = this.props.allRequiredDoctorInfor;
-      let dataSelectSpecialty = this.buildDataInputSelect(
-        resSpecialty,
-        "SPECIALTY"
-      );
-      let dataSelectClinic = this.buildDataInputSelect(resClinic, "CLINIC");
+      console.log("allRequiredDoctorInfor:", this.props.allRequiredDoctorInfor); // Add this line
+      let { resCourses, resClasses } = this.props.allRequiredDoctorInfor;
+      let dataSelectCourses = this.buildDataInputSelect(resCourses, "COURSES");
+      let dataSelectClasses = this.buildDataInputSelect(resClasses, "CLASSES");
       this.setState({
-        listCourses: dataSelectSpecialty,
-        listClasses: dataSelectClinic,
+        listCourses: dataSelectCourses,
+        listClasses: dataSelectClasses,
       });
     }
     if (prevProps.language !== this.props.language) {
@@ -110,6 +106,7 @@ class ManageTeacher extends Component {
       });
     }
   }
+
   handleEditorChange = ({ html, text }) => {
     this.setState({
       contentMarkdown: text,
@@ -138,7 +135,6 @@ class ManageTeacher extends Component {
   handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
     let { listCourses, listClasses } = this.state;
-
     let res = await getDetailInforTeacher(selectedOption.value);
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown;
@@ -171,7 +167,6 @@ class ManageTeacher extends Component {
         contentMarkdown: markdown.contentMarkdown,
         description: markdown.description,
         hashOldData: true,
-
         addressClasses: addressClasses,
         nameClasses: nameClasses,
         note: note,
@@ -187,7 +182,6 @@ class ManageTeacher extends Component {
         addressClasses: "",
         nameClasses: "",
         note: "",
-
         selectedCourses: "",
         selectedClasses: "",
       });
@@ -300,10 +294,10 @@ class ManageTeacher extends Component {
               value={this.state.selectedClasses}
               onChange={this.handleChangeSelectDoctorInfor}
               options={this.state.listClasses}
+              name="selectedClasses"
               placeholder={
                 <FormattedMessage id="admin.manage-teacher.select-classes" />
               }
-              name="selectedClasses"
             />
           </div>
         </div>
@@ -349,7 +343,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
-    getAllRequiredDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
+    getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
 
     saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
   };

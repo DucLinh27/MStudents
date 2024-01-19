@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./VerifyEmail.scss";
 import { FormattedMessage } from "react-intl";
-import { postVerifyBookAppointment } from "../../../services/teacherService";
+import { postVerifyBookCourses } from "../../../services/teacherService";
 import HomeHeader from "../../HomePage/Header/HomeHeader";
 
 class VerifyEmail extends Component {
@@ -21,7 +21,7 @@ class VerifyEmail extends Component {
       let token = urlParams.get("token");
       let doctorId = urlParams.get("doctorId");
 
-      let res = await postVerifyBookAppointment({
+      let res = await postVerifyBookCourses({
         token: token,
         doctorId: doctorId,
       });

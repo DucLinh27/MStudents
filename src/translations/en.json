@@ -10,7 +10,6 @@
     },
     
     "menu": {
-       
         "admin":{
             "manage-user": "Users",
             "manage-teacher": "Manage Teachers",
@@ -22,6 +21,7 @@
             "handbook": "Handbook",
             "manage-classes": "Manage Classes",
             "manage-courses": "Manage Courses",
+            "manage-videos": "Manage Videos",
             "manage-order": "Manage Order"
         },
         "teacher": {

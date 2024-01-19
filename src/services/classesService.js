@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-//Clinic
+//Class
 const createNewClasses = (data) => {
   return axios.post("/api/create-new-classes", data);
 };

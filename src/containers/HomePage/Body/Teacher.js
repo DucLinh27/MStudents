@@ -52,12 +52,6 @@ class AllTeacher extends Component {
                 {arrTeachers &&
                   arrTeachers.length > 0 &&
                   arrTeachers.map((item, index) => {
-                    let imageBase64 = "";
-                    if (item.image) {
-                      imageBase64 = new Buffer(item.image, "base64").toString(
-                        "binary"
-                      );
-                    }
                     return (
                       <div
                         className="section-customize"
@@ -69,7 +63,7 @@ class AllTeacher extends Component {
                             <div
                               className="bg-image section-outstanding-teacher"
                               style={{
-                                backgroundImage: `url(${imageBase64})`,
+                                backgroundImage: `url(${item.image})`,
                               }}
                             ></div>
                           </div>

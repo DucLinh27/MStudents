@@ -46,19 +46,13 @@ class AllTeacher extends Component {
             {arrTeachers &&
               arrTeachers.length > 0 &&
               arrTeachers.map((item, index) => {
-                let imageBase64 = "";
-                if (item.image) {
-                  imageBase64 = new Buffer(item.image, "base64").toString(
-                    "binary"
-                  );
-                }
                 return (
                   <div className="item-teacher col-3" key={index}>
                     <div
                       className="bg-image"
                       onClick={() => this.handleDetailUser(item)}
                       style={{
-                        backgroundImage: `url(${imageBase64})`,
+                        backgroundImage: `url(${item.image})`,
                       }}
                     ></div>
 

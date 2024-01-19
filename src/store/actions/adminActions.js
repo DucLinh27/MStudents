@@ -12,10 +12,8 @@ import {
   getAllTeachers,
   saveDetailTeacherService,
 } from "../../services/teacherService";
-
 import { getAllCourses } from "../../services/coursesService";
 import { getAllClasses } from "../../services/classesService";
-
 import { getOrderService, editOrderService } from "../../services/orderService";
 import { toast } from "react-toastify";
 
@@ -333,30 +331,17 @@ export const getRequireDoctorInfor = () => {
       dispatch({
         type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_START,
       });
-      let resPrice = await getAllCodeServices("PRICE");
-      let resPayment = await getAllCodeServices("PAYMENT");
-      let resProvince = await getAllCodeServices("PROVINCE");
-      let resSpecialty = await getAllCourses();
-      let resClinic = await getAllClasses();
-
+      let resCourses = await getAllCourses();
+      let resClasses = await getAllClasses();
       if (
-        resPrice &&
-        resPrice.errCode === 0 &&
-        resPayment &&
-        resPayment.errCode === 0 &&
-        resProvince &&
-        resProvince.errCode === 0 &&
-        resSpecialty &&
-        resSpecialty.errCode === 0 &&
-        resClinic &&
-        resClinic.errCode === 0
+        resCourses &&
+        resCourses.errCode === 0 &&
+        resClasses &&
+        resClasses.errCode === 0
       ) {
         let data = {
-          resPrice: resPrice.data,
-          resPayment: resPayment.data,
-          resProvince: resProvince.data,
-          resSpecialty: resSpecialty.data,
-          resClinic: resClinic.data,
+          resCourses: resCourses.data,
+          resClasses: resClasses.data,
         };
         dispatch(fetchDoctorRequireSuccess(data));
       } else {

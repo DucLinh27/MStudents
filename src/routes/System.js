@@ -6,6 +6,7 @@ import UserRedux from "../containers/System/Users/UserRedux";
 import Header from "../containers/RoleUser/Roles";
 import ManageTeacher from "../containers/System/Admin/ManageTeacher";
 import ManageCourses from "../containers/System/Courses/ManageCourses";
+import ManageVideos from "../containers/System/Videos/ManageVideos";
 import ManageClasses from "../containers/System/Classes/ManageClasses";
 import ManageOrder from "../containers/System/Order/ManageOrder";
 
@@ -22,6 +23,7 @@ class System extends Component {
               <Route path="/system/user-redux" component={UserRedux} />
               <Route path="/system/manage-teacher" component={ManageTeacher} />
               <Route path="/system/manage-courses" component={ManageCourses} />
+              <Route path="/system/manage-videos" component={ManageVideos} />
               <Route path="/system/manage-classes" component={ManageClasses} />
               <Route path="/system/manage-order" component={ManageOrder} />
 

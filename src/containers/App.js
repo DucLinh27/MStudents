@@ -30,6 +30,7 @@ import AllCourses from "./HomePage/Body/AllCourses.js";
 import AllTeacher from "./HomePage/Body/AllTeacher.js";
 import Blog from "./HomePage/Body/Blog.js";
 import About from "./HomePage/Body/About.js";
+import UserCourses from "./Student/Users/UserCourses.js";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -90,6 +91,7 @@ class App extends Component {
                   <Route path={path.CARTITEM} component={CartItem} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />
                   <Route path={path.PROFILE} exact component={ProfileUser} />
+                  <Route path={path.USER_COUSER} component={UserCourses} />
                   <Route
                     path={path.VERIFY_EMAIL_BOOKING}
                     component={VerifyEmail}

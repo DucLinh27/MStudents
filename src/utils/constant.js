@@ -19,6 +19,7 @@ export const path = {
   CARTITEM: "/cartitem",
   PAYMENT: "/payment",
   PROFILE: "/profile",
+  USER_COUSER: "/user_courses",
 };
 
 export const LANGUAGES = {

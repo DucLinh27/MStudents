@@ -11,16 +11,18 @@ export const adminMenu = [
         name: "menu.admin.crudredux",
         link: "/system/user-redux",
       },
+    ],
+  },
+  {
+    //quản lý classes
+    name: "menu.admin.manage-teacher",
+    menus: [
       {
         name: "menu.admin.manage-teacher",
         link: "/system/manage-teacher",
-        // subMenus: [
-        //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-        //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
-        // ]
       },
       {
-        //quản lý ke haoch kham benh bac si
+        //quản lý ke haoch
 
         name: "menu.teacher.manage-schedule",
         link: "/teacher/manage-schedule",
@@ -28,7 +30,7 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý phòng khám
+    //quản lý classes
     name: "menu.admin.manage-classes",
     menus: [
       {
@@ -38,12 +40,16 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý chuyên khoa
+    //quản lý courses
     name: "menu.admin.manage-courses",
     menus: [
       {
         name: "menu.admin.manage-courses",
         link: "/system/manage-courses",
+      },
+      {
+        name: "menu.admin.manage-videos",
+        link: "/system/manage-videos",
       },
     ],
   },

@@ -64,18 +64,6 @@ export function DeleteCart(payload) {
   };
 }
 
-export function IncreaseQuantity(payload) {
-  return {
-    type: "INCREASE_QUANTITY",
-    payload,
-  };
-}
-export function DecreaseQuantity(payload) {
-  return {
-    type: "DECREASE_QUANTITY",
-    payload,
-  };
-}
 export function setCartItems(cartItems) {
   return {
     type: actionTypes.SET_CART_ITEMS,

@@ -32,7 +32,7 @@ class Order extends Component {
       });
     }
     if (this.props.location.state) {
-      const { cartItems, quantities, totalPrice } = this.props.location.state;
+      const { cartItems, totalPrice } = this.props.location.state;
       this.setState({ cart: cartItems, totalPrice: totalPrice });
     }
   }
@@ -134,7 +134,7 @@ class Order extends Component {
   render() {
     console.log(this.state.payment);
     let { cart } = this.state;
-    let { quantities, totalPrice } = this.props.location.state;
+    let { totalPrice } = this.props.location.state;
     const { showPaypal } = this.state;
     const { userIdNormal } = this.props;
     console.log(userIdNormal);
@@ -192,9 +192,9 @@ class Order extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "payment")}
             >
               <option value="VN Pay">PayPal</option>
-              <option value="Thanh toán khi nhận hàng">
+              {/* <option value="Thanh toán khi nhận hàng">
                 Thanh toán khi nhận hàng
-              </option>
+              </option> */}
             </select>
           </div>
           <div className="recheck-products">
@@ -212,12 +212,6 @@ class Order extends Component {
                   ></div>
                   <div className="name align-self-center">{course.name}</div>
                   <div className="price align-self-center">{course.price}</div>
-                  <div className="quantity align-self-center">
-                    {quantities[course.id]}
-                  </div>
-                  <div className="total align-self-center">
-                    {course.price * quantities[course.id]}
-                  </div>
                 </div>
               ))}
           </div>

@@ -7,6 +7,14 @@ import "./UserRedux.scss";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import TableManageUser from "./TableManageUser";
+import cloudinary from "cloudinary";
+import { CloudinaryContext } from "cloudinary-react"; // Import CloudinaryContext
+
+cloudinary.config({
+  cloud_name: "dyfbye716",
+  api_key: "661796382489326",
+  api_secret: "J-lQnSxVlwfEMjyGTXSJ0dyVnQA",
+});
 
 class UserRedux extends Component {
   constructor(props) {
@@ -28,7 +36,6 @@ class UserRedux extends Component {
       position: "",
       role: "",
       avatar: "",
-
       action: "",
       userEditId: "",
     };
@@ -87,37 +94,89 @@ class UserRedux extends Component {
     let data = event.target.files;
     let file = data[0];
     if (file) {
-      let base64 = await CommonUtils.getBase64(file);
-      let objectUrl = URL.createObjectURL(file);
-      this.setState({
-        previewImageURL: objectUrl,
-        avatar: base64,
-      });
+      try {
+        // Upload image to Cloudinary
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "user_avatar"); // Replace with your Cloudinary upload preset
+
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dyfbye716/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const result = await response.json();
+        // const resulturl = await result.response.url;
+
+        console.log(result);
+
+        this.setState({
+          previewImageURL: result.secure_url,
+          avatar: result.secure_url, // Use the secure URL provided by Cloudinary
+        });
+        console.log("URL" + result.secure_url);
+      } catch (error) {
+        console.error("Error uploading image to Cloudinary", error);
+        console.error("Error message", error.message);
+        console.error("HTTP Code", error.http_code);
+      }
     }
   };
+
   openPreviewImage = () => {
     if (!this.state.previewImageURL) return;
     this.setState({ isOpen: true });
   };
-  handleSaveUser = () => {
+  handleSaveUser = async () => {
     let isValid = this.checkValidateInput();
     if (isValid === false) return;
 
     let { action } = this.state;
     if (action === CRUD_ACTIONS.CREATE) {
-      //fire creeate user
-      this.props.createNewUser({
-        email: this.state.email,
-        password: this.state.password,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        address: this.state.address,
-        phonenumber: this.state.phoneNumber,
-        gender: this.state.gender,
-        roleId: this.state.role,
-        positionId: this.state.position,
-        avatar: this.state.avatar,
-      });
+      try {
+        // Check if an image is selected
+        if (!this.state.avatar) {
+          alert("Please select an image");
+          return;
+        }
+
+        // Upload image to Cloudinary
+        const formData = new FormData();
+        formData.append("file", this.state.avatar);
+        formData.append("upload_preset", "user_avatar"); // Replace with your Cloudinary upload preset
+
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dyfbye716/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const result = await response.json();
+
+        // Send the URL to the backend along with other user data
+        this.props.createNewUser({
+          email: this.state.email,
+          password: this.state.password,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          address: this.state.address,
+          phonenumber: this.state.phoneNumber,
+          gender: this.state.gender,
+          roleId: this.state.role,
+          positionId: this.state.position,
+          avatar: result.secure_url, // Pass the Cloudinary URL
+        });
+      } catch (error) {
+        console.error("Error uploading image to Cloudinary", error);
+        console.error("Error message", error.message);
+        console.error("HTTP Code", error.http_code);
+        // Handle error as needed
+      }
     }
     if (action === CRUD_ACTIONS.EDIT) {
       //fire edit user
@@ -171,7 +230,7 @@ class UserRedux extends Component {
   handleEditUserFromParent = (user) => {
     let imageBase64 = "";
     if (user.image) {
-      imageBase64 = new Buffer(user.image, "base64").toString("binary");
+      imageBase64 = Buffer.from(user.image, "base64").toString("binary");
     }
     this.setState({
       email: user.email,

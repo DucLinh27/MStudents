@@ -28,11 +28,11 @@ const getExtraInforTeacherById = (teacherId) => {
 const getProfileTeacherById = (teacherId) => {
   return axios.get(`/api/get-profile-teacher-by-id?doctorId=${teacherId}`);
 };
-const postPatientBookAppointment = (data) => {
-  return axios.post("/api/student-book-appointment", data);
+const postStudentOrderCourses = (data) => {
+  return axios.post("/api/student-order-courses", data);
 };
-const postVerifyBookAppointment = (data) => {
-  return axios.post("/api/verify-book-appointment", data);
+const postVerifyBookCourses = (data) => {
+  return axios.post("/api/verify-book-courses", data);
 };
 const getAllStudentForTeacher = (data) => {
   return axios.get(
@@ -52,8 +52,8 @@ export {
   getScheduleTeacherByDate,
   getExtraInforTeacherById,
   getProfileTeacherById,
-  postPatientBookAppointment,
-  postVerifyBookAppointment,
+  postStudentOrderCourses,
+  postVerifyBookCourses,
   getAllStudentForTeacher,
   postSendRemedy,
 };

@@ -6,7 +6,6 @@ const initialState = {
   urlPayment: {},
   order: [],
   items: [],
-  quantity: 0,
   orders: [],
   orderData: null,
 };
@@ -14,7 +13,6 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TO_CART:
-      console.log(state.quantity);
       return {
         ...state,
         items: [...state.items, action.item],
@@ -35,25 +33,21 @@ const cartReducer = (state = initialState, action) => {
           name: action.payload.name,
           image: action.payload.image,
           price: action.payload.price,
-          quantity: 1,
         };
         state.Carts.push(cart);
       } else {
         let check = false;
         state.Carts.map((item, key) => {
           if (item.id === action.payload.id) {
-            state.Carts[key].quantity++;
             check = true;
           }
         });
         if (!check) {
           let _cart = {
             id: action.payload.id,
-            quantity: 1,
             name: action.payload.name,
             image: action.payload.image,
             price: action.payload.price,
-            discount: action.payload.discount,
           };
           state.Carts.push(_cart);
         }
@@ -63,36 +57,10 @@ const cartReducer = (state = initialState, action) => {
         numberCart: state.numberCart + 1,
       };
 
-    // case actionTypes.INCREASE_QUANTITY:
-    //   const indexIncrease = state.Carts.findIndex(
-    //     (item) => item.id === action.payload
-    //   );
-    //   if (indexIncrease !== -1) {
-    //     state.numberCart++;
-    //     state.Carts[indexIncrease].quantity++;
-    //   }
-
-    //   return {
-    //     ...state,
-    //   };
-
-    // case actionTypes.DECREASE_QUANTITY:
-    //   const indexDecrease = state.Carts.findIndex(
-    //     (item) => item.id === action.payload
-    //   );
-    //   if (indexDecrease !== -1 && state.Carts[indexDecrease].quantity > 1) {
-    //     state.numberCart--;
-    //     state.Carts[indexDecrease].quantity--;
-    //   }
-    //   console.log(action.payload);
-    //   return {
-    //     ...state,
-    //   };
     case actionTypes.DELETE_CART:
       console.log("action.payload", action.payload);
       return {
         ...state,
-        numberCart: state.numberCart - action.payload.quantity,
         Carts: state.Carts.filter((item) => {
           console.log("item.id", item.id);
           console.log("action.payload.id", action.payload);

@@ -6,6 +6,7 @@ import _ from "lodash";
 import { changeUserPassword } from "../../../services/userService";
 import * as actions from "../../../store/actions";
 import { getOrderService } from "../../../services/orderService";
+import { getDetailCoursesById } from "../../../services/coursesService";
 
 class ProfileUser extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class ProfileUser extends Component {
       changePassword: false,
       activeTab: "personalInfo",
       arrOrders: [],
+      selectedCourse: null,
     };
   }
   async componentDidMount() {
@@ -112,9 +114,31 @@ class ProfileUser extends Component {
   showMyComments = () => {
     this.setState({ activeTab: "myComments" });
   };
-  handleConfirm = () => {
-    alert("Detail Couses");
+  handleShowDetails = (item) => {
+    // Handle any item-specific logic here...
+
+    // Navigate to the UserCourse page
+    this.props.history.push("/user_courses");
   };
+  // handleShowDetails = async (item) => {
+  //   try {
+  //     console.log("Courses:", item.courses);
+
+  //     for (let course of item.courses) {
+  //       console.log("Fetching details for course ID:", course.id);
+  //       const response = await getDetailCoursesById(course.id);
+
+  //       if (response && response.data) {
+  //         console.log("Received course details:", response.data);
+  //         // handle the course details as needed...
+  //       } else {
+  //         console.log("No data in response:", response);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to get course details", error);
+  //   }
+  // };
   render() {
     let { language } = this.props;
     const { userInfo, user } = this.props;
@@ -286,7 +310,6 @@ class ProfileUser extends Component {
             {this.state.activeTab === "myCourses" && (
               <div className="infor-courses">
                 <h1>Khoá Học Của Tôi</h1>
-
                 <div className="item-content d-flex">
                   <table>
                     <tbody>
@@ -307,7 +330,7 @@ class ProfileUser extends Component {
                             <td>
                               <button
                                 className="btn btn-primary"
-                                onClick={this.handleConfirm}
+                                onClick={() => this.handleShowDetails(item)}
                               >
                                 Xem chi tiết
                               </button>

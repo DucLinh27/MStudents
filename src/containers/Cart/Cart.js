@@ -12,18 +12,10 @@ import * as actions from "../../store/actions";
 class Cart extends Component {
   constructor(props) {
     super(props);
-    const savedQuantities = localStorage.getItem("quantities");
-    let quantities = savedQuantities ? JSON.parse(savedQuantities) : {};
-    if (Object.keys(quantities).length === 0 && props.cartItems) {
-      quantities = props.cartItems.reduce((acc, item) => {
-        acc[item.id] = 1;
-        return acc;
-      }, {});
-    }
     this.state = {
       isOpenModalUser: false,
       cartItems: [],
-      quantities: quantities,
+
       selectedItems: {},
     };
   }
@@ -39,28 +31,30 @@ class Cart extends Component {
     if (this.props.history) {
       let { cartItems } = this.props;
       const totalPrice = cartItems.reduce((total, item) => {
-        return total + item.price * (this.state.quantities[item.id] || 0);
+        if (this.state.selectedItems[item.id]) {
+          return total + item.price;
+        } else {
+          return total;
+        }
       }, 0);
+
+      // Check if any items are selected
+      const isSelected = Object.values(this.state.selectedItems).some(
+        (value) => value
+      );
+
+      if (!isSelected) {
+        alert("Bạn cần chọn sản phẩm để order");
+        return;
+      }
 
       this.props.history.push({
         pathname: "/order",
         state: {
           cartItems: this.props.cartItems,
-          quantities: this.state.quantities,
           totalPrice: totalPrice,
         },
       });
-    }
-  };
-  handleCart = (item) => {
-    this.setState((prevState) => ({
-      quantities: {
-        ...prevState.quantities,
-        [item.id]: prevState.quantities[item.id] || 1,
-      },
-    }));
-    if (this.props.history) {
-      this.props.history.push(`/cart`);
     }
   };
   toggleCartModal = () => {
@@ -76,28 +70,7 @@ class Cart extends Component {
   handleDeleteCartItem = (courseId) => {
     this.props.DeleteCart(courseId);
   };
-  // Add two new methods to increase and decrease quantity
-  increaseQuantity = (itemId) => {
-    let { cartItems } = this.props;
-    let item = cartItems.find((item) => item.id === itemId);
-    if (item) {
-      item.quantity = (item.quantity || 1) + 1;
-      this.setState({ cartItems });
-    }
-  };
 
-  decreaseQuantity = (itemId) => {
-    let { cartItems } = this.props;
-    let item = cartItems.find((item) => item.id === itemId);
-    if (item) {
-      item.quantity = (item.quantity || 1) - 1;
-      if (item.quantity < 1) {
-        this.handleDeleteCartItem(itemId);
-        item.quantity = 0;
-      }
-      this.setState({ cartItems });
-    }
-  };
   handleSelectItem = (itemId, isSelected) => {
     this.setState((prevState) => ({
       selectedItems: {
@@ -115,14 +88,17 @@ class Cart extends Component {
   };
   render() {
     let { cartItems } = this.props;
+
     const totalPrice = cartItems.reduce((total, item) => {
       if (this.state.selectedItems[item.id]) {
-        return total + item.price * (item.quantity || 0);
+        return total + item.price;
       } else {
         return total;
       }
     }, 0);
     console.log("cart products", cartItems);
+    console.log("totalPrice", totalPrice);
+
     return (
       <>
         <HomeHeader />
@@ -144,7 +120,6 @@ class Cart extends Component {
                   <div className="select-products">Select All Products</div>
                 </div>
                 <div className="quantity-total d-flex">
-                  <div className="quantity">So luong</div>
                   <div className="total">Thanh Tien</div>
                 </div>
               </div>
@@ -173,30 +148,8 @@ class Cart extends Component {
                     </div>
                   </div>
                   <div className="quantity-total d-flex">
-                    <div className="quantity">
-                      <a
-                        className="negative"
-                        onClick={() => this.decreaseQuantity(item.id)}
-                      >
-                        -
-                      </a>
-                      <input
-                        type="text"
-                        className="quantity-checkbox"
-                        value={item.quantity || 1}
-                        readOnly
-                      />
-                      <a
-                        className="positive"
-                        onClick={() => this.increaseQuantity(item.id)}
-                      >
-                        +
-                      </a>
-                    </div>
                     <div className="total">
-                      <div className="price-total">
-                        {item.price * (this.state.quantities[item.id] || 1)}
-                      </div>
+                      <div className="price-total">{item.price}</div>
                       <i
                         class="fas fa-trash-alt"
                         onClick={() => this.handleDeleteCartItem(item.id)}

@@ -9,7 +9,7 @@ import DatePicker from "../../../components/Input/DatePicker";
 import * as actions from "../../../store/actions";
 import Select from "react-select";
 import { LANGUAGES } from "../../../utils";
-import { postPatientBookAppointment } from "../../../services/teacherService";
+import { postStudentOrderCourses } from "../../../services/teacherService";
 import { toast } from "react-toastify";
 import moment from "moment";
 
@@ -82,9 +82,9 @@ class BookingModal extends Component {
     //validate input
     let date = new Date(this.state.birthday).getTime();
     let timeString = this.buildDataBooking(this.props.dataTime);
-    let doctorName = this.buildDoctorName(this.props.dataTime);
+    let teacherName = this.buildTeacherName(this.props.dataTime);
 
-    let res = await postPatientBookAppointment({
+    let res = await postStudentOrderCourses({
       fullName: this.state.fullName,
       phoneNumber: this.state.phoneNumber,
       email: this.state.email,
@@ -97,13 +97,13 @@ class BookingModal extends Component {
       timeType: this.state.timeType,
       language: this.props.language,
       timeString: timeString,
-      doctorName: doctorName,
+      teacherName: teacherName,
     });
     if (res && res.errCode === 0) {
-      toast.success("Booking a new appointment successfully");
+      toast.success("Booking a new courses successfully");
       this.props.closeBookingModal();
     } else {
-      toast.error("Booking a new appointment failed!");
+      toast.error("Booking a new courses failed!");
     }
   };
   buildDataBooking = (dataTime) => {
@@ -126,7 +126,7 @@ class BookingModal extends Component {
     return "";
   };
 
-  buildDoctorName = (dataTime) => {
+  buildTeacherName = (dataTime) => {
     let { language } = this.props;
     if (dataTime && !_.isEmpty(dataTime)) {
       let name =
@@ -174,7 +174,7 @@ class BookingModal extends Component {
             <div className="row">
               <div className="col-6 form-group">
                 <label>
-                  <FormattedMessage id="patient.booking-modal.fullname" />
+                  <FormattedMessage id="student.booking-modal.fullname" />
                 </label>
                 <input
                   className="form-control"
@@ -186,7 +186,7 @@ class BookingModal extends Component {
               </div>
               <div className="col-6 form-group">
                 <label>
-                  <FormattedMessage id="patient.booking-modal.phoneNumber" />
+                  <FormattedMessage id="student.booking-modal.phoneNumber" />
                 </label>
                 <input
                   className="form-control"
@@ -198,7 +198,7 @@ class BookingModal extends Component {
               </div>
               <div className="col-6 form-group">
                 <label>
-                  <FormattedMessage id="patient.booking-modal.email" />
+                  <FormattedMessage id="student.booking-modal.email" />
                 </label>
                 <input
                   className="form-control"
@@ -208,7 +208,7 @@ class BookingModal extends Component {
               </div>
               <div className="col-6 form-group">
                 <label>
-                  <FormattedMessage id="patient.booking-modal.address" />
+                  <FormattedMessage id="student.booking-modal.address" />
                 </label>
                 <input
                   className="form-control"
@@ -220,7 +220,7 @@ class BookingModal extends Component {
               </div>
               <div className="col-12 form-group">
                 <label>
-                  <FormattedMessage id="patient.booking-modal.reason" />
+                  <FormattedMessage id="student.booking-modal.reason" />
                 </label>
                 <input
                   className="form-control"
@@ -257,10 +257,10 @@ class BookingModal extends Component {
               className="btn-booking-confirm"
               onClick={() => this.hanleConfirmBooking()}
             >
-              <FormattedMessage id="patient.booking-modal.confirm" />
+              <FormattedMessage id="student.booking-modal.confirm" />
             </button>
             <button className="btn-booking-cancel" onClick={closeBookingModal}>
-              <FormattedMessage id="patient.booking-modal.cancel" />
+              <FormattedMessage id="student.booking-modal.cancel" />
             </button>
           </div>
         </div>
