@@ -5,7 +5,11 @@ import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
-import { createNewVideos } from "../../../services/coursesService";
+import {
+  createNewVideos,
+  deleteVideosService,
+  getAllVideos,
+} from "../../../services/coursesService";
 import { toast } from "react-toastify";
 import axios from "axios";
 import * as actions from "../../../store/actions";
@@ -20,12 +24,30 @@ class ManageVideos extends Component {
       video: "",
       listCourses: [],
       coursesId: "",
+      arrVideos: [],
     };
   }
 
   //just run 1 time
   async componentDidMount() {
     this.props.getRequireDoctorInfor();
+    try {
+      const response = await getAllVideos();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const videosArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrVideos: videosArray,
+        });
+      } else {
+        console.error("Error fetching classes:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
   }
   buildDataInputSelect = (inputData, type) => {
     let result = [];
@@ -99,14 +121,24 @@ class ManageVideos extends Component {
       ...stateCopy,
     });
   };
-  // handleCourseChange = (selectedCourse) => {
-  //   this.setState({ selectedCourse });
-  // };
+  handleDeleteVideo = async (video) => {
+    try {
+      const response = await deleteVideosService(video);
+      if (response && response.errCode === 0) {
+        this.props.deleteOrder(video);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
   render() {
+    let arrVideos = this.state.arrVideos;
+
     return (
       <div className="manage-sepcialty-container">
         <div className="ms-title">Manage VIDEOS</div>
-
         <div className="add-new-specialty row">
           <div className="col-6 form-group">
             <label>Tên Video Bài Học</label>
@@ -168,6 +200,42 @@ class ManageVideos extends Component {
               Save
             </button>
           </div>
+        </div>
+        <div className="tale-data-classes">
+          <table>
+            <tbody>
+              <tr>
+                <th>Class Name</th>
+                <th>Class Image</th>
+
+                <th>Actions</th>
+              </tr>
+
+              {this.state.arrVideos &&
+                this.state.arrVideos.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.video}</td>
+                      <td>
+                        <button
+                          className="btn-edit"
+                          onClick={() => this.handleEditClass(item)}
+                        >
+                          <i className="fas fa-pencil-alt"></i>
+                        </button>
+                        <button
+                          className="btn-delete"
+                          onClick={() => this.handleDeleteVideo(item)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
       </div>
     );

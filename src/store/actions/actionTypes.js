@@ -15,7 +15,6 @@ const actionTypes = Object.freeze({
   SET_USER: "SET_USER",
 
   //admin
-
   FETCH_GENDER_START: "FETCH_GENDER_START",
   FETCH_GENDER_SUCCESS: "FETCH_GENDER_SUCCESS",
   FETCH_GENDER_FAIDED: " FETCH_GENDER_FAIDED",
@@ -86,6 +85,12 @@ const actionTypes = Object.freeze({
   STORE_ORDER_DATA: "STORE_ORDER_DATA",
   CLEAR_CART: "CLEAR_CART",
   CLEAR_ORDER: "CLEAR_ORDER",
+
+  //Courses
+  EDIT_COURSES_SUCCESS: "EDIT_COURSES_SUCCESS",
+  EDIT_COURSES_FAILED: "EDIT_COURSES_FAILED",
+
+  //Classes
 });
 
 export default actionTypes;

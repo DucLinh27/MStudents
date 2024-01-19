@@ -4,7 +4,11 @@ import "./ManageClasses.scss";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { CommonUtils } from "../../../utils";
-import { createNewClasses } from "../../../services/classesService";
+import {
+  createNewClasses,
+  deleteClassesService,
+  getAllClasses,
+} from "../../../services/classesService";
 import { toast } from "react-toastify";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -23,7 +27,25 @@ class ManageClasses extends Component {
   }
 
   //just run 1 time
-  async componentDidMount() {}
+  async componentDidMount() {
+    try {
+      const response = await getAllClasses();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const classesArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrClasses: classesArray,
+        });
+      } else {
+        console.error("Error fetching classes:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  }
   async componentDidUpdate(prevProps, prevState, snapshot) {}
 
   handleOnChangeInput = (event, id) => {
@@ -75,6 +97,7 @@ class ManageClasses extends Component {
       }
     }
   };
+
   handleSaveNewClasses = async () => {
     let data = {
       ...this.state,
@@ -89,31 +112,27 @@ class ManageClasses extends Component {
         image: "",
         descriptionHTML: "",
         descriptionMarkdown: "",
+        arrClasses: [],
       });
     } else {
       toast.error("Add new class Error");
       console.log(res);
     }
   };
-  // handleSaveNewClasses = async () => {
-  //   let res = await createNewClasses(this.state);
-  //   if (res && res.errCode === 0) {
-  //     toast.success("Add new class successfully");
-  //     this.setState({
-  //       name: "",
-  //       address: "",
-  //       image: "",
-  //       descriptionHTML: "",
-  //       descriptionMarkdown: "",
-  //     });
-  //   } else {
-  //     toast.error("Add new class Error");
-  //     console.log(res);
-  //   }
-  // };
-
+  handleDeleteClass = async (classes) => {
+    try {
+      const response = await deleteClassesService(classes);
+      if (response && response.errCode === 0) {
+        this.props.deleteOrder(classes);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
   render() {
-    let arrUsers = this.state.arrUsers;
+    let arrClasses = this.state.arrClasses;
 
     return (
       <div className="manage-sepcialty-container">
@@ -175,6 +194,53 @@ class ManageClasses extends Component {
               Save
             </button>
           </div>
+        </div>
+        <div className="tale-data-classes">
+          <table>
+            <tbody>
+              <tr>
+                <th>Class Name</th>
+                <th>Class Image</th>
+                <th>Class Address</th>
+                <th> DescriptionHTML</th>
+                <th> DescriptionMarkdown</th>
+                <th>Actions</th>
+              </tr>
+
+              {this.state.arrClasses &&
+                this.state.arrClasses.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          style={{ width: "50px", height: "50px" }}
+                        />
+                      </td>
+                      <td>{item.address}</td>
+                      <td>{item.descriptionHTML}</td>
+                      <td>{item.descriptionMarkdown}</td>
+                      <td>
+                        <button
+                          className="btn-edit"
+                          onClick={() => this.handleEditClass(item)}
+                        >
+                          <i className="fas fa-pencil-alt"></i>
+                        </button>
+                        <button
+                          className="btn-delete"
+                          onClick={() => this.handleDeleteClass(item)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
       </div>
     );

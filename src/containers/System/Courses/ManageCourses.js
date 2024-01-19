@@ -5,8 +5,14 @@ import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
-import { createNewCourses } from "../../../services/coursesService";
+import {
+  createNewCourses,
+  getAllCourses,
+  deleteCoursesService,
+  editCoursesService,
+} from "../../../services/coursesService";
 import { toast } from "react-toastify";
+import ModalEditCourses from "./ModalEditCourses";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -19,13 +25,44 @@ class ManageCourses extends Component {
       price: "",
       descriptionHTML: "",
       descriptionMarkdown: "",
+      arrCourses: [],
+      isOpenModalEditCourses: false,
     };
   }
 
   //just run 1 time
-  async componentDidMount() {}
-  async componentDidUpdate(prevProps, prevState, snapshot) {}
+  async componentDidMount() {
+    try {
+      const response = await getAllCourses();
+      console.log("Response:", response);
 
+      if (response.errCode === 0) {
+        const coursesArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrCourses: coursesArray,
+        });
+      } else {
+        console.error("Error fetching classes:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  }
+  async componentDidUpdate(prevProps, prevState, snapshot) {}
+  handleDeleteCourses = async (courses) => {
+    try {
+      const response = await deleteCoursesService(courses);
+      if (response && response.errCode === 0) {
+        this.props.deleteOrder(courses);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
   handleOnChangeInput = (event, id) => {
     let stateCopy = { ...this.state };
     stateCopy[id] = event.target.value;
@@ -44,52 +81,6 @@ class ManageCourses extends Component {
     });
   };
 
-  // handleSaveNewSpecialty = async () => {
-  //   try {
-  //     // Upload image to Cloudinary
-  //     const formData = new FormData();
-  //     formData.append("file", this.state.image);
-  //     formData.append("upload_preset", "user_avatar"); // Replace with your Cloudinary upload preset
-  //     const response = await fetch(
-  //       "https://api.cloudinary.com/v1_1/dyfbye716/image/upload", // Replace with your Cloudinary API base URL
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //       }
-  //     );
-
-  //     const result = await response.json();
-
-  //     if (result.secure_url) {
-  //       // Update state with the URL from Cloudinary
-  //       this.setState({
-  //         image: result.secure_url,
-  //       });
-  //       console.log(result.secure_url);
-
-  //       // Create new course
-  //       const res = await createNewCourses(this.state);
-  //       if (res && res.errCode === 0) {
-  //         toast.success("Add new courses successfully");
-  //         this.setState({
-  //           name: "",
-  //           image: "",
-  //           price: "",
-  //           descriptionHTML: "",
-  //           descriptionMarkdown: "",
-  //         });
-  //       } else {
-  //         toast.error("Add new courses Error");
-  //         console.log(res);
-  //       }
-  //     } else {
-  //       toast.error("Image upload failed");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error uploading image to Cloudinary", error);
-  //     toast.error("Image upload failed");
-  //   }
-  // };
   handleOnChangeImage = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -109,7 +100,6 @@ class ManageCourses extends Component {
         );
 
         const result = await response.json();
-        // const resulturl = await result.response.url;
 
         console.log(result);
 
@@ -125,6 +115,12 @@ class ManageCourses extends Component {
       }
     }
   };
+  handleEditCourses = (user) => {
+    this.setState({
+      isOpenModalEditUser: true,
+      userEdit: user,
+    });
+  };
   handleSaveNewSpecialty = async () => {
     let data = {
       ...this.state,
@@ -135,7 +131,7 @@ class ManageCourses extends Component {
       toast.success("Add new courses successfully");
       this.setState({
         name: "",
-        image: this.state.previewImageURL,
+        image: "",
         price: "",
         descriptionHTML: "",
         descriptionMarkdown: "",
@@ -145,12 +141,33 @@ class ManageCourses extends Component {
       console.log(res);
     }
   };
-
+  doEditCourses = async (user) => {
+    try {
+      let res = await editCoursesService(user);
+      if (res && res.errCode === 0) {
+        this.setState({ isOpenModalEditUser: false });
+        this.getAllCourses();
+      } else {
+        alert(res.errCode);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   render() {
+    let arrCourses = this.state.arrCourses;
+
     return (
       <div className="manage-sepcialty-container">
         <div className="ms-title">Quan ly Courses</div>
-
+        {this.state.isOpenModalEditCourses && (
+          <ModalEditCourses
+            isOpen={this.state.isOpenModalEditCourses}
+            toggleFromParent={this.toggleUserEditModal}
+            currentUser={this.state.userEdit}
+            editCourses={this.doEditCourses}
+          />
+        )}
         <div className="add-new-specialty row">
           <div className="col-6 form-group">
             <label>Tên Bài Học</label>
@@ -209,6 +226,53 @@ class ManageCourses extends Component {
               Save
             </button>
           </div>
+        </div>
+        <div className="tale-data-courses">
+          <table>
+            <tbody>
+              <tr>
+                <th> Name</th>
+                <th> Image</th>
+                <th> Price</th>
+                <th> DescriptionHTML</th>
+                <th> DescriptionMarkdown</th>
+                <th>Actions</th>
+              </tr>
+
+              {this.state.arrCourses &&
+                this.state.arrCourses.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          style={{ width: "50px", height: "50px" }}
+                        />
+                      </td>
+                      <td>{item.price}</td>
+                      <td>{item.descriptionHTML}</td>
+                      <td>{item.descriptionMarkdown}</td>
+                      <td>
+                        <button
+                          className="btn-edit"
+                          onClick={() => this.handleEditCourses(item)}
+                        >
+                          <i className="fas fa-pencil-alt"></i>
+                        </button>
+                        <button
+                          className="btn-delete"
+                          onClick={() => this.handleEditCourses(item)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
       </div>
     );

@@ -359,6 +359,30 @@ export const fetchDoctorRequireSuccess = (allRequireData) => ({
 export const fetchDoctorRequireFaided = () => ({
   type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_FAILDED,
 });
+//ORDER
+export const editCourses = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editOrderService(data);
+      if (res && res.errCode === 0) {
+        toast.success("EDIT COURSES SUCCESS");
+        dispatch(editCoursesSuccess());
+      } else {
+        toast.error("EDIT COURSES FAILED");
+        dispatch(editCoursesFailed());
+      }
+    } catch (e) {
+      dispatch(editCoursesFailed());
+    }
+  };
+};
+
+export const editCoursesSuccess = () => ({
+  type: actionTypes.EDIT_COURSES_SUCCESS,
+});
+export const editCoursesFailed = () => ({
+  type: actionTypes.EDIT_COURSES_FAILED,
+});
 
 //ORDER
 export const editOrder = (data) => {
