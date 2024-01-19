@@ -37,12 +37,12 @@ let getAllClasses = (data) => {
     try {
       let data = await db.Classes.findAll({});
 
-      if (data && data.length > 0) {
-        data.map((item) => {
-          item.image = new Buffer(item.image, "base64").toString("binary");
-          return item;
-        });
-      }
+      // if (data && data.length > 0) {
+      //   data.map((item) => {
+      //     item.image = new Buffer(item.image, "base64").toString("binary");
+      //     return item;
+      //   });
+      // }
       resolve({
         errCode: 0,
         errMessage: "OK!",
@@ -95,8 +95,67 @@ let getDetailClassesById = (inputId) => {
     }
   });
 };
+let editClassesService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters!",
+        });
+      }
+      let classes = await db.Classes.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (classes) {
+        classes.id = data.id;
+        classes.name = data.name;
+        classes.image = data.image;
+        classes.address = data.address;
+        classes.descriptionHTML = data.descriptionHTML;
+        classes.descriptionMarkdown = data.descriptionMarkdown;
+        await classes.save();
+        resolve({
+          errCode: 0,
+          errMessage: "Edit Course successful!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "Course not found!",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let deleteClassesService = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    let classes = await db.Classes.findOne({
+      where: { id: inputId.id },
+    });
+    if (!classes) {
+      return reject({
+        errCode: 2,
+        errMessage: "This class does not exist!",
+      });
+    }
+    await db.Classes.destroy({
+      where: { id: inputId.id },
+    });
+    resolve({
+      errCode: 0,
+      errMessage: "Delete class successful!",
+    });
+  });
+};
 module.exports = {
   createClasses: createClasses,
   getAllClasses: getAllClasses,
   getDetailClassesById: getDetailClassesById,
+  editClassesService: editClassesService,
+  deleteClassesService: deleteClassesService,
 };

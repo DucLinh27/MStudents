@@ -30,12 +30,12 @@ let getAllVideos = (data) => {
     try {
       let data = await db.Videos.findAll({});
 
-      if (data && data.length > 0) {
-        data.map((item) => {
-          item.image = new Buffer(item.image, "base64").toString("binary");
-          return item;
-        });
-      }
+      // if (data && data.length > 0) {
+      //   data.map((item) => {
+      //     item.image = new Buffer(item.image, "base64").toString("binary");
+      //     return item;
+      //   });
+      // }
       resolve({
         errCode: 0,
         errMessage: "OK!",
@@ -83,9 +83,9 @@ let getDetailVideosById = (inputId) => {
             data,
           });
         }
-        if (data && data.image) {
-          data.image = new Buffer(data.image, "base64").toString("binary");
-        }
+        // if (data && data.image) {
+        //   data.image = new Buffer(data.image, "base64").toString("binary");
+        // }
         resolve({
           errCode: 0,
           errMessage: "OK!",
@@ -97,9 +97,64 @@ let getDetailVideosById = (inputId) => {
     }
   });
 };
+let editVideoService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters!",
+        });
+      }
+      let video = await db.Videos.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (video) {
+        video.id = data.id;
+        video.name = data.name;
+        video.video = data.video;
+        await video.save();
+        resolve({
+          errCode: 0,
+          errMessage: "Edit video successful!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "Video not found!",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
+let deleteVideoService = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    let video = await db.Videos.findOne({
+      where: { id: inputId.id },
+    });
+    if (!video) {
+      return reject({
+        errCode: 2,
+        errMessage: "This video does not exist!",
+      });
+    }
+    await db.Videos.destroy({
+      where: { id: inputId.id },
+    });
+    resolve({
+      errCode: 0,
+      errMessage: "Delete video successful!",
+    });
+  });
+};
 module.exports = {
   createVideos: createVideos,
   getAllVideos: getAllVideos,
   getDetailVideosById: getDetailVideosById,
+  editVideoService: editVideoService,
+  deleteVideoService: deleteVideoService,
 };

@@ -1,5 +1,8 @@
 require("dotenv").config();
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 const createJWT = (payload) => {
   let key = process.env.JWT_SECRET;
@@ -25,66 +28,66 @@ const verifyToken = (token) => {
   return data;
 };
 
-const authMiddleware = (req, res, next, payload) => {
-  const token = createJWT(req.header("Authorization"), payload);
+// const authMiddleware = (req, res, next, payload) => {
+//   const token = createJWT(req.header("Authorization"), payload);
 
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  try {
-    const decoded = jwt.verifyToken(token.replace("Bearer ", ""), secretKey);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    return res.status(403).json({ error: "Invalid token" });
-  }
-};
-// function authMiddleware(req, res, next) {
-//   const accessToken = req.header("Authorization");
-
-//   if (!accessToken) {
+//   if (!token) {
 //     return res.status(401).json({ error: "Unauthorized" });
 //   }
 
-//   jwt.verify(
-//     accessToken.replace("Bearer ", ""),
-//     ACCESS_TOKEN_SECRET,
-//     (err, user) => {
-//       if (err) {
-//         const refreshToken = req.header("Refresh-Token");
-//         if (!refreshToken) {
-//           return res.status(403).json({ error: "Invalid token" });
-//         }
+//   try {
+//     const decoded = jwt.verifyToken(token.replace("Bearer ", ""), secretKey);
+//     req.user = decoded;
+//     next();
+//   } catch (err) {
+//     return res.status(403).json({ error: "Invalid token" });
+//   }
+// };
+const authMiddleware = (req, res, next, payload) => {
+  const accessToken = req.header("Authorization");
 
-//         jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
-//           if (err) {
-//             return res.status(403).json({ error: "Invalid refresh token" });
-//           }
+  if (!accessToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
-//           const newAccessToken = generateAccessToken({
-//             id: user.id,
-//             username: user.username,
-//           });
-//           req.user = user;
-//           req.token = newAccessToken;
-//           next();
-//         });
-//       } else {
-//         req.user = user;
-//         next();
-//       }
-//     }
-//   );
-// }
+  jwt.verify(
+    accessToken.replace("Bearer ", ""),
+    ACCESS_TOKEN_SECRET,
+    (err, user) => {
+      if (err) {
+        const refreshToken = req.header("Refresh-Token");
+        if (!refreshToken) {
+          return res.status(403).json({ error: "Invalid token" });
+        }
 
-function generateAccessToken(payload) {
+        jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
+          if (err) {
+            return res.status(403).json({ error: "Invalid refresh token" });
+          }
+
+          const newAccessToken = generateAccessToken({
+            id: user.id,
+            username: user.username,
+          });
+          req.user = user;
+          req.token = newAccessToken;
+          next();
+        });
+      } else {
+        req.user = user;
+        next();
+      }
+    }
+  );
+};
+
+let generateAccessToken = (payload) => {
   return jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
-}
+};
 
-function generateRefreshToken(payload) {
+let generateRefreshToken = (payload) => {
   return jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
-}
+};
 module.exports = {
   createJWT,
   verifyToken,

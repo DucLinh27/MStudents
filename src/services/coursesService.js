@@ -38,12 +38,12 @@ let getAllCourses = (data) => {
     try {
       let data = await db.Courses.findAll({});
 
-      if (data && data.length > 0) {
-        data.map((item) => {
-          item.image = new Buffer(item.image, "base64").toString("binary");
-          return item;
-        });
-      }
+      // if (data && data.length > 0) {
+      //   data.map((item) => {
+      //     item.image = new Buffer(item.image, "base64").toString("binary");
+      //     return item;
+      //   });
+      // }
       resolve({
         errCode: 0,
         errMessage: "OK!",
@@ -142,9 +142,68 @@ let getVideosByCourseId = (courseId) => {
     }
   });
 };
+let editCoursesService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters!",
+        });
+      }
+      let courses = await db.Courses.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (courses) {
+        courses.id = data.id;
+        courses.name = data.name;
+        courses.image = data.image;
+        courses.price = data.price;
+        courses.descriptionHTML = data.descriptionHTML;
+        courses.descriptionMarkdown = data.descriptionMarkdown;
+        await courses.save();
+        resolve({
+          errCode: 0,
+          errMessage: "Edit Course successful!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "Course not found!",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let deleteCoursesService = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    let courses = await db.Courses.findOne({
+      where: { id: inputId.id },
+    });
+    if (!courses) {
+      return reject({
+        errCode: 2,
+        errMessage: "This video does not exist!",
+      });
+    }
+    await db.Courses.destroy({
+      where: { id: inputId.id },
+    });
+    resolve({
+      errCode: 0,
+      errMessage: "Delete courses successful!",
+    });
+  });
+};
 module.exports = {
   createCourses: createCourses,
   getAllCourses: getAllCourses,
   getDetailCoursesById: getDetailCoursesById,
   getVideosByCourseId: getVideosByCourseId,
+  editCoursesService: editCoursesService,
+  deleteCoursesService: deleteCoursesService,
 };

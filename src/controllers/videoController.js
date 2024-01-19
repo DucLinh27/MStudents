@@ -35,9 +35,27 @@ let getDetailVideosById = async (req, res) => {
     });
   }
 };
+let editVideo = async (req, res) => {
+  let data = req.body;
+  let message = await orderService.editVideoService(data);
+  return res.status(200).json(message);
+};
+
+let deleteVideo = async (req, res) => {
+  if (!req.body.id) {
+    return res.status(200).json({
+      errCode: 1,
+      errMessage: "Missing required parameters!",
+    });
+  }
+  let message = await orderService.deleteVideoService(req.body.id);
+  return res.status(200).json(message);
+};
 
 module.exports = {
   createVideos: createVideos,
   getAllVideos: getAllVideos,
   getDetailVideosById: getDetailVideosById,
+  deleteVideo: deleteVideo,
+  editVideo: editVideo,
 };

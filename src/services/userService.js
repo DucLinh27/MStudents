@@ -2,7 +2,10 @@ import db from "../models/index";
 import bcrypt from "bcryptjs";
 import { getRoles } from "./JWTService";
 const salt = bcrypt.genSaltSync(10);
-
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../middleware/JWTAction";
 let hashUserPassword = (password) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -53,19 +56,16 @@ let handleUserLogin = (email, password) => {
             delete user.password;
             userData.user = user;
 
-            // Generate tokens
-            const token = generateAccessToken({
-              id: user.id,
-              email: user.email,
+            const token = await generateAccessToken({
+              id: user._id,
+              username: user.username,
             });
-            const refreshToken = generateRefreshToken({
-              id: user.id,
-              email: user.email,
+            const refreshToken = await generateRefreshToken({
+              id: user._id,
+              username: user.username,
             });
-
-            // Add tokens to userData
-            userData.token = token;
-            userData.refreshToken = refreshToken;
+            console.log("tokents" + token);
+            console.log(refreshToken);
           } else {
             userData.errCode = 3;
             userData.errMessage = "Wrong password";
@@ -74,6 +74,7 @@ let handleUserLogin = (email, password) => {
           userData.errCode = 2;
           userData.errMessage = `User not found`;
         }
+        console.log("userData from userService:", userData);
       } else {
         //return error
         userData.errCode = 1;
@@ -176,7 +177,6 @@ let createNewUser = (data) => {
           positionId: data.positionId,
           image: data.avatar,
         });
-        console.log(data);
         resolve({
           errCode: 0,
           message: "Ok",

@@ -20,6 +20,16 @@ let initClassesRoutes = (app) => {
     authMiddleware,
     classesController.getDetailClassesById
   );
+  router.put(
+    "/api/edit-classes",
+    authMiddleware,
+    classesController.editClasses
+  );
+  router.delete(
+    "/api/delete-classes",
+    authMiddleware,
+    classesController.deleteClasses
+  );
   return app.use("/", router);
 };
 module.exports = initClassesRoutes;

@@ -21,6 +21,12 @@ let initVideosRoutes = (app) => {
     // authMiddleware,
     videoController.getDetailVideosById
   );
+  router.put("/api/edit-video", authMiddleware, videoController.editVideo);
+  router.delete(
+    "/api/delete-video",
+    authMiddleware,
+    videoController.deleteVideo
+  );
   return app.use("/", router);
 };
 module.exports = initVideosRoutes;

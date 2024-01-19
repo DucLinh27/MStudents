@@ -26,6 +26,16 @@ let initCoursesRoutes = (app) => {
     authMiddleware,
     coursesController.getVideosByCourseId
   );
+  router.put(
+    "/api/edit-courses",
+    authMiddleware,
+    coursesController.editCourses
+  );
+  router.delete(
+    "/api/delete-courses",
+    authMiddleware,
+    coursesController.deleteCourses
+  );
   return app.use("/", router);
 };
 module.exports = initCoursesRoutes;

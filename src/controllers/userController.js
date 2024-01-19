@@ -42,24 +42,24 @@ let handleLoging = async (req, res) => {
   let userWithRole;
 
   console.log("userData:", userData);
-  if (userData && userData.user) {
-    userWithRole = await getUserWithRole(userData.user.email);
-    // rest of your code
-  } else {
-    console.log("userData or userData.user is undefined");
-    return res.status(500).json({
-      errCode: 1,
-      message: "userData or userData.user is undefined",
-    });
-  }
+  // if (userData && userData.user) {
+  //   userWithRole = await getUserWithRole(userData.user.email);
+  //   // rest of your code
+  // } else {
+  //   console.log("userData or userData.user is undefined");
+  //   return res.status(500).json({
+  //     errCode: 1,
+  //     message: "userData or userData.user is undefined",
+  //   });
+  // }
   let payload = {
     email: userData.user.email,
     userWithRole,
     expiresIn: process.env.JWT_EXPIRES_IN,
   };
   let token = createJWT(payload);
-  res.cookie("jwt", token, { maxAge: 900000, httpOnly: true });
-  console.log("token", req.cookies.jwt);
+  res.cookie("jwt", token, { httpOnly: true, maxAge: 3600 * 1000 });
+  console.log("tokens", req.cookies);
   return res.status(200).json({
     errCode: userData.errCode,
     message: userData.errMessage,
