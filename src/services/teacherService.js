@@ -45,7 +45,19 @@ let getAllTeachers = () => {
     }
   });
 };
-
+let getAllTeacherInfor = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let teachers = await db.Teacher_Infor.findAll({});
+      resolve({
+        errCode: 0,
+        data: teachers,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let checkRequireFields = (inputData) => {
   console.log(inputData);
   let arrFields = [
@@ -464,4 +476,5 @@ module.exports = {
   getProfileTeachervrById: getProfileTeacherById,
   getListStudentForTeacher: getListStudentForTeacher,
   sendRemedy: sendRemedy,
+  getAllTeacherInfor: getAllTeacherInfor,
 };

@@ -16,6 +16,12 @@ let initTeachersRoutes = (app) => {
     authMiddleware,
     teacherController.getAllTeachers
   );
+  router.get(
+    "/api/get-all-teachers-infor",
+    cacheMiddleware(300),
+    authMiddleware,
+    teacherController.getAllTeachersInfor
+  );
   router.post(
     "/api/save-infor-teachers",
     authMiddleware,

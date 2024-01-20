@@ -26,6 +26,18 @@ let getAllTeachers = async (req, res) => {
     });
   }
 };
+let getAllTeachersInfor = async (req, res) => {
+  try {
+    let teachers = await teacherService.getAllTeacherInfor();
+    return res.status(200).json(teachers);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 let postInforTeacher = async (req, res) => {
   try {
     let response = await teacherService.saveDetailInforTeacher(req.body);
@@ -143,4 +155,5 @@ module.exports = {
   getProfileTeacherById: getProfileTeacherById,
   getListStudentForTeacher: getListStudentForTeacher,
   sendRemedy: sendRemedy,
+  getAllTeachersInfor: getAllTeachersInfor,
 };
