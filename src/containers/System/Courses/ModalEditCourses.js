@@ -20,15 +20,15 @@ class ModalEditCourses extends Component {
   }
 
   componentDidMount() {
-    let order = this.props.currentUser;
-    if (order && !_.isEmpty(order)) {
+    let courses = this.props.currentUser;
+    if (courses && !_.isEmpty(courses)) {
       this.setState({
-        id: order.id,
-        name: order.name,
-        image: order.image,
-        price: order.phonenumber,
-        descriptionHTML: order.descriptionHTML,
-        descriptionMarkdown: order.descriptionMarkdown,
+        id: courses.id,
+        name: courses.name,
+        image: courses.image,
+        price: courses.price,
+        descriptionHTML: courses.descriptionHTML,
+        descriptionMarkdown: courses.descriptionMarkdown,
       });
     }
   }

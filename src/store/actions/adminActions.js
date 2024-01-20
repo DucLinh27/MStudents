@@ -12,7 +12,10 @@ import {
   getAllTeachers,
   saveDetailTeacherService,
 } from "../../services/teacherService";
-import { getAllCourses } from "../../services/coursesService";
+import {
+  editCoursesService,
+  getAllCourses,
+} from "../../services/coursesService";
 import { getAllClasses } from "../../services/classesService";
 import { getOrderService, editOrderService } from "../../services/orderService";
 import { toast } from "react-toastify";
@@ -363,7 +366,7 @@ export const fetchDoctorRequireFaided = () => ({
 export const editCourses = (data) => {
   return async (dispatch, getState) => {
     try {
-      let res = await editOrderService(data);
+      let res = await editCoursesService(data);
       if (res && res.errCode === 0) {
         toast.success("EDIT COURSES SUCCESS");
         dispatch(editCoursesSuccess());

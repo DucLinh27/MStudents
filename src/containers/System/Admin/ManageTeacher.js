@@ -8,7 +8,12 @@ import "react-markdown-editor-lite/lib/index.css";
 import "./ManageTeacher.scss";
 import Select from "react-select";
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
-import { getDetailInforTeacher } from "../../../services/teacherService";
+import {
+  getAllTeachers,
+  getAllTeachersInfor,
+  getDetailInforTeacher,
+  getExtraInforTeacherById,
+} from "../../../services/teacherService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -27,6 +32,7 @@ class ManageTeacher extends Component {
       listTeachers: [],
       listClasses: [],
       listCourses: [],
+      arrTeachers: [],
 
       selectedClasses: "",
       selectedCourses: "",
@@ -37,9 +43,27 @@ class ManageTeacher extends Component {
       coursesId: "",
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchAllDoctors();
     this.props.getRequireDoctorInfor();
+    try {
+      const response = await getAllTeachersInfor();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const teachersArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrTeachers: teachersArray,
+        });
+        console.log(teachersArray);
+      } else {
+        console.error("Error fetching teacher:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching teacher:", error);
+    }
   }
   buildDataInputSelect = (inputData, type) => {
     let result = [];
@@ -205,6 +229,8 @@ class ManageTeacher extends Component {
 
   render() {
     let { hashOldData } = this.state;
+    let arrTeachers = this.state.arrTeachers;
+
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">
@@ -327,6 +353,51 @@ class ManageTeacher extends Component {
             </span>
           )}
         </button>
+        <div className="tale-data-teacher">
+          <table>
+            <tbody>
+              <tr>
+                <th> TeacherId</th>
+                <th> ClassesId</th>
+                <th> CoursesId</th>
+
+                <th> addressClasses</th>
+                <th> nameClasses</th>
+                <th> Note</th>
+                <th>Actions</th>
+              </tr>
+
+              {this.state.arrTeachers &&
+                this.state.arrTeachers.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.teacherId}</td>
+                      <td>{item.classesId}</td>
+                      <td>{item.coursesId}</td>
+
+                      <td>{item.addressClasses}</td>
+                      <td>{item.nameClasses}</td>
+                      <td>{item.note}</td>
+                      <td>
+                        <button
+                          className="btn-edit"
+                          onClick={() => this.handleEditCourses(item)}
+                        >
+                          <i className="fas fa-pencil-alt"></i>
+                        </button>
+                        <button
+                          className="btn-delete"
+                          onClick={() => this.handleDeleteCourses(item)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

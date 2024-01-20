@@ -55,7 +55,7 @@ class ManageCourses extends Component {
     try {
       const response = await deleteCoursesService(courses);
       if (response && response.errCode === 0) {
-        this.props.deleteOrder(courses);
+        this.props.deleteCourses(courses);
       } else {
         console.error("Error deleting order:", response.errMessage);
       }
@@ -117,8 +117,13 @@ class ManageCourses extends Component {
   };
   handleEditCourses = (user) => {
     this.setState({
-      isOpenModalEditUser: true,
+      isOpenModalEditCourses: true,
       userEdit: user,
+    });
+  };
+  toggleUserEditModal = () => {
+    this.setState({
+      isOpenModalEditCourses: !this.state.isOpenModalEditCourses,
     });
   };
   handleSaveNewSpecialty = async () => {
@@ -145,7 +150,7 @@ class ManageCourses extends Component {
     try {
       let res = await editCoursesService(user);
       if (res && res.errCode === 0) {
-        this.setState({ isOpenModalEditUser: false });
+        this.setState({ isOpenModalEditCourses: false });
         this.getAllCourses();
       } else {
         alert(res.errCode);
@@ -263,7 +268,7 @@ class ManageCourses extends Component {
                         </button>
                         <button
                           className="btn-delete"
-                          onClick={() => this.handleEditCourses(item)}
+                          onClick={() => this.handleDeleteCourses(item)}
                         >
                           <i className="fas fa-trash"></i>
                         </button>

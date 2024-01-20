@@ -8,6 +8,9 @@ const getTopTeacherHomeService = (limit) => {
 const getAllTeachers = (limit) => {
   return axios.get(`/api/get-all-teachers`);
 };
+const getAllTeachersInfor = (limit) => {
+  return axios.get(`/api/get-all-teachers-infor`);
+};
 const saveDetailTeacherService = (data) => {
   return axios.post("/api/save-infor-teachers", data);
 };
@@ -56,4 +59,5 @@ export {
   postVerifyBookCourses,
   getAllStudentForTeacher,
   postSendRemedy,
+  getAllTeachersInfor,
 };
