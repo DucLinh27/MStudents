@@ -465,6 +465,64 @@ let sendRemedy = (data) => {
     }
   });
 };
+let editTeacherService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters!",
+        });
+      }
+      let teacher = await db.Teacher_Infor.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (teacher) {
+        teacher.id = data.id;
+        teacher.teacherId = data.teacherId;
+        teacher.classesId = data.classesId;
+        teacher.coursesId = data.coursesId;
+        teacher.addressClasses = data.addressClasses;
+        teacher.nameClasses = data.nameClasses;
+        teacher.note = data.note;
+        await teacher.save();
+        resolve({
+          errCode: 0,
+          errMessage: "Edit Course successful!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "Course not found!",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let deleteTeacherService = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    let teacher = await db.Teacher_Infor.findOne({
+      where: { id: inputId.id },
+    });
+    if (!teacher) {
+      return reject({
+        errCode: 2,
+        errMessage: "This class does not exist!",
+      });
+    }
+    await db.Teacher_Infor.destroy({
+      where: { id: inputId.id },
+    });
+    resolve({
+      errCode: 0,
+      errMessage: "Delete class successful!",
+    });
+  });
+};
 module.exports = {
   getTopTeacherHome: getTopTeacherHome,
   getAllTeachers: getAllTeachers,
@@ -477,4 +535,6 @@ module.exports = {
   getListStudentForTeacher: getListStudentForTeacher,
   sendRemedy: sendRemedy,
   getAllTeacherInfor: getAllTeacherInfor,
+  editTeacherService: editTeacherService,
+  deleteTeacherService: deleteTeacherService,
 };

@@ -12,8 +12,8 @@ let initCoursesRoutes = (app) => {
   );
   router.get(
     "/api/get-all-courses",
-    cacheMiddleware(300),
-    // authMiddleware,
+    // cacheMiddleware(300),
+    authMiddleware,
     coursesController.getAllCourses
   );
   router.get(

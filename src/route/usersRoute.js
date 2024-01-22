@@ -5,7 +5,6 @@ import passport from "passport";
 import { authMiddleware } from "../middleware/JWTAction";
 let router = express.Router();
 import cacheMiddleware from "../middleware/cacheMiddleware";
-import uploadCloud from "../middleware/uploader";
 let initUsersRoutes = (app) => {
   router.get("/", homeController.getHomePage);
   router.get("/about", homeController.getAboutPage);
@@ -23,30 +22,36 @@ let initUsersRoutes = (app) => {
   //User
   router.get(
     "/api/get-all-users",
-    cacheMiddleware(300),
+    cacheMiddleware,
     authMiddleware,
     userController.handleGetAllUsers
   );
   router.post(
     "/api/create-new-user",
+    cacheMiddleware,
     authMiddleware,
     userController.handleCreateNewUser
   );
   router.post(
     "/api/change-password",
+    cacheMiddleware,
     authMiddleware,
     userController.changePasswordService
   );
   router.put("/api/edit-user", authMiddleware, userController.handleEditUser);
   router.delete(
     "/api/delete-user",
+    cacheMiddleware,
     authMiddleware,
     userController.handleDeleteUser
   );
   //restApi
-  router.get("/api/allcode", authMiddleware, userController.getAllCode);
-
-  // router.post("/upload", uploadCloud.single("image"), uploader.uploadImage);
+  router.get(
+    "/api/allcode",
+    cacheMiddleware,
+    authMiddleware,
+    userController.getAllCode
+  );
 
   return app.use("/", router);
 };

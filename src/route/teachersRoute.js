@@ -12,13 +12,13 @@ let initTeachersRoutes = (app) => {
   );
   router.get(
     "/api/get-all-teachers",
-    cacheMiddleware(300),
+    // cacheMiddleware(300),
     authMiddleware,
     teacherController.getAllTeachers
   );
   router.get(
     "/api/get-all-teachers-infor",
-    cacheMiddleware(300),
+    // cacheMiddleware(300),
     authMiddleware,
     teacherController.getAllTeachersInfor
   );
@@ -58,7 +58,16 @@ let initTeachersRoutes = (app) => {
     teacherController.getListStudentForTeacher
   );
   router.post("/api/send-remedy", authMiddleware, teacherController.sendRemedy);
-
+  router.put(
+    "/api/edit-teachers",
+    authMiddleware,
+    teacherController.editTeacher
+  );
+  router.delete(
+    "/api/delete-teachers",
+    authMiddleware,
+    teacherController.deleteTeacher
+  );
   return app.use("/", router);
 };
 module.exports = initTeachersRoutes;

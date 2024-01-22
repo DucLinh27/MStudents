@@ -74,7 +74,6 @@ let bulkCreateSchedule = async (req, res) => {
     });
   }
 };
-
 let getScheduleByDate = async (req, res) => {
   try {
     let infor = await teacherService.getScheduleByDate(
@@ -144,6 +143,22 @@ let sendRemedy = async (req, res) => {
     });
   }
 };
+let editTeacher = async (req, res) => {
+  let data = req.body;
+  let message = await teacherService.editTeacherService(data);
+  return res.status(200).json(message);
+};
+
+let deleteTeacher = async (req, res) => {
+  if (!req.body.id) {
+    return res.status(200).json({
+      errCode: 1,
+      errMessage: "Missing required parameters!",
+    });
+  }
+  let message = await teacherService.deleteTeacherService(req.body.id);
+  return res.status(200).json(message);
+};
 module.exports = {
   getTopTeacherHome: getTopTeacherHome,
   getAllTeachers: getAllTeachers,
@@ -156,4 +171,6 @@ module.exports = {
   getListStudentForTeacher: getListStudentForTeacher,
   sendRemedy: sendRemedy,
   getAllTeachersInfor: getAllTeachersInfor,
+  editTeacher: editTeacher,
+  deleteTeacher: deleteTeacher,
 };

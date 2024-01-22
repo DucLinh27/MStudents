@@ -12,8 +12,8 @@ let initVideosRoutes = (app) => {
   );
   router.get(
     "/api/get-all-videos",
-    cacheMiddleware(300),
-    // authMiddleware,
+    // cacheMiddleware(300),
+    authMiddleware,
     videoController.getAllVideos
   );
   router.get(

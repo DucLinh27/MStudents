@@ -17,9 +17,11 @@ import rateLimit from "express-rate-limit";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import paypal from "paypal-rest-sdk";
-import { uploadCloud } from "./middleware/uploader";
 import cloudinary from "cloudinary";
-import multer from "multer";
+import swaggerSpec from "./config/swaggerConfig";
+import swaggerUi from "swagger-ui-express";
+import specs from "./docs/swagger";
+import cacheMiddleware from "./middleware/cacheMiddleware";
 let app = express();
 app.use(cookieParser());
 app.use(cors({ origin: true }));
@@ -28,49 +30,6 @@ cloudinary.config({
   cloud_name: "dyfbye716",
   api_key: "661796382489326",
   api_secret: "J-lQnSxVlwfEMjyGTXSJ0dyVnQA",
-});
-// Cấu hình Multer để xử lý tải lên
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-// Định nghĩa endpoint xử lý tải lên ảnh
-app.post("/upload/image", upload.single("image"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file provided" });
-  }
-
-  // Tải lên ảnh lên Cloudinary
-  cloudinary.uploader
-    .upload_stream({ resource_type: "image" }, (error, result) => {
-      if (error) {
-        console.error("Error uploading image to Cloudinary:", error);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
-
-      // Trả về thông tin về ảnh đã tải lên
-      res.json({ public_id: result.public_id, url: result.secure_url });
-    })
-    .end(req.file.buffer);
-});
-
-// Định nghĩa endpoint xử lý tải lên video
-app.post("/upload/video", upload.single("video"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file provided" });
-  }
-
-  // Tải lên video lên Cloudinary
-  cloudinary.uploader
-    .upload_stream({ resource_type: "video" }, (error, result) => {
-      if (error) {
-        console.error("Error uploading video to Cloudinary:", error);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
-
-      // Trả về thông tin về video đã tải lên
-      res.json({ public_id: result.public_id, url: result.secure_url });
-    })
-    .end(req.file.buffer);
 });
 
 //congif paypal
@@ -99,17 +58,9 @@ app.use(passport.session());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-// const Redis = require("ioredis");
-// const redis = new Redis();
-
-// // Sử dụng Redis, ví dụ:
-// redis.set("key", "value");
-// redis.get("key", function (err, result) {
-//   console.log(result); // In ra 'value'
-// });
-// ... (other imports)
-const swaggerUi = require("swagger-ui-express");
-const specs = require("./docs/swagger"); // Import the Swagger configuration
+//config swagger
+// Import the Swagger configuration
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rate limiting configuration
 // const limiter = rateLimit({
@@ -120,6 +71,11 @@ const specs = require("./docs/swagger"); // Import the Swagger configuration
 // // Apply rate limiting to all requests
 // app.use(limiter);
 
+//REDIS LABS
+// Sử dụng middleware caching
+app.use(cacheMiddleware);
+
+//Route
 viewEngine(app);
 initUsersRoutes(app);
 initCoursesRoutes(app);

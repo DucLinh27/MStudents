@@ -38,7 +38,7 @@ let createClasses = async (req, res) => {
 };
 let editClasses = async (req, res) => {
   let data = req.body;
-  let message = await orderService.editClasesService(data);
+  let message = await classesService.editClassesService(data);
   return res.status(200).json(message);
 };
 
@@ -49,7 +49,7 @@ let deleteClasses = async (req, res) => {
       errMessage: "Missing required parameters!",
     });
   }
-  let message = await orderService.deleteClassesService(req.body.id);
+  let message = await classesService.deleteClassesService(req.body.id);
   return res.status(200).json(message);
 };
 module.exports = {
