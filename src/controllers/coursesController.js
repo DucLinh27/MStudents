@@ -35,6 +35,18 @@ let getDetailCoursesById = async (req, res) => {
     });
   }
 };
+let filterCoursesByName = async (req, res) => {
+  try {
+    let infor = await coursesService.filterCoursesByName(req.query.name);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 let getVideosByCourseId = async (req, res) => {
   try {
     let infor = await coursesService.getVideosByCourseId(req.query.id);
@@ -49,10 +61,9 @@ let getVideosByCourseId = async (req, res) => {
 };
 let editCourses = async (req, res) => {
   let data = req.body;
-  let message = await orderService.editCoursesService(data);
+  let message = await coursesService.editCoursesService(data);
   return res.status(200).json(message);
 };
-
 let deleteCourses = async (req, res) => {
   if (!req.body.id) {
     return res.status(200).json({
@@ -60,7 +71,7 @@ let deleteCourses = async (req, res) => {
       errMessage: "Missing required parameters!",
     });
   }
-  let message = await orderService.deleteCoursesService(req.body.id);
+  let message = await coursesService.deleteCoursesService(req.body.id);
   return res.status(200).json(message);
 };
 module.exports = {
@@ -70,4 +81,5 @@ module.exports = {
   getVideosByCourseId: getVideosByCourseId,
   editCourses: editCourses,
   deleteCourses: deleteCourses,
+  filterCoursesByName: filterCoursesByName,
 };

@@ -30,6 +30,11 @@ let initClassesRoutes = (app) => {
     authMiddleware,
     classesController.deleteClasses
   );
+  router.get(
+    "/api/find-classses-by-name",
+    authMiddleware,
+    classesController.filterClassesByName
+  );
   return app.use("/", router);
 };
 module.exports = initClassesRoutes;

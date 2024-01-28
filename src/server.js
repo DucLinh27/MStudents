@@ -73,7 +73,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //REDIS LABS
 // Sử dụng middleware caching
-app.use(cacheMiddleware);
+// app.use(cacheMiddleware);
 
 //Route
 viewEngine(app);

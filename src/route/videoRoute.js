@@ -27,6 +27,11 @@ let initVideosRoutes = (app) => {
     authMiddleware,
     videoController.deleteVideo
   );
+  router.get(
+    "/api/find-videos-by-name",
+    authMiddleware,
+    videoController.filterVideosByName
+  );
   return app.use("/", router);
 };
 module.exports = initVideosRoutes;

@@ -37,7 +37,7 @@ let getDetailVideosById = async (req, res) => {
 };
 let editVideo = async (req, res) => {
   let data = req.body;
-  let message = await orderService.editVideoService(data);
+  let message = await videoService.editVideoService(data);
   return res.status(200).json(message);
 };
 
@@ -48,14 +48,26 @@ let deleteVideo = async (req, res) => {
       errMessage: "Missing required parameters!",
     });
   }
-  let message = await orderService.deleteVideoService(req.body.id);
+  let message = await videoService.deleteVideoService(req.body.id);
   return res.status(200).json(message);
 };
-
+let filterVideosByName = async (req, res) => {
+  try {
+    let infor = await videoService.filterVideosByName(req.query.name);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 module.exports = {
   createVideos: createVideos,
   getAllVideos: getAllVideos,
   getDetailVideosById: getDetailVideosById,
   deleteVideo: deleteVideo,
   editVideo: editVideo,
+  filterVideosByName: filterVideosByName,
 };

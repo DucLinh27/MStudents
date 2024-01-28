@@ -1,5 +1,5 @@
 const db = require("../models");
-
+import { Op } from "sequelize";
 let createVideos = (data) => {
   return new Promise(async (resolve, reject) => {
     console.log(data);
@@ -151,10 +151,48 @@ let deleteVideoService = (inputId) => {
     });
   });
 };
+let filterVideosByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!name) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let data = await db.Videos.findAll({
+          where: {
+            name: {
+              [Op.like]: "%" + name + "%",
+            },
+          },
+          attributes: ["id", "name", "coursesId"],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Videos not found!",
+            data,
+          });
+        }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createVideos: createVideos,
   getAllVideos: getAllVideos,
   getDetailVideosById: getDetailVideosById,
   editVideoService: editVideoService,
   deleteVideoService: deleteVideoService,
+  filterVideosByName: filterVideosByName,
 };

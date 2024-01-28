@@ -42,6 +42,18 @@ let editClasses = async (req, res) => {
   return res.status(200).json(message);
 };
 
+let filterClassesByName = async (req, res) => {
+  try {
+    let infor = await classesService.filterClassesByName(req.query.name);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 let deleteClasses = async (req, res) => {
   if (!req.body.id) {
     return res.status(200).json({
@@ -58,4 +70,5 @@ module.exports = {
   getDetailClassesById: getDetailClassesById,
   editClasses: editClasses,
   deleteClasses: deleteClasses,
+  filterClassesByName: filterClassesByName,
 };

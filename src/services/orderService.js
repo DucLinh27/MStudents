@@ -6,17 +6,14 @@ import emailService from "./emailService";
 let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // Check if the order already exists
+      // // Check if the order already exists
       let existingOrder = await db.Order.findOne({
         where: {
           userId: data.userId,
-          // courses: data.courses,
         },
         // include: [
         //   {
-        //     model: db.Courses,
-        //     as: "orderedCourses", // Use the correct alias here
-        //     where: { id: data.courses },
+        //     where: { courses: data.courses },
         //   },
         // ],
       });
@@ -46,6 +43,7 @@ let createOrderService = (data) => {
     }
   });
 };
+
 let getOrderService = () => {
   return new Promise(async (resolve, reject) => {
     try {

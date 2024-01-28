@@ -12,19 +12,24 @@ let initCoursesRoutes = (app) => {
   );
   router.get(
     "/api/get-all-courses",
-    // cacheMiddleware(300),
     authMiddleware,
     coursesController.getAllCourses
   );
   router.get(
     "/api/get-detail-courses-by-id",
-    // authMiddleware,
+    authMiddleware,
     coursesController.getDetailCoursesById
   );
   router.get(
     "/api/get-video-by-courseid",
     authMiddleware,
     coursesController.getVideosByCourseId
+  );
+
+  router.get(
+    "/api/find-courses-by-name",
+    authMiddleware,
+    coursesController.filterCoursesByName
   );
   router.put(
     "/api/edit-courses",

@@ -28,9 +28,7 @@ module.exports = {
           return this.setDataValue("courses", JSON.stringify(value));
         },
       },
-      // coursesId: {
-      //   type: Sequelize.INTEGER,
-      // },
+
       payment: {
         type: Sequelize.STRING,
       },

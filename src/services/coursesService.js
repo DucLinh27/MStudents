@@ -1,5 +1,5 @@
 const db = require("../models");
-
+import { Op } from "sequelize";
 let createCourses = (data) => {
   return new Promise(async (resolve, reject) => {
     console.log(data);
@@ -47,7 +47,6 @@ let getAllCourses = (data) => {
     }
   });
 };
-
 let getDetailCoursesById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -90,6 +89,50 @@ let getDetailCoursesById = (inputId) => {
           errMessage: "OK!",
           data,
         });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let filterCoursesByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!name) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let data = await db.Courses.findAll({
+          where: {
+            name: {
+              [Op.like]: "%" + name + "%",
+            },
+          },
+          attributes: ["id", "name", "price", "image", "descriptionMarkdown"],
+          include: [
+            {
+              model: db.Videos,
+              as: "videos",
+              attributes: ["id", "name", "video"],
+            },
+          ],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Course not found!",
+            data,
+          });
+        }
       }
     } catch (e) {
       reject(e);
@@ -171,7 +214,6 @@ let editCoursesService = (data) => {
     }
   });
 };
-
 let deleteCoursesService = (inputId) => {
   return new Promise(async (resolve, reject) => {
     let courses = await db.Courses.findOne({
@@ -199,4 +241,5 @@ module.exports = {
   getVideosByCourseId: getVideosByCourseId,
   editCoursesService: editCoursesService,
   deleteCoursesService: deleteCoursesService,
+  filterCoursesByName: filterCoursesByName,
 };

@@ -5,6 +5,7 @@ import passport from "passport";
 import { authMiddleware } from "../middleware/JWTAction";
 let router = express.Router();
 import cacheMiddleware from "../middleware/cacheMiddleware";
+
 let initUsersRoutes = (app) => {
   router.get("/", homeController.getHomePage);
   router.get("/about", homeController.getAboutPage);
@@ -22,35 +23,48 @@ let initUsersRoutes = (app) => {
   //User
   router.get(
     "/api/get-all-users",
-    cacheMiddleware,
     authMiddleware,
     userController.handleGetAllUsers
   );
+  router.get(
+    "/api/get-all-students",
+    authMiddleware,
+    userController.handleGetAllStudent
+  );
+  router.post(
+    "/api/create-new-students",
+    authMiddleware,
+    userController.handleCreateNewStudents
+  );
   router.post(
     "/api/create-new-user",
-    cacheMiddleware,
     authMiddleware,
     userController.handleCreateNewUser
   );
   router.post(
     "/api/change-password",
-    cacheMiddleware,
     authMiddleware,
     userController.changePasswordService
   );
   router.put("/api/edit-user", authMiddleware, userController.handleEditUser);
+  router.put(
+    "/api/edit-students",
+    authMiddleware,
+    userController.handleEditStudents
+  );
+
   router.delete(
     "/api/delete-user",
-    cacheMiddleware,
     authMiddleware,
     userController.handleDeleteUser
   );
   //restApi
+  router.get("/api/allcode", authMiddleware, userController.getAllCode);
+  //restApi
   router.get(
-    "/api/allcode",
-    cacheMiddleware,
+    "/api/search-users-by-name",
     authMiddleware,
-    userController.getAllCode
+    userController.handleSearchUserByName
   );
 
   return app.use("/", router);

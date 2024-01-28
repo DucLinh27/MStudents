@@ -2,6 +2,7 @@ import db from "../models/index";
 import bcrypt from "bcryptjs";
 import { getRoles } from "./JWTService";
 const salt = bcrypt.genSaltSync(10);
+import { Op } from "sequelize";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -149,6 +150,162 @@ let getAllUsers = (userId) => {
     }
   });
 };
+
+let getAllStudents = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.User.findAll({
+        where: {
+          roleId: "R3",
+        },
+      });
+      resolve({
+        errCode: 0,
+        errMessage: "OK!",
+        data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+// let handleSearchUserByName = (req, res) => {
+//   return new Promise(async (resolve, reject) => {
+//     let { name } = req.query;
+//     try {
+//       const data = await db.User.findAll({
+//         where: {
+//           [Op.or]: [
+//             { firstName: { [Op.like]: "%" + name + "%" } },
+//             { lastName: { [Op.like]: "%" + name + "%" } },
+//           ],
+//         },
+//       });
+//       resolve({
+//         errCode: 0,
+//         errMessage: "OK!",
+//         data,
+//       });
+//     } catch (e) {
+//       reject(e);
+//     }
+//   });
+// };
+let handleSearchUserByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!name) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let data = await db.User.findAll({
+          where: {
+            [Op.or]: [
+              { firstName: { [Op.like]: "%" + name + "%" } },
+              { lastName: { [Op.like]: "%" + name + "%" } },
+            ],
+          },
+          attributes: ["id", "firstName", "lastName"],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "User not found!",
+            data,
+          });
+        }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let createNewStudents = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Check if email already exists
+      let check = await checkUserEmail(data.email);
+      if (check === true) {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address",
+        });
+      } else {
+        let hashPassWordFromBcrypt = await hashUserPassword(data.password);
+
+        await db.User.create({
+          email: data.email,
+          password: hashPassWordFromBcrypt,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          address: data.address,
+          phonenumber: data.phonenumber,
+          gender: data.gender,
+          roleId: "R3", // Set roleId to "R3"
+          positionId: data.positionId,
+          image: data.avatar,
+        });
+
+        resolve({
+          errCode: 0,
+          message: "Ok",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let updateStudents = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id || !data.gender) {
+        resolve({
+          errCode: 2,
+          errMessage: "The user does not exist",
+        });
+      }
+      let user = await db.User.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (user) {
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
+        user.address = data.address;
+        user.phonenumber = data.phonenumber;
+        user.roleId = "R3"; // Set roleId to "R3"
+        user.positionId = data.positionId;
+        user.gender = data.gender;
+        if (data.avatar) {
+          user.image = data.avatar;
+        }
+        await user.save();
+        resolve({
+          errCode: 0,
+          message: "The user has been updated successfully",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          message: "User not found",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let createNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -187,7 +344,6 @@ let createNewUser = (data) => {
     }
   });
 };
-
 let registerNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -347,4 +503,8 @@ module.exports = {
   registerNewUser: registerNewUser,
   changePassword: changePassword,
   handleUserGoogle: handleUserGoogle,
+  getAllStudents: getAllStudents,
+  createNewStudents: createNewStudents,
+  updateStudents: updateStudents,
+  handleSearchUserByName: handleSearchUserByName,
 };

@@ -103,6 +103,18 @@ let changePasswordService = async (req, res) => {
   }
 };
 
+let handleGetAllStudent = async (req, res) => {
+  try {
+    let infor = await userService.getAllStudents();
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 let handleGetAllUsers = async (req, res) => {
   let id = req.query.id; //All, id
   if (!id) {
@@ -126,6 +138,10 @@ let handleCreateNewUser = async (req, res) => {
   let message = await userService.createNewUser(req.body);
   return res.status(200).json(message);
 };
+let handleCreateNewStudents = async (req, res) => {
+  let message = await userService.createNewStudents(req.body);
+  return res.status(200).json(message);
+};
 let handleRegisterNewUser = async (req, res) => {
   let message = await userService.registerNewUser(req.body);
   return res.status(200).json(message);
@@ -146,6 +162,11 @@ let handleEditUser = async (req, res) => {
   let message = await userService.updateUser(data);
   return res.status(200).json(message);
 };
+let handleEditStudents = async (req, res) => {
+  let data = req.body;
+  let message = await userService.updateStudents(data);
+  return res.status(200).json(message);
+};
 let getAllCode = async (req, res) => {
   try {
     let data = await userService.getAllCodeService(req.query.type);
@@ -159,7 +180,18 @@ let getAllCode = async (req, res) => {
     });
   }
 };
-
+let handleSearchUserByName = async (req, res) => {
+  try {
+    let infor = await userService.handleSearchUserByName(req.query.name);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 module.exports = {
   handleLoging: handleLoging,
   handleGetAllUsers: handleGetAllUsers,
@@ -171,4 +203,8 @@ module.exports = {
   changePasswordService: changePasswordService,
   handleUserGoogle: handleUserGoogle,
   refreshAccessToken: refreshAccessToken,
+  handleGetAllStudent: handleGetAllStudent,
+  handleEditStudents: handleEditStudents,
+  handleCreateNewStudents: handleCreateNewStudents,
+  handleSearchUserByName: handleSearchUserByName,
 };

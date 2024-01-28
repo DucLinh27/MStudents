@@ -1,4 +1,5 @@
 const db = require("../models");
+import { Op } from "sequelize";
 
 let createClasses = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -132,6 +133,48 @@ let editClassesService = (data) => {
   });
 };
 
+let filterClassesByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!name) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let data = await db.Classes.findAll({
+          where: {
+            name: {
+              [Op.like]: "%" + name + "%",
+            },
+          },
+          attributes: [
+            "name",
+            "address",
+            "descriptionHTML",
+            "descriptionMarkdown",
+          ],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Classes not found!",
+            data,
+          });
+        }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let deleteClassesService = (inputId) => {
   return new Promise(async (resolve, reject) => {
     let classes = await db.Classes.findOne({
@@ -158,4 +201,5 @@ module.exports = {
   getDetailClassesById: getDetailClassesById,
   editClassesService: editClassesService,
   deleteClassesService: deleteClassesService,
+  filterClassesByName: filterClassesByName,
 };
