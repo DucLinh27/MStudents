@@ -18,6 +18,9 @@ const getDetailCoursesByName = (name) => {
 const findCoursesByName = (name) => {
   return axios.get(`/api/find-courses-by-name?name=${name}`);
 };
+const findVideosByName = (name) => {
+  return axios.get(`/api/find-videos-by-name?name=${name}`);
+};
 const getVideosByCourseId = (id) => {
   return axios.get(`/api//api/get-video-by-courseid?id=${id}`);
 };
@@ -60,4 +63,5 @@ export {
   deleteVideosService,
   getDetailCoursesByName,
   findCoursesByName,
+  findVideosByName,
 };

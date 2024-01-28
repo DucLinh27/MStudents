@@ -11,7 +11,6 @@ import {
   getAllCourses,
   deleteCoursesService,
   editCoursesService,
-  getDetailCoursesByName,
   findCoursesByName,
 } from "../../../services/coursesService";
 import { toast } from "react-toastify";

@@ -9,6 +9,7 @@ import {
   createNewVideos,
   deleteVideosService,
   editVideosService,
+  findVideosByName,
   getAllVideos,
 } from "../../../services/coursesService";
 import { toast } from "react-toastify";
@@ -26,6 +27,8 @@ class ManageVideos extends Component {
       listCourses: [],
       coursesId: "",
       arrVideos: [],
+      isSearching: false,
+      filteredVideos: [],
     };
   }
 
@@ -50,6 +53,7 @@ class ManageVideos extends Component {
       console.error("Error fetching classes:", error);
     }
   }
+
   buildDataInputSelect = (inputData, type) => {
     let result = [];
     if (inputData && inputData.length > 0) {
@@ -65,6 +69,9 @@ class ManageVideos extends Component {
     return result;
   };
   async componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.arrVideos !== prevState.arrVideos) {
+      this.setState({ filteredVideos: this.state.arrVideos });
+    }
     if (
       prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor
     ) {
@@ -77,6 +84,30 @@ class ManageVideos extends Component {
     }
   }
 
+  handleSearch = async (event) => {
+    const searchValue = event.target.value;
+    if (searchValue) {
+      const response = await findVideosByName(searchValue);
+      console.log(response);
+      if (response && response.errCode === 0 && Array.isArray(response.data)) {
+        this.setState({
+          searchCourses: response.data,
+          isSearching: true,
+        });
+      }
+    } else {
+      this.setState({
+        isSearching: false,
+      });
+    }
+  };
+  filterVideos = (searchTerm) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredVideos = this.state.arrVideos.filter((video) =>
+      video.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+    this.setState({ filteredVideos });
+  };
   handleOnChangeInput = (event, id) => {
     let stateCopy = { ...this.state };
     stateCopy[id] = event.target.value;
@@ -223,7 +254,14 @@ class ManageVideos extends Component {
               value={this.state.descriptionMarkdown}
             />
           </div> */}
-          <div className="col-12">
+          <div className="col-12 d-flex">
+            <div className="search-inputs">
+              <input
+                type="text"
+                placeholder="Search courses..."
+                onChange={(event) => this.filterVideos(event.target.value)}
+              />
+            </div>
             <button
               className="btn-save-specialty "
               onClick={() => this.handleSaveNewVideo()}
@@ -242,8 +280,8 @@ class ManageVideos extends Component {
                 <th>Actions</th>
               </tr>
 
-              {this.state.arrVideos &&
-                this.state.arrVideos.map((item, index) => {
+              {this.state.filteredVideos &&
+                this.state.filteredVideos.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.name}</td>
