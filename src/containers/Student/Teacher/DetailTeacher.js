@@ -52,7 +52,7 @@ class TeacherDoctor extends Component {
               className="content-left"
               style={{
                 backgroundImage: `url(${
-                  detailTeacher.image ? detailTeacher.imagse : ""
+                  detailTeacher.image ? detailTeacher.image : ""
                 })`,
               }}
             ></div>

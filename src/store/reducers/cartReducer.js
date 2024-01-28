@@ -96,6 +96,11 @@ const cartReducer = (state = initialState, action) => {
     case actionTypes.CLEAR_ORDER:
       return initialState;
     // Handle other actions...
+    case actionTypes.COURSE_PURCHASED:
+      return {
+        ...state,
+        coursePurchased: true,
+      };
     default:
       return state;
   }

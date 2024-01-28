@@ -20,28 +20,36 @@
       font-size: $base-size + 1px;
     }
   }
-  .languages{
-    .welcome{
+  .languages {
+    .welcome {
       margin-right: 10px;
     }
     .languages-en {
-        margin-left: 15px;
-        margin-right: 10px;
-        cursor: pointer;
+      margin-left: 15px;
+      margin-right: 10px;
+      cursor: pointer;
 
-        &.active{
-            opacity: 1;
-            color: blue;
-        }
+      &.active {
+        opacity: 1;
+        color: blue;
       }
-      .languages-vi {
-        cursor: pointer;
+    }
+    .languages-vi {
+      cursor: pointer;
 
-        &.active{
-            opacity: 1;
-            color: orange;
-        }
+      &.active {
+        opacity: 1;
+        color: orange;
       }
+    }
   }
-  
+}
+.search-input {
+  input {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border: none;
+  }
 }

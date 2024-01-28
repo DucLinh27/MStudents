@@ -1,54 +1,49 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./UserManager.scss";
+import "./StudentManage.scss";
 import {
-  getAllUsers,
+  createNewStudentsServices,
   createNewUserServices,
   deleteUserServices,
+  editStudentsServices,
   editUserServices,
+  getAllStudents,
 } from "../../../services/userService";
-import ModalUser from "./ModalUser";
+import ModalUser from "../Users/ModalUser";
 import { emitter } from "../../../utils/emitter";
-import ModalEditUser from "./ModalEditUser";
+import ModalEditUser from "../Users/ModalEditUser";
 
-class UserManage extends Component {
+class StudentManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrUsers: [],
+      arrStudents: [],
       isOpenModalUser: false,
       isOpenModalEditUser: false,
       userEdit: {},
-      filteredUsers: [],
-      isSearching: false,
     };
   }
 
   async componentDidMount() {
-    await this.getAllUsersFromReact();
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.arrUsers !== prevState.arrUsers) {
-      this.setState({ filteredUsers: this.state.arrUsers });
+    try {
+      const response = await getAllStudents();
+      console.log("Response:", response);
+      console.log("Response errCode:", response.errCode);
+      // Check the structure of response
+      if (response && response.errCode === 0) {
+        this.setState(
+          {
+            arrStudents: response.data,
+          },
+          () =>
+            console.log("arrStudents after setState:", this.state.arrStudents)
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching student:", error);
     }
   }
-  filterUsers = (searchTerm) => {
-    const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    const filteredUsers = this.state.arrUsers.filter((user) =>
-      user.firstName.toLowerCase().includes(lowerCaseSearchTerm)
-    );
-    this.setState({ filteredUsers });
-  };
-  getAllUsersFromReact = async () => {
-    let response = await getAllUsers("ALL");
-    console.log(response);
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrUsers: response.users,
-      });
-    }
-    console.log(response.users);
-  };
+
   handleAddNewUser = () => {
     this.setState({
       isOpenModalUser: true,
@@ -66,7 +61,7 @@ class UserManage extends Component {
   };
   createNewUser = async (data) => {
     try {
-      let response = await createNewUserServices(data);
+      let response = await createNewStudentsServices(data);
       if (response && response.errCode !== 0) {
         alert(response.errMessage);
       } else {
@@ -99,7 +94,7 @@ class UserManage extends Component {
   };
   doEditUSer = async (user) => {
     try {
-      let res = await editUserServices(user);
+      let res = await editStudentsServices(user);
       if (res && res.errCode === 0) {
         this.setState({ isOpenModalEditUser: false });
         this.getAllUsersFromReact();
@@ -112,7 +107,8 @@ class UserManage extends Component {
   };
 
   render() {
-    let arrUsers = this.state.arrUsers;
+    let arrStudents = this.state.arrStudents;
+    console.log(arrStudents);
     return (
       <div className="users-container">
         <ModalUser
@@ -130,13 +126,7 @@ class UserManage extends Component {
         )}
 
         <div className="title text-center">Manage users with MStudents</div>
-        <div className="search-inputs">
-          <input
-            type="text"
-            placeholder="Search courses..."
-            onChange={(event) => this.filterUsers(event.target.value)}
-          />
-        </div>
+
         <div className="users-table mt-3 mx-1">
           <table>
             <tbody>
@@ -148,8 +138,8 @@ class UserManage extends Component {
                 <th>Actions</th>
               </tr>
 
-              {this.state.filteredUsers &&
-                this.state.filteredUsers.map((item, index) => {
+              {arrStudents &&
+                arrStudents.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.email}</td>
@@ -198,4 +188,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManage);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentManage);

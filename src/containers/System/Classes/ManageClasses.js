@@ -5,6 +5,11 @@ import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { CommonUtils } from "../../../utils";
 import {
+  editClassesService,
+  findClassesByName,
+} from "../../../services/classesService";
+import * as actions from "../../../store/actions";
+import {
   createNewClasses,
   deleteClassesService,
   getAllClasses,
@@ -23,30 +28,20 @@ class ManageClasses extends Component {
       descriptionMarkdown: "",
       address: "",
       arrUsers: [],
+      arrClasses: [],
+      filteredClasses: [],
     };
   }
 
   //just run 1 time
   async componentDidMount() {
-    try {
-      const response = await getAllClasses();
-      console.log("Response:", response);
-
-      if (response.errCode === 0) {
-        const classesArray = Array.isArray(response.data)
-          ? response.data
-          : Object.values(response.data);
-        this.setState({
-          arrClasses: classesArray,
-        });
-      } else {
-        console.error("Error fetching classes:", response.errMessage);
-      }
-    } catch (error) {
-      console.error("Error fetching classes:", error);
+    this.fetchClasses();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.arrClasses !== prevState.arrClasses) {
+      this.setState({ filteredClasses: this.state.arrClasses });
     }
   }
-  async componentDidUpdate(prevProps, prevState, snapshot) {}
 
   handleOnChangeInput = (event, id) => {
     let stateCopy = { ...this.state };
@@ -103,32 +98,109 @@ class ManageClasses extends Component {
       ...this.state,
       image: this.state.previewImageURL,
     };
-    let res = await createNewClasses(data);
-    if (res && res.errCode === 0) {
-      toast.success("Add new class successfully");
-      this.setState({
-        name: "",
-        address: "",
-        image: "",
-        descriptionHTML: "",
-        descriptionMarkdown: "",
-        arrClasses: [],
-      });
+
+    if (this.state.isEditing) {
+      // Edit the class
+      let res = await editClassesService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Edit class successfully");
+        this.setState({
+          id: null,
+          name: "",
+          address: "",
+          image: "",
+          descriptionHTML: "",
+          descriptionMarkdown: "",
+          isEditing: false,
+        });
+      } else {
+        toast.error("Edit class error");
+        console.log(res);
+      }
     } else {
-      toast.error("Add new class Error");
-      console.log(res);
+      // Create a new class
+      let res = await createNewClasses(data);
+      if (res && res.errCode === 0) {
+        toast.success("Add new class successfully");
+        this.setState({
+          name: "",
+          address: "",
+          image: "",
+          descriptionHTML: "",
+          descriptionMarkdown: "",
+          arrClasses: [],
+        });
+      } else {
+        toast.error("Add new class error");
+        console.log(res);
+      }
     }
   };
   handleDeleteClass = async (classes) => {
     try {
       const response = await deleteClassesService(classes);
       if (response && response.errCode === 0) {
-        this.props.deleteOrder(classes);
+        this.props.deleteClasses(classes);
       } else {
         console.error("Error deleting order:", response.errMessage);
       }
     } catch (error) {
       console.error("Error deleting order:", error);
+    }
+  };
+  handleEditClass = (item) => {
+    this.setState({
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      descriptionHTML: item.descriptionHTML,
+      descriptionMarkdown: item.descriptionMarkdown,
+      address: item.address,
+      previewImageURL: item.image, // Set the previewImageURL to the class image
+      isEditing: true,
+    });
+  };
+  fetchClasses = async () => {
+    try {
+      const response = await getAllClasses();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const classesArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrClasses: classesArray,
+        });
+      } else {
+        console.error("Error fetching classes:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+  filteredClasses = (searchTerm) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredClasses = this.state.arrClasses.filter((classes) =>
+      classes.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+    this.setState({ filteredClasses });
+  };
+  handleSearch = async (event) => {
+    const searchValue = event.target.value;
+    if (searchValue) {
+      const response = await findClassesByName(searchValue);
+      console.log(response);
+      if (response && response.errCode === 0 && Array.isArray(response.data)) {
+        this.setState({
+          searchCourses: response.data,
+          isSearching: true,
+        });
+      }
+    } else {
+      this.setState({
+        isSearching: false,
+      });
     }
   };
   render() {
@@ -186,7 +258,14 @@ class ManageClasses extends Component {
               value={this.state.descriptionMarkdown}
             />
           </div>
-          <div className="col-12">
+          <div className="col-12 d-flex">
+            <div className="search-inputs">
+              <input
+                type="text"
+                placeholder="Search courses..."
+                onChange={(event) => this.filteredClasses(event.target.value)}
+              />
+            </div>
             <button
               className="btn-save-specialty "
               onClick={() => this.handleSaveNewClasses()}
@@ -207,8 +286,8 @@ class ManageClasses extends Component {
                 <th>Actions</th>
               </tr>
 
-              {this.state.arrClasses &&
-                this.state.arrClasses.map((item, index) => {
+              {this.state.filteredClasses &&
+                this.state.filteredClasses.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.name}</td>
@@ -219,19 +298,19 @@ class ManageClasses extends Component {
                           style={{ width: "50px", height: "50px" }}
                         />
                       </td>
-                      <td>{item.address}</td>
+                      <td>{item.price}</td>
                       <td>{item.descriptionHTML}</td>
                       <td>{item.descriptionMarkdown}</td>
                       <td>
                         <button
                           className="btn-edit"
-                          onClick={() => this.handleEditClass(item)}
+                          onClick={() => this.handleEditCourses(item)}
                         >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
                         <button
                           className="btn-delete"
-                          onClick={() => this.handleDeleteClass(item)}
+                          onClick={() => this.handleDeleteCourses(item)}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
@@ -254,7 +333,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    deleteClasses: (classes) => dispatch(actions.deleteClasses(classes)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageClasses);

@@ -21,10 +21,8 @@ import DetailTeacher from "./Student/Teacher/DetailTeacher.js";
 import VerifyEmail from "./Student/Emails/VerifyEmail";
 import DetailCourses from "./Student/Courses/DetailCourses";
 import DetailClasses from "./Student/Classes/DetailClasses";
-import Order from "../containers/Cart/Order";
-import CartItem from "../containers/Cart/CartItem";
-import Cart from "../containers/Cart/Cart";
-import PaymentReturn from "../containers/Cart/PaymentReturn";
+import Order from "../containers/Orders/Order";
+import PaymentReturn from "../containers/Orders/PaymentReturn";
 import ProfileUser from "./Student/Users/ProfileUser.js";
 import AllCourses from "./HomePage/Body/AllCourses.js";
 import AllTeacher from "./HomePage/Body/AllTeacher.js";
@@ -87,8 +85,6 @@ class App extends Component {
                   <Route path={path.DETAIL_CLASSES} component={DetailClasses} />
                   <Route path={path.ORDER} component={Order} />
                   <Route path={path.PAYMENT_RETURN} component={PaymentReturn} />
-                  <Route path={path.CART} component={Cart} />
-                  <Route path={path.CARTITEM} component={CartItem} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />
                   <Route path={path.PROFILE} exact component={ProfileUser} />
                   <Route path={path.USER_COUSER} component={UserCourses} />

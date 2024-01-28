@@ -13,7 +13,7 @@
       border: none;
       background: orange;
       padding: 8px 5px;
-      min-width: 75px;
+      min-width: 175px;
       border-radius: 3px;
       margin: 15px 0;
     }
@@ -37,5 +37,15 @@
     background-size: contain;
     border: 1px solid #ddd;
     cursor: pointer;
+  }
+}
+.search-inputs {
+  input {
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 18px;
+    margin-right: 910px;
+    border: 1px solid #ddd;
   }
 }

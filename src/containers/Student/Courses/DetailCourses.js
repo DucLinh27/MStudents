@@ -5,9 +5,7 @@ import HomeHeader from "../../HomePage/Header/HomeHeader";
 import HomeFooter from "../../HomePage/Header/HomeFooter";
 import { getDetailCoursesById } from "../../../services/coursesService";
 import _ from "lodash";
-import imglearn from "../../../assets/imglearn.jpg";
 import * as actions from "../../../store/actions";
-import CartItem from "../../Cart/CartItem";
 
 class DetailCourses extends Component {
   constructor(props) {
@@ -15,6 +13,7 @@ class DetailCourses extends Component {
     this.state = {
       dataDetailCourse: {},
       isOpenModalUser: false,
+      orderedCourses: [],
     };
   }
 
@@ -22,7 +21,6 @@ class DetailCourses extends Component {
   async componentDidMount() {
     const courseId = this.props.match.params.id;
     console.log("key" + courseId);
-
     try {
       const courseDetails = await getDetailCoursesById(courseId);
       console.log(courseDetails);
@@ -82,9 +80,27 @@ class DetailCourses extends Component {
     });
   };
   handleCartItem = () => {
-    this.setState({
-      isOpenModalUser: true,
-    });
+    const isCourseOrdered = this.state.orderedCourses.includes(
+      this.state.dataDetailCourse.id
+    );
+    if (isCourseOrdered) {
+      alert("Đã Order");
+    } else {
+      this.setState({
+        isOpenModalUser: true,
+      });
+    }
+  };
+  handleOrder = () => {
+    if (this.props.history) {
+      this.props.history.push({
+        pathname: "/order",
+        state: {
+          coursePrice: this.state.dataDetailCourse.price,
+          detailCourses: this.state.dataDetailCourse,
+        },
+      });
+    }
   };
   render() {
     // let { language } = this.props.language;
@@ -92,17 +108,12 @@ class DetailCourses extends Component {
     console.log(dataDetailCourse);
     console.log(dataDetailCourse.image);
     // Convert Buffer to base64
+
     return (
       <>
         <HomeHeader />
         {dataDetailCourse && (
           <div className="detail-courses">
-            <CartItem
-              id={this.props.match.params.id}
-              isOpen={this.state.isOpenModalUser}
-              toggleFromParent={this.toggleCartModal}
-              createNewUser={this.createNewUser}
-            />
             <div className="row">
               <div className="left-content col-6">
                 <div className="header-courses">
@@ -149,9 +160,9 @@ class DetailCourses extends Component {
 
                   <button
                     className="button_content"
-                    onClick={() => this.handleCartItem()}
+                    onClick={() => this.handleOrder()}
                   >
-                    Add To Cart
+                    Mua Ngay
                   </button>
                 </div>
 

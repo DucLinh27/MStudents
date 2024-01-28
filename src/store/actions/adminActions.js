@@ -443,3 +443,27 @@ export const deleteOrder = (order) => {
     payload: order,
   };
 };
+export const deleteClasses = (classes) => {
+  return {
+    type: actionTypes.DELETE_CLASSES,
+    payload: classes,
+  };
+};
+export const deleteTeacher = (teacher) => {
+  return {
+    type: actionTypes.DELETE_TEACHER,
+    payload: teacher,
+  };
+};
+export const deleteCourses = (courses) => {
+  return {
+    type: actionTypes.DELETE_COURSES,
+    payload: courses,
+  };
+};
+export const deleteVideos = (videos) => {
+  return {
+    type: actionTypes.DELETE_VIDEOS,
+    payload: videos,
+  };
+};

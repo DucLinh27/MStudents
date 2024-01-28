@@ -110,11 +110,7 @@ class ManageOrder extends Component {
                     <td>{item.email}</td>
                     <td>{item.phonenumber}</td>
                     <td>{item.payment}</td>
-                    <td>
-                      {Array.isArray(item.courses)
-                        ? item.courses.map((course) => course.name).join(", ")
-                        : ""}
-                    </td>
+                    <td>{item.courses.name}</td>
                     <td>{item.totalPrice}</td>
                     <td>
                       <button

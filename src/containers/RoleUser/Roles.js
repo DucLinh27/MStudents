@@ -8,6 +8,8 @@ import "./Roles.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
+import { getDetailCoursesByName } from "../../services/coursesService";
+import { getDetailClassesByName } from "../../services/classesService";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -38,13 +40,19 @@ class Header extends Component {
 
   render() {
     const { processLogout, language, userInfo } = this.props;
-
     return (
       <div className="header-container">
         {/* thanh navigator */}
         <div className="header-tabs-container">
           <Navigator menus={this.state.menuApp} />
         </div>
+        {/* <div className="search-input">
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={this.handleSearch}
+          />
+        </div> */}
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />{" "}

@@ -8,6 +8,7 @@ import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import {
   createNewVideos,
   deleteVideosService,
+  editVideosService,
   getAllVideos,
 } from "../../../services/coursesService";
 import { toast } from "react-toastify";
@@ -92,17 +93,37 @@ class ManageVideos extends Component {
   };
 
   handleSaveNewVideo = async () => {
-    let res = await createNewVideos(this.state);
-    if (res && res.errCode === 0) {
-      toast.success("Add new video successfully");
-      this.setState({
-        name: this.state.name,
-        video: this.state.video,
-        coursesId: this.state.coursesId.value,
-      });
+    if (this.state.isEditing) {
+      // Edit the class
+      let res = await editVideosService(this.state);
+      if (res && res.errCode === 0) {
+        toast.success("Edit class successfully");
+        this.setState({
+          id: null,
+          name: "",
+          address: "",
+          image: "",
+          descriptionHTML: "",
+          descriptionMarkdown: "",
+          isEditing: false,
+        });
+      } else {
+        toast.error("Edit class error");
+        console.log(res);
+      }
     } else {
-      toast.error("Add new video Error");
-      console.log(res);
+      let res = await createNewVideos(this.state);
+      if (res && res.errCode === 0) {
+        toast.success("Add new video successfully");
+        this.setState({
+          name: this.state.name,
+          video: this.state.video,
+          coursesId: this.state.coursesId.value,
+        });
+      } else {
+        toast.error("Add new video Error");
+        console.log(res);
+      }
     }
   };
   handleOnChangeEmbedLink = (event) => {
@@ -125,13 +146,23 @@ class ManageVideos extends Component {
     try {
       const response = await deleteVideosService(video);
       if (response && response.errCode === 0) {
-        this.props.deleteOrder(video);
+        this.props.deleteVideo(video);
       } else {
         console.error("Error deleting order:", response.errMessage);
       }
     } catch (error) {
       console.error("Error deleting order:", error);
     }
+  };
+  handleEditVideo = (item) => {
+    this.setState({
+      id: item.id,
+      name: item.name,
+      video: item.video,
+      coursesId: item.coursesId,
+      // Set the previewImageURL to the class image
+      isEditing: true,
+    });
   };
   render() {
     let arrVideos = this.state.arrVideos;
@@ -205,9 +236,9 @@ class ManageVideos extends Component {
           <table>
             <tbody>
               <tr>
-                <th>Class Name</th>
-                <th>Class Image</th>
-
+                <th>Name</th>
+                <th>Link Courses</th>
+                <th>CoursesId</th>
                 <th>Actions</th>
               </tr>
 
@@ -217,10 +248,11 @@ class ManageVideos extends Component {
                     <tr key={index}>
                       <td>{item.name}</td>
                       <td>{item.video}</td>
+                      <td>{item.coursesId}</td>
                       <td>
                         <button
                           className="btn-edit"
-                          onClick={() => this.handleEditClass(item)}
+                          onClick={() => this.handleEditVideo(item)}
                         >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
@@ -252,7 +284,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
-
+    deleteVideo: (videos) => dispatch(actions.deleteVideos(videos)),
     saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
   };
 };

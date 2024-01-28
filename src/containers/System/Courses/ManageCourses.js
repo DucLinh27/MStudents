@@ -5,15 +5,16 @@ import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
+import * as actions from "../../../store/actions";
 import {
   createNewCourses,
   getAllCourses,
   deleteCoursesService,
   editCoursesService,
+  getDetailCoursesByName,
+  findCoursesByName,
 } from "../../../services/coursesService";
 import { toast } from "react-toastify";
-import ModalEditCourses from "./ModalEditCourses";
-
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageCourses extends Component {
@@ -26,7 +27,9 @@ class ManageCourses extends Component {
       descriptionHTML: "",
       descriptionMarkdown: "",
       arrCourses: [],
+      isSearching: false,
       isOpenModalEditCourses: false,
+      filteredCourses: [],
     };
   }
 
@@ -50,7 +53,11 @@ class ManageCourses extends Component {
       console.error("Error fetching classes:", error);
     }
   }
-  async componentDidUpdate(prevProps, prevState, snapshot) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.arrCourses !== prevState.arrCourses) {
+      this.setState({ filteredCourses: this.state.arrCourses });
+    }
+  }
   handleDeleteCourses = async (courses) => {
     try {
       const response = await deleteCoursesService(courses);
@@ -80,7 +87,6 @@ class ManageCourses extends Component {
       descriptionMarkdown: text,
     });
   };
-
   handleOnChangeImage = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -115,48 +121,81 @@ class ManageCourses extends Component {
       }
     }
   };
-  handleEditCourses = (user) => {
-    this.setState({
-      isOpenModalEditCourses: true,
-      userEdit: user,
-    });
-  };
-  toggleUserEditModal = () => {
-    this.setState({
-      isOpenModalEditCourses: !this.state.isOpenModalEditCourses,
-    });
-  };
+
   handleSaveNewSpecialty = async () => {
     let data = {
       ...this.state,
       image: this.state.previewImageURL,
     };
-    let res = await createNewCourses(data);
-    if (res && res.errCode === 0) {
-      toast.success("Add new courses successfully");
-      this.setState({
-        name: "",
-        image: "",
-        price: "",
-        descriptionHTML: "",
-        descriptionMarkdown: "",
-      });
+    if (this.state.isEditing) {
+      // Edit the class
+      let res = await editCoursesService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Edit courses successfully");
+        this.setState({
+          id: null,
+          name: "",
+          image: "",
+          price: "",
+          descriptionHTML: "",
+          descriptionMarkdown: "",
+          isEditing: false,
+        });
+      } else {
+        toast.error("Edit courses error");
+        console.log(res);
+      }
     } else {
-      toast.error("Add new courses Error");
-      console.log(res);
+      let res = await createNewCourses(data);
+      if (res && res.errCode === 0) {
+        toast.success("Add new courses successfully");
+        this.setState({
+          name: "",
+          image: "",
+          price: "",
+          descriptionHTML: "",
+          descriptionMarkdown: "",
+        });
+      } else {
+        toast.error("Add new courses Error");
+        console.log(res);
+      }
     }
   };
-  doEditCourses = async (user) => {
-    try {
-      let res = await editCoursesService(user);
-      if (res && res.errCode === 0) {
-        this.setState({ isOpenModalEditCourses: false });
-        this.getAllCourses();
-      } else {
-        alert(res.errCode);
+  handleEditCourses = (item) => {
+    this.setState({
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      descriptionHTML: item.descriptionHTML,
+      descriptionMarkdown: item.descriptionMarkdown,
+      previewImageURL: item.image, // Set the previewImageURL to the class image
+      isEditing: true,
+    });
+  };
+  filterCourses = (searchTerm) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredCourses = this.state.arrCourses.filter((course) =>
+      course.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+    this.setState({ filteredCourses });
+  };
+  handleSearch = async (event) => {
+    const searchValue = event.target.value;
+    if (searchValue) {
+      const response = await findCoursesByName(searchValue);
+      console.log(response);
+      if (response && response.errCode === 0 && Array.isArray(response.data)) {
+        this.setState({
+          searchCourses: response.data,
+          isSearching: true,
+        });
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      this.setState({
+        isSearching: false,
+      });
     }
   };
   render() {
@@ -165,14 +204,6 @@ class ManageCourses extends Component {
     return (
       <div className="manage-sepcialty-container">
         <div className="ms-title">Quan ly Courses</div>
-        {this.state.isOpenModalEditCourses && (
-          <ModalEditCourses
-            isOpen={this.state.isOpenModalEditCourses}
-            toggleFromParent={this.toggleUserEditModal}
-            currentUser={this.state.userEdit}
-            editCourses={this.doEditCourses}
-          />
-        )}
         <div className="add-new-specialty row">
           <div className="col-6 form-group">
             <label>Tên Bài Học</label>
@@ -223,7 +254,14 @@ class ManageCourses extends Component {
               value={this.state.descriptionMarkdown}
             />
           </div>
-          <div className="col-12">
+          <div className="col-12 d-flex">
+            <div className="search-inputs">
+              <input
+                type="text"
+                placeholder="Search courses..."
+                onChange={(event) => this.filterCourses(event.target.value)}
+              />
+            </div>
             <button
               className="btn-save-specialty "
               onClick={() => this.handleSaveNewSpecialty()}
@@ -236,16 +274,16 @@ class ManageCourses extends Component {
           <table>
             <tbody>
               <tr>
-                <th> Name</th>
-                <th> Image</th>
-                <th> Price</th>
-                <th> DescriptionHTML</th>
-                <th> DescriptionMarkdown</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>DescriptionHTML</th>
+                <th>DescriptionMarkdown</th>
                 <th>Actions</th>
               </tr>
 
-              {this.state.arrCourses &&
-                this.state.arrCourses.map((item, index) => {
+              {this.state.filteredCourses &&
+                this.state.filteredCourses.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.name}</td>
@@ -291,7 +329,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    editCoursesRedux: (data) => dispatch(actions.editCourses(data)),
+    deleteCourses: (courses) => dispatch(actions.deleteCourses(courses)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCourses);

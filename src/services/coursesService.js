@@ -12,6 +12,12 @@ const getAllCourses = (doctorId) => {
 const getDetailCoursesById = (id) => {
   return axios.get(`/api/get-detail-courses-by-id?id=${id}`);
 };
+const getDetailCoursesByName = (name) => {
+  return axios.get(`/api/get-detail-courses-by-name?name=${name}`);
+};
+const findCoursesByName = (name) => {
+  return axios.get(`/api/find-courses-by-name?name=${name}`);
+};
 const getVideosByCourseId = (id) => {
   return axios.get(`/api//api/get-video-by-courseid?id=${id}`);
 };
@@ -52,4 +58,6 @@ export {
   deleteCoursesService,
   editVideosService,
   deleteVideosService,
+  getDetailCoursesByName,
+  findCoursesByName,
 };

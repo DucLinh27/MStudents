@@ -23,7 +23,6 @@ export const adminMenu = [
       },
       {
         //quản lý ke haoch
-
         name: "menu.teacher.manage-schedule",
         link: "/teacher/manage-schedule",
       },
@@ -54,7 +53,7 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý chuyên khoa
+    //quản lý order
     name: "menu.admin.manage-order",
     menus: [
       {
@@ -68,15 +67,32 @@ export const teacherMenu = [
   {
     name: "menu.admin.manage-user",
     menus: [
+      // {
+      //   // Manage  student
+      //   name: "menu.teacher.manage-student",
+      //   link: "/teacher/manage-student",
+      // },
       {
-        //quan ly ke hoach kham benh cua bac si
-        name: "menu.teacher.manage-schedule",
-        link: "/teacher/manage-schedule",
+        name: "menu.admin.crud",
+        link: "/system/student-manage",
       },
       {
-        //quan ly benh nhan kham benh cua bac si
-        name: "menu.teacher.manage-student",
-        link: "/teacher/manage-student",
+        name: "menu.admin.crudredux",
+        link: "/system/user-redux",
+      },
+    ],
+  },
+  {
+    //quản lý courses
+    name: "menu.admin.manage-courses",
+    menus: [
+      {
+        name: "menu.admin.manage-courses",
+        link: "/system/manage-courses",
+      },
+      {
+        name: "menu.admin.manage-videos",
+        link: "/system/manage-videos",
       },
     ],
   },

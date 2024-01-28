@@ -9,10 +9,9 @@ import "./ManageTeacher.scss";
 import Select from "react-select";
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
 import {
-  getAllTeachers,
+  deleteTeacherService,
   getAllTeachersInfor,
   getDetailInforTeacher,
-  getExtraInforTeacherById,
 } from "../../../services/teacherService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -226,7 +225,30 @@ class ManageTeacher extends Component {
       ...stateCopy,
     });
   };
-
+  // handleEditTeacher = (item) => {
+  //   this.setState({
+  //     id: item.id,
+  //     teacherId: item.teacherId,
+  //     classesId: item.classesId,
+  //     coursesId: item.coursesId,
+  //     addressClasses: item.addressClasses,
+  //     nameClasses: item.nameClasses,
+  //     note: item.note,
+  //     isEditing: true,
+  //   });
+  // };
+  handleDeleteTeacher = async (classes) => {
+    try {
+      const response = await deleteTeacherService(classes);
+      if (response && response.errCode === 0) {
+        this.props.deleteTeacher(classes);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
   render() {
     let { hashOldData } = this.state;
     let arrTeachers = this.state.arrTeachers;
@@ -379,15 +401,15 @@ class ManageTeacher extends Component {
                       <td>{item.nameClasses}</td>
                       <td>{item.note}</td>
                       <td>
-                        <button
+                        {/* <button
                           className="btn-edit"
-                          onClick={() => this.handleEditCourses(item)}
+                          onClick={() => this.handleEditTeacher(item)}
                         >
                           <i className="fas fa-pencil-alt"></i>
-                        </button>
+                        </button> */}
                         <button
                           className="btn-delete"
-                          onClick={() => this.handleDeleteCourses(item)}
+                          onClick={() => this.handleDeleteTeacher(item)}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
@@ -415,7 +437,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
     getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
-
+    deleteTeacher: (teacher) => dispatch(actions.deleteTeacher(teacher)),
     saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
   };
 };

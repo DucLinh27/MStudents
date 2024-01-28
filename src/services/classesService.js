@@ -11,6 +11,9 @@ const getAllClasses = (doctorId) => {
 const getAllDetailClassesById = (data) => {
   return axios.get(`/api/get-detail-classes-by-id?id=${data.id}`);
 };
+const findClassesByName = (name) => {
+  return axios.get(`/api/find-classes-by-name?name=${name}`);
+};
 const editClassesService = (data) => {
   return axios.put("/api/edit-classes", data);
 };
@@ -25,4 +28,5 @@ export {
   getAllDetailClassesById,
   editClassesService,
   deleteClassesService,
+  findClassesByName,
 };

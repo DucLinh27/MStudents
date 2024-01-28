@@ -158,3 +158,9 @@ export const clearCart = () => ({
 export const clearOrder = () => ({
   type: actionTypes.CLEAR_ORDER,
 });
+
+export const coursePurchased = () => {
+  return {
+    type: actionTypes.COURSE_PURCHASED,
+  };
+};

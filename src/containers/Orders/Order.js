@@ -17,13 +17,16 @@ class Order extends Component {
       phonenumber: "",
       payment: "PayPal",
       courses: "",
-      totalPrice: "",
+      coursePrice: "",
+      detailCourses: "",
       sdkReady: false,
       showPaypal: false,
+      coursePurchased: false,
     };
   }
   //just run 1 time
   async componentDidMount() {
+    this.props.coursePurchased();
     if (!window.paypal) {
       this.addPaypalScript();
     } else {
@@ -32,39 +35,39 @@ class Order extends Component {
       });
     }
     if (this.props.location.state) {
-      const { cartItems, totalPrice } = this.props.location.state;
-      this.setState({ cart: cartItems, totalPrice: totalPrice });
+      const { coursePrice, detailCourses } = this.props.location.state;
+      this.setState({ coursePrice, detailCourses });
     }
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {}
 
-  handleSubmit = async (event) => {
-    // event.preventDefault();
+  // handleSubmit = async (event) => {
+  //   // event.preventDefault();
 
-    const { username, email, phonenumber, payment, cart, totalPrice } =
-      this.state;
-    const { userIdNormal } = this.props;
+  //   const { username, email, phonenumber, payment, courses, totalPrice } =
+  //     this.state;
+  //   const { userIdNormal } = this.props;
 
-    const orderData = await {
-      userIdNormal,
-      username,
-      email,
-      phonenumber,
-      payment,
-      courses: cart,
-      totalPrice,
-    };
+  //   const orderData = await {
+  //     userIdNormal,
+  //     username,
+  //     email,
+  //     phonenumber,
+  //     payment,
+  //     courses,
+  //     totalPrice,
+  //   };
 
-    try {
-      const response = await createOrderService(orderData);
-      console.log(orderData);
-      console.log(response);
-      // Handle successful order creation here
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
-    }
-  };
+  //   try {
+  //     const response = await createOrderService(orderData);
+  //     console.log(orderData);
+  //     console.log(response);
+  //     // Handle successful order creation here
+  //   } catch (error) {
+  //     console.error(error);
+  //     // Handle errors here
+  //   }
+  // };
   handleOnChangeInput = (event, id) => {
     console.log(event.target.value);
     let stateCopy = { ...this.state };
@@ -112,10 +115,9 @@ class Order extends Component {
       email: this.state.email,
       phonenumber: this.state.phonenumber,
       payment: "PayPal",
-      courses: this.state.cart,
-      totalPrice: this.state.totalPrice,
+      courses: this.state.detailCourses,
+      totalPrice: this.state.coursePrice,
     };
-
     createOrderService(orderData)
       .then((response) => {
         console.log("Order created successfully", response);
@@ -129,13 +131,14 @@ class Order extends Component {
         console.error("Error creating order", error);
         // Handle errors here
       });
+    // this.props.coursePurchased();
   };
 
   render() {
     console.log(this.state.payment);
-    let { cart } = this.state;
-    let { totalPrice } = this.props.location.state;
-    const { showPaypal } = this.state;
+    let { coursePrice, detailCourses, showPaypal } = this.state;
+    console.log(detailCourses);
+    console.log(coursePrice);
     const { userIdNormal } = this.props;
     console.log(userIdNormal);
     return (
@@ -199,21 +202,21 @@ class Order extends Component {
           </div>
           <div className="recheck-products">
             <h3>Kiểm tra lại đơn hàng</h3>
-            {Array.isArray(cart) &&
-              cart.map((course, index) => (
-                <div className="transport d-flex " key={index}>
-                  <div
-                    className="image align-self-center"
-                    style={{
-                      backgroundImage: `url(${
-                        course.image ? course.image : ""
-                      })`,
-                    }}
-                  ></div>
-                  <div className="name align-self-center">{course.name}</div>
-                  <div className="price align-self-center">{course.price}</div>
-                </div>
-              ))}
+
+            <div className="transport d-flex ">
+              <div
+                className="image align-self-center"
+                style={{
+                  backgroundImage: `url(${
+                    detailCourses.image ? detailCourses.image : ""
+                  })`,
+                }}
+              ></div>
+              <div className="name align-self-center">{detailCourses.name}</div>
+              <div className="price align-self-center">
+                {detailCourses.price}
+              </div>
+            </div>
           </div>
           <div className="content-checkout">
             <div className="top-content ">
@@ -223,7 +226,7 @@ class Order extends Component {
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND",
-                  }).format(totalPrice)}
+                  }).format(coursePrice)}
                 </div>
               </div>
               <div className="total d-flex">
@@ -232,7 +235,7 @@ class Order extends Component {
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND",
-                  }).format(totalPrice)}
+                  }).format(coursePrice)}
                 </div>
               </div>
             </div>
@@ -245,20 +248,26 @@ class Order extends Component {
                 <div>Quay về giỏ hàng</div>
               </div>
 
-              {!showPaypal && (
-                <button className="confirm" onClick={this.handleConfirm}>
-                  Xác nhận Thanh Toán
-                </button>
-              )}
-              {showPaypal && (
-                <PayPalButton
-                  amount={totalPrice}
-                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                  onSuccess={this.onSuccessPaypal}
-                  onError={() => {
-                    alert("Error ");
-                  }}
-                />
+              {!this.state.coursePurchased ? (
+                <>
+                  {!showPaypal && (
+                    <button className="confirm" onClick={this.handleConfirm}>
+                      Xác nhận Thanh Toán
+                    </button>
+                  )}
+                  {showPaypal && (
+                    <PayPalButton
+                      amount={coursePrice}
+                      // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                      onSuccess={this.onSuccessPaypal}
+                      onError={() => {
+                        alert("Error ");
+                      }}
+                    />
+                  )}
+                </>
+              ) : (
+                <p>Course has been purchased!</p>
               )}
             </div>
           </div>
@@ -272,8 +281,8 @@ class Order extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    cart: state.cart,
     userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
+    coursePurchased: state.coursePurchased,
   };
 };
 
@@ -281,6 +290,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     clearCart: () => dispatch(actions.clearCart()),
     clearOrder: () => dispatch(actions.clearOrder()),
+    coursePurchased: () => dispatch(actions.coursePurchased()),
   };
 };
 

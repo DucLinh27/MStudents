@@ -18,7 +18,6 @@ class Register extends Component {
       firstName: "",
       lastName: "",
       address: "",
-
       showPassword: false,
       errMessage: "",
     };

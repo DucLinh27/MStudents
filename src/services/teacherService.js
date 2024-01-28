@@ -45,7 +45,13 @@ const getAllStudentForTeacher = (data) => {
 const postSendRemedy = (data) => {
   return axios.post("/api/send-remedy", data);
 };
+const editTeacherService = (data) => {
+  return axios.put("/api/edit-teachers", data);
+};
 
+const deleteTeacherService = (inputId) => {
+  return axios.delete("/api/delete-teachers", { data: { id: inputId } });
+};
 export {
   getTopTeacherHomeService,
   getAllTeachers,
@@ -60,4 +66,6 @@ export {
   getAllStudentForTeacher,
   postSendRemedy,
   getAllTeachersInfor,
+  editTeacherService,
+  deleteTeacherService,
 };

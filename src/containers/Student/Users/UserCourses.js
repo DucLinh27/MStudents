@@ -42,20 +42,18 @@ class UserCourses extends Component {
 
       let videoDetails = [];
       for (let order of filteredOrders) {
-        for (let course of order.courses) {
-          console.log("Fetching details for course ID:", course.id);
-          const response = await getDetailCoursesById(course.id);
-          if (response && response.data && response.data.videos) {
-            console.log("Received video details:", response.data.videos);
-            videoDetails.push(
-              ...response.data.videos.map((video) => ({
-                url: video.video,
-                name: video.name,
-              }))
-            );
-          } else {
-            console.log("No data in response:", response);
-          }
+        console.log("Fetching details for course ID:", order.courses.id);
+        const response = await getDetailCoursesById(order.courses.id);
+        if (response && response.data && response.data.videos) {
+          console.log("Received video details:", response.data.videos);
+          videoDetails.push(
+            ...response.data.videos.map((video) => ({
+              url: video.video,
+              name: video.name,
+            }))
+          );
+        } else {
+          console.log("No data in response:", response);
         }
       }
 
@@ -76,35 +74,6 @@ class UserCourses extends Component {
     this.setState({ activeTab: "myComments" });
   };
 
-  // handleShowDetails = async (item) => {
-  //   try {
-  //     console.log("Courses:", item.courses);
-  //     let videoDetails = [];
-
-  //     for (let course of item.courses) {
-  //       console.log("Fetching details for course ID:", course.id);
-  //       const response = await getDetailCoursesById(course.id);
-  //       if (response && response.data && response.data.videos) {
-  //         console.log("Received video details:", response.data.videos);
-  //         videoDetails.push(
-  //           ...response.data.videos.map((video) => ({
-  //             url: video.video,
-  //             name: video.name,
-  //           }))
-  //         );
-  //       } else {
-  //         console.log("No data in response:", response);
-  //       }
-  //     }
-
-  //     this.setState({ videoDetails });
-  //   } catch (error) {
-  //     console.error("Failed to get course details", error);
-  //   }
-  // };
-  // handleHideDetails = () => {
-  //   this.setState({ showDetails: false });
-  // };
   render() {
     let { language } = this.props;
     const { userInfo, user } = this.props;

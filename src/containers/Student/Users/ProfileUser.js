@@ -120,25 +120,7 @@ class ProfileUser extends Component {
     // Navigate to the UserCourse page
     this.props.history.push("/user_courses");
   };
-  // handleShowDetails = async (item) => {
-  //   try {
-  //     console.log("Courses:", item.courses);
 
-  //     for (let course of item.courses) {
-  //       console.log("Fetching details for course ID:", course.id);
-  //       const response = await getDetailCoursesById(course.id);
-
-  //       if (response && response.data) {
-  //         console.log("Received course details:", response.data);
-  //         // handle the course details as needed...
-  //       } else {
-  //         console.log("No data in response:", response);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to get course details", error);
-  //   }
-  // };
   render() {
     let { language } = this.props;
     const { userInfo, user } = this.props;
@@ -320,13 +302,7 @@ class ProfileUser extends Component {
                       {arrOrders.map((item, index) => {
                         return (
                           <tr key={index}>
-                            <td>
-                              {Array.isArray(item.courses)
-                                ? item.courses
-                                    .map((course) => course.name)
-                                    .join(", ")
-                                : ""}
-                            </td>
+                            <td>{item.courses.name}</td>
                             <td>
                               <button
                                 className="btn btn-primary"

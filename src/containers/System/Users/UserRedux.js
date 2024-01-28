@@ -8,7 +8,6 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import TableManageUser from "./TableManageUser";
 import cloudinary from "cloudinary";
-import { CloudinaryContext } from "cloudinary-react"; // Import CloudinaryContext
 
 cloudinary.config({
   cloud_name: "dyfbye716",
@@ -90,6 +89,7 @@ class UserRedux extends Component {
       });
     }
   }
+
   handleOnChangeImage = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -199,7 +199,6 @@ class UserRedux extends Component {
       this.props.fetchUserRedux();
     }, 1000);
   };
-
   checkValidateInput = () => {
     let isValid = true;
     let arrCheck = [
@@ -226,12 +225,8 @@ class UserRedux extends Component {
       ...copyState,
     });
   };
-
   handleEditUserFromParent = (user) => {
     let imageBase64 = "";
-    // if (user.image) {
-    //   imageBase64 = Buffer.from(user.image, "base64").toString("binary");
-    // }
     this.setState({
       email: user.email,
       password: "HARDCODE",
@@ -248,14 +243,12 @@ class UserRedux extends Component {
       userEditId: user.id,
     });
   };
-
   render() {
     let genders = this.state.genderArr;
     let positions = this.state.positionArr;
     let roles = this.state.roleArr;
     let language = this.props.language;
     let isGetGenders = this.props.isLoadingGender;
-
     let {
       email,
       password,
@@ -281,7 +274,6 @@ class UserRedux extends Component {
               <div className="col-12">
                 {isGetGenders === true ? "Loading genders" : " "}
               </div>
-
               <div className="col-3">
                 <label>
                   <FormattedMessage id="manage-user.email" />
