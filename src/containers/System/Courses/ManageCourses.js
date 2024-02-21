@@ -46,10 +46,10 @@ class ManageCourses extends Component {
           arrCourses: coursesArray,
         });
       } else {
-        console.error("Error fetching classes:", response.errMessage);
+        console.error("Error fetching courses:", response.errMessage);
       }
     } catch (error) {
-      console.error("Error fetching classes:", error);
+      console.error("Error fetching courses:", error);
     }
   }
   componentDidUpdate(prevProps, prevState) {

@@ -1,23 +1,12 @@
 {
     "home-header": {
-        "home": "Home",
+        "home": "Trang chủ",
         "about": "About",
-        "courses": "Courses",
-        "pages": "Pages",
+        "courses": "Khóa học",
         "blog": "Blog",
-        "support": "Hỗ trợ",
-        "welcome": "Xin chào"
-        
-    },
-    "banner": {
-        "title1": "NỀN TẢNG Y TẾ",
-        "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
-        "child1": "Khám chuyên khoa",
-        "child2": "Khám từ xa",
-        "child3": "Khám tổng quát",
-        "child4": "Xét nghiệm y học",
-        "child5": "Sức khỏe tinh thần",
-        "child6": "Khám nha khoa"
+        "support": "Hỗ Trợ",
+        "welcome": "Xin chào ",
+        "pages": "Trang"
     },
     "menu": {
        
@@ -27,16 +16,11 @@
             "manage-admin": "Quản lý admin",
             "crud": "CRUD User",
             "crudredux": "CRUD Redux",
-            "manage-classes": "Quản lý Lớp học",
+     
             "manage-courses": "Quản Lý Tài liệu",
-            "manage-videos": "Manage Videos",
+            "manage-videos": "Quản lý Videos",
             "manage-order": "Quản Lý Đặt hàng"
       
-        },
-        "doctor": {
-            "manage-schedule" : "Quản lý kế hoạch khám bệnh",
-            "manage-patient" : "Quản lý bệnh nhân"
-
         }
     },
     "manage-user": {
@@ -53,16 +37,7 @@
         "image": "Ảnh đại diện",
         "save": " Lưu người dùng",
         "edit": "Lưu thay đổi"
-    },
-    "homepage": {
-        "out-standing-doctor": "Giáo viên nổi bật tuần qua",
-        "see-more": "Xem Thêm",
-        "popular-speciality": "Chuyên khoa phổ biến",
-        "handbook":"Cẩm nang",
-        "outstanding-medical-facility": "Cơ sở y tế nổi bật",
-        "about": "Truyền thông nói về BookingCare"
-        
-    },
+    },  
     "manage-schedule": {
         "title": "Quản lý kế hoạch dạy học của giáo viên",
         "choose-teacher": "Chọn giáo viên",
@@ -110,15 +85,33 @@
             "price": "Giá khóa học",
             "payment": "Phương thức thanh toán",
             "province": "Tỉnh thành",
-            "nameClasses": "Tên lớp học",
-            "addressClasses": "Địa chỉ lớp học",
-            "note": "Ghi chú",
-            "courses": "Chọn môn",
-            "select-classes": "Chọn lớp học"
-
-            
+            "position": "Vị trí",
+            "courses": "Chọn môn"
         }
-    }
+    },
+    "order": 
+    {
+    "orderinfor": "Thông tin đặt hàng",
+    "username": "Tên người dùng",
+    "phonenumber": "Số điện thoại",
+    "payment": "Thanh toán",
+    "recheck":"Kiểm tra lại đơn hàng",
+    "back": "Quay về",
+    "money": "Thành tiền",
+    "total": "Tổng Số Tiền",
+    "confirmpayment": "Xác nhận thanh toán"      
+} , 
+"courses": 
+    {
+    "newcourses": "Khóa Học Nổi Bật",
+    "explorecourse": "Khám phá tất cả các khóa học"
+       
+} ,"teacher": 
+{
+"ourteacher": "Giáo viên của chúng tôi",
+"exploreteacher": "Khám phá tất cả giáo viên"
+   
+} 
     
     
 }

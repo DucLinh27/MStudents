@@ -32,7 +32,9 @@ class Courses extends Component {
       <div className="section-share section-specialtys">
         <div className="section-container">
           <div className="section-header">
-            <h2 className="title-section">NEW COURSES</h2>
+            <h2 className="title-section">
+              <FormattedMessage id="courses.newcourses" />
+            </h2>
             <p>
               Presenting Academy, the tech school of the future. We teach you
               the right skills to be prepared for tomorrow.
@@ -73,7 +75,7 @@ class Courses extends Component {
         </div>
         <div className="button_content">
           <a href="/allcourses" className="button_courses">
-            EXPLORE ALL COURSES
+            <FormattedMessage id="courses.exploreteacher" />
           </a>
         </div>
       </div>

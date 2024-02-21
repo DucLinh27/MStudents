@@ -20,7 +20,6 @@ import Teacher from "../routes/Teacher";
 import DetailTeacher from "./Student/Teacher/DetailTeacher.js";
 import VerifyEmail from "./Student/Emails/VerifyEmail";
 import DetailCourses from "./Student/Courses/DetailCourses";
-import DetailClasses from "./Student/Classes/DetailClasses";
 import Order from "../containers/Orders/Order";
 import PaymentReturn from "../containers/Orders/PaymentReturn";
 import ProfileUser from "./Student/Users/ProfileUser.js";
@@ -82,7 +81,6 @@ class App extends Component {
                   <Route path={path.ALL_TEACHER} component={AllTeacher} />
                   <Route path={path.ABOUT} component={About} />
                   <Route path={path.BLOG} component={Blog} />=
-                  <Route path={path.DETAIL_CLASSES} component={DetailClasses} />
                   <Route path={path.ORDER} component={Order} />
                   <Route path={path.PAYMENT_RETURN} component={PaymentReturn} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />

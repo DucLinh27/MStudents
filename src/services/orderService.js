@@ -14,7 +14,9 @@ const getOderByUserService = () => {
 const editOrderService = (data) => {
   return axios.put("/api/edit-order", data);
 };
-
+const findOrdersByName = (name) => {
+  return axios.get(`/api/find-orders-by-name?name=${name}`);
+};
 const deleteOrderService = (inputId) => {
   return axios.delete("/api/delete-order", { data: { id: inputId } });
 };
@@ -24,4 +26,5 @@ export {
   editOrderService,
   deleteOrderService,
   getOderByUserService,
+  findOrdersByName,
 };

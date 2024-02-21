@@ -7,8 +7,8 @@
         "blog": "Blog",
         "support": "Support",
         "welcome": "Welcome"
+        
     },
-    
     "menu": {
         "admin":{
             "manage-user": "Users",
@@ -16,19 +16,15 @@
             "manage-admin": "Manage Admin",
             "crud": "CRUD user",
             "crudredux": "CRUD Redux",
-            "classes": "Classes",
+          
             "courses": "Courses",
             "handbook": "Handbook",
-            "manage-classes": "Manage Classes",
+
             "manage-courses": "Manage Courses",
             "manage-videos": "Manage Videos",
             "manage-order": "Manage Order"
-        },
-        "teacher": {
-            "manage-schedule" : "Manage Teacher's Schedule",
-            "manage-student" : "Manage Teacher's Student"
-
         }
+     
     },
     "manage-user": {
         "add": "Add a new user",
@@ -45,14 +41,7 @@
         "save": "Save user",
         "edit": "Save Changes"
     },
-    "homepage": {
-        "out-standing-doctor": "Out Standing Doctors",
-        "see-more": "See More",
-        "popular-speciality": "Popular Speciality",
-        "handbook":"Hand Book",
-        "outstanding-medical-facility": "Outstanding Medical Facility",
-        "about": "Media Talk about BookingCare"
-    },
+  
     "manage-schedule": {
         "title": "Manage teacher's examination plan",
         "choose-teacher": "Choose Teacher",
@@ -100,14 +89,32 @@
             "price": "Price",
             "payment": "Payment",
             "province": "Province",
-            "nameClasses": "Class's name",
-            "addressClasses": "Class's address",
-            "note": "Note",
-            "courses": "Choose a courses",
-            "select-classes": "Choose a classes"
-
-            
+            "position": "Position",
+            "courses": "Choose a courses"      
         }
-    }
-    
-}
+    },
+    "order": {
+        "orderinfor": "Order information",
+        "username": "Username",
+        "phonenumber": "Phonenumber",
+        "recheck":"Recheck Order",
+        "back": "Back",
+        "recheck":"Recheck Order",
+        "back": "Back",
+        "money": "Price",
+        "total": "Total Price",
+        "confirmpayment": "Confirm Payment",
+        "payment": "Payment"
+    },
+    "courses": 
+    {
+    "newcourses": "New Courses",
+    "explorecourse": "Khám phá tất cả các khóa học"
+    } , 
+    "teacher": 
+{
+"ourteacher": "Our Teacher",
+"exploreteacher": "Explore Teacher"
+   
+} 
+} 

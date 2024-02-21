@@ -47,10 +47,10 @@ class ManageVideos extends Component {
           arrVideos: videosArray,
         });
       } else {
-        console.error("Error fetching classes:", response.errMessage);
+        console.error("Error fetching video:", response.errMessage);
       }
     } catch (error) {
-      console.error("Error fetching classes:", error);
+      console.error("Error fetching video:", error);
     }
   }
 
@@ -270,7 +270,7 @@ class ManageVideos extends Component {
             </button>
           </div>
         </div>
-        <div className="tale-data-classes">
+        <div className="tale-data-video">
           <table>
             <tbody>
               <tr>

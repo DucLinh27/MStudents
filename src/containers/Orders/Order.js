@@ -7,6 +7,9 @@ import HomeFooter from "../HomePage/Header/HomeFooter";
 import { PayPalButton } from "react-paypal-button-v2";
 import * as actions from "../../store/actions";
 import { getConfig } from "../../services/paymentService";
+import { FormattedMessage } from "react-intl";
+import { postStudentOrderCourses } from "../../services/teacherService";
+import { toast } from "react-toastify";
 
 class Order extends Component {
   constructor(props) {
@@ -82,10 +85,31 @@ class Order extends Component {
       this.props.history.push(`/cart`);
     }
   };
-  handleConfirm = (event) => {
+  handleConfirm = async (event) => {
     event.preventDefault();
     // this.props.onSubmit();
     this.setState({ showPaypal: true });
+    // let date = new Date(this.state.birthday).getTime();
+    // let timeString = this.buildDataBooking(this.props.dataTime);
+    const orderData = {
+      fullName: this.state.username,
+      email: this.state.email,
+      phoneNumber: this.state.phoneNumber,
+    };
+
+    console.log("Order data:", orderData);
+
+    // let res = await postStudentOrderCourses({
+    //   fullName: this.state.username,
+    //   email: this.state.email,
+    //   phoneNumber: this.state.phoneNumber,
+    // });
+
+    // if (res && res.errCode === 0) {
+    //   toast.success("Order a new courses successfully");
+    // } else {
+    //   toast.error("Order a new courses failed!");
+    // }
   };
   addPaypalScript = async () => {
     let data = await getConfig();
@@ -101,7 +125,7 @@ class Order extends Component {
     document.body.appendChild(script);
     console.log(data);
   };
-  onSuccessPaypal = (details, data) => {
+  onSuccessPaypal = async (details, data) => {
     // You can access the order data from the details and data parameters
     console.log("Payment completed successfully", details, data);
 
@@ -119,18 +143,32 @@ class Order extends Component {
       totalPrice: this.state.coursePrice,
     };
     createOrderService(orderData)
-      .then((response) => {
+      .then(async (response) => {
         console.log("Order created successfully", response);
         // Handle successful order creation here
         this.props.history.push("/payment-return", { orderData });
         // Clear the cart and order
         this.props.clearCart();
         this.props.clearOrder();
+        // Send confirmation email
+        // Call postStudentOrderCourses
+        let res = await postStudentOrderCourses({
+          fullName: this.state.username,
+          email: this.state.email,
+          phoneNumber: this.state.phoneNumber,
+        });
+
+        if (res && res.errCode === 0) {
+          toast.success("Order a new courses successfully");
+        } else {
+          toast.error("Order a new courses failed!");
+        }
       })
       .catch((error) => {
         console.error("Error creating order", error);
         // Handle errors here
       });
+
     // this.props.coursePurchased();
   };
 
@@ -147,10 +185,16 @@ class Order extends Component {
         <div className="order-container">
           <div className="address-container ">
             <form>
-              <h3>Thông tin đặt hàng</h3>
+              <h3>
+                {" "}
+                <FormattedMessage id="order.orderinfor" />
+              </h3>
               <div className="username">
                 <label for="username">
-                  <b>Username :</b>
+                  <b>
+                    {" "}
+                    <FormattedMessage id="order.username" />
+                  </b>
                 </label>
                 <input
                   className="username"
@@ -174,7 +218,10 @@ class Order extends Component {
               </div>
               <div className="phone-number">
                 <label for="phonenumber">
-                  <b>Phone number :</b>
+                  <b>
+                    {" "}
+                    <FormattedMessage id="order.phonenumber" />
+                  </b>
                 </label>
                 <input
                   className="phonenumber"
@@ -188,7 +235,10 @@ class Order extends Component {
             </form>
           </div>
           <div className="payment-container">
-            <h3>Phương thức thanh toán</h3>
+            <h3>
+              {" "}
+              <FormattedMessage id="order.payment" />
+            </h3>
             <select
               className="payment"
               value={this.state.payment}
@@ -201,7 +251,10 @@ class Order extends Component {
             </select>
           </div>
           <div className="recheck-products">
-            <h3>Kiểm tra lại đơn hàng</h3>
+            <h3>
+              {" "}
+              <FormattedMessage id="order.recheck" />
+            </h3>
 
             <div className="transport d-flex ">
               <div
@@ -221,7 +274,10 @@ class Order extends Component {
           <div className="content-checkout">
             <div className="top-content ">
               <div className="price d-flex">
-                <div className="mr-5">Thành tiền</div>
+                <div className="mr-5">
+                  {" "}
+                  <FormattedMessage id="order.money" />
+                </div>
                 <div>
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
@@ -230,7 +286,11 @@ class Order extends Component {
                 </div>
               </div>
               <div className="total d-flex">
-                <div className="mr-5">Tổng Số Tiền (gồm VAT)</div>
+                <div className="mr-5">
+                  {" "}
+                  <FormattedMessage id="order.total" />
+                  (gồm VAT)
+                </div>
                 <div>
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
@@ -245,7 +305,10 @@ class Order extends Component {
                 onClick={() => this.handleCart()}
               >
                 <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
-                <div>Quay về giỏ hàng</div>
+                <div>
+                  {" "}
+                  <FormattedMessage id="order.back" />
+                </div>
               </div>
 
               {!this.state.coursePurchased ? (

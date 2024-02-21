@@ -14,30 +14,16 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý classes
+    //quản lý teacher
     name: "menu.admin.manage-teacher",
     menus: [
       {
         name: "menu.admin.manage-teacher",
         link: "/system/manage-teacher",
       },
-      {
-        //quản lý ke haoch
-        name: "menu.teacher.manage-schedule",
-        link: "/teacher/manage-schedule",
-      },
     ],
   },
-  {
-    //quản lý classes
-    name: "menu.admin.manage-classes",
-    menus: [
-      {
-        name: "menu.admin.manage-classes",
-        link: "/system/manage-classes",
-      },
-    ],
-  },
+
   {
     //quản lý courses
     name: "menu.admin.manage-courses",

@@ -9,7 +9,6 @@ import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import { getDetailCoursesByName } from "../../services/coursesService";
-import { getDetailClassesByName } from "../../services/classesService";
 class Header extends Component {
   constructor(props) {
     super(props);

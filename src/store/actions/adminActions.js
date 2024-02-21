@@ -16,7 +16,6 @@ import {
   editCoursesService,
   getAllCourses,
 } from "../../services/coursesService";
-import { getAllClasses } from "../../services/classesService";
 import { getOrderService, editOrderService } from "../../services/orderService";
 import { toast } from "react-toastify";
 
@@ -335,16 +334,9 @@ export const getRequireDoctorInfor = () => {
         type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_START,
       });
       let resCourses = await getAllCourses();
-      let resClasses = await getAllClasses();
-      if (
-        resCourses &&
-        resCourses.errCode === 0 &&
-        resClasses &&
-        resClasses.errCode === 0
-      ) {
+      if (resCourses && resCourses.errCode === 0) {
         let data = {
           resCourses: resCourses.data,
-          resClasses: resClasses.data,
         };
         dispatch(fetchDoctorRequireSuccess(data));
       } else {
@@ -443,12 +435,7 @@ export const deleteOrder = (order) => {
     payload: order,
   };
 };
-export const deleteClasses = (classes) => {
-  return {
-    type: actionTypes.DELETE_CLASSES,
-    payload: classes,
-  };
-};
+
 export const deleteTeacher = (teacher) => {
   return {
     type: actionTypes.DELETE_TEACHER,

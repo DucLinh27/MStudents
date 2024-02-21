@@ -4,6 +4,7 @@ import * as actions from "../../../store/actions";
 import Slider from "react-slick";
 import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
+import { FormattedMessage } from "react-intl";
 class AllTeacher extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +42,10 @@ class AllTeacher extends Component {
         <div className="section-share section-specialty">
           <div className="section-container">
             <div className="section-header">
-              <span className="title-section">OUR TEACHER</span>
+              <span className="title-section">
+                {" "}
+                <FormattedMessage id="teacher.ourteacher" />
+              </span>
               <p>
                 Presenting Academy, the tech school of the future. We teach you
                 the right skills to be prepared for tomorrow.
@@ -90,7 +94,7 @@ class AllTeacher extends Component {
               type="submit"
               onClick={() => this.handleAllCourses()}
             >
-              EXPLORE A TEACHER
+              <FormattedMessage id="teacher.exploreteacher" />
             </buton>
           </div>
         </div>

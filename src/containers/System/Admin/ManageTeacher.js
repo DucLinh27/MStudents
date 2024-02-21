@@ -29,16 +29,9 @@ class ManageTeacher extends Component {
 
       //save to doctor infor table
       listTeachers: [],
-      listClasses: [],
       listCourses: [],
       arrTeachers: [],
-
-      selectedClasses: "",
       selectedCourses: "",
-      nameClasses: "",
-      addressClasses: "",
-      note: "",
-      classesId: "",
       coursesId: "",
     };
   }
@@ -86,14 +79,6 @@ class ManageTeacher extends Component {
           result.push(object);
         });
       }
-      if (type === "CLASSES") {
-        inputData.map((item, index) => {
-          let object = {};
-          object.label = item.name;
-          object.value = item.id;
-          result.push(object);
-        });
-      }
     }
     return result;
   };
@@ -111,12 +96,10 @@ class ManageTeacher extends Component {
       prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor
     ) {
       console.log("allRequiredDoctorInfor:", this.props.allRequiredDoctorInfor); // Add this line
-      let { resCourses, resClasses } = this.props.allRequiredDoctorInfor;
+      let { resCourses } = this.props.allRequiredDoctorInfor;
       let dataSelectCourses = this.buildDataInputSelect(resCourses, "COURSES");
-      let dataSelectClasses = this.buildDataInputSelect(resClasses, "CLASSES");
       this.setState({
         listCourses: dataSelectCourses,
-        listClasses: dataSelectClasses,
       });
     }
     if (prevProps.language !== this.props.language) {
@@ -144,44 +127,25 @@ class ManageTeacher extends Component {
       description: this.state.description,
       teacherId: this.state.selectedOption.value,
       action: hashOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE,
-      nameClasses: this.state.nameClasses,
-      addressClasses: this.state.addressClasses,
-      note: this.state.note,
-      classesId:
-        this.state.selectedClasses && this.state.selectedClasses.value
-          ? this.state.selectedClasses.value
-          : "",
+
       coursesId: this.state.selectedCourses.value,
     });
   };
 
   handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
-    let { listCourses, listClasses } = this.state;
+    let { listCourses } = this.state;
     let res = await getDetailInforTeacher(selectedOption.value);
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown;
 
-      let addressClasses = "",
-        nameClasses = "",
-        note = "",
-        coursesId = "",
-        classesId = "",
-        selectedClasses = "",
+      let coursesId = "",
         selectedCourses = "";
 
       if (res.data.Teacher_Infor) {
-        addressClasses = res.data.Teacher_Infor.addressClasses;
-        nameClasses = res.data.Teacher_Infor.nameClasses;
-        note = res.data.Teacher_Infor.note;
         coursesId = res.data.Teacher_Infor.coursesId;
-        classesId = res.data.Teacher_Infor.classesId;
-
         selectedCourses = listCourses.find((item) => {
           return item && item.value === coursesId;
-        });
-        selectedClasses = listClasses.find((item) => {
-          return item && item.value === classesId;
         });
       }
 
@@ -190,11 +154,8 @@ class ManageTeacher extends Component {
         contentMarkdown: markdown.contentMarkdown,
         description: markdown.description,
         hashOldData: true,
-        addressClasses: addressClasses,
-        nameClasses: nameClasses,
-        note: note,
+
         selectedCourses: selectedCourses,
-        selectedClasses: selectedClasses,
       });
     } else {
       this.setState({
@@ -202,11 +163,8 @@ class ManageTeacher extends Component {
         contentMarkdown: "",
         description: "",
         hashOldData: false,
-        addressClasses: "",
-        nameClasses: "",
-        note: "",
+
         selectedCourses: "",
-        selectedClasses: "",
       });
     }
   };
@@ -225,23 +183,12 @@ class ManageTeacher extends Component {
       ...stateCopy,
     });
   };
-  // handleEditTeacher = (item) => {
-  //   this.setState({
-  //     id: item.id,
-  //     teacherId: item.teacherId,
-  //     classesId: item.classesId,
-  //     coursesId: item.coursesId,
-  //     addressClasses: item.addressClasses,
-  //     nameClasses: item.nameClasses,
-  //     note: item.note,
-  //     isEditing: true,
-  //   });
-  // };
-  handleDeleteTeacher = async (classes) => {
+
+  handleDeleteTeacher = async (teacher) => {
     try {
-      const response = await deleteTeacherService(classes);
+      const response = await deleteTeacherService(teacher);
       if (response && response.errCode === 0) {
-        this.props.deleteTeacher(classes);
+        this.props.deleteTeacher(teacher);
       } else {
         console.error("Error deleting order:", response.errMessage);
       }
@@ -272,52 +219,7 @@ class ManageTeacher extends Component {
               }
             />
           </div>
-          <div className="content-right ">
-            <label>
-              <FormattedMessage id="admin.manage-teacher.intro" />
-            </label>
-            <textarea
-              className="form-control"
-              onChange={(event) => this.handleChangeText(event, "description")}
-              value={this.state.description}
-            ></textarea>
-          </div>
         </div>
-        <div className="more-infor-extra row">
-          <div className="col-4 form-group">
-            <label>
-              <FormattedMessage id="admin.manage-teacher.nameClasses" />
-            </label>
-            <input
-              className="form-control"
-              onChange={(event) => this.handleChangeText(event, "nameClasses")}
-              value={this.state.nameClasses}
-            ></input>
-          </div>
-          <div className="col-4 form-group">
-            <label>
-              <FormattedMessage id="admin.manage-teacher.addressClasses" />
-            </label>
-            <input
-              className="form-control"
-              onChange={(event) =>
-                this.handleChangeText(event, "addressClasses")
-              }
-              value={this.state.addressClasses}
-            ></input>
-          </div>
-          <div className="col-4 form-group">
-            <label>
-              <FormattedMessage id="admin.manage-teacher.note" />
-            </label>
-            <input
-              className="form-control"
-              onChange={(event) => this.handleChangeText(event, "note")}
-              value={this.state.note}
-            ></input>
-          </div>
-        </div>
-
         <div className="row">
           <div className="col-4 form-group">
             <label>
@@ -331,20 +233,6 @@ class ManageTeacher extends Component {
               name="selectedCourses"
               placeholder={
                 <FormattedMessage id="admin.manage-teacher.courses" />
-              }
-            />
-          </div>
-          <div className="col-4 form-group">
-            <label>
-              <FormattedMessage id="admin.manage-teacher.select-classes" />
-            </label>
-            <Select
-              value={this.state.selectedClasses}
-              onChange={this.handleChangeSelectDoctorInfor}
-              options={this.state.listClasses}
-              name="selectedClasses"
-              placeholder={
-                <FormattedMessage id="admin.manage-teacher.select-classes" />
               }
             />
           </div>
@@ -380,12 +268,9 @@ class ManageTeacher extends Component {
             <tbody>
               <tr>
                 <th> TeacherId</th>
-                <th> ClassesId</th>
                 <th> CoursesId</th>
-
-                <th> addressClasses</th>
-                <th> nameClasses</th>
-                <th> Note</th>
+                <th> Position</th>
+                <th> descriptionMarkdown</th>
                 <th>Actions</th>
               </tr>
 
@@ -394,12 +279,8 @@ class ManageTeacher extends Component {
                   return (
                     <tr key={index}>
                       <td>{item.teacherId}</td>
-                      <td>{item.classesId}</td>
                       <td>{item.coursesId}</td>
-
-                      <td>{item.addressClasses}</td>
-                      <td>{item.nameClasses}</td>
-                      <td>{item.note}</td>
+                      <td>{item.position}</td>
                       <td>
                         {/* <button
                           className="btn-edit"
