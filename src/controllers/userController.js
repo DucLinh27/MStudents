@@ -1,6 +1,6 @@
 import userService from "../services/userService";
 const JWT = require("jsonwebtoken");
-import { getUserWithRole } from "../services/JWTService";
+// import { getUserWithRole } from "../services/JWTService";
 import { createJWT, verifyToken } from "../middleware/JWTAction";
 import cache from "memory-cache";
 require("dotenv").config();

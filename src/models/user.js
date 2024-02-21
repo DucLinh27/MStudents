@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       // User.hasMany(models.Allcode, { foreignKey: "roleId", as: "Role" });
       User.hasMany(models.Order, { foreignKey: "userId" });
 
-      User.hasMany(models.Schedule, {
-        foreignKey: "teacherId",
-        as: "teacherData",
-      });
+      // User.hasMany(models.Schedule, {
+      //   foreignKey: "teacherId",
+      //   as: "teacherData",
+      // });
       User.hasMany(models.Booking, {
         foreignKey: "studentId",
         as: "patientData",

@@ -7,37 +7,36 @@ let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       // // Check if the order already exists
-      let existingOrder = await db.Order.findOne({
-        where: {
-          userId: data.userId,
-        },
-        // include: [
-        //   {
-        //     where: { courses: data.courses },
-        //   },
-        // ],
-      });
+      // let existingOrder = await db.Order.findOne({
+      //   where: {
+      //     userId: data.userId,
+      //   },
+      //   // include: [
+      //   //   {
+      //   //     where: { courses: data.courses },
+      //   //   },
+      //   // ],
+      // });
 
-      if (existingOrder) {
-        resolve({
-          errCode: 1,
-          errMessage: "Order already exists",
-        });
-      } else {
-        await db.Order.create({
-          userId: data.userId,
-          username: data.username,
-          totalPrice: data.totalPrice,
-          courses: data.courses,
-          email: data.email,
-          phonenumber: data.phonenumber,
-          payment: data.payment,
-        });
-        resolve({
-          errCode: 0,
-          errMessage: "oke",
-        });
-      }
+      // if (existingOrder) {
+      //   resolve({
+      //     errCode: 1,
+      //     errMessage: "Order already exists",
+      //   });
+      // } else {
+      await db.Order.create({
+        userId: data.userId,
+        username: data.username,
+        totalPrice: data.totalPrice,
+        courses: data.courses,
+        email: data.email,
+        phonenumber: data.phonenumber,
+        payment: data.payment,
+      });
+      resolve({
+        errCode: 0,
+        errMessage: "oke",
+      });
     } catch (e) {
       reject(e);
     }
@@ -82,7 +81,43 @@ let getOderByUserService = (userId) => {
     }
   });
 };
-
+let filterOrdersByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!name) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let data = await db.Orders.findAll({
+          where: {
+            name: {
+              [Op.like]: "%" + name + "%",
+            },
+          },
+          attributes: ["id", "username", "email"],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Orders not found!",
+            data,
+          });
+        }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let editOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -150,4 +185,5 @@ module.exports = {
   getOderByUserService: getOderByUserService,
   editOrderService: editOrderService,
   deleteOrderService: deleteOrderService,
+  filterOrdersByName: filterOrdersByName,
 };

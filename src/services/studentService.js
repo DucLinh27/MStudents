@@ -9,15 +9,7 @@ import { raw } from "body-parser";
 let postOrderCourses = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (
-        !data.email ||
-        !data.teacherId ||
-        !data.date ||
-        !data.timeType ||
-        !data.fullName ||
-        !data.selectedGender ||
-        !data.address
-      ) {
+      if (!data.email || !data.fullName) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
@@ -28,38 +20,35 @@ let postOrderCourses = (data) => {
         await emailService.sendSimpleEmail({
           reciverEmail: data.email,
           studentName: data.fullName,
-          time: data.timeString,
-          teacherName: data.teacherName,
+          // time: data.timeString,
           language: data.language,
           redirectLink: buildUrlEmail(data.teacherId, token),
         });
 
-        //upsert patient
+        //upsert student
         let user = await db.User.findOrCreate({
           where: { email: data.email },
           defaults: {
             email: data.email,
             roleId: "R3",
-            gender: data.selectedGender,
-            address: data.address,
             firstName: data.fullName,
           },
         });
 
-        //create a booking record
-        if (user && user[0]) {
-          await db.Booking.findOrCreate({
-            where: { studentId: user[0].id },
-            defaults: {
-              statusId: "S1",
-              teacherId: data.teacherId,
-              studentId: user[0].id,
-              date: data.date,
-              timeType: data.timeType,
-              token: token,
-            },
-          });
-        }
+        // //create a booking record
+        // if (user && user[0]) {
+        //   await db.Order.findOrCreate({
+        //     where: { studentId: user[0].id },
+        //     defaults: {
+        //       statusId: "S1",
+        //       teacherId: data.teacherId,
+        //       studentId: user[0].id,
+        //       date: data.date,
+        //       timeType: data.timeType,
+        //       token: token,
+        //     },
+        //   });
+        // }
 
         resolve({
           errCode: 0,

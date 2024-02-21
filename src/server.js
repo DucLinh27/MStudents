@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import viewEngine from "./config/viewEngine";
 import initUsersRoutes from "./route/usersRoute";
 import initCoursesRoutes from "./route/coursesRoute";
-import initClassesRoutes from "./route/classesRoute";
 import initOrdersRoutes from "./route/ordersRoute";
 import initPaymentsRoutes from "./route/paymentsRoute";
 import initStudentsRoutes from "./route/studentsRoute";
@@ -65,7 +64,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Rate limiting configuration
 // const limiter = rateLimit({
 //   windowMs: 15 * 60 * 1000, // 15 minutes
-//   max: 10, // Limit each IP to 10 requests per windowMs
+//   max: 50, // Limit each IP to 10 requests per windowMs
 // });
 
 // // Apply rate limiting to all requests
@@ -83,17 +82,16 @@ initOrdersRoutes(app);
 initPaymentsRoutes(app);
 initStudentsRoutes(app);
 initTeachersRoutes(app);
-initClassesRoutes(app);
 initVideosRoutes(app);
 connectDB();
 
 let port = process.env.PORT || 3000;
-app.use((req, res, next) => {
-  return res.status(404).send({
-    errCode: 404,
-    message: "API not found",
-  });
-});
+// app.use((req, res, next) => {
+//   return res.status(404).send({
+//     errCode: 404,
+//     message: "API not found",
+//   });
+// });
 app.listen(port, () => {
   console.log("Backend Nodejs is running on the port: " + port);
 });

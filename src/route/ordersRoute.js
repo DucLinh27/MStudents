@@ -18,6 +18,11 @@ let initOrdersRoutes = (app) => {
     authMiddleware,
     orderController.deleteOrder
   );
+  router.get(
+    "/api/find-orders-by-name",
+    authMiddleware,
+    orderController.filterOrdersByName
+  );
   return app.use("/", router);
 };
 module.exports = initOrdersRoutes;

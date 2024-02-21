@@ -15,18 +15,18 @@ module.exports = {
       coursesId: {
         type: Sequelize.INTEGER,
       },
-      classesId: {
-        type: Sequelize.INTEGER,
-      },
-      addressClasses: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      nameClasses: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      note: {
+      // classesId: {
+      //   type: Sequelize.INTEGER,
+      // },
+      // addressClasses: {
+      //   type: Sequelize.STRING,
+      //   allowNull: false,
+      // },
+      // nameClasses: {
+      //   type: Sequelize.STRING,
+      //   allowNull: false,
+      // },
+      position: {
         type: Sequelize.STRING,
       },
 

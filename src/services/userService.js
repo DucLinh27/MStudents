@@ -1,6 +1,6 @@
 import db from "../models/index";
 import bcrypt from "bcryptjs";
-import { getRoles } from "./JWTService";
+// import { getRoles } from "./JWTService";
 const salt = bcrypt.genSaltSync(10);
 import { Op } from "sequelize";
 import {

@@ -11,6 +11,7 @@ let sendSimpleEmail = async (dataSend) => {
       pass: process.env.EMAIL_APP_PASSWORD,
     },
   });
+  
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"Tran Duc Linh 👻" <linhtdgcd201662@fpt.edu.vn>', // sender address
@@ -22,30 +23,17 @@ let sendSimpleEmail = async (dataSend) => {
 
 let getBodyHTMLEmail = (dataSend) => {
   let result = "";
-  if (dataSend.language === "vi") {
-    result = `
+
+  result = `
     <h3>Xin chào ${dataSend.studentName}</h3>
     <p>Bạn nhận được email này vì đã order courses online trên MSTUDENTS</p>
-    <div><b>Teacher: ${dataSend.teacherName}</b></div>
     <p>Vui long click vào đường link bên dưới để tham gia courses</p>
     <div>
     <a href=${dataSend.redirectLink} target="_blank">Click here</a>
     </div>
     <div>Xin chân thành cảm ơn</div>
     `;
-  }
-  if (dataSend.language === "en") {
-    result = `
-    <h3>Dear ${dataSend.studentName}</h3>
-    <p>You received this email because you order courses online on MSTUDENTS</p>
-    <div><b>Teacher: ${dataSend.teacherName}</b></div>
-    <p>Please click on the link below to join yuor courses.</p>
-    <div>
-    <a href=${dataSend.redirectLink} target="_blank">Click here</a>
-    </div>
-    <div>Thank you!</div>
-    `;
-  }
+
   return result;
 };
 let sendAttachments = async (dataSend) => {
