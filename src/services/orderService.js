@@ -1,42 +1,46 @@
 import db from "../models/index";
-import emailService from "./emailService";
-
+import { Op } from "sequelize";
 //create oder
 
 let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // // Check if the order already exists
-      // let existingOrder = await db.Order.findOne({
-      //   where: {
-      //     userId: data.userId,
-      //   },
-      //   // include: [
-      //   //   {
-      //   //     where: { courses: data.courses },
-      //   //   },
-      //   // ],
-      // });
-
-      // if (existingOrder) {
+      // if (!Array.isArray(data.courses)) {
       //   resolve({
       //     errCode: 1,
-      //     errMessage: "Order already exists",
+      //     errMessage: "courses must be an array",
       //   });
-      // } else {
-      await db.Order.create({
-        userId: data.userId,
-        username: data.username,
-        totalPrice: data.totalPrice,
-        courses: data.courses,
-        email: data.email,
-        phonenumber: data.phonenumber,
-        payment: data.payment,
+      //   return;
+      // }
+      // Check if the order already exists
+      let existingOrder = await db.Order.findOne({
+        where: {
+          userId: data.userId,
+          courses: {
+            [Op.in]: data.courses,
+          },
+        },
       });
-      resolve({
-        errCode: 0,
-        errMessage: "oke",
-      });
+      if (existingOrder) {
+        resolve({
+          errCode: 1,
+          errMessage: "Order already exists",
+        });
+      } else {
+        await db.Order.create({
+          userId: data.userId,
+          username: data.username,
+          totalPrice: data.totalPrice,
+          courses: data.courses,
+          email: data.email,
+          phonenumber: data.phonenumber,
+          payment: data.payment,
+        });
+        resolve({
+          errCode: 0,
+          errMessage: "oke",
+        });
+      }
     } catch (e) {
       reject(e);
     }
@@ -178,7 +182,47 @@ let deleteOrderService = (inputId) => {
     });
   });
 };
+let getDetailOrderById = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!inputId) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        let data = await db.Order.findOne({
+          where: {
+            id: inputId,
+          },
+          attributes: ["id", "courses"],
+        });
+        if (data) {
+          resolve({
+            errCode: 0,
+            errMessage: "OK!",
+            data,
+          });
+        } else {
+          data = {};
+          resolve({
+            errCode: 1,
+            errMessage: "Course not found!",
+            data,
+          });
+        }
 
+        resolve({
+          errCode: 0,
+          errMessage: "OK!",
+          data,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createOrderService: createOrderService,
   getOrderService: getOrderService,
@@ -186,4 +230,5 @@ module.exports = {
   editOrderService: editOrderService,
   deleteOrderService: deleteOrderService,
   filterOrdersByName: filterOrdersByName,
+  getDetailOrderById: getDetailOrderById,
 };

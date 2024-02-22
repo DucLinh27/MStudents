@@ -66,6 +66,18 @@ let filterOrdersByName = async (req, res) => {
     });
   }
 };
+let getDetailOrderById = async (req, res) => {
+  try {
+    let infor = await orderService.getDetailOrderById(req.query.id);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
 module.exports = {
   createOrder: createOrder,
   getOrder: getOrder,
@@ -73,4 +85,5 @@ module.exports = {
   deleteOrder: deleteOrder,
   getOderByUserService: getOderByUserService,
   filterOrdersByName: filterOrdersByName,
+  getDetailOrderById: getDetailOrderById,
 };

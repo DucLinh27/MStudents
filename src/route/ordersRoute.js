@@ -23,6 +23,11 @@ let initOrdersRoutes = (app) => {
     authMiddleware,
     orderController.filterOrdersByName
   );
+  router.get(
+    "/api/get-orders-by-id",
+    authMiddleware,
+    orderController.getDetailOrderById
+  );
   return app.use("/", router);
 };
 module.exports = initOrdersRoutes;

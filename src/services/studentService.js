@@ -20,7 +20,6 @@ let postOrderCourses = (data) => {
         await emailService.sendSimpleEmail({
           reciverEmail: data.email,
           studentName: data.fullName,
-          // time: data.timeString,
           language: data.language,
           redirectLink: buildUrlEmail(data.teacherId, token),
         });
