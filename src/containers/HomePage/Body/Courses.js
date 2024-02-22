@@ -75,7 +75,7 @@ class Courses extends Component {
         </div>
         <div className="button_content">
           <a href="/allcourses" className="button_courses">
-            <FormattedMessage id="courses.exploreteacher" />
+            <FormattedMessage id="courses.explorecourse" />
           </a>
         </div>
       </div>

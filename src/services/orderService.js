@@ -10,7 +10,9 @@ const getOrderService = () => {
 const getOderByUserService = () => {
   return axios.get(`/api/get-order-by-user`);
 };
-
+const getDetailOrderById = (id) => {
+  return axios.get(`/api/get-orders-by-id?id=${id}`);
+};
 const editOrderService = (data) => {
   return axios.put("/api/edit-order", data);
 };
@@ -27,4 +29,5 @@ export {
   deleteOrderService,
   getOderByUserService,
   findOrdersByName,
+  getDetailOrderById,
 };

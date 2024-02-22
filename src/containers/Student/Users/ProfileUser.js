@@ -116,9 +116,11 @@ class ProfileUser extends Component {
   };
   handleShowDetails = (item) => {
     // Handle any item-specific logic here...
-
+    console.log("Course ID:", item);
     // Navigate to the UserCourse page
-    this.props.history.push("/user_courses");
+    if (this.props.history) {
+      this.props.history.push(`/user-courses/${item.id}`);
+    }
   };
 
   render() {
@@ -128,6 +130,7 @@ class ProfileUser extends Component {
     let userGoogle = user.user;
     console.log(userGoogle);
     let arrOrders = this.state.arrOrders;
+    console.log(arrOrders);
 
     return (
       <>
@@ -303,6 +306,7 @@ class ProfileUser extends Component {
                         return (
                           <tr key={index}>
                             <td>{item.courses.name}</td>
+                            {/* <td>{item.courses.videos}</td> */}
                             <td>
                               <button
                                 className="btn btn-primary"

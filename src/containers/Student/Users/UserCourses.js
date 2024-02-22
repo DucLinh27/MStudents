@@ -5,10 +5,14 @@ import "./ProfileUser.scss";
 import _ from "lodash";
 import { changeUserPassword } from "../../../services/userService";
 import * as actions from "../../../store/actions";
-import { getOrderService } from "../../../services/orderService";
+import {
+  getDetailOrderById,
+  getOrderService,
+} from "../../../services/orderService";
 import { getDetailCoursesById } from "../../../services/coursesService";
+import { withRouter } from "react-router-dom";
 
-class UserCourses extends Component {
+class UserCourses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,44 +29,35 @@ class UserCourses extends Component {
   }
   async componentDidMount() {
     try {
-      let userId = this.props.userId;
-      if (!userId) {
-        // If userId is not in props, try to get it from localStorage
-        userId = localStorage.getItem("userId");
-      } else {
-        // If userId is in props, save it to localStorage
-        localStorage.setItem("userId", userId);
-      }
-      console.log(userId);
-      const orders = await getOrderService(userId);
-      console.log("Orders:", orders);
-      const filteredOrders = Array.isArray(orders)
-        ? orders.filter((order) => order.userId === userId)
-        : Object.values(orders).filter((order) => order.userId === userId);
+      const orderId = this.props.match.params.id;
+      console.log("key" + orderId);
+      const courseDetails = await getDetailOrderById(orderId);
+      console.log(courseDetails);
+      if (courseDetails && courseDetails.errCode === 0) {
+        console.log(courseDetails.data.courses);
+        console.log(courseDetails.data.courses.videos);
+        this.setState({ dataDetailCourse: courseDetails.data });
 
-      let videoDetails = [];
-      for (let order of filteredOrders) {
-        console.log("Fetching details for course ID:", order.courses.id);
-        const response = await getDetailCoursesById(order.courses.id);
-        if (response && response.data && response.data.videos) {
-          console.log("Received video details:", response.data.videos);
-          videoDetails.push(
-            ...response.data.videos.map((video) => ({
-              url: video.video,
-              name: video.name,
-            }))
+        let videoDetails = [];
+        if (courseDetails.data && courseDetails.data.courses.videos) {
+          console.log(
+            "Received video details:",
+            courseDetails.data.courses.videos
           );
+          videoDetails = courseDetails.data.courses.videos.map((video) => ({
+            url: video.video,
+            name: video.name,
+          }));
         } else {
-          console.log("No data in response:", response);
+          console.log("No videos in course details:", courseDetails);
         }
-      }
 
-      this.setState({
-        arrOrders: filteredOrders,
-        videoDetails,
-      });
+        this.setState({
+          videoDetails,
+        });
+      }
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      console.error("Error fetching course details:", error);
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {}
@@ -81,6 +76,7 @@ class UserCourses extends Component {
     let userGoogle = user.user;
     console.log(userGoogle);
     let arrOrders = this.state.arrOrders;
+    console.log(this.state.videoDetails);
 
     return (
       <>
@@ -106,28 +102,20 @@ class UserCourses extends Component {
                       <tr>
                         <th>Courses</th>
                       </tr>
-                      {arrOrders.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>
-                              {this.state.videoDetails.map((video, index) => (
-                                <div key={index}>
-                                  <h3>{video.name}</h3>
-                                  <iframe
-                                    width="800"
-                                    height="215"
-                                    src={video.url}
-                                    title={`Video ${index}`}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                  ></iframe>
-                                </div>
-                              ))}
-                            </td>
-                          </tr>
-                        );
-                      })}
+                      {this.state.videoDetails.map((video, index) => (
+                        <div key={index}>
+                          <h3>{video.name}</h3>
+                          <iframe
+                            width="800"
+                            height="215"
+                            src={video.url}
+                            title={`Video ${index}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -155,4 +143,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserCourses);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserCourses)
+);

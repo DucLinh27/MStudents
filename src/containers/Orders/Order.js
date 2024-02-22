@@ -96,20 +96,7 @@ class Order extends Component {
       email: this.state.email,
       phoneNumber: this.state.phoneNumber,
     };
-
     console.log("Order data:", orderData);
-
-    // let res = await postStudentOrderCourses({
-    //   fullName: this.state.username,
-    //   email: this.state.email,
-    //   phoneNumber: this.state.phoneNumber,
-    // });
-
-    // if (res && res.errCode === 0) {
-    //   toast.success("Order a new courses successfully");
-    // } else {
-    //   toast.error("Order a new courses failed!");
-    // }
   };
   addPaypalScript = async () => {
     let data = await getConfig();
@@ -128,7 +115,6 @@ class Order extends Component {
   onSuccessPaypal = async (details, data) => {
     // You can access the order data from the details and data parameters
     console.log("Payment completed successfully", details, data);
-
     // Here you would typically send these details to your server for further processing
     // For example, you might want to update the order status in your database
     // You can use the createOrderService function you've defined earlier
@@ -142,6 +128,7 @@ class Order extends Component {
       courses: this.state.detailCourses,
       totalPrice: this.state.coursePrice,
     };
+    console.log(orderData);
     createOrderService(orderData)
       .then(async (response) => {
         console.log("Order created successfully", response);
@@ -245,9 +232,6 @@ class Order extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "payment")}
             >
               <option value="VN Pay">PayPal</option>
-              {/* <option value="Thanh toán khi nhận hàng">
-                Thanh toán khi nhận hàng
-              </option> */}
             </select>
           </div>
           <div className="recheck-products">

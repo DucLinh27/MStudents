@@ -79,18 +79,7 @@ class DetailCourses extends Component {
       isOpenModalUser: !this.state.isOpenModalUser,
     });
   };
-  handleCartItem = () => {
-    const isCourseOrdered = this.state.orderedCourses.includes(
-      this.state.dataDetailCourse.id
-    );
-    if (isCourseOrdered) {
-      alert("Đã Order");
-    } else {
-      this.setState({
-        isOpenModalUser: true,
-      });
-    }
-  };
+
   handleOrder = () => {
     if (this.props.history) {
       this.props.history.push({

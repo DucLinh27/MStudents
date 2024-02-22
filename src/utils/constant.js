@@ -19,7 +19,7 @@ export const path = {
   CARTITEM: "/cartitem",
   PAYMENT: "/payment",
   PROFILE: "/profile",
-  USER_COUSER: "/user_courses",
+  USER_COUSER: "/user-courses/:id",
 };
 
 export const LANGUAGES = {
