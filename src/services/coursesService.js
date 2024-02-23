@@ -9,7 +9,8 @@ let createCourses = (data) => {
         !data.image ||
         !data.price ||
         !data.descriptionHTML ||
-        !data.descriptionMarkdown
+        !data.descriptionMarkdown ||
+        !data.teacherId
       ) {
         resolve({
           errCode: 1,
@@ -22,6 +23,7 @@ let createCourses = (data) => {
           price: data.price,
           descriptionHTML: data.descriptionHTML,
           descriptionMarkdown: data.descriptionMarkdown,
+          teacherId: data.teacherId,
         });
         resolve({
           errCode: 0,
@@ -60,7 +62,14 @@ let getDetailCoursesById = (inputId) => {
           where: {
             id: inputId,
           },
-          attributes: ["id", "name", "price", "image", "descriptionMarkdown"],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "descriptionMarkdown",
+            "teacherId",
+          ],
           include: [
             {
               model: db.Videos,

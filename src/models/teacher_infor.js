@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       teacherId: DataTypes.INTEGER,
       coursesId: DataTypes.INTEGER,
-      // classesId: DataTypes.INTEGER,
-      // addressClasses: DataTypes.STRING,
-      // nameClasses: DataTypes.STRING,
-      position: DataTypes.STRING,
     },
     {
       sequelize,

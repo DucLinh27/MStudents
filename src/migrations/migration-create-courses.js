@@ -23,7 +23,9 @@ module.exports = {
       descriptionMarkdown: {
         type: Sequelize.TEXT,
       },
-
+      teacherId: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

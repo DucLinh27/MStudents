@@ -124,21 +124,14 @@ let saveDetailInforTeacher = async (inputData) => {
         if (teacherInfor) {
           //update
           (teacherInfor.teacherId = inputData.teacherId),
-            (teacherInfor.nameClasses = inputData.nameClasses),
-            (teacherInfor.addressClasses = inputData.addressClasses),
-            (teacherInfor.note = inputData.note),
             (teacherInfor.coursesId = inputData.coursesId),
-            (teacherInfor.classesId = inputData.classesId),
             await teacherInfor.save();
         } else {
           //create
           await db.Teacher_Infor.create({
             teacherId: inputData.teacherId,
-            nameClasses: inputData.nameClasses,
-            addressClasses: inputData.addressClasses,
-            note: inputData.note,
+
             coursesId: inputData.coursesId,
-            classesId: inputData.classesId,
           });
         }
         resolve({
@@ -178,13 +171,16 @@ let getInforTeacherById = async (inputId) => {
                 exclude: ["id", "teacherId"],
               },
             },
+            {
+              model: db.Courses,
+              as: "courses",
+              attributes: ["id", "name", "image"],
+            },
           ],
           raw: false,
           nest: true,
         });
-        // if (data && data.image) {
-        //   data.image = new Buffer(data.image, "base64").toString("binary");
-        // }
+
         if (!data) data = {};
         resolve({
           errCode: 0,
@@ -305,6 +301,13 @@ let getExtraInforTeacherById = (idInput) => {
           attributes: {
             exclude: ["id", "teacherId"],
           },
+          include: [
+            {
+              model: db.Courses,
+              as: "courses",
+              attributes: ["id", "name", "image"],
+            },
+          ],
 
           raw: false,
           nest: true,
@@ -342,32 +345,9 @@ let getProfileTeacherById = (inputId) => {
               attributes: ["description", "contentHTML", "contentMarkdown"],
             },
             {
-              model: db.Allcode,
-              as: "positionData",
-              attributes: ["valueEn", "valueVi"],
-            },
-            {
-              model: db.Teacher_Infor,
-              attributes: {
-                exclude: ["id", "teacherId"],
-              },
-              include: [
-                {
-                  model: db.Allcode,
-                  as: "priceTypeData",
-                  attributes: ["valueEn", "valueVi"],
-                },
-                {
-                  model: db.Allcode,
-                  as: "paymentTypeData",
-                  attributes: ["valueEn", "valueVi"],
-                },
-                {
-                  model: db.Allcode,
-                  as: "provinceTypeData",
-                  attributes: ["valueEn", "valueVi"],
-                },
-              ],
+              model: db.Courses,
+              as: "courses",
+              attributes: ["id", "name", "image"],
             },
           ],
           raw: false,

@@ -26,9 +26,9 @@ module.exports = {
       //   type: Sequelize.STRING,
       //   allowNull: false,
       // },
-      position: {
-        type: Sequelize.STRING,
-      },
+      // position: {
+      //   type: Sequelize.STRING,
+      // },
 
       createdAt: {
         allowNull: false,

@@ -34,9 +34,8 @@ cloudinary.config({
 //congif paypal
 paypal.configure({
   mode: "sandbox", //sandbox or live
-  client_id:
-    "AclsyktkK-QOw-GHnMtuC0E1o2j-GcwgkjCe28yVu2VweLCsuv6HVXeiOAhVyyw7KgFl0CAyEraeAQK3",
-  client_secret: "PAYPAL_SCRET",
+  client_id: "sb-40nko28821456@business.example.com",
+  client_secret: "1f*c13I%",
 });
 
 // Cài đặt Passport và sử dụng session
