@@ -162,18 +162,7 @@ let getInforTeacherById = async (inputId) => {
           },
           include: [
             {
-              model: db.Markdown,
-              attributes: ["description", "contentHTML", "contentMarkdown"],
-            },
-            {
-              model: db.Teacher_Infor,
-              attributes: {
-                exclude: ["id", "teacherId"],
-              },
-            },
-            {
               model: db.Courses,
-              as: "courses",
               attributes: ["id", "name", "image"],
             },
           ],
@@ -291,7 +280,7 @@ let getExtraInforTeacherById = (idInput) => {
       if (!idInput) {
         resolve({
           errCode: 1,
-          errMessage: "Messing required parameter missing",
+          errMessage: "Messings required parameter missing",
         });
       } else {
         let data = await db.Teacher_Infor.findOne({
@@ -308,7 +297,6 @@ let getExtraInforTeacherById = (idInput) => {
               attributes: ["id", "name", "image"],
             },
           ],
-
           raw: false,
           nest: true,
         });

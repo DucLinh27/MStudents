@@ -76,6 +76,10 @@ let getDetailCoursesById = (inputId) => {
               as: "videos",
               attributes: ["id", "name", "video"],
             },
+            {
+              model: db.User,
+              attributes: ["id", "firstName"],
+            },
           ],
         });
         if (data) {

@@ -12,13 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsTo(models.Allcode, { foreignKey: "roleId", as: "Role" });
       User.hasOne(models.Markdown, { foreignKey: "teacherId" });
       User.hasOne(models.Teacher_Infor, { foreignKey: "teacherId" });
+      User.hasMany(models.Courses, { foreignKey: "teacherId" });
       // User.hasMany(models.Allcode, { foreignKey: "roleId", as: "Role" });
       User.hasMany(models.Order, { foreignKey: "userId" });
-
-      // User.hasMany(models.Schedule, {
-      //   foreignKey: "teacherId",
-      //   as: "teacherData",
-      // });
     }
   }
   User.init(
