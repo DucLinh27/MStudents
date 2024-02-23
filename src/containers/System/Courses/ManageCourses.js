@@ -183,6 +183,11 @@ class ManageCourses extends Component {
     }
   };
   handleSaveNewCourses = async () => {
+    if (!this.validateFields()) {
+      // If the input is not valid, stop the function
+      return;
+    }
+
     let data = {
       ...this.state,
       image: this.state.previewImageURL,
@@ -190,6 +195,7 @@ class ManageCourses extends Component {
         ? this.state.selectedOption.value
         : null,
     };
+
     if (this.state.isEditing) {
       // Edit the class
       let res = await editCoursesService(data);
@@ -227,7 +233,6 @@ class ManageCourses extends Component {
       }
     }
   };
-
   handleEditCourses = (item) => {
     this.setState({
       id: item.id,
@@ -300,9 +305,37 @@ class ManageCourses extends Component {
       });
     }
   };
+  validateFields = () => {
+    const { name, price, selectedOption, previewImageURL } = this.state;
+
+    // Check if course name is not empty
+    if (!name) {
+      alert("Course name is required");
+      return false;
+    }
+
+    // Check if price is not empty and is a number
+    if (!price || isNaN(price)) {
+      alert("Price is required and should be a number");
+      return false;
+    }
+
+    // Check if a teacher is selected
+    if (!selectedOption) {
+      alert("Please select a teacher");
+      return false;
+    }
+
+    // Check if an image is uploaded
+    if (!previewImageURL) {
+      alert("Please upload an image");
+      return false;
+    }
+
+    // If all checks pass, return true
+    return true;
+  };
   render() {
-    let arrCourses = this.state.arrCourses;
-    let { hashOldData } = this.state;
     return (
       <div className="manage-sepcialty-container">
         <div className="ms-title">Quan ly Courses</div>
@@ -358,7 +391,6 @@ class ManageCourses extends Component {
               ></div>
             </div>
           </div>
-
           <div className="col-12">
             <MdEditor
               style={{ height: "300px" }}

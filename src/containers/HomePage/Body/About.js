@@ -34,7 +34,7 @@ class About extends Component {
         <HomeHeader />
         <div className="allcourses-container">
           <div className="section-header">
-            <h1 className="title-section">About</h1>
+            <h1 className="title-section">ABOUT</h1>
           </div>
           <div className="text">
             Presenting Academy, the tech school of the future. We teach you the

@@ -87,10 +87,12 @@ class Order extends Component {
   };
   handleConfirm = async (event) => {
     event.preventDefault();
-    // this.props.onSubmit();
+
+    if (!this.validateInput()) {
+      // If the input is not valid, stop the function
+      return;
+    }
     this.setState({ showPaypal: true });
-    // let date = new Date(this.state.birthday).getTime();
-    // let timeString = this.buildDataBooking(this.props.dataTime);
     const orderData = {
       fullName: this.state.username,
       email: this.state.email,
@@ -158,7 +160,32 @@ class Order extends Component {
 
     // this.props.coursePurchased();
   };
+  validateInput = () => {
+    const { username, email, phonenumber } = this.state;
 
+    // Check if username is not empty
+    if (!username) {
+      alert("Username is required");
+      return false;
+    }
+
+    // Check if email is valid
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    if (!emailRegex.test(email)) {
+      alert("Email is not valid");
+      return false;
+    }
+
+    // Check if phone number is valid
+    const phoneRegex = /^\d{10}$/; // Change this regex to match your country's phone number format
+    if (!phoneRegex.test(phonenumber)) {
+      alert("Phone number is not valid");
+      return false;
+    }
+
+    // If all checks pass, return true
+    return true;
+  };
   render() {
     console.log(this.state.payment);
     let { coursePrice, detailCourses, showPaypal } = this.state;

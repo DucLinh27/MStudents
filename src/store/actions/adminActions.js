@@ -237,7 +237,37 @@ export const fetchAllUsersSuccess = (data) => ({
 export const fetchAllUsersFailded = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILDED,
 });
+export const fetchAllTeachers = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllTeachers();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_TEACHERS_SUCCESS,
+          allTeachers: res.data,
+        });
+        console.log(res.data);
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_TEACHERS_FAILDED,
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: actionTypes.FETCH_ALL_DOCTORS_FAILDED,
+      });
+    }
+  };
+};
 
+export const fetchAllTeachersSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_TEACHERS_SUCCESS,
+  users: data,
+});
+
+export const fetchAllTeachersFailded = () => ({
+  type: actionTypes.FETCH_ALL_TEACHERS_FAILDED,
+});
 //DOCTOR
 export const fetchTopTeacher = () => {
   return async (dispatch, getState) => {
@@ -305,28 +335,6 @@ export const saveDetailDoctor = (data) => {
     }
   };
 };
-export const fetchAllScheduleTime = () => {
-  return async (dispatch, getState) => {
-    try {
-      let res = await getAllCodeServices("TIME");
-      if (res && res.errCode === 0) {
-        dispatch({
-          type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS,
-          dataTime: res.data,
-        });
-      } else {
-        dispatch({
-          type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILDED,
-        });
-      }
-    } catch (e) {
-      dispatch({
-        type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILDED,
-      });
-    }
-  };
-};
-
 export const getRequireDoctorInfor = () => {
   return async (dispatch, getState) => {
     try {

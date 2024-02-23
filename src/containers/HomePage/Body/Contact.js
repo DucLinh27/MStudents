@@ -49,7 +49,7 @@ class Contact extends Component {
           </div>
           <div className="right-contents col-6"></div>
         </div>
-        <HomeFooter />
+        {/* <HomeFooter /> */}
       </>
     );
   }

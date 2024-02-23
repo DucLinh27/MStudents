@@ -89,7 +89,6 @@ class UserRedux extends Component {
       });
     }
   }
-
   handleOnChangeImage = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -125,7 +124,6 @@ class UserRedux extends Component {
       }
     }
   };
-
   openPreviewImage = () => {
     if (!this.state.previewImageURL) return;
     this.setState({ isOpen: true });
@@ -264,7 +262,7 @@ class UserRedux extends Component {
 
     return (
       <div className="user-redux-container">
-        <div className="title">CREATE A NEW USER with REDUX</div>
+        <div className="title">CREATE A NEW TEACHERS</div>
         <div className="user-redux-body">
           <div className="container">
             <div className="row">
@@ -332,7 +330,6 @@ class UserRedux extends Component {
                   }}
                 />
               </div>
-
               <div className="col-3">
                 <label>
                   <FormattedMessage id="manage-user.phone-number" />
@@ -384,7 +381,6 @@ class UserRedux extends Component {
                     })}
                 </select>
               </div>
-
               <div className="col-3">
                 <label>
                   <FormattedMessage id="manage-user.position" />
@@ -433,21 +429,20 @@ class UserRedux extends Component {
                     })}
                 </select>
               </div>
-              <div className="col-3">
-                <label>
-                  <FormattedMessage id="manage-user.image" />
-                </label>
-
+              <div className="col-3 mb-5">
                 <div className="previewImg-container">
+                  <div>
+                    <FormattedMessage id="manage-user.image" />
+                  </div>
+                  <label className="label-upload" htmlFor="previewImg">
+                    Tải ảnh<i className="fas fa-upload"></i>
+                  </label>
                   <input
                     id="previewImg"
                     type="file"
                     hidden
                     onChange={(event) => this.handleOnChangeImage(event)}
                   />
-                  <label className="label-upload" htmlFor="previewImg">
-                    Tải ảnh<i className="fas fa-upload"></i>
-                  </label>
                   <div
                     className="preview-image"
                     style={{

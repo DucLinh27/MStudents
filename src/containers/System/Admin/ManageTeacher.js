@@ -203,7 +203,7 @@ class ManageTeacher extends Component {
         <div className="manage-doctor-title">
           <FormattedMessage id="admin.manage-teacher.title" />
         </div>
-        <div className="more-infor">
+        {/* <div className="more-infor">
           <div className="content-left form-group">
             <label>
               <FormattedMessage id="admin.manage-teacher.select-teacher" />
@@ -260,7 +260,7 @@ class ManageTeacher extends Component {
               <FormattedMessage id="admin.manage-teacher.add" />
             </span>
           )}
-        </button>
+        </button> */}
         <div className="tale-data-teacher">
           <table>
             <tbody>
@@ -278,14 +278,9 @@ class ManageTeacher extends Component {
                     <tr key={index}>
                       <td>{item.teacherId}</td>
                       <td>{item.coursesId}</td>
-                      <td>{item.position}</td>
+                   
                       <td>
-                        {/* <button
-                          className="btn-edit"
-                          onClick={() => this.handleEditTeacher(item)}
-                        >
-                          <i className="fas fa-pencil-alt"></i>
-                        </button> */}
+                         
                         <button
                           className="btn-delete"
                           onClick={() => this.handleDeleteTeacher(item)}

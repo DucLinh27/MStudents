@@ -26,12 +26,12 @@ class TableManageUser extends Component {
     };
   }
   componentDidMount() {
-    this.props.fetchUserRedux();
+    this.props.fetchAllTeachers();
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.listUsers !== this.props.listUsers) {
+    if (prevProps.listTeacher !== this.props.listTeacher) {
       this.setState({
-        usersRedux: this.props.listUsers,
+        usersRedux: this.props.listTeacher,
       });
     }
   }
@@ -81,14 +81,8 @@ class TableManageUser extends Component {
                   </tr>
                 );
               })}
-            ;
           </tbody>
         </table>
-        <MdEditor
-          style={{ height: "500px" }}
-          renderHTML={(text) => mdParser.render(text)}
-          onChange={handleEditorChange}
-        />
       </React.Fragment>
     );
   }
@@ -96,13 +90,13 @@ class TableManageUser extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listUsers: state.admin.users,
+    listTeacher: state.admin.allTeachers,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
+    fetchAllTeachers: () => dispatch(actions.fetchAllTeachers()),
     deleteUser: (id) => dispatch(actions.deleteUser(id)),
   };
 };

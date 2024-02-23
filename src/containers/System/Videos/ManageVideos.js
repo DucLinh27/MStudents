@@ -31,7 +31,6 @@ class ManageVideos extends Component {
       filteredVideos: [],
     };
   }
-
   //just run 1 time
   async componentDidMount() {
     this.props.getRequireDoctorInfor();
@@ -53,7 +52,6 @@ class ManageVideos extends Component {
       console.error("Error fetching video:", error);
     }
   }
-
   buildDataInputSelect = (inputData, type) => {
     let result = [];
     if (inputData && inputData.length > 0) {
@@ -83,7 +81,6 @@ class ManageVideos extends Component {
       });
     }
   }
-
   handleSearch = async (event) => {
     const searchValue = event.target.value;
     if (searchValue) {
@@ -115,15 +112,18 @@ class ManageVideos extends Component {
       ...stateCopy,
     });
   };
-
   handleEditorChange = ({ html, text }) => {
     this.setState({
       descriptionHTML: html,
       descriptionMarkdown: text,
     });
   };
-
   handleSaveNewVideo = async () => {
+    if (!this.validateFields()) {
+      // If the input is not valid, stop the function
+      return;
+    }
+
     if (this.state.isEditing) {
       // Edit the class
       let res = await editVideosService(this.state);
@@ -164,7 +164,6 @@ class ManageVideos extends Component {
       this.setState({ video: srcMatch[1] });
     }
   };
-
   handleChangeSelectCourses = async (selectedOption, name) => {
     let stateName = name.name;
     let stateCopy = { ...this.state };
@@ -194,6 +193,30 @@ class ManageVideos extends Component {
       // Set the previewImageURL to the class image
       isEditing: true,
     });
+  };
+  validateFields = () => {
+    const { name, video, selectedCourses } = this.state;
+
+    // Check if video name is not empty
+    if (!name) {
+      alert("Video name is required");
+      return false;
+    }
+
+    // Check if YouTube embed link is not empty
+    if (!video) {
+      alert("YouTube embed link is required");
+      return false;
+    }
+
+    // Check if a course is selected
+    if (!selectedCourses) {
+      alert("Please select a course");
+      return false;
+    }
+
+    // If all checks pass, return true
+    return true;
   };
   render() {
     let arrVideos = this.state.arrVideos;
