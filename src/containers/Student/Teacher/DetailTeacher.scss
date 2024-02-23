@@ -2,16 +2,23 @@
   height: 500px;
   .intro-doctor {
     display: flex;
-    margin: 65px 100px 0 100px;
-    .content-left {
+    margin: 65px 150px 0 150px;
+    border: 1px solid grey;
+
+    .content-image {
       width: 20%;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      margin: 10px 20px;
+      margin: 10px 40px;
+    }
+    .content-text {
+      font-size: 15px;
+      font-weight: 500;
+      padding-top: 10px;
     }
     .content-right {
       width: 80%;
@@ -29,31 +36,29 @@
       }
     }
   }
-  .schedule-doctor {
-    margin: 0 100px;
-    display: flex;
-    padding: 10px 0;
-    min-height: 200px;
-    .content-left {
-      width: 50%;
-    }
-    .content-right {
-      width: 50%;
-    }
-  }
-  .detail-infor-doctor {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+
+  .detail-infor-courses {
     background-color: #f9f9f9;
-    padding: 10px 100px;
+    display: flex;
+    margin: 30px 160px;
     h3 {
       font-size: 17px;
     }
     img {
-      width: 100%;
+      width: 100px;
+      height: 100px;
     }
-  }
-  .comment-doctor {
-    height: 50px;
+    img-courses {
+      width: 100px;
+      height: 200px;
+    }
+    .item-courses {
+      margin-right: 100px;
+      .bg-image {
+        width: 550px;
+        height: 300px;
+        border-radius: 10px;
+      }
+    }
   }
 }

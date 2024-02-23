@@ -154,7 +154,6 @@ class ManageTeacher extends Component {
         contentMarkdown: markdown.contentMarkdown,
         description: markdown.description,
         hashOldData: true,
-
         selectedCourses: selectedCourses,
       });
     } else {
@@ -163,7 +162,6 @@ class ManageTeacher extends Component {
         contentMarkdown: "",
         description: "",
         hashOldData: false,
-
         selectedCourses: "",
       });
     }

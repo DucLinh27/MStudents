@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { getAllCourses } from "../../../services/coursesService";
 import Slider from "react-slick";
-import "./Blog.scss";
+import "./Contact.scss";
 import { withRouter } from "react-router";
+import HomeFooter from "../Header/HomeFooter";
+import HomeHeader from "../Header/HomeHeader";
 
-class Blog extends Component {
+class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +32,7 @@ class Blog extends Component {
     console.log("data", dataSpecialty);
     return (
       <>
+        <HomeHeader />
         <div className="blog-container row">
           <div className="left-content col-6">
             <h1>Apply now, start at interhigh this september</h1>
@@ -46,6 +49,7 @@ class Blog extends Component {
           </div>
           <div className="right-contents col-6"></div>
         </div>
+        <HomeFooter />
       </>
     );
   }
@@ -63,4 +67,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Blog));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Contact)
+);

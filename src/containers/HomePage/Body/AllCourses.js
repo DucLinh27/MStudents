@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "./AllCourses.scss";
 import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
+import HomeFooter from "../Header/HomeFooter";
 class AllCourses extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +34,11 @@ class AllCourses extends Component {
         <HomeHeader />
         <div className="allcourses-container">
           <div className="section-header">
-            <h1 className="title-section">All Courses</h1>
+            <h1 className="title-section">OUR COURSES</h1>
+          </div>
+          <div className="text">
+            Presenting Academy, the tech school of the future. We teach you the
+            right skills to be prepared for tomorrow.
           </div>
           <div className="section-body row">
             {dataSpecialty &&
@@ -65,6 +70,7 @@ class AllCourses extends Component {
               })}
           </div>
         </div>
+        <HomeFooter />
       </>
     );
   }

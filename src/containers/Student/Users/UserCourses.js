@@ -75,7 +75,6 @@ class UserCourses extends React.Component {
     console.log(userInfo);
     let userGoogle = user.user;
     console.log(userGoogle);
-    let arrOrders = this.state.arrOrders;
     console.log(this.state.videoDetails);
 
     return (
@@ -103,18 +102,22 @@ class UserCourses extends React.Component {
                         <th>Courses</th>
                       </tr>
                       {this.state.videoDetails.map((video, index) => (
-                        <div key={index}>
-                          <h3>{video.name}</h3>
-                          <iframe
-                            width="800"
-                            height="215"
-                            src={video.url}
-                            title={`Video ${index}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          ></iframe>
-                        </div>
+                        <tr key={index}>
+                          <td>
+                            <div>
+                              <h3>{video.name}</h3>
+                              <iframe
+                                width="800"
+                                height="215"
+                                src={video.url}
+                                title={`Video ${index}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              ></iframe>
+                            </div>
+                          </td>
+                        </tr>
                       ))}
                     </tbody>
                   </table>

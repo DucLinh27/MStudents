@@ -8,6 +8,7 @@ import { changeLanguageApp } from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
 import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
+import HomeFooter from "./HomeFooter";
 
 class HomeHeader extends Component {
   constructor(props) {
@@ -31,14 +32,19 @@ class HomeHeader extends Component {
       this.props.history.push(`/about`);
     }
   };
-  handleBlogPage = () => {
+  handleContactPage = () => {
     if (this.props.history) {
-      this.props.history.push(`/blog`);
+      this.props.history.push(`/contact`);
     }
   };
   handleCoursesPage = () => {
     if (this.props.history) {
       this.props.history.push(`/allcourses`);
+    }
+  };
+  handleTeachersPage = () => {
+    if (this.props.history) {
+      this.props.history.push(`/allteacher`);
     }
   };
   returnDetailUser = () => {
@@ -115,15 +121,15 @@ class HomeHeader extends Component {
               </div>
               <div className="child-content">
                 <div>
-                  <b>
-                    <FormattedMessage id="home-header.pages" />
+                  <b onClick={() => this.handleTeachersPage()}>
+                    <FormattedMessage id="home-header.teachers" />
                   </b>
                 </div>
               </div>
               <div className="child-content">
                 <div>
-                  <b onClick={() => this.handleBlogPage()}>
-                    <FormattedMessage id="home-header.blog" />
+                  <b onClick={() => this.handleContactPage()}>
+                    <FormattedMessage id="home-header.contact" />
                   </b>
                 </div>
               </div>
@@ -222,6 +228,7 @@ class HomeHeader extends Component {
             </div>
           </div>
         )}
+        
       </React.Fragment>
     );
   }

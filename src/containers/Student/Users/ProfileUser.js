@@ -33,13 +33,24 @@ class ProfileUser extends Component {
       console.log(userId);
       const orders = await getOrderService(userId);
       console.log("Orders:", orders);
-      const filteredOrders = Array.isArray(orders)
-        ? orders.filter((order) => order.userId === userId)
-        : Object.values(orders).filter((order) => order.userId === userId);
 
-      this.setState({
-        arrOrders: filteredOrders,
-      });
+      // If orders is an array, use it directly. If not, convert it to an array.
+      const ordersArray = Array.isArray(orders)
+        ? orders
+        : Object.values(orders);
+
+      this.setState(
+        {
+          arrOrders: ordersArray,
+        },
+        () => {
+          // Save arrOrders to localStorage after state update
+          localStorage.setItem(
+            "arrOrders",
+            JSON.stringify(this.state.arrOrders)
+          );
+        }
+      );
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

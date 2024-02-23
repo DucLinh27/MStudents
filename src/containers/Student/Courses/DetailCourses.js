@@ -95,7 +95,7 @@ class DetailCourses extends Component {
     // let { language } = this.props.language;
     let { dataDetailCourse } = this.state;
     console.log(dataDetailCourse);
-    console.log(dataDetailCourse.image);
+    console.log(dataDetailCourse.teacherId);
     // Convert Buffer to base64
 
     return (
@@ -115,6 +115,7 @@ class DetailCourses extends Component {
                     }}
                   ></div>
                   <h1>{dataDetailCourse.name}</h1>
+
                   <p>{dataDetailCourse.descriptionMarkdown}</p>
                 </div>
                 <div className="container-courses">
@@ -156,6 +157,12 @@ class DetailCourses extends Component {
                 </div>
 
                 <div className="right-down">
+                  <div className="item">
+                    <i class="fas fa-sort-amount-up mr-3"></i>Teacher :{" "}
+                    {dataDetailCourse.User
+                      ? dataDetailCourse.User.firstName
+                      : "Loading..."}
+                  </div>
                   <div className="item">
                     <i class="fas fa-sort-amount-up mr-3"></i>Level: Medium
                   </div>

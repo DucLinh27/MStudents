@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HomeFooter from "./HomeFooter";
 import Teacher from "../Body/Teacher";
-import Blog from "../Body/Blog";
+import Contact from "../Body/Contact";
 class HomePage extends Component {
   // handleAfterChange = (index, dontAnimate) => {
 
@@ -33,7 +33,7 @@ class HomePage extends Component {
     return (
       <div>
         <HomeHeader isShowBanner={true} />
-        <Blog />
+        <Contact />
         <Courses settings={settings} />
         <Teacher settings={settings2} />
         <HomeFooter settings={settings} />

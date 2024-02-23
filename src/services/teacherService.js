@@ -20,11 +20,7 @@ const getDetailInforTeacher = (inputId) => {
 const saveBulkScheduleTeacher = (data) => {
   return axios.post(`/api/bulk-create-schedule`, data);
 };
-const getScheduleTeacherByDate = (teacherId, date) => {
-  return axios.get(
-    `/api/get-schedule-teacher-by-date?doctorId=${teacherId}&date=${date}`
-  );
-};
+
 const getExtraInforTeacherById = (teacherId) => {
   return axios.get(`/api/get-extra-infor-teacher-by-id?doctorId=${teacherId}`);
 };
@@ -58,7 +54,6 @@ export {
   saveDetailTeacherService,
   getDetailInforTeacher,
   saveBulkScheduleTeacher,
-  getScheduleTeacherByDate,
   getExtraInforTeacherById,
   getProfileTeacherById,
   postStudentOrderCourses,

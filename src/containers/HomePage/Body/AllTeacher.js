@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "./AllTeacher.scss";
 import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
+import HomeFooter from "../Header/HomeFooter";
 class AllTeacher extends Component {
   constructor(props) {
     super(props);
@@ -74,6 +75,7 @@ class AllTeacher extends Component {
               })}
           </div>
         </div>
+        <HomeFooter />
       </>
     );
   }

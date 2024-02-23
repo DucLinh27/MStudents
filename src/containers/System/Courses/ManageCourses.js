@@ -6,6 +6,7 @@ import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
+import Select from "react-select";
 import {
   createNewCourses,
   getAllCourses,
@@ -14,6 +15,10 @@ import {
   findCoursesByName,
 } from "../../../services/coursesService";
 import { toast } from "react-toastify";
+import {
+  getAllTeachersInfor,
+  getDetailInforTeacher,
+} from "../../../services/teacherService";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageCourses extends Component {
@@ -29,6 +34,8 @@ class ManageCourses extends Component {
       isSearching: false,
       isOpenModalEditCourses: false,
       filteredCourses: [],
+      listTeachers: [],
+      selectedOption: "",
     };
   }
 
@@ -51,10 +58,65 @@ class ManageCourses extends Component {
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
+    this.props.fetchAllDoctors();
+    this.props.getRequireDoctorInfor();
+    try {
+      const response = await getAllTeachersInfor();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const teachersArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrTeachers: teachersArray,
+        });
+        console.log(teachersArray);
+      } else {
+        console.error("Error fetching teacher:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching teacher:", error);
+    }
   }
+  buildDataInputSelect = (inputData, type) => {
+    let result = [];
+    let { language } = this.props;
+    if (inputData && inputData.length > 0) {
+      if (type === "USERS") {
+        inputData.map((item, index) => {
+          let object = {};
+          let labelVi = `${item.lastName} ${item.firstName}`;
+          let labelEn = `${item.firstName} ${item.lastName} `;
+          object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+          object.value = item.id;
+          result.push(object);
+        });
+      }
+    }
+    return result;
+  };
   componentDidUpdate(prevProps, prevState) {
     if (this.state.arrCourses !== prevState.arrCourses) {
       this.setState({ filteredCourses: this.state.arrCourses });
+    }
+    if (prevProps.allDoctors !== this.props.allDoctors) {
+      let dataSelect = this.buildDataInputSelect(
+        this.props.allDoctors,
+        "USERS"
+      );
+      this.setState({
+        listTeachers: dataSelect,
+      });
+    }
+    if (prevProps.language !== this.props.language) {
+      let dataSelect = this.buildDataInputSelect(
+        this.props.allDoctors,
+        "USERS"
+      );
+      this.setState({
+        listTeachers: dataSelect,
+      });
     }
   }
   handleDeleteCourses = async (courses) => {
@@ -120,11 +182,13 @@ class ManageCourses extends Component {
       }
     }
   };
-
-  handleSaveNewSpecialty = async () => {
+  handleSaveNewCourses = async () => {
     let data = {
       ...this.state,
       image: this.state.previewImageURL,
+      teacherId: this.state.selectedOption
+        ? this.state.selectedOption.value
+        : null,
     };
     if (this.state.isEditing) {
       // Edit the class
@@ -138,6 +202,7 @@ class ManageCourses extends Component {
           price: "",
           descriptionHTML: "",
           descriptionMarkdown: "",
+          teacherId: this.state.selectedOption.value,
           isEditing: false,
         });
       } else {
@@ -154,6 +219,7 @@ class ManageCourses extends Component {
           price: "",
           descriptionHTML: "",
           descriptionMarkdown: "",
+          teacherId: this.state.selectedOption.value,
         });
       } else {
         toast.error("Add new courses Error");
@@ -161,6 +227,7 @@ class ManageCourses extends Component {
       }
     }
   };
+
   handleEditCourses = (item) => {
     this.setState({
       id: item.id,
@@ -197,9 +264,45 @@ class ManageCourses extends Component {
       });
     }
   };
+  handleChangeSelectDoctorInfor = async (selectedOption, name) => {
+    let stateName = name.name;
+    let stateCopy = { ...this.state };
+    stateCopy[stateName] = selectedOption;
+    this.setState({
+      ...stateCopy,
+    });
+  };
+  handleChangeSelect = async (selectedOption) => {
+    this.setState({ selectedOption });
+    let { listCourses } = this.state;
+    let res = await getDetailInforTeacher(selectedOption.value);
+    if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+      let markdown = res.data.Markdown;
+
+      let coursesId = "",
+        selectedCourses = "";
+
+      if (res.data.Teacher_Infor) {
+        coursesId = res.data.Teacher_Infor.coursesId;
+        selectedCourses = listCourses.find((item) => {
+          return item && item.value === coursesId;
+        });
+      }
+
+      this.setState({
+        hashOldData: true,
+        selectedCourses: selectedCourses,
+      });
+    } else {
+      this.setState({
+        hashOldData: false,
+        selectedCourses: "",
+      });
+    }
+  };
   render() {
     let arrCourses = this.state.arrCourses;
-
+    let { hashOldData } = this.state;
     return (
       <div className="manage-sepcialty-container">
         <div className="ms-title">Quan ly Courses</div>
@@ -222,10 +325,20 @@ class ManageCourses extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "price")}
             />
           </div>
-
-          <div className="col-3 form-group-file">
+          <div className="col-4 form-group">
+            <label> Choose a teacher</label>
+            <Select
+              value={this.state.selectedOption}
+              onChange={this.handleChangeSelect}
+              options={this.state.listTeachers}
+              placeholder={
+                <FormattedMessage id="admin.manage-teacher.courses" />
+              }
+            />
+          </div>
+          <div className="col-4 form-group-file">
             {/* <label>Ảnh Bài Học</label> */}
-            <div className="previewImg-container">
+            <div className="previewImg-container d-flex">
               <input
                 className="form-control-file"
                 id="previewImg"
@@ -233,8 +346,8 @@ class ManageCourses extends Component {
                 hidden
                 onChange={(event) => this.handleOnChangeImage(event)}
               />
-              <label className="label-upload" htmlFor="previewImg">
-                Tải ảnh<i className="fas fa-upload"></i>
+              <label className="label-upload ml-2 pl-3" htmlFor="previewImg">
+                Tải ảnh<i className="fas fa-upload ml-2"></i>
               </label>
               <div
                 className="preview-image"
@@ -245,6 +358,7 @@ class ManageCourses extends Component {
               ></div>
             </div>
           </div>
+
           <div className="col-12">
             <MdEditor
               style={{ height: "300px" }}
@@ -253,6 +367,7 @@ class ManageCourses extends Component {
               value={this.state.descriptionMarkdown}
             />
           </div>
+
           <div className="col-12 d-flex">
             <div className="search-inputs">
               <input
@@ -263,7 +378,7 @@ class ManageCourses extends Component {
             </div>
             <button
               className="btn-save-specialty "
-              onClick={() => this.handleSaveNewSpecialty()}
+              onClick={() => this.handleSaveNewCourses()}
             >
               Save
             </button>
@@ -324,6 +439,7 @@ class ManageCourses extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
+    allDoctors: state.admin.allDoctors,
   };
 };
 
@@ -331,6 +447,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editCoursesRedux: (data) => dispatch(actions.editCourses(data)),
     deleteCourses: (courses) => dispatch(actions.deleteCourses(courses)),
+    fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
+    getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
   };
 };
 

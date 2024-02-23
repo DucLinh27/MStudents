@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "./About.scss";
 import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
+import HomeFooter from "../Header/HomeFooter";
 class About extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +35,10 @@ class About extends Component {
         <div className="allcourses-container">
           <div className="section-header">
             <h1 className="title-section">About</h1>
+          </div>
+          <div className="text">
+            Presenting Academy, the tech school of the future. We teach you the
+            right skills to be prepared for tomorrow.
           </div>
           <div className="section-body row">
             {dataSpecialty &&
@@ -65,6 +70,7 @@ class About extends Component {
               })}
           </div>
         </div>
+        <HomeFooter />
       </>
     );
   }

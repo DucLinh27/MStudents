@@ -4,6 +4,7 @@ import HomeHeader from "../../HomePage/Header/HomeHeader";
 import "./DetailTeacher.scss";
 import { getDetailInforTeacher } from "../../../services/teacherService";
 import { LANGUAGES } from "../../../utils";
+import Slider from "react-slick";
 
 class TeacherDoctor extends Component {
   constructor(props) {
@@ -25,23 +26,28 @@ class TeacherDoctor extends Component {
       });
       let res = await getDetailInforTeacher(id);
       if (res && res.errCode === 0) {
-        this.setState({ detailTeacher: res.data });
+        this.setState({
+          detailTeacher: res.data,
+        });
       }
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (prevProps.topDoctorsRedux !== this.props.topDoctorsRedux) {
-    //   this.setState({
-    //     arrDoctors: this.props.topDoctorsRedux,
-    //   });
-    // }
+    if (prevProps.topDoctorsRedux !== this.props.topDoctorsRedux) {
+      this.setState({
+        arrDoctors: this.props.topDoctorsRedux,
+      });
+    }
   }
+  handleDetailSpecialty = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-courses/${item.id}`);
+    }
+  };
   render() {
     let { language } = this.props;
-    let { detailTeacher } = this.state;
+    let { detailTeacher, detailCourse } = this.state;
     console.log(detailTeacher);
-    let nameEn = " ",
-      nameVi = "";
 
     return (
       <>
@@ -49,52 +55,51 @@ class TeacherDoctor extends Component {
         <div className="doctor-detail-container">
           <div className="intro-doctor">
             <div
-              className="content-left"
+              className="content-image"
               style={{
                 backgroundImage: `url(${
                   detailTeacher.image ? detailTeacher.image : ""
                 })`,
               }}
             ></div>
-            <div className="content-left">{detailTeacher.email}</div>
-            <div className="content-left">{detailTeacher.firstName}</div>
-            <div className="content-left">{detailTeacher.phonenumber}</div>
-            <div className="content-left">{detailTeacher.gender}</div>
-
-            <div className="content-right">
-              <div className="up">
-                {language === LANGUAGES.VI ? nameVi : nameEn}
+            <div className="pt-4">
+              <div className="content-text">Email: {detailTeacher.email}</div>
+              <div className="content-text">
+                Name: {detailTeacher.firstName}
               </div>
-              <div className="down">
-                {detailTeacher &&
-                  detailTeacher.Markdown &&
-                  detailTeacher.Markdown.description && (
-                    <span> {detailTeacher.Markdown.description}</span>
-                  )}
+              <div className="content-text">
+                PhoneNumber: {detailTeacher.phonenumber}
               </div>
+              <div className="content-text">Gender: {detailTeacher.gender}</div>
             </div>
           </div>
-          {/* <div className="schedule-doctor">
-            <div className="content-left">
-              <DoctorSchedule doctorIdFromParent={this.state.currentTeacherId} />
-            </div>
-            <div className="content-right">
-              <DoctorExtraInfor
-                doctorId
-                FromParent={this.state.currentTeacherId}
-              />
-            </div>
-          </div> */}
-          <div className="detail-infor-doctor">
-            {detailTeacher &&
-              detailTeacher.Markdown &&
-              detailTeacher.Markdown.contentHTML && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: detailTeacher.Markdown.contentHTML,
-                  }}
-                ></div>
-              )}
+          <div className="detail-infor-courses row">
+            {detailTeacher.Courses &&
+              detailTeacher.Courses.length > 0 &&
+              detailTeacher.Courses.map((item, index) => {
+                return (
+                  <div className="item-courses col-5" key={index}>
+                    <div
+                      className="bg-image"
+                      onClick={() => this.handleDetailSpecialty(item)}
+                      style={{
+                        backgroundImage: `url(${item.image})`,
+                      }}
+                    ></div>
+                    <div className="section-item">
+                      <div
+                        className="specialty-name"
+                        onClick={() => this.handleDetailSpecialty(item)}
+                      >
+                        {item.name}
+                      </div>
+                      <div className="specialty-subname">
+                        {item.descriptionMarkdown}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
           <div className="comment-doctor"></div>
         </div>

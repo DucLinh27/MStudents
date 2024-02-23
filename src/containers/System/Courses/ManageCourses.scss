@@ -20,23 +20,28 @@
   }
 }
 .previewImg-container {
+  margin-top: 27px;
   .label-upload {
     padding: 5px;
     border-radius: 3px;
     background: #ddd;
     cursor: pointer;
-
+    width: 100px;
+    height: 40px;
+    margin-right: 10px;
+    padding-top: 10px;
     &:hover {
-      opacity: 0.8;
+      opacity: 0.7;
     }
   }
   .preview-image {
-    height: 50px;
-    width: 100%;
+    height: 100px;
+    width: 100px;
     background: center center no-repeat;
     background-size: contain;
     border: 1px solid #ddd;
     cursor: pointer;
+    margin-bottom: 10px;
   }
 }
 .search-inputs {

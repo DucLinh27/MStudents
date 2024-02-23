@@ -246,14 +246,6 @@ class ManageVideos extends Component {
               }
             />
           </div>
-          {/* <div className="col-12">
-            <MdEditor
-              style={{ height: "300px" }}
-              renderHTML={(text) => mdParser.render(text)}
-              onChange={this.handleEditorChange}
-              value={this.state.descriptionMarkdown}
-            />
-          </div> */}
           <div className="col-12 d-flex">
             <div className="search-inputs">
               <input

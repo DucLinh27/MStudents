@@ -25,7 +25,7 @@ import PaymentReturn from "../containers/Orders/PaymentReturn";
 import ProfileUser from "./Student/Users/ProfileUser.js";
 import AllCourses from "./HomePage/Body/AllCourses.js";
 import AllTeacher from "./HomePage/Body/AllTeacher.js";
-import Blog from "./HomePage/Body/Blog.js";
+import Contact from "./HomePage/Body/Contact.js";
 import About from "./HomePage/Body/About.js";
 import UserCourses from "./Student/Users/UserCourses.js";
 
@@ -80,7 +80,7 @@ class App extends Component {
                   <Route path={path.ALL_COURSES} component={AllCourses} />
                   <Route path={path.ALL_TEACHER} component={AllTeacher} />
                   <Route path={path.ABOUT} component={About} />
-                  <Route path={path.BLOG} component={Blog} />=
+                  <Route path={path.CONTACT} component={Contact} />=
                   <Route path={path.ORDER} component={Order} />
                   <Route path={path.PAYMENT_RETURN} component={PaymentReturn} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />

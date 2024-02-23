@@ -30,12 +30,24 @@ class PaymentReturn extends Component {
       console.log(userId);
       const orders = await getOrderService(userId);
       console.log("Orders:", orders);
-      const filteredOrders = Array.isArray(orders)
-        ? orders.filter((order) => order.userId === userId)
-        : Object.values(orders).filter((order) => order.userId === userId);
-      this.setState({
-        arrOrders: filteredOrders,
-      });
+
+      // If orders is an array, use it directly. If not, convert it to an array.
+      const ordersArray = Array.isArray(orders)
+        ? orders
+        : Object.values(orders);
+
+      this.setState(
+        {
+          arrOrders: ordersArray,
+        },
+        () => {
+          // Save arrOrders to localStorage after state update
+          localStorage.setItem(
+            "arrOrders",
+            JSON.stringify(this.state.arrOrders)
+          );
+        }
+      );
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
@@ -87,12 +99,12 @@ class PaymentReturn extends Component {
                       <td>{item.totalPrice}</td>
                       <td>Đã thanh toán</td>
                       <td>
-                        <button
+                        {/* <button
                           className="btn btn-warning mr-5"
                           onClick={this.handleCancle}
                         >
                           Hủy đơn hàng
-                        </button>
+                        </button> */}
                         <button
                           className="btn btn-primary"
                           onClick={this.handleConfirm}
@@ -125,12 +137,12 @@ class PaymentReturn extends Component {
                       </td>
                       <td>{item.totalPrice}</td>
                       <td>
-                        <button
+                        {/* <button
                           className="btn btn-warning mr-5"
                           onClick={this.handleCancle}
                         >
                           Hủy đơn hàng
-                        </button>
+                        </button> */}
                         <button
                           className="btn btn-primary"
                           onClick={this.handleConfirm}
@@ -172,12 +184,12 @@ class PaymentReturn extends Component {
                       </td>
                       <td>{item.totalPrice}</td>
                       <td>
-                        <button
+                        {/* <button
                           className="btn btn-warning mr-5"
                           onClick={this.handleCancle}
                         >
                           Hủy đơn hàng
-                        </button>
+                        </button> */}
                         <button
                           className="btn btn-primary"
                           onClick={this.handleConfirm}
@@ -191,14 +203,14 @@ class PaymentReturn extends Component {
 
                 <div className="pr-5">Tình trạng: Đã thanh toán</div>
               </Modal.Body>
-              <Modal.Footer>
+              {/* <Modal.Footer>
                 <button
                   className="btn btn-secondary"
                   onClick={this.handleCancle}
                 >
                   Xác nhận muốn hủy đơn hàng
                 </button>
-              </Modal.Footer>
+              </Modal.Footer> */}
             </Modal>
           </div>
           <div className="content-checkout">
