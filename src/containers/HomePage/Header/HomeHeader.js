@@ -14,11 +14,14 @@ class HomeHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCartVisible: false,
-      isCartVisible2: false,
-      cartItems: [],
+      isDashboardActive: false,
     };
   }
+  toggleDashboard = () => {
+    this.setState((prevState) => ({
+      isDashboardActive: !prevState.isDashboardActive,
+    }));
+  };
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
@@ -70,15 +73,10 @@ class HomeHeader extends Component {
       isCartVisible2: isDetailPages,
     });
   }
-  handleCart = (item) => {
-    if (this.props.history) {
-      this.props.history.push(`/cart`);
-    }
-  };
+
   render() {
     let languages = this.props.language;
     const { userInfo, processLogout, user } = this.props;
-    const { isCartVisible, isCartVisible2, cartItems } = this.state;
     console.log(user);
     console.log(userInfo);
     let userGoogle = user.user;
@@ -157,61 +155,38 @@ class HomeHeader extends Component {
                   Log in
                 </div>
               )}
-              {isCartVisible || isCartVisible2 ? (
-                <div className="cart-icon">
-                  <i
-                    className="fas fa-shopping-cart"
-                    onClick={(item) => this.handleCart(item)}
-                  ></i>
-                  <span className="cart-count">{cartItems.length}</span>
-                </div>
-              ) : (
-                <div className="support">
-                  <i className="fas fa-question-circle"></i>
-                  <FormattedMessage id="home-header.support" />
-                </div>
-              )}
-              {isCartVisible || isCartVisible2 ? (
-                <div></div>
-              ) : (
-                <div
-                  className={
-                    languages === LANGUAGES.VI
-                      ? "language-vi active"
-                      : "language-vi"
-                  }
-                >
-                  <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
-                    VN
-                  </span>
-                </div>
-              )}
-              {isCartVisible || isCartVisible2 ? (
-                <div></div>
-              ) : (
-                <div
-                  className={
-                    languages === LANGUAGES.EN
-                      ? "language-en active"
-                      : "language-en"
-                  }
-                >
-                  <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
-                    EN
-                  </span>
-                </div>
-              )}
-              {isCartVisible || isCartVisible2 ? (
-                <div></div>
-              ) : (
-                <div
-                  className="btn btn-logout"
-                  onClick={processLogout}
-                  title="Log out"
-                >
-                  <i className="fas fa-sign-out-alt"></i>
-                </div>
-              )}
+
+              <div
+                className={
+                  languages === LANGUAGES.VI
+                    ? "language-vi active"
+                    : "language-vi"
+                }
+              >
+                <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
+                  VN
+                </span>
+              </div>
+
+              <div
+                className={
+                  languages === LANGUAGES.EN
+                    ? "language-en active"
+                    : "language-en"
+                }
+              >
+                <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
+                  EN
+                </span>
+              </div>
+
+              <div
+                className="btn btn-logout"
+                onClick={processLogout}
+                title="Log out"
+              >
+                <i className="fas fa-sign-out-alt"> Log out</i>
+              </div>
             </div>
           </div>
         </div>
@@ -228,7 +203,6 @@ class HomeHeader extends Component {
             </div>
           </div>
         )}
-        
       </React.Fragment>
     );
   }

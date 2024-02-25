@@ -218,6 +218,44 @@ class ManageVideos extends Component {
     // If all checks pass, return true
     return true;
   };
+  handleOnChangeVideo = async (event) => {
+    let data = event.target.files;
+    let file = data[0];
+    if (file) {
+      try {
+        // Upload video to Cloudinary
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "user_video"); // Replace with your Cloudinary upload preset
+
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dyfbye716/video/upload", // Change to your Cloudinary video upload URL
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const result = await response.json();
+
+        console.log(result);
+
+        this.setState({
+          previewVideoURL: result.secure_url,
+          video: result.secure_url, // Use the secure URL provided by Cloudinary
+        });
+        console.log("URL" + result.secure_url);
+      } catch (error) {
+        console.error("Error uploading video to Cloudinary", error);
+        console.error("Error message", error.message);
+        console.error("HTTP Code", error.http_code);
+      }
+    }
+  };
+  openPreviewVideo = () => {
+    if (!this.state.previewVideoURL) return;
+    this.setState({ isOpen: true });
+  };
   render() {
     let arrVideos = this.state.arrVideos;
 
@@ -234,6 +272,28 @@ class ManageVideos extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
+          {/* <div className="col-4 form-group-file">
+            <div className="previewImg-container d-flex">
+              <input
+                className="form-control-file"
+                id="previewImg"
+                type="file"
+                value={this.state.video}
+                hidden
+                onChange={(event) => this.handleOnChangeVideo(event)}
+              />
+              <label className="label-upload ml-2 pl-3" htmlFor="previewImg">
+                Tải video<i className="fas fa-upload ml-2"></i>
+              </label>
+              <div
+                className="preview-image"
+                style={{
+                  backgroundImage: `url(${this.state.previewImageURL})`,
+                }}
+                onClick={() => this.openPreviewVideo()}
+              ></div>
+            </div>
+          </div> */}
           <div className="col-4 form-group">
             <label>YouTube Embed Link</label>
             <input
@@ -269,6 +329,7 @@ class ManageVideos extends Component {
               }
             />
           </div>
+
           <div className="col-12 d-flex">
             <div className="search-inputs">
               <input

@@ -1,74 +1,43 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-import { getAllCourses } from "../../../services/coursesService";
-import Slider from "react-slick";
 import "./About.scss";
-import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
 import HomeFooter from "../Header/HomeFooter";
+import backgroundendlish from "../../../assets/backgroundenglish.png";
+import teachingkids from "../../../assets/teaching-kids.jpg";
+
 class About extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataSpecialty: {},
-    };
-  }
-  async componentDidMount() {
-    let res = await getAllCourses();
-    console.log(res);
-    if (res && res.errCode === 0) {
-      this.setState({ dataSpecialty: res.data ? res.data : [] });
-    }
-  }
-  handleDetailSpecialty = (item) => {
-    if (this.props.history) {
-      this.props.history.push(`/detail-courses/${item.id}`);
-    }
-  };
   render() {
-    let { dataSpecialty } = this.state;
-    console.log("data", dataSpecialty);
     return (
       <>
         <HomeHeader />
-        <div className="allcourses-container">
-          <div className="section-header">
-            <h1 className="title-section">ABOUT</h1>
-          </div>
-          <div className="text">
-            Presenting Academy, the tech school of the future. We teach you the
-            right skills to be prepared for tomorrow.
-          </div>
-          <div className="section-body row">
-            {dataSpecialty &&
-              dataSpecialty.length > 0 &&
-              dataSpecialty.map((item, index) => {
-                return (
-                  <div className="item-courses col-5" key={index}>
-                    <div
-                      className="bg-image"
-                      onClick={() => this.handleDetailSpecialty(item)}
-                      style={{
-                        backgroundImage: `url(${item.image})`,
-                      }}
-                    ></div>
-                    <div className="section-item">
-                      <div
-                        className="specialty-name"
-                        onClick={() => this.handleDetailSpecialty(item)}
-                      >
-                        {item.name}
-                      </div>
-                      <div className="specialty-subname">
-                        {item.descriptionMarkdown}
-                      </div>
-                      <div className="specialty-avatar">NAME TEACHER</div>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+        <div className="about-container">
+          <h1 className="title">About Our English Education</h1>
+          <p className="subtitle">
+            Learn English with our expert teachers and effective curriculum.
+          </p>
+          <img src={backgroundendlish} alt="About us" className="about-image" />
+          <p className="description">
+            We are dedicated to providing the highest quality English language
+            teaching and preparing our students for the English-speaking world.
+            Our courses are designed to help students improve their reading,
+            writing, listening, and speaking skills in English.
+          </p>
+          <img src={teachingkids} alt="About us" className="about-image" />
+          <p className="description">
+            Our English education program is based on a comprehensive curriculum
+            that covers all aspects of the English language. We offer courses
+            for all levels, from beginners to advanced learners. Our teachers
+            are highly qualified and experienced in teaching English as a second
+            language.
+          </p>
+          <p className="description">
+            In addition to our regular courses, we also offer specialized
+            courses in business English, academic English, and test preparation.
+            We use a variety of teaching methods to make learning English fun
+            and effective. Our goal is to help our students achieve their
+            English language goals and succeed in their academic or professional
+            careers.
+          </p>
         </div>
         <HomeFooter />
       </>
@@ -76,16 +45,4 @@ class About extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.user.isLoggedIn,
-    language: state.app.language,
-    //inject
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(About));
+export default About;

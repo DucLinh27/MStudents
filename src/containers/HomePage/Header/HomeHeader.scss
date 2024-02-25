@@ -42,44 +42,26 @@
       }
     }
     .right-content {
+      color: white;
       width: 30%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      .cart-icon {
-        padding-right: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        cursor: pointer;
-        i {
-          font-size: 20px;
-          padding-left: 5px;
-        }
-        .cart-count {
-          padding-left: 10px;
-          font-size: 20px;
-          font-weight: 700;
-        }
-      }
-      .support {
-        padding-right: 10px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        i {
-          font-size: 15px;
-          margin-right: 5px;
-        }
+      .btn {
+        color: white;
       }
       .language-vi {
         cursor: pointer;
         opacity: 0.5;
 
-        span {
-          color: orange;
-        }
+        // span {
+        //   color: white;
+        // }
         &.active {
           opacity: 1;
+          span {
+            color: black;
+          }
         }
         &:hover {
           opacity: 0.8;
@@ -93,7 +75,7 @@
         &.active {
           opacity: 1;
           span {
-            color: blue;
+            color: black;
           }
         }
         &:hover {
@@ -102,7 +84,79 @@
       }
     }
   }
+  //Tablet
+  @media (max-width: 1024px) {
+    // tablet
+    padding: 0 20px;
+
+    .home-header-content {
+      padding: 0 10px;
+
+      .left-content {
+        width: 40%;
+        .header-logo {
+          transform: scale(0.4, 0.4);
+          margin-left: -50px;
+        }
+        i {
+          font-size: 20px;
+        }
+      }
+      .center-content {
+        width: 30%;
+
+        .child-content {
+          font-size: 16px;
+          padding: 10px;
+        }
+      }
+      .right-content {
+        width: 30%;
+      }
+    }
+  }
+  //Mobile
+  @media (max-width: 768px) {
+    // mobile
+    padding: 0 10px;
+
+    .home-header-content {
+      flex-direction: column;
+      padding: 10px 100px;
+      .left-content,
+      .center-content,
+      .right-content {
+        width: 100%;
+      }
+      .left-content {
+        .header-logo {
+          transform: scale(0.3, 0.3);
+          margin-left: 0;
+        }
+        i {
+          font-size: 18px;
+        }
+      }
+      .center-content {
+        justify-content: center;
+        .child-content {
+          font-size: 14px;
+          display: none;
+        }
+        .active .child-content {
+          display: block; // show when active
+        }
+      }
+      .right-content {
+        justify-content: center;
+        .welcome {
+          display: none;
+        }
+      }
+    }
+  }
 }
+
 .home-header-banner {
   .content-up {
     height: 800px;

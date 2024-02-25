@@ -43,13 +43,75 @@ class Contact extends Component {
             </p>
             <div className="button_contents">
               <a href="/allcourses" className="button_courses">
-                Apply Now
+                Our Courses
               </a>
             </div>
           </div>
           <div className="right-contents col-6"></div>
         </div>
-        {/* <HomeFooter /> */}
+        <div className="blog-containers row">
+          <div className="left-contents col-6">
+            <h3>CONTACT FORM</h3>
+            <form>
+              <label for="fname">First Name</label>
+              <input
+                type="text"
+                id="fname"
+                name="firstname"
+                placeholder="Your name.."
+              />
+
+              <label for="lname">Last Name</label>
+              <input
+                type="text"
+                id="lname"
+                name="lastname"
+                placeholder="Your last name.."
+              />
+
+              <label for="country">Country</label>
+              <select id="country" name="country">
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+              </select>
+
+              <label for="subject">Subject</label>
+              <textarea
+                id="subject"
+                name="subject"
+                placeholder="Write something.."
+                style={{ height: "200px" }}
+              ></textarea>
+
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+          <div className="right-contact col-6">
+            <div>
+              <i class="fas fa-map-marker-alt"></i>
+              <h3>Our Location</h3>
+            </div>
+            <div>
+              <p>123 Street, New York, USA</p>
+            </div>
+            <div>
+              <i class="fas fa-mobile-alt"></i>
+              <h3>Call Us</h3>
+            </div>
+            <div>
+              <p>+012 345 6789</p>
+            </div>
+            <div>
+              <i class="fas fa-envelope"></i>
+              <h3>Email Us</h3>
+            </div>
+            <div>
+              <p>mail@domain.com</p>
+            </div>
+          </div>
+        </div>
+        <HomeFooter />
       </>
     );
   }
