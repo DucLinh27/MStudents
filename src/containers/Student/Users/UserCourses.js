@@ -25,6 +25,7 @@ class UserCourses extends React.Component {
       videoDetails: [],
       videoUrls: [],
       showDetails: false,
+      selectedVideoIndex: null,
     };
   }
   async componentDidMount() {
@@ -68,7 +69,11 @@ class UserCourses extends React.Component {
   showMyComments = () => {
     this.setState({ activeTab: "myComments" });
   };
-
+  handleVideoNameClick = (index) => {
+    this.setState((prevState) => ({
+      selectedVideoIndex: prevState.selectedVideoIndex === index ? null : index,
+    }));
+  };
   render() {
     let { language } = this.props;
     const { userInfo, user } = this.props;
@@ -99,22 +104,28 @@ class UserCourses extends React.Component {
                   <table>
                     <tbody>
                       <tr>
-                        <th>Courses</th>
+                        <th>Your Courses</th>
                       </tr>
                       {this.state.videoDetails.map((video, index) => (
                         <tr key={index}>
                           <td>
                             <div>
-                              <h3>{video.name}</h3>
-                              <iframe
-                                width="800"
-                                height="215"
-                                src={video.url}
-                                title={`Video ${index}`}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                              ></iframe>
+                              <h3
+                                onClick={() => this.handleVideoNameClick(index)}
+                              >
+                                {video.name}
+                              </h3>
+                              {this.state.selectedVideoIndex === index && (
+                                <iframe
+                                  width="800"
+                                  height="215"
+                                  src={video.url}
+                                  title={`Video ${index}`}
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                ></iframe>
+                              )}
                             </div>
                           </td>
                         </tr>

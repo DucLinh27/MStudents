@@ -1,5 +1,5 @@
 .doctor-detail-container {
-  height: 500px;
+  height: 900px;
   .intro-doctor {
     display: flex;
     margin: 65px 150px 0 150px;
@@ -40,7 +40,7 @@
   .detail-infor-courses {
     background-color: #f9f9f9;
     display: flex;
-    margin: 30px 160px;
+    margin: 30px 10px 30px 150px;
     h3 {
       font-size: 17px;
     }
@@ -55,9 +55,12 @@
     .item-courses {
       margin-right: 100px;
       .bg-image {
-        width: 550px;
+        width: 450px;
         height: 300px;
         border-radius: 10px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
       }
     }
   }
@@ -121,9 +124,12 @@
       .item-courses {
         margin-right: 100px;
         .bg-image {
-          width: 550px;
+          width: 450px;
           height: 300px;
           border-radius: 10px;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
         }
       }
     }

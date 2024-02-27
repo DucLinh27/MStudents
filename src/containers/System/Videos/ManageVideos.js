@@ -29,6 +29,7 @@ class ManageVideos extends Component {
       arrVideos: [],
       isSearching: false,
       filteredVideos: [],
+      isEmbedLink: true,
     };
   }
   //just run 1 time
@@ -118,15 +119,19 @@ class ManageVideos extends Component {
       descriptionMarkdown: text,
     });
   };
+
   handleSaveNewVideo = async () => {
     if (!this.validateFields()) {
       // If the input is not valid, stop the function
       return;
     }
-
+    let data = {
+      ...this.state,
+      image: this.state.previewImageURL,
+    };
     if (this.state.isEditing) {
       // Edit the class
-      let res = await editVideosService(this.state);
+      let res = await editVideosService(data);
       if (res && res.errCode === 0) {
         toast.success("Edit class successfully");
         this.setState({
@@ -143,12 +148,12 @@ class ManageVideos extends Component {
         console.log(res);
       }
     } else {
-      let res = await createNewVideos(this.state);
+      let res = await createNewVideos(data);
       if (res && res.errCode === 0) {
         toast.success("Add new video successfully");
         this.setState({
           name: this.state.name,
-          video: this.state.video,
+          video: this.state.previewImageURL,
           coursesId: this.state.coursesId.value,
         });
       } else {
@@ -218,6 +223,10 @@ class ManageVideos extends Component {
     // If all checks pass, return true
     return true;
   };
+  openPreviewVideo = () => {
+    if (!this.state.previewVideoURL) return;
+    this.setState({ isOpen: true });
+  };
   handleOnChangeVideo = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -251,13 +260,11 @@ class ManageVideos extends Component {
       }
     }
   };
-  openPreviewVideo = () => {
-    if (!this.state.previewVideoURL) return;
-    this.setState({ isOpen: true });
-  };
+
   render() {
     let arrVideos = this.state.arrVideos;
-
+    let previewVideoURL = this.state.previewVideoURL;
+    console.log(previewVideoURL);
     return (
       <div className="manage-sepcialty-container">
         <div className="ms-title">Manage VIDEOS</div>
@@ -271,47 +278,55 @@ class ManageVideos extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
-          <div className="col-4 form-group-file">
-            <div className="previewImg-container d-flex">
+
+          {this.state.isEmbedLink ? (
+            <div className="col-4 form-group">
+              <label>YouTube Embed Link</label>
               <input
-                className="form-control-file"
-                id="previewImg"
-                type="file"
-                hidden
-                onChange={(event) => this.handleOnChangeVideo(event)}
+                className="form-control"
+                type="text"
+                value={this.state.video}
+                onChange={this.handleOnChangeEmbedLink}
               />
-              <label className="label-upload ml-2 pl-3" htmlFor="previewImg">
-                Tải video<i className="fas fa-upload ml-2"></i>
-              </label>
-              <div
-                className="preview-image"
-                style={{
-                  backgroundImage: `url(${this.state.previewImageURL})`,
-                }}
-                onClick={() => this.openPreviewVideo()}
-              ></div>
+              <div className="mt-2">
+                <iframe
+                  width="514"
+                  height="214"
+                  src={this.state.video}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
-          </div>
-          {/* <div className="col-4 form-group">
-            <label>YouTube Embed Link</label>
-            <input
-              className="form-control"
-              type="text"
-              value={this.state.video}
-              onChange={this.handleOnChangeEmbedLink}
-            />
-            <div className="mt-2">
-              <iframe
-                width="514"
-                height="214"
-                src={this.state.video}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+          ) : (
+            <div className="col-4 form-group-file">
+              <div className="previewImg-containers d-flex">
+                <input
+                  type="file"
+                  onChange={(event) => this.handleOnChangeVideo(event)}
+                />
+                <div
+                  className="preview-video"
+                  onClick={() => this.openPreviewVideo()}
+                >
+                  <video className="video-background" autoPlay loop muted>
+                    <source src={this.state.previewVideoURL} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
             </div>
-          </div> */}
+          )}
+          <button className="btn-change-video"
+            onClick={() =>
+              this.setState((prevState) => ({
+                isEmbedLink: !prevState.isEmbedLink,
+              }))
+            }
+          >
+            Change Ways Upload Video
+          </button>
           <div className="col-4 form-group">
             <label>
               {" "}
@@ -327,7 +342,6 @@ class ManageVideos extends Component {
               }
             />
           </div>
-
           <div className="col-12 d-flex">
             <div className="search-inputs">
               <input

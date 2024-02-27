@@ -3,25 +3,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import logoeducation from "../../../assets/logoeducation.svg";
+import image1 from "../../../assets/image1.jpg";
+import kids_on_tablets_in_class from "../../../assets/kids_on_tablets_in_class.jpg";
+import image2 from "../../../assets/image3.jpg";
+
 import { LANGUAGES } from "../../../utils/constant";
 import { changeLanguageApp } from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
 import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
-import HomeFooter from "./HomeFooter";
+const images = [kids_on_tablets_in_class, image1, image2];
 
 class HomeHeader extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isDashboardActive: false,
-    };
+    this.state = { currentImage: 0 };
   }
-  toggleDashboard = () => {
-    this.setState((prevState) => ({
-      isDashboardActive: !prevState.isDashboardActive,
-    }));
-  };
+
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
@@ -57,11 +55,15 @@ class HomeHeader extends Component {
   };
   componentDidMount() {
     this.checkIfDetailPage();
+    this.interval = setInterval(this.updateCurrentImage, 3000);
   }
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.checkIfDetailPage();
     }
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
   checkIfDetailPage() {
     const { pathname } = this.props.location;
@@ -73,6 +75,11 @@ class HomeHeader extends Component {
       isCartVisible2: isDetailPages,
     });
   }
+  updateCurrentImage = () => {
+    this.setState((prevState) => ({
+      currentImage: (prevState.currentImage + 1) % images.length,
+    }));
+  };
 
   render() {
     let languages = this.props.language;
@@ -192,7 +199,12 @@ class HomeHeader extends Component {
         </div>
         {this.props.isShowBanner === true && (
           <div className="home-header-banner">
-            <div className="content-up row">
+            <div
+              className="content-up row"
+              style={{
+                backgroundImage: `url(${images[this.state.currentImage]})`,
+              }}
+            >
               <div className="content-background">
                 <p>Start Online Education</p>
                 <h1>

@@ -79,11 +79,8 @@
         &:hover {
           background: #d7d7d7 !important;
         }
-      }
-      .slick-prev:before,
-      .slick-next:before {
-        font-family: "Glyphicons Halflings" !important;
-        color: rebeccapurple !important;
+        opacity: 0.8;
+        border-radius: 20px;
       }
       .slick-next {
         right: -10 !important;
@@ -95,10 +92,13 @@
         &:hover {
           background: #eceaea !important;
         }
+        opacity: 0.8;
+        border-radius: 20px;
       }
+      .slick-prev:before,
       .slick-next:before {
-      }
-      .slick-prev:before {
+        font-family: "Glyphicons Halflings" !important;
+        color: rebeccapurple !important;
       }
     }
   }

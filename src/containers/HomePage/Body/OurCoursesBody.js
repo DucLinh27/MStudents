@@ -5,7 +5,11 @@ import { getAllCourses } from "../../../services/coursesService";
 import Slider from "react-slick";
 import "./OurCoursesBody.scss";
 import { withRouter } from "react-router";
+import image2 from "../../../assets/image3.jpg";
+import kids_on_tablets_in_class from "../../../assets/image3.jpg";
+import image1 from "../../../assets/image3.jpg";
 
+const images = [kids_on_tablets_in_class, image1, image2];
 class OurCoursesBody extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +28,11 @@ class OurCoursesBody extends Component {
     if (this.props.history) {
       this.props.history.push(`/detail-courses/${item.id}`);
     }
+  };
+  updateCurrentImage = () => {
+    this.setState((prevState) => ({
+      currentImage: (prevState.currentImage + 1) % images.length,
+    }));
   };
   render() {
     let { dataSpecialty } = this.state;
