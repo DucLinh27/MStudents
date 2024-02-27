@@ -33,7 +33,7 @@ class Contact extends Component {
     return (
       <>
         <HomeHeader />
-        <div className="blog-container row">
+        <div className="blog-containerss row">
           <div className="left-content col-6">
             <h1>Apply now, start at interhigh this september</h1>
             <p>

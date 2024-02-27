@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "./HomeHeader";
 import Courses from "../Body/Courses";
-import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HomeFooter from "./HomeFooter";
 import Teacher from "../Body/Teacher";
 import Contact from "../Body/Contact";
+import OurCoursesBody from "../Body/OurCoursesBody";
 class HomePage extends Component {
   // handleAfterChange = (index, dontAnimate) => {
 
@@ -33,7 +33,7 @@ class HomePage extends Component {
     return (
       <div>
         <HomeHeader isShowBanner={true} />
-        <Contact />
+        <OurCoursesBody />
         <Courses settings={settings} />
         <Teacher settings={settings2} />
         <HomeFooter settings={settings} />

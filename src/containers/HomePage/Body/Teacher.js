@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
 import { FormattedMessage } from "react-intl";
+import "./Teacher.scss";
 class AllTeacher extends Component {
   constructor(props) {
     super(props);

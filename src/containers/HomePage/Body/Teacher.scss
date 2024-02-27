@@ -1,16 +1,4 @@
-.section-shares {
-  &.section-specialty {
-    background: #f5f5f5;
-    height: 800px;
-  }
-  &.section-specialtys {
-    background: antiquewhite;
-    height: 650px;
-  }
-  &.section-about {
-    height: 500px !important;
-    background: #f5f5f5;
-  }
+.section-share {
   .section-container {
     margin: 0 190px;
     display: flex;
@@ -48,18 +36,19 @@
             height: 320px;
           }
         }
-        .specialty-item {
-          width: 567px;
-          height: 280px;
+        //Teacher
+        .section_teacher {
+          height: 150px;
+          margin-left: 5px;
         }
-        .specialty-name {
+        .name_teacher {
           color: rgb(38, 35, 35);
           margin-top: 0;
           font-size: 24px;
           font-weight: 700;
           line-height: 1.5em;
         }
-        .specialty-subname {
+        .des_teacher {
           color: rgb(38, 35, 35);
           font-family: Kumbh Sans, sans-serif;
           font-size: 15px;
@@ -140,21 +129,36 @@
     }
   }
 }
+
+.button_content {
+  margin-top: 50px;
+  text-align: center;
+  .button_courses {
+    transition: 0.2s ease;
+    &:hover {
+      transform: translateY(-5px);
+      opacity: 0.8;
+    }
+    margin-bottom: 100px;
+    background-color: #064ea4;
+    color: white;
+    text-align: center;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform-style: preserve-3d;
+    border-radius: 1000px;
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.125em;
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
 // For tablet devices
 @media (min-width: 768px) and (max-width: 1023px) {
-  .section-shares {
-    &.section-specialty {
-      background: #f5f5f5;
-      height: 100%;
-    }
-    &.section-specialtys {
-      background: antiquewhite;
-      height: 650px;
-    }
-    &.section-about {
-      height: 500px !important;
-      background: #f5f5f5;
-    }
+  .section-share {
     .section-container {
       margin: 0 20px;
       display: flex;
@@ -179,16 +183,21 @@
             opacity: 0.8;
           }
           .bg-image {
-            width: 250px;
-            height: 150px;
+            width: 330px;
+            height: 200px;
             border-top-right-radius: 20px;
             border-top-left-radius: 20px;
             background-position: center center;
             background-repeat: no-repeat !important;
             background-size: cover;
+
+            &.section-outstanding-teacher {
+              width: 320px;
+              height: 320px;
+            }
           }
           .specialty-item {
-            width: 400px;
+            width: 567px;
             height: 280px;
           }
           .specialty-name {
@@ -204,6 +213,59 @@
             font-size: 15px;
             line-height: 1.667em;
           }
+
+          //Teacher
+          .section_teacher {
+            height: 150px;
+            margin-left: 5px;
+          }
+          .name_teacher {
+            color: rgb(38, 35, 35);
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.5em;
+          }
+          .des_teacher {
+            color: rgb(38, 35, 35);
+            font-family: Kumbh Sans, sans-serif;
+            font-size: 15px;
+            line-height: 1.667em;
+          }
+        }
+
+        //reset slick slider css
+
+        .slick-prev {
+          left: -10 !important;
+          z-index: 1000;
+          height: 48px !important;
+          width: 44px !important;
+          background: #fff !important;
+          border: 2px solid #d7d7d7 !important;
+          &:hover {
+            background: #d7d7d7 !important;
+          }
+        }
+        .slick-prev:before,
+        .slick-next:before {
+          font-family: "Glyphicons Halflings" !important;
+          color: rebeccapurple !important;
+        }
+        .slick-next {
+          right: -10 !important;
+          height: 48px !important;
+          z-index: 1000;
+          width: 44px !important;
+          background: #fff !important;
+          border: 2px solid #d7d7d7 !important;
+          &:hover {
+            background: #eceaea !important;
+          }
+        }
+        .slick-next:before {
+        }
+        .slick-prev:before {
         }
       }
     }
@@ -223,25 +285,13 @@
   }
 }
 
-// For tablet devices
-@media (max-width: 767px) {
-  .section-shares {
-    &.section-specialty {
-      background: #f5f5f5;
-      height: 500px;
-    }
-    &.section-specialtys {
-      background: antiquewhite;
-      height: 450px;
-    }
-    &.section-about {
-      height: 500px !important;
-      background: #f5f5f5;
-    }
+// For mobile devices
+@media (max-width: 932px) {
+  .section-share {
     .section-container {
       margin: 0 20px;
-      //   display: flex;
-      //   flex-direction: column;
+      display: flex;
+      flex-direction: column;
       .section-header {
         height: 60px;
         margin-bottom: 60px;
@@ -255,7 +305,7 @@
         }
       }
       .section-body {
-        margin-top: 50px;
+        margin-top: 20px;
         .section-customize {
           transition: 0.2s ease;
           &:hover {
@@ -263,32 +313,67 @@
             opacity: 0.8;
           }
           .bg-image {
-            width: 100px;
-            height: 100px;
+            width: 330px;
+            height: 200px;
             border-top-right-radius: 20px;
             border-top-left-radius: 20px;
             background-position: center center;
             background-repeat: no-repeat !important;
             background-size: cover;
           }
-          .specialty-item {
-            width: 400px;
-            height: 280px;
+          //Teacher
+          .section_teacher {
+            height: 50px;
+            margin-left: 5px;
           }
-          .specialty-name {
+          .name_teacher {
             color: rgb(38, 35, 35);
             margin-top: 0;
             font-size: 24px;
             font-weight: 700;
             line-height: 1.5em;
           }
-          .specialty-subname {
+          .des_teacher {
             color: rgb(38, 35, 35);
             font-family: Kumbh Sans, sans-serif;
             font-size: 15px;
             line-height: 1.667em;
             display: none;
           }
+        }
+
+        //reset slick slider css
+
+        .slick-prev {
+          left: -10 !important;
+          z-index: 1000;
+          height: 48px !important;
+          width: 44px !important;
+          background: #fff !important;
+          border: 2px solid #d7d7d7 !important;
+          &:hover {
+            background: #d7d7d7 !important;
+          }
+        }
+        .slick-prev:before,
+        .slick-next:before {
+          font-family: "Glyphicons Halflings" !important;
+          color: rebeccapurple !important;
+        }
+        .slick-next {
+          right: -10 !important;
+          height: 48px !important;
+          z-index: 1000;
+          width: 44px !important;
+          background: #fff !important;
+          border: 2px solid #d7d7d7 !important;
+          &:hover {
+            background: #eceaea !important;
+          }
+        }
+        .slick-next:before {
+        }
+        .slick-prev:before {
         }
       }
     }
@@ -301,35 +386,9 @@
       cursor: pointer;
       padding: 5px;
       .customize-border {
-        border: 1px solid gray;
+        // border: 1px solid gray;
         padding: 20px;
       }
     }
-  }
-}
-.button_content {
-  margin-top: 70px;
-  text-align: center;
-  .button_courses {
-    transition: 0.2s ease;
-    &:hover {
-      transform: translateY(-5px);
-      opacity: 0.8;
-    }
-    margin-bottom: 100px;
-    background-color: #064ea4;
-    color: white;
-    text-align: center;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transform-style: preserve-3d;
-    border-radius: 1000px;
-    padding: 20px 30px;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.125em;
-    transition: transform 0.3s, background-color 0.3s;
-    text-decoration: none;
-    cursor: pointer;
   }
 }

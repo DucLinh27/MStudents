@@ -321,7 +321,6 @@ class Order extends Component {
                   <FormattedMessage id="order.back" />
                 </div>
               </div>
-
               {!this.state.coursePurchased ? (
                 <>
                   {!showPaypal && (
@@ -362,7 +361,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearCart: () => dispatch(actions.clearCart()),
     clearOrder: () => dispatch(actions.clearOrder()),
     coursePurchased: () => dispatch(actions.coursePurchased()),
   };

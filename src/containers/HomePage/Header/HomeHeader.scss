@@ -121,17 +121,11 @@
     padding: 0 10px;
 
     .home-header-content {
-      flex-direction: column;
-      padding: 10px 100px;
-      .left-content,
-      .center-content,
-      .right-content {
-        width: 100%;
-      }
+      display: flex;
       .left-content {
         .header-logo {
-          transform: scale(0.3, 0.3);
-          margin-left: 0;
+          width: 700px;
+          height: 50px;
         }
         i {
           font-size: 18px;
@@ -151,6 +145,10 @@
         justify-content: center;
         .welcome {
           display: none;
+        }
+        i {
+          display: flex;
+          width: 100px;
         }
       }
     }

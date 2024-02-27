@@ -209,11 +209,11 @@ class ManageVideos extends Component {
       return false;
     }
 
-    // Check if a course is selected
-    if (!selectedCourses) {
-      alert("Please select a course");
-      return false;
-    }
+    // // Check if a course is selected
+    // if (!selectedCourses) {
+    //   alert("Please select a course");
+    //   return false;
+    // }
 
     // If all checks pass, return true
     return true;
@@ -223,32 +223,31 @@ class ManageVideos extends Component {
     let file = data[0];
     if (file) {
       try {
-        // Upload video to Cloudinary
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "user_video"); // Replace with your Cloudinary upload preset
+        formData.append("upload_preset", "user_video");
 
         const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dyfbye716/video/upload", // Change to your Cloudinary video upload URL
+          "https://api.cloudinary.com/v1_1/dyfbye716/video/upload",
           {
             method: "POST",
             body: formData,
           }
         );
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
-
         console.log(result);
-
         this.setState({
           previewVideoURL: result.secure_url,
-          video: result.secure_url, // Use the secure URL provided by Cloudinary
+          video: result.secure_url,
         });
         console.log("URL" + result.secure_url);
       } catch (error) {
-        console.error("Error uploading video to Cloudinary", error);
-        console.error("Error message", error.message);
-        console.error("HTTP Code", error.http_code);
+        console.error("HTTP Code", error.message);
       }
     }
   };
@@ -272,13 +271,12 @@ class ManageVideos extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
-          {/* <div className="col-4 form-group-file">
+          <div className="col-4 form-group-file">
             <div className="previewImg-container d-flex">
               <input
                 className="form-control-file"
                 id="previewImg"
                 type="file"
-                value={this.state.video}
                 hidden
                 onChange={(event) => this.handleOnChangeVideo(event)}
               />
@@ -293,8 +291,8 @@ class ManageVideos extends Component {
                 onClick={() => this.openPreviewVideo()}
               ></div>
             </div>
-          </div> */}
-          <div className="col-4 form-group">
+          </div>
+          {/* <div className="col-4 form-group">
             <label>YouTube Embed Link</label>
             <input
               className="form-control"
@@ -313,7 +311,7 @@ class ManageVideos extends Component {
                 allowFullScreen
               ></iframe>
             </div>
-          </div>
+          </div> */}
           <div className="col-4 form-group">
             <label>
               {" "}

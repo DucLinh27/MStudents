@@ -1,0 +1,241 @@
+.blog-containerss {
+  height: 100%;
+  margin: 100px 160px;
+  .left-content {
+    margin: auto;
+    margin-top: 50px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 20px;
+    h1 {
+      color: #0f437f;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.289em;
+    }
+    p {
+      line-height: 34px;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: #8c97aa;
+    }
+  }
+  .right-contents {
+    background: url("../../../assets/teaching-kids.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    flex-direction: column;
+    border-radius: 10px;
+    height: 400px;
+    margin: auto;
+  }
+  .right-contact {
+    justify-content: space-between;
+    margin-top: 70px;
+  }
+
+  .right-contact div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .right-contact i {
+    font-size: 1.5em;
+    color: #337ab7;
+    margin-right: 10px;
+  }
+
+  .right-contact h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin: 0;
+  }
+
+  .right-contact p {
+    font-size: 1.3em;
+    color: #666;
+    margin: 0;
+  }
+}
+.button_contents {
+  margin-top: 50px;
+  .button_courses {
+    transition: 0.2s ease;
+    &:hover {
+      transform: translateY(-5px);
+      opacity: 0.8;
+    }
+    margin-bottom: 100px;
+    background-color: #064ea4;
+    color: white;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform-style: preserve-3d;
+    border-radius: 1000px;
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.125em;
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+// For tablet devices
+@media (min-width: 768px) and (max-width: 1023px) {
+  .blog-containerss {
+    height: 100%;
+    margin: 40px 30px;
+    .left-content {
+      margin: auto;
+      margin-top: 50px;
+      flex: 0 0 50%;
+      max-width: 50%;
+      padding: 0 20px;
+      h1 {
+        color: #0f437f;
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: 38px;
+        font-weight: 600;
+        line-height: 1.289em;
+      }
+      p {
+        line-height: 34px;
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: #8c97aa;
+      }
+    }
+    .right-contents {
+      background: url("../../../assets/teaching-kids.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      flex-direction: column;
+      border-radius: 10px;
+      height: 400px;
+      margin: auto;
+    }
+    .right-contact {
+      justify-content: space-between;
+      margin-top: 70px;
+    }
+
+    .right-contact div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .right-contact i {
+      font-size: 1.5em;
+      color: #337ab7;
+      margin-right: 10px;
+    }
+
+    .right-contact h3 {
+      font-size: 1.8em;
+      color: #333;
+      margin: 0;
+    }
+
+    .right-contact p {
+      font-size: 1.3em;
+      color: #666;
+      margin: 0;
+    }
+  }
+}
+
+// For tablet devices
+@media (max-width: 767px) {
+  .blog-containerss {
+    height: 100%;
+    margin: 100px 0;
+    .left-content {
+      width: 100% !important;
+      margin: auto;
+      margin-top: 50px;
+      flex: 0 0 50%;
+      max-width: 50%;
+      padding: 0 20px;
+      h1 {
+        color: #0f437f;
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: 38px;
+        font-weight: 600;
+        line-height: 1.289em;
+      }
+      p {
+        line-height: 34px;
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: #8c97aa;
+      }
+    }
+    .right-contents {
+      display: none;
+      background: url("../../../assets/teaching-kids.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      flex-direction: column;
+      border-radius: 10px;
+      height: 400px;
+      margin: auto;
+    }
+    .right-contact {
+      justify-content: space-between;
+      margin-top: 70px;
+    }
+
+    .right-contact div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .right-contact i {
+      font-size: 1.5em;
+      color: #337ab7;
+      margin-right: 10px;
+    }
+
+    .right-contact h3 {
+      font-size: 1.8em;
+      color: #333;
+      margin: 0;
+    }
+
+    .right-contact p {
+      font-size: 1.3em;
+      color: #666;
+      margin: 0;
+    }
+  }
+  .button_contents {
+    margin-top: 50px;
+    .button_courses {
+      margin-bottom: 100px;
+      background-color: #064ea4;
+      color: white;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transform-style: preserve-3d;
+      border-radius: 1000px;
+      padding: 20px 10px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.125em;
+      transition: transform 0.3s, background-color 0.3s;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}

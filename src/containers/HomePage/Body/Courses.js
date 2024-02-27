@@ -29,7 +29,7 @@ class Courses extends Component {
     let { dataSpecialty } = this.state;
     console.log("data", dataSpecialty);
     return (
-      <div className="section-share section-specialtys">
+      <div className="section-shares section-specialtys">
         <div className="section-container">
           <div className="section-header">
             <h2 className="title-section">

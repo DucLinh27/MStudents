@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-
+import "./HomeFooter.scss";
 class HomeFooter extends Component {
   constructor(props) {
     super(props);
@@ -37,11 +37,21 @@ class HomeFooter extends Component {
       <div className="footer-container">
         <div className="footer-content">
           <div className="logo-footer row">
-            <div onClick={() => this.returnToHome()}>Home</div>
-            <div onClick={() => this.handleAboutPage()}>About</div>
-            <div onClick={() => this.handleCoursesPage()}>Courses</div>
-            <div onClick={() => this.handleTeachersPage()}>Teachers</div>
-            <div onClick={() => this.handleContactPage()}>Contact</div>
+            <div className="child" onClick={() => this.returnToHome()}>
+              Home
+            </div>
+            <div className="child" onClick={() => this.handleAboutPage()}>
+              About
+            </div>
+            <div className="child" onClick={() => this.handleCoursesPage()}>
+              Courses
+            </div>
+            <div className="child" onClick={() => this.handleTeachersPage()}>
+              Teachers
+            </div>
+            <div className="child" onClick={() => this.handleContactPage()}>
+              Contact
+            </div>
           </div>
           <div className="contact-footer">© 2024 Company, Inc</div>
         </div>

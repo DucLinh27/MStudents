@@ -4,7 +4,7 @@ import HomeHeader from "../../HomePage/Header/HomeHeader";
 import "./DetailTeacher.scss";
 import { getDetailInforTeacher } from "../../../services/teacherService";
 import { LANGUAGES } from "../../../utils";
-import Slider from "react-slick";
+import HomeFooter from "../../HomePage/Header/HomeFooter";
 
 class TeacherDoctor extends Component {
   constructor(props) {
@@ -78,7 +78,10 @@ class TeacherDoctor extends Component {
               detailTeacher.Courses.length > 0 &&
               detailTeacher.Courses.map((item, index) => {
                 return (
-                  <div className="item-courses col-5" key={index}>
+                  <div
+                    className="item-courses col-lg-5 col-md-6 col-sm-6"
+                    key={index}
+                  >
                     <div
                       className="bg-image"
                       onClick={() => this.handleDetailSpecialty(item)}
@@ -103,6 +106,7 @@ class TeacherDoctor extends Component {
           </div>
           <div className="comment-doctor"></div>
         </div>
+        <HomeFooter />
       </>
     );
   }
