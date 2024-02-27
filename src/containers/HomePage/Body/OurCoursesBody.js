@@ -30,7 +30,7 @@ class OurCoursesBody extends Component {
     console.log("data", dataSpecialty);
     return (
       <>
-        <div className="blog-containerss row">
+        <div className="blog-containerour row">
           <div className="left-content col-6">
             <h1>Apply now, start at interhigh this september</h1>
             <p>

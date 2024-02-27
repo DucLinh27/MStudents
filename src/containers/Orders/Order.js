@@ -207,7 +207,7 @@ class Order extends Component {
                 <label for="username">
                   <b>
                     {" "}
-                    <FormattedMessage id="order.username" />
+                    <FormattedMessage id="order.username" /> :
                   </b>
                 </label>
                 <input
@@ -234,7 +234,7 @@ class Order extends Component {
                 <label for="phonenumber">
                   <b>
                     {" "}
-                    <FormattedMessage id="order.phonenumber" />
+                    <FormattedMessage id="order.phonenumber" /> :
                   </b>
                 </label>
                 <input

@@ -115,32 +115,15 @@ class DetailCourses extends Component {
                     }}
                   ></div>
                   <h1>{dataDetailCourse.name}</h1>
-
-                  <p>{dataDetailCourse.descriptionMarkdown}</p>
                 </div>
                 <div className="container-courses">
                   <div className="about-courses">
                     <h3>About the courses</h3>
-                    <p>
-                      Sed viverra ipsum nunc aliquet bibendum enim facilisis
-                      gravida. Diam phasellus vestibulum lorem sed risus
-                      ultricies.
-                    </p>
-                  </div>
-                  <div className="learn-courses">
-                    <h3>What will you learn</h3>
-                    <p>
-                      Euismod sem purus rutrum in. Tortor varius a bibendum nisl
-                      et tellus. Aliquet elit senectus iaculis netus gravida.
-                      Sed viverra ipsum nunc aliquet bibendum enim facilisis
-                      gravida. At urna condimentum mattis pellentesque id nibh.
-                      Magna etiam tempor orci eu lobortis elementum. Bibendum
-                      est ultricies integer quis. Semper eget duis at tellus.
-                    </p>
+                    <p>{dataDetailCourse.descriptionMarkdown}</p>
                   </div>
                 </div>
               </div>
-              <div className="right-content col-3">
+              <div className="right-content col-lg-4 col-md-6 col-sm-12">
                 <div className="right-up">
                   <div className="price">{dataDetailCourse.price} VND</div>
                   <p>

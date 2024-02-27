@@ -1,212 +1,646 @@
-.order-container {
-  padding: 60px 140px;
-  height: 140%;
+@media (min-width: 1023px) {
+  .order-container {
+    padding: 60px 140px;
+    height: 140%;
 
-  background-color: rgb(243, 239, 235);
-  .address-container {
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 30px;
-    padding: 10px;
-    form {
-      margin-left: 10px;
-    }
-    h1 {
-      font-size: 20px;
-      font-weight: 700;
-      padding: 10px 0;
-      border: 1px solod red;
-    }
-    input {
-      height: 30px;
-      font-weight: normal;
-      font-size: 1em;
-      width: 500px;
-    }
-    label {
-      font-weight: normal;
-    }
-    .username {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
+    background-color: rgb(243, 239, 235);
+    .address-container {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 30px;
+      padding: 10px;
+      form {
+        margin-left: 10px;
       }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 65px;
-      }
-    }
-    .email {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 95px;
-      }
-    }
-    .phone-number {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 35px;
-      }
-    }
-    .nation {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 90px;
-      }
-    }
-    .country {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 30px;
-      }
-    }
-    .district {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 55px;
-      }
-    }
-    .wards {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 65px;
-      }
-    }
-    .address {
-      flex-direction: column;
-      margin-bottom: 20px;
-      label {
-        margin-bottom: 5px;
-      }
-      input {
-        padding: 3px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 15px;
-      }
-    }
-  }
-
-  .payment-container {
-    margin-top: 50px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px 10px;
-    h3 {
-      padding-bottom: 20px;
-    }
-    label {
-      margin-left: 10px;
-    }
-    input {
-      height: 15px;
-      width: 15px;
-      border-radius: 50%;
-      left: 0;
-    }
-    .payment {
-      width: 200px;
-      height: 30px;
-    }
-  }
-
-  .recheck-products {
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 50px;
-    padding: 10px;
-    .payment-name {
-      padding-left: 100px;
-    }
-    .transport {
-      justify-content: space-between;
-      padding-left: 20px;
-      padding-right: 40px;
-      height: 157px;
-      border: 1px solid gray;
-      margin-bottom: 20px;
-    }
-    .image {
-      width: 100px;
-      height: 120px;
-    }
-  }
-  .content-checkout {
-    background-color: white;
-    margin-top: 50px;
-    border-radius: 10px;
-
-    .top-content {
-      padding-top: 30px;
-      flex-direction: column;
-      align-items: flex-end;
-      display: flex;
-      justify-content: space-between;
-      width: 97%;
-    }
-    .bottom-content {
-      justify-content: space-between;
-      cursor: pointer;
-      padding: 20px;
-      margin-right: 20px;
-      .back-cart {
-        margin-top: 15px;
-      }
-      .confirm {
-        background: #c92127;
-        color: white;
-        border: none;
+      h1 {
+        font-size: 20px;
         font-weight: 700;
-        transition: all 0.3s;
-        padding: 8px 0;
-        margin: 8px 0;
-        border-radius: 5px;
-        width: 250px;
+        padding: 10px 0;
+        border: 1px solod red;
+      }
+      input {
+        height: 30px;
+        font-weight: normal;
+        font-size: 1em;
+        width: 500px;
+      }
+      label {
+        font-weight: normal;
+      }
+      .username {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 65px;
+        }
+      }
+      .email {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 95px;
+        }
+      }
+      .phone-number {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 35px;
+        }
+      }
+      .nation {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 90px;
+        }
+      }
+      .country {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 30px;
+        }
+      }
+      .district {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 55px;
+        }
+      }
+      .wards {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 65px;
+        }
+      }
+      .address {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 15px;
+        }
+      }
+    }
+
+    .payment-container {
+      margin-top: 50px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px 10px;
+      h3 {
+        padding-bottom: 20px;
+      }
+      label {
+        margin-left: 10px;
+      }
+      input {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        left: 0;
+      }
+      .payment {
+        width: 200px;
+        height: 30px;
+      }
+    }
+
+    .recheck-products {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 50px;
+      padding: 10px;
+      .payment-name {
+        padding-left: 100px;
+      }
+      .transport {
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 40px;
+        height: 157px;
+        border: 1px solid gray;
+        margin-bottom: 20px;
+      }
+      .image {
+        width: 100px;
+        height: 120px;
+      }
+    }
+    .content-checkout {
+      background-color: white;
+      margin-top: 50px;
+      border-radius: 10px;
+
+      .top-content {
+        padding-top: 30px;
+        flex-direction: column;
+        align-items: flex-end;
+        display: flex;
+        justify-content: space-between;
+        width: 97%;
+      }
+      .bottom-content {
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 20px;
+        margin-right: 20px;
+        .back-cart {
+          margin-top: 15px;
+        }
+        .confirm {
+          background: #c92127;
+          color: white;
+          border: none;
+          font-weight: 700;
+          transition: all 0.3s;
+          padding: 8px 0;
+          margin: 8px 0;
+          border-radius: 5px;
+          width: 250px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .order-container {
+    padding: 60px 140px;
+    height: 140%;
+
+    background-color: rgb(243, 239, 235);
+    .address-container {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 30px;
+      padding: 10px;
+      width: 100%;
+      form {
+        margin-left: 10px;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        padding: 10px 0;
+        border: 1px solod red;
+      }
+      input {
+        height: 30px;
+        font-weight: normal;
+        font-size: 1em;
+        width: 400px;
+      }
+      label {
+        font-weight: normal;
+      }
+      .username {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 65px;
+        }
+      }
+      .email {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 95px;
+        }
+      }
+      .phone-number {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 35px;
+        }
+      }
+      .nation {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 90px;
+        }
+      }
+      .country {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 30px;
+        }
+      }
+      .district {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 55px;
+        }
+      }
+      .wards {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 65px;
+        }
+      }
+      .address {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 15px;
+        }
+      }
+    }
+
+    .payment-container {
+      margin-top: 50px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px 10px;
+      h3 {
+        padding-bottom: 20px;
+      }
+      label {
+        margin-left: 10px;
+      }
+      input {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        left: 0;
+      }
+      .payment {
+        width: 200px;
+        height: 30px;
+      }
+    }
+
+    .recheck-products {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 50px;
+      padding: 10px;
+      .payment-name {
+        padding-left: 100px;
+      }
+      .transport {
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 40px;
+        height: 157px;
+        border: 1px solid gray;
+        margin-bottom: 20px;
+      }
+      .image {
+        width: 100px;
+        height: 120px;
+      }
+    }
+    .content-checkout {
+      background-color: white;
+      margin-top: 50px;
+      border-radius: 10px;
+
+      .top-content {
+        padding-top: 30px;
+        flex-direction: column;
+        align-items: flex-end;
+        display: flex;
+        justify-content: space-between;
+        width: 97%;
+      }
+      .bottom-content {
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 20px;
+        margin-right: 20px;
+        .back-cart {
+          margin-top: 15px;
+        }
+        .confirm {
+          background: #c92127;
+          color: white;
+          border: none;
+          font-weight: 700;
+          transition: all 0.3s;
+          padding: 8px 0;
+          margin: 8px 0;
+          border-radius: 5px;
+          width: 250px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .order-container {
+    padding: 10px;
+    padding-top: 50px;
+    // height: 140%;
+
+    background-color: rgb(243, 239, 235);
+    .address-container {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 30px;
+      padding: 10px;
+      form {
+        margin-left: 10px;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        padding: 10px 0;
+        border: 1px solod red;
+      }
+      input {
+        height: 30px;
+        font-weight: normal;
+        font-size: 1em;
+        width: 220px;
+      }
+      label {
+        font-weight: normal;
+      }
+      .username {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 65px;
+        }
+      }
+      .email {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 95px;
+        }
+      }
+      .phone-number {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 35px;
+        }
+      }
+      .nation {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 90px;
+        }
+      }
+      .country {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 30px;
+        }
+      }
+      .district {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 55px;
+        }
+      }
+      .wards {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 65px;
+        }
+      }
+      .address {
+        flex-direction: column;
+        margin-bottom: 20px;
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-left: 15px;
+        }
+      }
+    }
+
+    .payment-container {
+      margin-top: 50px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px 10px;
+      h3 {
+        padding-bottom: 20px;
+      }
+      label {
+        margin-left: 10px;
+      }
+      input {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        left: 0;
+      }
+      .payment {
+        width: 200px;
+        height: 30px;
+      }
+    }
+
+    .recheck-products {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 50px;
+      padding: 10px;
+      .payment-name {
+        padding-left: 100px;
+      }
+      .transport {
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 40px;
+        height: 157px;
+        border: 1px solid gray;
+        margin-bottom: 20px;
+      }
+      .image {
+        width: 100px;
+        height: 120px;
+      }
+    }
+    .content-checkout {
+      background-color: white;
+      margin-top: 50px;
+      border-radius: 10px;
+
+      .top-content {
+        padding-top: 30px;
+        flex-direction: column;
+        align-items: flex-end;
+        display: flex;
+        justify-content: space-between;
+        width: 97%;
+      }
+      .bottom-content {
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 20px;
+        // margin-right: 20px;
+        .back-cart {
+          margin-top: 15px;
+        }
+        .confirm {
+          background: #c92127;
+          color: white;
+          border: none;
+          font-weight: 700;
+          transition: all 0.3s;
+          padding: 8px 0;
+          margin: 8px 0;
+          border-radius: 5px;
+          width: 250px;
+        }
       }
     }
   }
