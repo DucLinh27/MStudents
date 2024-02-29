@@ -27,6 +27,7 @@ let getTopTeacherHome = (limitInput) => {
     }
   });
 };
+
 let getAllTeachers = () => {
   return new Promise(async (resolve, reject) => {
     try {

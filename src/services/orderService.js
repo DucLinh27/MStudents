@@ -5,14 +5,6 @@ import { Op } from "sequelize";
 let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // if (!Array.isArray(data.courses)) {
-      //   resolve({
-      //     errCode: 1,
-      //     errMessage: "courses must be an array",
-      //   });
-      //   return;
-      // }
-      // Check if the order already exists
       let existingOrder = await db.Order.findOne({
         where: {
           userId: data.userId,

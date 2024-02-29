@@ -15,21 +15,13 @@ module.exports = {
       coursesId: {
         type: Sequelize.INTEGER,
       },
-      // classesId: {
-      //   type: Sequelize.INTEGER,
-      // },
-      // addressClasses: {
-      //   type: Sequelize.STRING,
-      //   allowNull: false,
-      // },
-      // nameClasses: {
-      //   type: Sequelize.STRING,
-      //   allowNull: false,
-      // },
-      // position: {
-      //   type: Sequelize.STRING,
-      // },
-
+      level: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

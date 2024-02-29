@@ -150,13 +150,15 @@ let getAllUsers = (userId) => {
     }
   });
 };
-
 let getAllStudents = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const data = await db.User.findAll({
         where: {
           roleId: "R3",
+        },
+        attributes: {
+          exclude: ["password"],
         },
       });
       resolve({
@@ -169,28 +171,6 @@ let getAllStudents = (data) => {
     }
   });
 };
-// let handleSearchUserByName = (req, res) => {
-//   return new Promise(async (resolve, reject) => {
-//     let { name } = req.query;
-//     try {
-//       const data = await db.User.findAll({
-//         where: {
-//           [Op.or]: [
-//             { firstName: { [Op.like]: "%" + name + "%" } },
-//             { lastName: { [Op.like]: "%" + name + "%" } },
-//           ],
-//         },
-//       });
-//       resolve({
-//         errCode: 0,
-//         errMessage: "OK!",
-//         data,
-//       });
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
 let handleSearchUserByName = (name) => {
   return new Promise(async (resolve, reject) => {
     try {

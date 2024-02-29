@@ -46,7 +46,6 @@ let getAllVideos = (data) => {
     }
   });
 };
-
 let getDetailVideosById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {

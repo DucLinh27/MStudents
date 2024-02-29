@@ -17,11 +17,17 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
       },
-      descriptionHTML: {
-        type: Sequelize.TEXT,
+      description: {
+        type: Sequelize.STRING,
       },
-      descriptionMarkdown: {
-        type: Sequelize.TEXT,
+      level: {
+        type: Sequelize.STRING,
+      },
+      duration: {
+        type: Sequelize.INTEGER,
+      },
+      lessons: {
+        type: Sequelize.INTEGER,
       },
       teacherId: {
         type: Sequelize.INTEGER,

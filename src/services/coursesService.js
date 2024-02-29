@@ -8,8 +8,10 @@ let createCourses = (data) => {
         !data.name ||
         !data.image ||
         !data.price ||
-        !data.descriptionHTML ||
-        !data.descriptionMarkdown ||
+        !data.description ||
+        !data.level ||
+        !data.duration ||
+        !data.lessons ||
         !data.teacherId
       ) {
         resolve({
@@ -21,8 +23,10 @@ let createCourses = (data) => {
           name: data.name,
           image: data.image,
           price: data.price,
-          descriptionHTML: data.descriptionHTML,
-          descriptionMarkdown: data.descriptionMarkdown,
+          description: data.description,
+          level: data.level,
+          duration: data.duration,
+          lessons: data.lessons,
           teacherId: data.teacherId,
         });
         resolve({
@@ -67,7 +71,7 @@ let getDetailCoursesById = (inputId) => {
             "name",
             "price",
             "image",
-            "descriptionMarkdown",
+            "description",
             "teacherId",
           ],
           include: [
@@ -123,7 +127,7 @@ let filterCoursesByName = (name) => {
               [Op.like]: "%" + name + "%",
             },
           },
-          attributes: ["id", "name", "price", "image", "descriptionMarkdown"],
+          attributes: ["id", "name", "price", "image", "description"],
           include: [
             {
               model: db.Videos,
@@ -209,8 +213,10 @@ let editCoursesService = (data) => {
         courses.name = data.name;
         courses.image = data.image;
         courses.price = data.price;
-        courses.descriptionHTML = data.descriptionHTML;
-        courses.descriptionMarkdown = data.descriptionMarkdown;
+        courses.description = data.description;
+        courses.level = data.level;
+        courses.duration = data.duration;
+        courses.lessons = data.lessons;
         await courses.save();
         resolve({
           errCode: 0,
