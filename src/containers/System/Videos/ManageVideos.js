@@ -113,13 +113,6 @@ class ManageVideos extends Component {
       ...stateCopy,
     });
   };
-  handleEditorChange = ({ html, text }) => {
-    this.setState({
-      descriptionHTML: html,
-      descriptionMarkdown: text,
-    });
-  };
-
   handleSaveNewVideo = async () => {
     if (!this.validateFields()) {
       // If the input is not valid, stop the function
@@ -137,10 +130,8 @@ class ManageVideos extends Component {
         this.setState({
           id: null,
           name: "",
-          address: "",
-          image: "",
-          descriptionHTML: "",
-          descriptionMarkdown: "",
+          video: "",
+          coursesId: "",
           isEditing: false,
         });
       } else {
@@ -318,7 +309,8 @@ class ManageVideos extends Component {
               </div>
             </div>
           )}
-          <button className="btn-change-video"
+          <button
+            className="btn-change-video"
             onClick={() =>
               this.setState((prevState) => ({
                 isEmbedLink: !prevState.isEmbedLink,

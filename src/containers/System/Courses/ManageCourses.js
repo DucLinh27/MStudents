@@ -28,8 +28,11 @@ class ManageCourses extends Component {
       name: "",
       image: "",
       price: "",
-      descriptionHTML: "",
-      descriptionMarkdown: "",
+      description: "",
+      level: "",
+      duration: "",
+      lessons: "",
+
       arrCourses: [],
       isSearching: false,
       isOpenModalEditCourses: false,
@@ -142,12 +145,6 @@ class ManageCourses extends Component {
     if (!this.state.previewImageURL) return;
     this.setState({ isOpen: true });
   };
-  handleEditorChange = ({ html, text }) => {
-    this.setState({
-      descriptionHTML: html,
-      descriptionMarkdown: text,
-    });
-  };
   handleOnChangeImage = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -206,8 +203,10 @@ class ManageCourses extends Component {
           name: "",
           image: "",
           price: "",
-          descriptionHTML: "",
-          descriptionMarkdown: "",
+          description: "",
+          level: "",
+          duration: "",
+          lessons: "",
           teacherId: this.state.selectedOption.value,
           isEditing: false,
         });
@@ -223,8 +222,11 @@ class ManageCourses extends Component {
           name: "",
           image: "",
           price: "",
-          descriptionHTML: "",
-          descriptionMarkdown: "",
+          description: "",
+          level: "",
+          duration: "",
+          lessons: "",
+
           teacherId: this.state.selectedOption.value,
         });
       } else {
@@ -239,8 +241,10 @@ class ManageCourses extends Component {
       name: item.name,
       image: item.image,
       price: item.price,
-      descriptionHTML: item.descriptionHTML,
-      descriptionMarkdown: item.descriptionMarkdown,
+      description: item.description,
+      level: item.level,
+      duration: item.duration,
+      lessons: item.lessons,
       previewImageURL: item.image, // Set the previewImageURL to the class image
       isEditing: true,
     });
@@ -281,9 +285,7 @@ class ManageCourses extends Component {
     this.setState({ selectedOption });
     let { listCourses } = this.state;
     let res = await getDetailInforTeacher(selectedOption.value);
-    if (res && res.errCode === 0 && res.data && res.data.Markdown) {
-      let markdown = res.data.Markdown;
-
+    if (res && res.errCode === 0 && res.data) {
       let coursesId = "",
         selectedCourses = "";
 
@@ -347,6 +349,7 @@ class ManageCourses extends Component {
               type="text"
               value={this.state.name}
               onChange={(event) => this.handleOnChangeInput(event, "name")}
+              placeholder="Courses name..."
             />
           </div>
           <div className="col-3 form-group">
@@ -356,20 +359,43 @@ class ManageCourses extends Component {
               type="text"
               value={this.state.price}
               onChange={(event) => this.handleOnChangeInput(event, "price")}
+              placeholder="Price..."
             />
           </div>
           <div className="col-4 form-group">
-            <label> Choose a teacher</label>
-            <Select
-              value={this.state.selectedOption}
-              onChange={this.handleChangeSelect}
-              options={this.state.listTeachers}
-              placeholder={
-                <FormattedMessage id="admin.manage-teacher.courses" />
-              }
+            <label>Level</label>
+            <select
+              className="form-control"
+              value={this.state.level}
+              onChange={(event) => this.handleOnChangeInput(event, "level")}
+            >
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+          <div className="col-2 form-group">
+            <label>Duration</label>
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.duration}
+              onChange={(event) => this.handleOnChangeInput(event, "duration")}
+              placeholder="Duration..."
             />
           </div>
-          <div className="col-4 form-group-file">
+          <div className="col-2 form-group">
+            <label>Number Lessons</label>
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.lessons}
+              onChange={(event) => this.handleOnChangeInput(event, "lessons")}
+              placeholder="Lessons..."
+            />
+          </div>
+
+          <div className="col-2 form-group-file">
             {/* <label>Ảnh Bài Học</label> */}
             <div className="previewImg-container d-flex">
               <input
@@ -391,15 +417,31 @@ class ManageCourses extends Component {
               ></div>
             </div>
           </div>
-          <div className="col-12">
-            <MdEditor
-              style={{ height: "300px" }}
-              renderHTML={(text) => mdParser.render(text)}
-              onChange={this.handleEditorChange}
-              value={this.state.descriptionMarkdown}
+          <div className="col-4 form-group">
+            <label> Choose a teacher</label>
+            <Select
+              value={this.state.selectedOption}
+              onChange={this.handleChangeSelect}
+              options={this.state.listTeachers}
+              placeholder={
+                <FormattedMessage id="admin.manage-teacher.courses" />
+              }
+            />
+          </div>
+          <div className="col-6 form-group">
+            <label>Description</label>
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.description}
+              onChange={(event) =>
+                this.handleOnChangeInput(event, "description")
+              }
+              placeholder="Description..."
             />
           </div>
 
+          {/* Search */}
           <div className="col-12 d-flex">
             <div className="search-inputs">
               <input
@@ -423,8 +465,7 @@ class ManageCourses extends Component {
                 <th>Name</th>
                 <th>Image</th>
                 <th>Price</th>
-                <th>DescriptionHTML</th>
-                <th>DescriptionMarkdown</th>
+                <th>Description</th>
                 <th>Actions</th>
               </tr>
 
@@ -441,8 +482,7 @@ class ManageCourses extends Component {
                         />
                       </td>
                       <td>{item.price}</td>
-                      <td>{item.descriptionHTML}</td>
-                      <td>{item.descriptionMarkdown}</td>
+                      <td>{item.description}</td>
                       <td>
                         <button
                           className="btn-edit"

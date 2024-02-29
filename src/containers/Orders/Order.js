@@ -43,34 +43,6 @@ class Order extends Component {
     }
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {}
-
-  // handleSubmit = async (event) => {
-  //   // event.preventDefault();
-
-  //   const { username, email, phonenumber, payment, courses, totalPrice } =
-  //     this.state;
-  //   const { userIdNormal } = this.props;
-
-  //   const orderData = await {
-  //     userIdNormal,
-  //     username,
-  //     email,
-  //     phonenumber,
-  //     payment,
-  //     courses,
-  //     totalPrice,
-  //   };
-
-  //   try {
-  //     const response = await createOrderService(orderData);
-  //     console.log(orderData);
-  //     console.log(response);
-  //     // Handle successful order creation here
-  //   } catch (error) {
-  //     console.error(error);
-  //     // Handle errors here
-  //   }
-  // };
   handleOnChangeInput = (event, id) => {
     console.log(event.target.value);
     let stateCopy = { ...this.state };
@@ -79,15 +51,13 @@ class Order extends Component {
       ...stateCopy,
     });
   };
-
   handleCart = () => {
     if (this.props.history) {
-      this.props.history.push(`/cart`);
+      this.props.history.push(`/home`);
     }
   };
   handleConfirm = async (event) => {
     event.preventDefault();
-
     if (!this.validateInput()) {
       // If the input is not valid, stop the function
       return;
@@ -137,8 +107,6 @@ class Order extends Component {
         // Handle successful order creation here
         this.props.history.push("/payment-return", { orderData });
         // Clear the cart and order
-        this.props.clearCart();
-        this.props.clearOrder();
         // Send confirmation email
         // Call postStudentOrderCourses
         let res = await postStudentOrderCourses({
@@ -152,6 +120,7 @@ class Order extends Component {
         } else {
           toast.error("Order a new courses failed!");
         }
+        this.props.addPurchasedCourse(this.state.detailCourses.id);
       })
       .catch((error) => {
         console.error("Error creating order", error);
@@ -193,6 +162,9 @@ class Order extends Component {
     console.log(coursePrice);
     const { userIdNormal } = this.props;
     console.log(userIdNormal);
+    const coursePurchased = this.props.purchasedCourses.includes(
+      this.state.detailCourses.id
+    );
     return (
       <>
         <HomeHeader />

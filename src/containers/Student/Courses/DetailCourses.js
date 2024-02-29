@@ -119,18 +119,13 @@ class DetailCourses extends Component {
                 <div className="container-courses">
                   <div className="about-courses">
                     <h3>About the courses</h3>
-                    <p>{dataDetailCourse.descriptionMarkdown}</p>
+                    <p>{dataDetailCourse.description}</p>
                   </div>
                 </div>
               </div>
               <div className="right-content col-lg-4 col-md-6 col-sm-12">
                 <div className="right-up">
-                  <div className="price">{dataDetailCourse.price} VND</div>
-                  <p>
-                    Lorem ipsum dolor sit amet, dolor consectetur adipiscing
-                    elit purus vivera.
-                  </p>
-
+                  <div className="price">Price: {dataDetailCourse.price} $</div>
                   <button
                     className="button_content"
                     onClick={() => this.handleOrder()}
@@ -141,19 +136,22 @@ class DetailCourses extends Component {
 
                 <div className="right-down">
                   <div className="item">
-                    <i class="fas fa-sort-amount-up mr-3"></i>Teacher :{" "}
+                    <i class="fas fa-user-graduate"></i> Teacher :{" "}
                     {dataDetailCourse.User
                       ? dataDetailCourse.User.firstName
                       : "Loading..."}
                   </div>
                   <div className="item">
-                    <i class="fas fa-sort-amount-up mr-3"></i>Level: Medium
+                    <i class="fas fa-sort-amount-up mr-3"></i>Level:{" "}
+                    {dataDetailCourse.level}
                   </div>
                   <div className="item">
-                    <i class="far fa-clock  mr-3"></i>Duration: 7hr 24m
+                    <i class="far fa-clock  mr-3"></i>Duration:{" "}
+                    {dataDetailCourse.duration}h
                   </div>
                   <div className="item">
-                    <i class="fas fa-video mr-3"></i>Lessons: 50
+                    <i class="fas fa-video mr-3"></i>Lessons:{" "}
+                    {dataDetailCourse.lessons} lessons
                   </div>
                   <div className="item">
                     <i class="far fa-star mr-3"></i>Lifetime Access
