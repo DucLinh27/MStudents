@@ -162,9 +162,7 @@ class Order extends Component {
     console.log(coursePrice);
     const { userIdNormal } = this.props;
     console.log(userIdNormal);
-    const coursePurchased = this.props.purchasedCourses.includes(
-      this.state.detailCourses.id
-    );
+
     return (
       <>
         <HomeHeader />

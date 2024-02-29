@@ -11,12 +11,12 @@
     "menu": {
        
         "admin":{
+            "crud": "Tất cả người dùng",
+            "crudredux": "CRUD Redux",
             "manage-user": "Người dùng",
             "manage-teacher": "Quản lý giáo viên",
+            "teacher-infor": "Thêm thông tin giáo viên",
             "manage-admin": "Quản lý admin",
-            "crud": "CRUD User",
-            "crudredux": "CRUD Redux",
-     
             "manage-courses": "Quản Lý Tài liệu",
             "manage-videos": "Quản lý Videos",
             "manage-order": "Quản Lý Đặt hàng"

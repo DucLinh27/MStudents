@@ -20,6 +20,12 @@
           background-repeat: no-repeat;
           background-size: cover;
         }
+        .section_teacher {
+          .name_teacher {
+            font-weight: 600;
+            font-size: 20px;
+          }
+        }
       }
     }
   }
@@ -71,6 +77,10 @@
           background-size: cover;
         }
         .section_teacher {
+          .name_teacher {
+            font-weight: 600;
+            font-size: 20px;
+          }
           .des_teacher {
             display: none;
           }

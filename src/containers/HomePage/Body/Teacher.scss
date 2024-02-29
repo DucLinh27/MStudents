@@ -24,21 +24,21 @@
         }
         .bg-image {
           width: 330px;
-          height: 200px;
+          height: 300px;
           border-top-right-radius: 20px;
           border-top-left-radius: 20px;
           background-position: center center;
           background-repeat: no-repeat !important;
           background-size: cover;
 
-          &.section-outstanding-teacher {
-            width: 320px;
-            height: 320px;
-          }
+          // &.section-outstanding-teacher {
+          //   width: 320px;
+          //   height: 320px;
+          // }
         }
         //Teacher
         .section_teacher {
-          height: 150px;
+          height: 90px;
           margin-left: 5px;
         }
         .name_teacher {
@@ -184,17 +184,12 @@
           }
           .bg-image {
             width: 330px;
-            height: 200px;
+            height: 300px;
             border-top-right-radius: 20px;
             border-top-left-radius: 20px;
             background-position: center center;
             background-repeat: no-repeat !important;
             background-size: cover;
-
-            &.section-outstanding-teacher {
-              width: 320px;
-              height: 320px;
-            }
           }
           .specialty-item {
             width: 567px;
@@ -216,7 +211,7 @@
 
           //Teacher
           .section_teacher {
-            height: 150px;
+            height: 90px;
             margin-left: 5px;
           }
           .name_teacher {

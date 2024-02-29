@@ -8,7 +8,7 @@ import "./Roles.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
-import { getDetailCoursesByName } from "../../services/coursesService";
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -45,13 +45,6 @@ class Header extends Component {
         <div className="header-tabs-container">
           <Navigator menus={this.state.menuApp} />
         </div>
-        {/* <div className="search-input">
-          <input
-            type="text"
-            placeholder="Search..."
-            onChange={this.handleSearch}
-          />
-        </div> */}
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />{" "}

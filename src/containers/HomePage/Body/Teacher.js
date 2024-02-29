@@ -73,13 +73,10 @@ class AllTeacher extends Component {
                             ></div>
                           </div>
                           <div className="section_teacher">
-                            <div className="name_teacher"></div>
+                            <div className="name_teacher">{item.firstName}</div>
                             <div className="des_teacher">
-                              Presenting Academy, the tech school of the future.
-                              We teach you the right skills to be prepared for
-                              tomorrow.
+                              {item.Teacher_Infor.level}
                             </div>
-                            <div className="infor_teacher">Facebook</div>
                           </div>
                         </div>
                       </div>
@@ -108,7 +105,7 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
-    topTeachersRedux: state.admin.topDoctors,
+    topTeachersRedux: state.admin.topTeachers,
   };
 };
 

@@ -46,7 +46,7 @@ class TeacherDoctor extends Component {
   };
   render() {
     let { language } = this.props;
-    let { detailTeacher, detailCourse } = this.state;
+    let { detailTeacher } = this.state;
     console.log(detailTeacher);
 
     return (
@@ -63,14 +63,13 @@ class TeacherDoctor extends Component {
               }}
             ></div>
             <div className="pt-4">
-              <div className="content-text">Email: {detailTeacher.email}</div>
               <div className="content-text">
-                Name: {detailTeacher.firstName}
+                Fullname: {detailTeacher.lastName} {detailTeacher.firstName}
               </div>
+              <div className="content-text">Email: {detailTeacher.email}</div>
               <div className="content-text">
                 PhoneNumber: {detailTeacher.phonenumber}
               </div>
-              <div className="content-text">Gender: {detailTeacher.gender}</div>
             </div>
           </div>
           <div className="detail-infor-courses row">
@@ -96,8 +95,8 @@ class TeacherDoctor extends Component {
                       >
                         {item.name}
                       </div>
-                      <div className="specialty-subname">
-                        {item.descriptionMarkdown}
+                      <div className="specialty-description">
+                        {item.description}
                       </div>
                     </div>
                   </div>

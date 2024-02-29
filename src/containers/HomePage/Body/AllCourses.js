@@ -60,10 +60,12 @@ class AllCourses extends Component {
                       >
                         {item.name}
                       </div>
-                      <div className="specialty-subname">
-                        {item.descriptionMarkdown}
+                      <div className="specialty-avatar">
+                        Price: {item.price}
                       </div>
-                      <div className="specialty-avatar">NAME TEACHER</div>
+                      <div className="specialty-subname">
+                        {item.description}
+                      </div>
                     </div>
                   </div>
                 );

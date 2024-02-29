@@ -34,7 +34,7 @@ class ManageVideos extends Component {
   }
   //just run 1 time
   async componentDidMount() {
-    this.props.getRequireDoctorInfor();
+    this.props.getRequireTeachersInfor();
     try {
       const response = await getAllVideos();
       console.log("Response:", response);
@@ -401,9 +401,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
+    getRequireTeachersInfor: () => dispatch(actions.getRequireTeachersInfor()),
     deleteVideo: (videos) => dispatch(actions.deleteVideos(videos)),
-    saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
+    saveDetailTeacher: (data) => dispatch(actions.saveDetailTeacher(data)),
   };
 };
 

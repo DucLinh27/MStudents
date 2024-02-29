@@ -12,7 +12,6 @@ export const path = {
   DETAIL_COURSES: "/detail-courses/:id",
   ALL_COURSES: "/allcourses",
   ALL_TEACHER: "/allteacher",
-
   ORDER: "/order",
   PAYMENT_RETURN: "/payment-return",
   CART: "/cart",

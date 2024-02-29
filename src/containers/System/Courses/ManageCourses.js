@@ -32,7 +32,6 @@ class ManageCourses extends Component {
       level: "",
       duration: "",
       lessons: "",
-
       arrCourses: [],
       isSearching: false,
       isOpenModalEditCourses: false,
@@ -61,8 +60,8 @@ class ManageCourses extends Component {
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
-    this.props.fetchAllDoctors();
-    this.props.getRequireDoctorInfor();
+    this.props.fetchAllTeachers();
+    this.props.getRequireTeachersInfor();
     try {
       const response = await getAllTeachersInfor();
       console.log("Response:", response);
@@ -308,7 +307,15 @@ class ManageCourses extends Component {
     }
   };
   validateFields = () => {
-    const { name, price, selectedOption, previewImageURL } = this.state;
+    const {
+      name,
+      price,
+      selectedOption,
+      previewImageURL,
+      level,
+      duration,
+      lessons,
+    } = this.state;
 
     // Check if course name is not empty
     if (!name) {
@@ -333,7 +340,23 @@ class ManageCourses extends Component {
       alert("Please upload an image");
       return false;
     }
+    // Check if level is selected
+    if (!level) {
+      alert("Please select a level");
+      return false;
+    }
 
+    // Check if duration is not empty and is a number
+    if (!duration || isNaN(duration)) {
+      alert("Duration is required and should be a number");
+      return false;
+    }
+
+    // Check if lessons is not empty and is a number
+    if (!lessons || isNaN(lessons)) {
+      alert("Number of lessons is required and should be a number");
+      return false;
+    }
     // If all checks pass, return true
     return true;
   };
@@ -519,8 +542,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editCoursesRedux: (data) => dispatch(actions.editCourses(data)),
     deleteCourses: (courses) => dispatch(actions.deleteCourses(courses)),
-    fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
-    getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
+    fetchAllTeachers: () => dispatch(actions.fetchAllTeachers()),
+    getRequireTeachersInfor: () => dispatch(actions.getRequireTeachersInfor()),
   };
 };
 

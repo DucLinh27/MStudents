@@ -290,28 +290,8 @@ export const fetchTopTeacher = () => {
     }
   };
 };
-export const fetchAllDoctors = () => {
-  return async (dispatch, getState) => {
-    try {
-      let res = await getAllTeachers();
-      if (res && res.errCode === 0) {
-        dispatch({
-          type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
-          dataDr: res.data,
-        });
-      } else {
-        dispatch({
-          type: actionTypes.FETCH_ALL_DOCTORS_FAILDED,
-        });
-      }
-    } catch (e) {
-      dispatch({
-        type: actionTypes.FETCH_ALL_DOCTORS_FAILDED,
-      });
-    }
-  };
-};
-export const saveDetailDoctor = (data) => {
+
+export const saveDetailTeacher = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await saveDetailTeacherService(data);
@@ -335,7 +315,7 @@ export const saveDetailDoctor = (data) => {
     }
   };
 };
-export const getRequireDoctorInfor = () => {
+export const getRequireTeachersInfor = () => {
   return async (dispatch, getState) => {
     try {
       dispatch({

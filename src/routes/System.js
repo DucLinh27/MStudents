@@ -5,6 +5,7 @@ import UserManage from "../containers/System/Users/UserManage";
 import UserRedux from "../containers/System/Admin/UserRedux";
 import Header from "../containers/RoleUser/Roles";
 import ManageCourses from "../containers/System/Courses/ManageCourses";
+import ManageTeacher from "../containers/System/Admin/ManageTeacher";
 import ManageVideos from "../containers/System/Videos/ManageVideos";
 import ManageOrder from "../containers/System/Order/ManageOrder";
 import StudentManage from "../containers/System/Student/StudentManage";
@@ -22,14 +23,9 @@ class System extends Component {
               <Route path="/system/student-manage" component={StudentManage} />
               <Route path="/system/user-redux" component={UserRedux} />
               <Route path="/system/manage-courses" component={ManageCourses} />
+              <Route path="/system/manage-teachers" component={ManageTeacher} />
               <Route path="/system/manage-videos" component={ManageVideos} />
               <Route path="/system/manage-order" component={ManageOrder} />
-
-              {/* <Route
-                path="/doctor/manage-schedule"
-                component={ManageSchedule}
-              /> */}
-
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

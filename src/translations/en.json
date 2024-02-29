@@ -14,9 +14,9 @@
             "manage-user": "Users",
             "manage-teacher": "Manage Teachers",
             "manage-admin": "Manage Admin",
-            "crud": "CRUD user",
+            "crud": "All Users",
             "crudredux": "CRUD Redux",
-          
+            "teacher-infor": "Add Teacher Information",
             "courses": "Courses",
             "handbook": "Handbook",
 

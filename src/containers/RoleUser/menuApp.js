@@ -17,6 +17,10 @@ export const adminMenu = [
         name: "menu.admin.manage-teacher",
         link: "/system/user-redux",
       },
+      {
+        name: "menu.admin.teacher-infor",
+        link: "/system/manage-teachers",
+      },
     ],
   },
 

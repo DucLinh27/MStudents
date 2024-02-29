@@ -16,7 +16,6 @@ import System from "../routes/System";
 import ConfirmModal from "../components/ConfirmModal";
 import HomePage from "./HomePage/Header/HomePage.js";
 import CustomScrollbars from "../components/CustomScrollbars";
-import Teacher from "../routes/Teacher";
 import DetailTeacher from "./Student/Teacher/DetailTeacher.js";
 import VerifyEmail from "./Student/Emails/VerifyEmail";
 import DetailCourses from "./Student/Courses/DetailCourses";
@@ -69,10 +68,6 @@ class App extends Component {
                     path={path.SYSTEM}
                     component={userIsAuthenticated(System)}
                   />
-                  <Route
-                    path={"/teacher/"}
-                    component={userIsAuthenticated(Teacher)}
-                  />
                   <Route path={path.HOME} exact component={Home} />
                   <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route path={path.DETAIL_TEACHER} component={DetailTeacher} />
@@ -81,15 +76,18 @@ class App extends Component {
                   <Route path={path.ALL_TEACHER} component={AllTeacher} />
                   <Route path={path.ABOUT} component={About} />
                   <Route path={path.CONTACT} component={Contact} />=
-                  <Route path={path.ORDER} component={Order} />
+                  <Route
+                    path={path.ORDER}
+                    component={userIsAuthenticated(Order)}
+                  />
                   <Route path={path.PAYMENT_RETURN} component={PaymentReturn} />
                   <Route path={path.PAYMENT} component={PaymentReturn} />
                   <Route path={path.PROFILE} exact component={ProfileUser} />
                   <Route path={path.USER_COUSER} component={UserCourses} />
-                  <Route
+                  {/* <Route
                     path={path.VERIFY_EMAIL_BOOKING}
                     component={VerifyEmail}
-                  />
+                  /> */}
                 </Switch>
               </CustomScrollbars>
             </div>
@@ -107,7 +105,7 @@ class App extends Component {
               closeButton={<CustomToastCloseButton />}
             /> */}
             <ToastContainer
-              position="bottom-right"
+              position="top-right"
               autoClose={5000}
               hideProgressBar={false}
               newestOnTop={false}
