@@ -6,7 +6,6 @@ import _ from "lodash";
 import { changeUserPassword } from "../../../services/userService";
 import * as actions from "../../../store/actions";
 import { getOrderService } from "../../../services/orderService";
-import { getDetailCoursesById } from "../../../services/coursesService";
 
 class ProfileUser extends Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class ProfileUser extends Component {
       newPassword: "",
       confirmPassword: "",
       changePassword: false,
-      activeTab: "personalInfo",
+      activeTab: "myCourses",
       arrOrders: [],
       selectedCourse: null,
     };
@@ -31,26 +30,34 @@ class ProfileUser extends Component {
         localStorage.setItem("userId", userId);
       }
       console.log(userId);
-      const orders = await getOrderService(userId);
-      console.log("Orders:", orders);
 
-      // If orders is an array, use it directly. If not, convert it to an array.
-      const ordersArray = Array.isArray(orders)
-        ? orders
-        : Object.values(orders);
+      let ordersArray;
 
-      this.setState(
-        {
-          arrOrders: ordersArray,
-        },
-        () => {
-          // Save arrOrders to localStorage after state update
-          localStorage.setItem(
-            "arrOrders",
-            JSON.stringify(this.state.arrOrders)
-          );
-        }
-      );
+      // Try to get arrOrders from localStorage
+      const savedOrders = localStorage.getItem("arrOrders");
+
+      if (savedOrders) {
+        // If arrOrders exists in localStorage, use it
+        ordersArray = JSON.parse(savedOrders);
+      } else {
+        // If arrOrders doesn't exist in localStorage, fetch orders
+        const orders = await getOrderService(userId);
+        console.log("Orders:", orders);
+
+        const userOrders = orders.filter((order) => order.userId === userId);
+
+        // If orders is an array, use it directly. If not, convert it to an array.
+        ordersArray = Array.isArray(userOrders)
+          ? userOrders
+          : Object.values(orders);
+
+        // Save arrOrders to localStorage after state update
+        localStorage.setItem("arrOrders", JSON.stringify(ordersArray));
+      }
+
+      this.setState({
+        arrOrders: ordersArray,
+      });
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

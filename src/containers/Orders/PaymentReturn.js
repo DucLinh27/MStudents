@@ -28,34 +28,42 @@ class PaymentReturn extends Component {
         localStorage.setItem("userId", userId);
       }
       console.log(userId);
-      const orders = await getOrderService(userId);
-      console.log("Orders:", orders);
 
-      // If orders is an array, use it directly. If not, convert it to an array.
-      const ordersArray = Array.isArray(orders)
-        ? orders
-        : Object.values(orders);
+      let ordersArray;
 
-      this.setState(
-        {
-          arrOrders: ordersArray,
-        },
-        () => {
-          // Save arrOrders to localStorage after state update
-          localStorage.setItem(
-            "arrOrders",
-            JSON.stringify(this.state.arrOrders)
-          );
-        }
-      );
+      // Try to get arrOrders from localStorage
+      const savedOrders = localStorage.getItem("arrOrders");
+
+      if (savedOrders) {
+        // If arrOrders exists in localStorage, use it
+        ordersArray = JSON.parse(savedOrders);
+      } else {
+        // If arrOrders doesn't exist in localStorage, fetch orders
+        const orders = await getOrderService(userId);
+        console.log("Orders:", orders);
+
+        const userOrders = orders.filter((order) => order.userId === userId);
+
+        // If orders is an array, use it directly. If not, convert it to an array.
+        ordersArray = Array.isArray(userOrders)
+          ? userOrders
+          : Object.values(orders);
+
+        // Save arrOrders to localStorage after state update
+        localStorage.setItem("arrOrders", JSON.stringify(ordersArray));
+      }
+
+      this.setState({
+        arrOrders: ordersArray,
+      });
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
   }
 
-  handleCart = () => {
+  handleHome = () => {
     if (this.props.history) {
-      this.props.history.push(`/cart`);
+      this.props.history.push(`/home`);
     }
   };
   handleConfirm = () => {
@@ -77,7 +85,6 @@ class PaymentReturn extends Component {
             <table>
               <tbody>
                 <tr>
-                  <th>UserId</th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>Phone Number</th>
@@ -90,7 +97,6 @@ class PaymentReturn extends Component {
                 {arrOrders.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.userId}</td>
                       <td>{item.username}</td>
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>
@@ -215,7 +221,7 @@ class PaymentReturn extends Component {
           </div>
           <div className="content-checkout">
             <div className="bottom-content d-flex">
-              <div className="back-cart d-flex" onClick={this.handleCart}>
+              <div className="back-cart d-flex" onClick={this.handleHome}>
                 <i className="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
                 <div>Quay về giỏ hàng</div>
               </div>

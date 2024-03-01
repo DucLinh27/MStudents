@@ -9,7 +9,11 @@ import "./ManageTeacher.scss";
 import Select from "react-select";
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
 import { getDetailInforDoctor } from "../../../services/userService";
-import { getDetailInforTeacher } from "../../../services/teacherService";
+import {
+  deleteTeacherService,
+  getAllTeachersInfor,
+  getDetailInforTeacher,
+} from "../../../services/teacherService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -25,13 +29,30 @@ class ManageTeacher extends Component {
       selectedCourses: "",
       level: "",
       courses: "",
-      filteredTeachers: [],
       arrTeachers: [],
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchAllTeachers();
     this.props.getRequireTeachersInfor();
+    try {
+      const response = await getAllTeachersInfor();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const teachersArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrTeachers: teachersArray,
+        });
+        console.log(teachersArray);
+      } else {
+        console.error("Error fetching teacher:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching teacher:", error);
+    }
   }
   buildDataInputSelect = (inputData, type) => {
     let result = [];
@@ -61,6 +82,9 @@ class ManageTeacher extends Component {
     return result;
   };
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.allTeachers !== prevState.allTeachers) {
+      this.setState({ filteredTeachers: this.state.allTeachers });
+    }
     if (prevProps.allTeachers !== this.props.allTeachers) {
       let dataSelect = this.buildDataInputSelect(
         this.props.allTeachers,
@@ -155,12 +179,27 @@ class ManageTeacher extends Component {
       ...stateCopy,
     });
   };
-  filterTeachers = (searchTerm) => {
-    const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    const filteredTeachers = this.state.arrTeachers.filter((teacher) =>
-      teacher.name.toLowerCase().includes(lowerCaseSearchTerm)
-    );
-    this.setState({ filteredTeachers });
+  handleDeleteTeacher = async (teacher) => {
+    try {
+      const response = await deleteTeacherService(teacher);
+      if (response && response.errCode === 0) {
+        this.props.deleteTeacher(teacher);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+  handleEditTeacher = (item) => {
+    this.setState({
+      id: item.id,
+      teacherId: item.name,
+      coursesId: item.video,
+      description: item.coursesId,
+      level: item.level,
+      isEditing: true,
+    });
   };
   render() {
     let { hashOldData } = this.state;
@@ -246,32 +285,30 @@ class ManageTeacher extends Component {
           <table>
             <tbody>
               <tr>
-                <th>Name</th>
+                <th>TeacherId</th>
                 <th>Courses</th>
                 <th>Description</th>
                 <th>Level</th>
                 <th>Actions</th>
               </tr>
-
-              {this.state.filterTeachers &&
-                this.state.filterTeachers.map((item, index) => {
+              {this.state.arrTeachers &&
+                this.state.arrTeachers.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.name}</td>
+                      <td>{item.teacherId}</td>
                       <td>{item.coursesId}</td>
                       <td>{item.description}</td>
                       <td>{item.level}</td>
-
                       <td>
                         <button
                           className="btn-edit"
-                          onClick={() => this.handleEditCourses(item)}
+                          onClick={() => this.handleEditTeacher(item)}
                         >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
                         <button
                           className="btn-delete"
-                          onClick={() => this.handleDeleteCourses(item)}
+                          onClick={() => this.handleDeleteTeacher(item)}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
@@ -300,6 +337,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchAllTeachers: () => dispatch(actions.fetchAllTeachers()),
     getRequireTeachersInfor: () => dispatch(actions.getRequireTeachersInfor()),
     saveDetailTeacher: (data) => dispatch(actions.saveDetailTeacher(data)),
+    deleteTeacher: (videos) => dispatch(actions.deleteTeacher(videos)),
   };
 };
 

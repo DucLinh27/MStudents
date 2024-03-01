@@ -417,7 +417,6 @@ class ManageCourses extends Component {
               placeholder="Lessons..."
             />
           </div>
-
           <div className="col-2 form-group-file">
             {/* <label>Ảnh Bài Học</label> */}
             <div className="previewImg-container d-flex">

@@ -30,7 +30,9 @@ class DetailCourses extends Component {
     );
 
     if (courseExists) {
-      alert("This course has already been ordered by this user");
+      if (this.props.history) {
+        this.props.history.push(`/profile`);
+      }
       return;
     }
 
@@ -108,33 +110,29 @@ class DetailCourses extends Component {
       }
     }
   };
-
+  handleUserCoursesPage = () => {};
   toggleCartModal = () => {
     this.setState({
       isOpenModalUser: !this.state.isOpenModalUser,
     });
   };
-
-  // handleOrder = () => {
-  //   if (this.props.history) {
-  //     this.props.history.push({
-  //       pathname: "/order",
-  //       state: {
-  //         coursePrice: this.state.dataDetailCourse.price,
-  //         detailCourses: this.state.dataDetailCourse,
-  //       },
-  //     });
-  //   }
-  // };
   render() {
     // let { language } = this.props.language;
-    let { dataDetailCourse } = this.state;
+    let { dataDetailCourse, arrOrders } = this.state;
     console.log(dataDetailCourse);
     console.log(dataDetailCourse.teacherId);
     // Convert Buffer to base64
     const { userInfo, user } = this.props;
     console.log(user);
     console.log(userInfo);
+    // Check if the course already exists in the orders for the current user
+    const userId = this.props.user.userInfo?.id || this.props.user.user?.userId;
+
+    // Check if the course already exists in the orders for the current user
+    const courseExists = arrOrders.some(
+      (order) =>
+        order.userId === userId && order.courses.id === dataDetailCourse.id
+    );
     return (
       <>
         <HomeHeader />
@@ -167,7 +165,7 @@ class DetailCourses extends Component {
                     className="button_content"
                     onClick={() => this.handleOrder()}
                   >
-                    Mua Ngay
+                    {courseExists ? "Xem Ngay" : "Mua Ngay"}
                   </button>
                 </div>
 

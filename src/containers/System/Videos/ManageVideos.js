@@ -269,7 +269,6 @@ class ManageVideos extends Component {
               onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
-
           {this.state.isEmbedLink ? (
             <div className="col-4 form-group">
               <label>YouTube Embed Link</label>
