@@ -68,11 +68,9 @@ class HomeHeader extends Component {
   checkIfDetailPage() {
     const { pathname } = this.props.location;
     const isDetailPage = pathname.startsWith("/detail-courses/");
-    const isDetailPages = pathname.startsWith("/cart");
 
     this.setState({
       isCartVisible: isDetailPage,
-      isCartVisible2: isDetailPages,
     });
   }
   updateCurrentImage = () => {

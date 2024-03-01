@@ -534,7 +534,7 @@ class ManageCourses extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    allDoctors: state.admin.allDoctors,
+    allDoctors: state.admin.allTeachers,
   };
 };
 

@@ -6,6 +6,7 @@ import HomeFooter from "../../HomePage/Header/HomeFooter";
 import { getDetailCoursesById } from "../../../services/coursesService";
 import _ from "lodash";
 import * as actions from "../../../store/actions";
+import { getOrderService } from "../../../services/orderService";
 
 class DetailCourses extends Component {
   constructor(props) {
@@ -14,9 +15,36 @@ class DetailCourses extends Component {
       dataDetailCourse: {},
       isOpenModalUser: false,
       orderedCourses: [],
+      arrOrders: [],
     };
   }
+  handleOrder = async () => {
+    const { dataDetailCourse, arrOrders } = this.state;
+    const userId = this.props.user.userInfo?.id || this.props.user.user?.userId;
+    console.log("data", dataDetailCourse.id);
+    console.log("arrOrders", arrOrders);
+    // Check if the course already exists in the orders for the current user
+    const courseExists = arrOrders.some(
+      (order) =>
+        order.userId === userId && order.courses.id === dataDetailCourse.id
+    );
 
+    if (courseExists) {
+      alert("This course has already been ordered by this user");
+      return;
+    }
+
+    // If the course doesn't exist in the orders, proceed with the order
+    if (this.props.history) {
+      this.props.history.push({
+        pathname: "/order",
+        state: {
+          coursePrice: dataDetailCourse.price,
+          detailCourses: dataDetailCourse,
+        },
+      });
+    }
+  };
   //just run 1 time
   async componentDidMount() {
     const courseId = this.props.match.params.id;
@@ -30,6 +58,17 @@ class DetailCourses extends Component {
       }
     } catch (error) {
       console.error("Error fetching course details:", error);
+    }
+    try {
+      const orders = await getOrderService();
+      const ordersArray = Array.isArray(orders)
+        ? orders
+        : Object.values(orders);
+      this.setState({
+        arrOrders: ordersArray,
+      });
+    } catch (error) {
+      console.error("Error fetching orders:", error);
     }
   }
 
@@ -69,35 +108,33 @@ class DetailCourses extends Component {
       }
     }
   };
-  handleCart = (item) => {
-    if (this.props.history) {
-      this.props.history.push(`/cart`);
-    }
-  };
+
   toggleCartModal = () => {
     this.setState({
       isOpenModalUser: !this.state.isOpenModalUser,
     });
   };
 
-  handleOrder = () => {
-    if (this.props.history) {
-      this.props.history.push({
-        pathname: "/order",
-        state: {
-          coursePrice: this.state.dataDetailCourse.price,
-          detailCourses: this.state.dataDetailCourse,
-        },
-      });
-    }
-  };
+  // handleOrder = () => {
+  //   if (this.props.history) {
+  //     this.props.history.push({
+  //       pathname: "/order",
+  //       state: {
+  //         coursePrice: this.state.dataDetailCourse.price,
+  //         detailCourses: this.state.dataDetailCourse,
+  //       },
+  //     });
+  //   }
+  // };
   render() {
     // let { language } = this.props.language;
     let { dataDetailCourse } = this.state;
     console.log(dataDetailCourse);
     console.log(dataDetailCourse.teacherId);
     // Convert Buffer to base64
-
+    const { userInfo, user } = this.props;
+    console.log(user);
+    console.log(userInfo);
     return (
       <>
         <HomeHeader />
@@ -174,6 +211,9 @@ class DetailCourses extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
+    userInfo: state.user.userInfo,
+    user: state.user,
+    userId: state.user.userInfo?.id || state.user.user?.userId,
   };
 };
 

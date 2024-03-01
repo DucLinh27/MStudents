@@ -51,7 +51,7 @@ class Order extends Component {
       ...stateCopy,
     });
   };
-  handleCart = () => {
+  handlereturnHome = () => {
     if (this.props.history) {
       this.props.history.push(`/home`);
     }
@@ -114,7 +114,6 @@ class Order extends Component {
           email: this.state.email,
           phoneNumber: this.state.phoneNumber,
         });
-
         if (res && res.errCode === 0) {
           toast.success("Order a new courses successfully");
         } else {
@@ -126,8 +125,6 @@ class Order extends Component {
         console.error("Error creating order", error);
         // Handle errors here
       });
-
-    // this.props.coursePurchased();
   };
   validateInput = () => {
     const { username, email, phonenumber } = this.state;
@@ -159,7 +156,6 @@ class Order extends Component {
     console.log(this.state.payment);
     let { coursePrice, detailCourses, showPaypal } = this.state;
     console.log(detailCourses);
-    console.log(coursePrice);
     const { userIdNormal } = this.props;
     console.log(userIdNormal);
 
@@ -283,7 +279,7 @@ class Order extends Component {
             <div className="bottom-content d-flex">
               <div
                 className="back-cart d-flex"
-                onClick={() => this.handleCart()}
+                onClick={() => this.handlereturnHome()}
               >
                 <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
                 <div>

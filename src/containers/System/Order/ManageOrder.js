@@ -82,7 +82,6 @@ class ManageOrder extends Component {
       console.error("Error deleting order:", error);
     }
   };
-
   //Edit
   toggleUserEditModal = () => {
     this.setState({
