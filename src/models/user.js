@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Markdown, { foreignKey: "teacherId" });
       User.hasOne(models.Teacher_Infor, { foreignKey: "teacherId" });
       User.hasMany(models.Courses, { foreignKey: "teacherId" });
-      // User.hasMany(models.Allcode, { foreignKey: "roleId", as: "Role" });
       User.hasMany(models.Order, { foreignKey: "userId" });
     }
   }

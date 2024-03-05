@@ -72,6 +72,9 @@ let getDetailCoursesById = (inputId) => {
             "price",
             "image",
             "description",
+            "level",
+            "duration",
+            "lessons",
             "teacherId",
           ],
           include: [
@@ -127,7 +130,17 @@ let filterCoursesByName = (name) => {
               [Op.like]: "%" + name + "%",
             },
           },
-          attributes: ["id", "name", "price", "image", "description"],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "level",
+            "duration",
+            "lessons",
+            "teacherId",
+          ],
           include: [
             {
               model: db.Videos,

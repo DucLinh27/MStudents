@@ -57,16 +57,18 @@ let handleUserLogin = (email, password) => {
             delete user.password;
             userData.user = user;
 
-            const token = await generateAccessToken({
+            const token = generateAccessToken({
               id: user._id,
               username: user.username,
             });
-            const refreshToken = await generateRefreshToken({
+
+            const refreshToken = generateRefreshToken({
               id: user._id,
               username: user.username,
             });
-            console.log("tokents" + token);
-            console.log(refreshToken);
+
+            // res.json({ token, refreshToken });
+            console.log("refreshToken" + token);
           } else {
             userData.errCode = 3;
             userData.errMessage = "Wrong password";
@@ -472,8 +474,36 @@ let handleUserGoogle = async (data) => {
     }
   });
 };
+let forgotPassword = (email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Find the user by email
+      let user = await db.User.findOne({ where: { email } });
+      if (!user) {
+        resolve({ errCode: 1, errMessage: "User not found" });
+        return;
+      }
 
+      // Generate a unique token
+      let token = crypto.randomBytes(20).toString("hex");
+
+      // Save the token to the user's record
+      user.resetPasswordToken = token;
+      user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+      await user.save();
+
+      // Send an email to the user with the link to reset their password
+      let link = `http://your-app.com/reset-password?token=${token}`;
+      await sendPasswordResetEmail(email, link);
+
+      resolve({ errCode: 0, errMessage: "Password reset email sent" });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
+  forgotPassword: forgotPassword,
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
   createNewUser: createNewUser,

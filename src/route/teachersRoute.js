@@ -32,16 +32,7 @@ let initTeachersRoutes = (app) => {
     authMiddleware,
     teacherController.getDetailTeacherById
   );
-  router.post(
-    "/api/bulk-create-schedule",
-    authMiddleware,
-    teacherController.bulkCreateSchedule
-  );
-  router.get(
-    "/api/get-schedule-teacher-by-date",
-    authMiddleware,
-    teacherController.getScheduleByDate
-  );
+
   router.get(
     "/api/get-extra-infor-teacher-by-id",
     authMiddleware,
@@ -52,11 +43,7 @@ let initTeachersRoutes = (app) => {
     authMiddleware,
     teacherController.getProfileTeacherById
   );
-  router.get(
-    "/api/get-list-student-for-teacher",
-    authMiddleware,
-    teacherController.getListStudentForTeacher
-  );
+
   router.post("/api/send-remedy", authMiddleware, teacherController.sendRemedy);
   router.put(
     "/api/edit-teachers",

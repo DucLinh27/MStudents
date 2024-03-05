@@ -11,7 +11,7 @@ let sendSimpleEmail = async (dataSend) => {
       pass: process.env.EMAIL_APP_PASSWORD,
     },
   });
-  
+
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"Tran Duc Linh 👻" <linhtdgcd201662@fpt.edu.vn>', // sender address
@@ -89,10 +89,33 @@ let getBodyHTMLEmailRemedy = (dataSend) => {
   }
   return result;
 };
+let sendPasswordResetEmail = async (email, link) => {
+  // Create a transporter
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_APP,
+      pass: process.env.EMAIL_APP_PASSWORD,
+    },
+  });
 
+  // Set up email data
+  let mailOptions = {
+    from: '"Tran Duc Linh 👻" <linhtdgcd201662@fpt.edu.vn>', // sender address
+    to: dataSend.reciverEmail, // list of receivers
+    subject: "Password Reset", // Subject line
+    text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${link}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`, // plain text body
+  };
+
+  // Send the email
+  let info = await transporter.sendMail(mailOptions);
+};
 // async..await is not allowed in global scope, must use a wrapper
 
 module.exports = {
   sendSimpleEmail: sendSimpleEmail,
   sendAttachments: sendAttachments,
+  sendPasswordResetEmail: sendPasswordResetEmail,
 };
