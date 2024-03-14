@@ -24,7 +24,6 @@ class UserRedux extends Component {
       roleArr: [],
       previewImageURL: "",
       isOpen: false,
-
       email: "",
       password: "",
       firstName: "",
@@ -257,7 +256,6 @@ class UserRedux extends Component {
       gender,
       position,
       role,
-      avatar,
     } = this.state;
 
     return (

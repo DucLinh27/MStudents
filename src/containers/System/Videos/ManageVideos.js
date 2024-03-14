@@ -2,21 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./ManageVideos.scss";
 import { FormattedMessage } from "react-intl";
-import MarkdownIt from "markdown-it";
-import MdEditor from "react-markdown-editor-lite";
-import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import {
   createNewVideos,
   deleteVideosService,
   editVideosService,
   findVideosByName,
   getAllVideos,
-} from "../../../services/coursesService";
+} from "../../../services/videoService";
 import { toast } from "react-toastify";
-import axios from "axios";
 import * as actions from "../../../store/actions";
 import Select from "react-select";
-import { getDetailCoursesById } from "../../../services/coursesService";
 
 class ManageVideos extends Component {
   constructor(props) {
@@ -30,6 +25,8 @@ class ManageVideos extends Component {
       isSearching: false,
       filteredVideos: [],
       isEmbedLink: true,
+      selectedOption: "",
+      selectedCourses: "",
     };
   }
   //just run 1 time
@@ -72,10 +69,13 @@ class ManageVideos extends Component {
       this.setState({ filteredVideos: this.state.arrVideos });
     }
     if (
-      prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor
+      prevProps.allRequiredTeachersInfor !== this.props.allRequiredTeachersInfor
     ) {
-      console.log("allRequiredDoctorInfor:", this.props.allRequiredDoctorInfor); // Add this line
-      let { resCourses } = this.props.allRequiredDoctorInfor;
+      console.log(
+        "allRequiredTeachersInfor:",
+        this.props.allRequiredTeachersInfor
+      ); // Add this line
+      let { resCourses } = this.props.allRequiredTeachersInfor;
       let dataSelectCourses = this.buildDataInputSelect(resCourses, "COURSES");
       this.setState({
         listCourses: dataSelectCourses,
@@ -104,7 +104,9 @@ class ManageVideos extends Component {
     const filteredVideos = this.state.arrVideos.filter((video) =>
       video.name.toLowerCase().includes(lowerCaseSearchTerm)
     );
+
     this.setState({ filteredVideos });
+    console.log(filteredVideos);
   };
   handleOnChangeInput = (event, id) => {
     let stateCopy = { ...this.state };
@@ -160,10 +162,10 @@ class ManageVideos extends Component {
       this.setState({ video: srcMatch[1] });
     }
   };
-  handleChangeSelectCourses = async (selectedOption, name) => {
+  handleChangeSelectCourses = async (selectedCourses, name) => {
     let stateName = name.name;
     let stateCopy = { ...this.state };
-    stateCopy[stateName] = selectedOption;
+    stateCopy[stateName] = selectedCourses;
     this.setState({
       ...stateCopy,
     });
@@ -181,12 +183,15 @@ class ManageVideos extends Component {
     }
   };
   handleEditVideo = (item) => {
+    const selectedCourses = this.state.listCourses.find(
+      (courses) => courses.value === item.coursesId
+    );
     this.setState({
       id: item.id,
       name: item.name,
       video: item.video,
       coursesId: item.coursesId,
-      // Set the previewImageURL to the class image
+      selectedCourses: selectedCourses,
       isEditing: true,
     });
   };
@@ -253,7 +258,6 @@ class ManageVideos extends Component {
   };
 
   render() {
-    let arrVideos = this.state.arrVideos;
     let previewVideoURL = this.state.previewVideoURL;
     console.log(previewVideoURL);
     return (
@@ -394,7 +398,7 @@ class ManageVideos extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    allRequiredDoctorInfor: state.admin.allRequiredDoctorInfor,
+    allRequiredTeachersInfor: state.admin.allRequiredTeachersInfor,
   };
 };
 

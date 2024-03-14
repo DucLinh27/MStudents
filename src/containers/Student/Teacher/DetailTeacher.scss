@@ -1,6 +1,6 @@
-.doctor-detail-container {
+.teacher-detail-container {
   height: 900px;
-  .intro-doctor {
+  .intro-teacher {
     display: flex;
     margin: 65px 150px 0 150px;
     border: 1px solid grey;
@@ -73,9 +73,9 @@
 }
 // For tablet devices
 @media (min-width: 768px) and (max-width: 1023px) {
-  .doctor-detail-container {
+  .teacher-detail-container {
     height: 500px;
-    .intro-doctor {
+    .intro-teacher {
       display: flex;
       margin: 65px 150px 0 150px;
       border: 1px solid grey;
@@ -144,9 +144,9 @@
 
 // For mobile devices
 @media (max-width: 767px) {
-  .doctor-detail-container {
+  .teacher-detail-container {
     height: 100%;
-    .intro-doctor {
+    .intro-teacher {
       // display: flex;
       // margin: 65px 150px 0 150px;
       border: 1px solid grey;

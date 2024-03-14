@@ -38,42 +38,15 @@
         "save": " Lưu người dùng",
         "edit": "Lưu thay đổi"
     },  
-    "manage-schedule": {
-        "title": "Quản lý kế hoạch dạy học của giáo viên",
-        "choose-teacher": "Chọn giáo viên",
-        "choose-date": "Chọn ngày",
-        "save": "Lưu thông tin"
-
-    },
+   
     "student":{
         "detail-teacher": {
-            "schedule": "Lịch học",
-            "no-schedule": "Giáo viên không có lịch dạy trong thời gian này, vui lòng chọn thời gian khác!",
-            "choose":"Chọn",
-            "book-free" : "và đặt (miễn phí)"
-        },
-        "extra-infor-teacher":{
-            "text-address":"Địa chỉ lớp học",
-            "price": "Gía môn học",
-            "detail": "Xem chi tiết",
-            "payment": "Học sinh có thể thanh toán chi phí bằng hình thức: ",
-            "hide-price":"Ẩn bảng giá"
+     
+            "choose":"Chọn"
 
-        },
-        "booking-modal":{
-            "title": "Thông tin học tập",
-            "fullname": "Họ và tên",
-            "phoneNumber": "Số điện thoại",
-            "email": "Địa chỉ email",
-            "address": "Địa chỉ liên lạc",
-            "birthday": "Ngày sinh",
-            "gender": "Giới tính",
-            "reason": "Mong muốn",
-            "confirm":"Xác nhận",
-            "cancel":"Hủy",
-            "prices": "Giá Lớp Học: ",
-            "freebooking":"Miễn phí đặt lịch"
         }
+       
+       
     },
     "admin": {
         "manage-teacher": {

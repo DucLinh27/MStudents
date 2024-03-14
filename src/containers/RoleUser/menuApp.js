@@ -53,11 +53,6 @@ export const teacherMenu = [
   {
     name: "menu.admin.manage-user",
     menus: [
-      // {
-      //   // Manage  student
-      //   name: "menu.teacher.manage-student",
-      //   link: "/teacher/manage-student",
-      // },
       {
         name: "menu.admin.crud",
         link: "/system/student-manage",

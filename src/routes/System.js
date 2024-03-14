@@ -8,7 +8,6 @@ import ManageCourses from "../containers/System/Courses/ManageCourses";
 import ManageTeacher from "../containers/System/Admin/ManageTeacher";
 import ManageVideos from "../containers/System/Videos/ManageVideos";
 import ManageOrder from "../containers/System/Order/ManageOrder";
-import StudentManage from "../containers/System/Student/StudentManage";
 
 class System extends Component {
   render() {
@@ -20,7 +19,6 @@ class System extends Component {
           <div className="system-list">
             <Switch>
               <Route path="/system/user-manage" component={UserManage} />
-              <Route path="/system/student-manage" component={StudentManage} />
               <Route path="/system/user-redux" component={UserRedux} />
               <Route path="/system/manage-courses" component={ManageCourses} />
               <Route path="/system/manage-teachers" component={ManageTeacher} />

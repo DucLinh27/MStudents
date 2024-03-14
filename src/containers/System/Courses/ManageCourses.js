@@ -65,7 +65,6 @@ class ManageCourses extends Component {
     try {
       const response = await getAllTeachersInfor();
       console.log("Response:", response);
-
       if (response.errCode === 0) {
         const teachersArray = Array.isArray(response.data)
           ? response.data
@@ -102,9 +101,9 @@ class ManageCourses extends Component {
     if (this.state.arrCourses !== prevState.arrCourses) {
       this.setState({ filteredCourses: this.state.arrCourses });
     }
-    if (prevProps.allDoctors !== this.props.allDoctors) {
+    if (prevProps.allTeachers !== this.props.allTeachers) {
       let dataSelect = this.buildDataInputSelect(
-        this.props.allDoctors,
+        this.props.allTeachers,
         "USERS"
       );
       this.setState({
@@ -113,7 +112,7 @@ class ManageCourses extends Component {
     }
     if (prevProps.language !== this.props.language) {
       let dataSelect = this.buildDataInputSelect(
-        this.props.allDoctors,
+        this.props.allTeachers,
         "USERS"
       );
       this.setState({
@@ -235,6 +234,11 @@ class ManageCourses extends Component {
     }
   };
   handleEditCourses = (item) => {
+    // Find the teacher in the listTeachers array
+    const selectedTeacher = this.state.listTeachers.find(
+      (teacher) => teacher.value === item.teacherId
+    );
+
     this.setState({
       id: item.id,
       name: item.name,
@@ -244,8 +248,9 @@ class ManageCourses extends Component {
       level: item.level,
       duration: item.duration,
       lessons: item.lessons,
-      previewImageURL: item.image, // Set the previewImageURL to the class image
+      previewImageURL: item.image,
       isEditing: true,
+      selectedOption: selectedTeacher, // Set the selectedOption to the selected teacher
     });
   };
   filterCourses = (searchTerm) => {
@@ -272,14 +277,7 @@ class ManageCourses extends Component {
       });
     }
   };
-  handleChangeSelectDoctorInfor = async (selectedOption, name) => {
-    let stateName = name.name;
-    let stateCopy = { ...this.state };
-    stateCopy[stateName] = selectedOption;
-    this.setState({
-      ...stateCopy,
-    });
-  };
+
   handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
     let { listCourses } = this.state;
@@ -287,7 +285,6 @@ class ManageCourses extends Component {
     if (res && res.errCode === 0 && res.data) {
       let coursesId = "",
         selectedCourses = "";
-
       if (res.data.Teacher_Infor) {
         coursesId = res.data.Teacher_Infor.coursesId;
         selectedCourses = listCourses.find((item) => {
@@ -533,7 +530,7 @@ class ManageCourses extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    allDoctors: state.admin.allTeachers,
+    allTeachers: state.admin.allTeachers,
   };
 };
 

@@ -6,8 +6,6 @@ import {
   findOrdersByName,
   getOrderService,
 } from "../../../services/orderService";
-import ModalUser from "../Users/ModalUser";
-import { emitter } from "../../../utils/emitter";
 import ModalEditOrder from "./ModalEditOrder";
 import {
   deleteOrderService,
@@ -108,7 +106,6 @@ class ManageOrder extends Component {
     }
   };
   render() {
-    let arrOrders = this.state.arrOrders;
     return (
       <div className="users-container">
         {this.state.isOpenModalEditUser && (

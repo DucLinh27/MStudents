@@ -3,7 +3,6 @@ import axios from "../axios";
 const createOrderService = (data) => {
   return axios.post("/api/create-order", data);
 };
-
 const getOrderService = () => {
   return axios.get(`/api/get-order`);
 };

@@ -60,7 +60,6 @@ const adminReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_ALL_USERS_FAILDED:
       state.users = [];
-
       return {
         ...state,
       };
@@ -75,36 +74,34 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
-    case actionTypes.FETCH_TOP_DOCTORS_SUCCESS:
-      state.topTeachers = action.dataDoctors;
+    case actionTypes.FETCH_TOP_TEACHERS_SUCCESS:
+      state.topTeachers = action.dataTeachers;
       return {
         ...state,
       };
-    case actionTypes.FETCH_TOP_DOCTORS_FAILDED:
+    case actionTypes.FETCH_TOP_TEACHERS_FAILDED:
       state.topTeachers = [];
-
       return {
         ...state,
       };
-    case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
+    case actionTypes.FETCH_ALL_TEACHERS_SUCCESS:
       state.topTeachers = action.dataDr;
       return {
         ...state,
       };
-    case actionTypes.FETCH_ALL_DOCTORS_FAILDED:
+    case actionTypes.FETCH_ALL_TEACHERS_FAILDED:
       state.topTeachers = [];
-
       return {
         ...state,
       };
 
-    case actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_SUCCESS:
+    case actionTypes.FETCH_TEACHERS_REQUIRE_INFOR_SUCCESS:
       state.allRequiredTeachersInfor = action.data;
       console.log(action);
       return {
         ...state,
       };
-    case actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_FAILDED:
+    case actionTypes.FETCH_TEACHERS_REQUIRE_INFOR_FAILDED:
       state.allRequiredTeachersInfor = [];
       return {
         ...state,

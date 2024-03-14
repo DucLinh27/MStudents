@@ -254,7 +254,7 @@ export const fetchAllTeachers = (data) => {
       }
     } catch (e) {
       dispatch({
-        type: actionTypes.FETCH_ALL_DOCTORS_FAILDED,
+        type: actionTypes.FETCH_ALL_TEACHERS_FAILDED,
       });
     }
   };
@@ -268,24 +268,24 @@ export const fetchAllTeachersSuccess = (data) => ({
 export const fetchAllTeachersFailded = () => ({
   type: actionTypes.FETCH_ALL_TEACHERS_FAILDED,
 });
-//DOCTOR
+//TEACHERS
 export const fetchTopTeacher = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getTopTeacherHomeService("");
       if (res && res.errCode === 0) {
         dispatch({
-          type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
-          dataDoctors: res.data,
+          type: actionTypes.FETCH_TOP_TEACHERS_SUCCESS,
+          dataTeachers: res.data,
         });
       } else {
         dispatch({
-          type: actionTypes.FETCH_TOP_DOCTORS_FAILDED,
+          type: actionTypes.FETCH_TOP_TEACHERS_FAILDED,
         });
       }
     } catch (e) {
       dispatch({
-        type: actionTypes.FETCH_TOP_DOCTORS_FAILDED,
+        type: actionTypes.FETCH_TOP_TEACHERS_FAILDED,
       });
     }
   };
@@ -296,21 +296,21 @@ export const saveDetailTeacher = (data) => {
     try {
       let res = await saveDetailTeacherService(data);
       if (res && res.errCode === 0) {
-        toast.success("SAVE INFOR DOCTOR SUCCESS");
+        toast.success("SAVE INFOR TEACHERS SUCCESS");
         dispatch({
-          type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
+          type: actionTypes.SAVE_DETAIL_TEACHERS_SUCCESS,
         });
       } else {
         console.log("ERROR: Failed to save re", res);
-        toast.success("SAVE INFOR DOCTOR FAILED");
+        toast.success("SAVE INFOR TEACHERS FAILED");
         dispatch({
-          type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED,
+          type: actionTypes.SAVE_DETAIL_TEACHERS_FAILDED,
         });
       }
     } catch (e) {
-      toast.success("SAVE INFOR DOCTOR FAILED");
+      toast.success("SAVE INFOR TEACHERS FAILED");
       dispatch({
-        type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED,
+        type: actionTypes.SAVE_DETAIL_TEACHERS_FAILDED,
       });
     }
   };
@@ -319,28 +319,28 @@ export const getRequireTeachersInfor = () => {
   return async (dispatch, getState) => {
     try {
       dispatch({
-        type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_START,
+        type: actionTypes.FETCH_TEACHERS_REQUIRE_INFOR_START,
       });
       let resCourses = await getAllCourses();
       if (resCourses && resCourses.errCode === 0) {
         let data = {
           resCourses: resCourses.data,
         };
-        dispatch(fetchDoctorRequireSuccess(data));
+        dispatch(fetchTeacherRequireSuccess(data));
       } else {
-        dispatch(fetchDoctorRequireFaided());
+        dispatch(fetchTeacherRequireFaided());
       }
     } catch (e) {
-      dispatch(fetchDoctorRequireFaided());
+      dispatch(fetchTeacherRequireFaided());
     }
   };
 };
-export const fetchDoctorRequireSuccess = (allRequireData) => ({
-  type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_SUCCESS,
+export const fetchTeacherRequireSuccess = (allRequireData) => ({
+  type: actionTypes.FETCH_TEACHERS_REQUIRE_INFOR_SUCCESS,
   data: allRequireData,
 });
-export const fetchDoctorRequireFaided = () => ({
-  type: actionTypes.FETCH_DOCTOR_REQUIRE_INFOR_FAILDED,
+export const fetchTeacherRequireFaided = () => ({
+  type: actionTypes.FETCH_TEACHERS_REQUIRE_INFOR_FAILDED,
 });
 //ORDER
 export const editCourses = (data) => {

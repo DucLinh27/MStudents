@@ -29,7 +29,6 @@ class Order extends Component {
   }
   //just run 1 time
   async componentDidMount() {
-    this.props.coursePurchased();
     if (!window.paypal) {
       this.addPaypalScript();
     } else {
@@ -287,26 +286,21 @@ class Order extends Component {
                   <FormattedMessage id="order.back" />
                 </div>
               </div>
-              {!this.state.coursePurchased ? (
-                <>
-                  {!showPaypal && (
-                    <button className="confirm" onClick={this.handleConfirm}>
-                      Xác nhận Thanh Toán
-                    </button>
-                  )}
-                  {showPaypal && (
-                    <PayPalButton
-                      amount={coursePrice}
-                      // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                      onSuccess={this.onSuccessPaypal}
-                      onError={() => {
-                        alert("Error ");
-                      }}
-                    />
-                  )}
-                </>
-              ) : (
-                <p>Course has been purchased!</p>
+
+              {!showPaypal && (
+                <button className="confirm" onClick={this.handleConfirm}>
+                  Xác nhận Thanh Toán
+                </button>
+              )}
+              {showPaypal && (
+                <PayPalButton
+                  amount={coursePrice}
+                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                  onSuccess={this.onSuccessPaypal}
+                  onError={() => {
+                    alert("Error ");
+                  }}
+                />
               )}
             </div>
           </div>
@@ -321,14 +315,12 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
-    coursePurchased: state.coursePurchased,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     clearOrder: () => dispatch(actions.clearOrder()),
-    coursePurchased: () => dispatch(actions.coursePurchased()),
   };
 };
 

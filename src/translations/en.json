@@ -18,13 +18,10 @@
             "crudredux": "CRUD Redux",
             "teacher-infor": "Add Teacher Information",
             "courses": "Courses",
-            "handbook": "Handbook",
-
             "manage-courses": "Manage Courses",
             "manage-videos": "Manage Videos",
             "manage-order": "Manage Order"
         }
-     
     },
     "manage-user": {
         "add": "Add a new user",
@@ -41,42 +38,9 @@
         "save": "Save User",
         "edit": "Save Changes"
     },
-  
-    "manage-schedule": {
-        "title": "Manage teacher's examination plan",
-        "choose-teacher": "Choose Teacher",
-        "choose-date": "Choose Date",
-        "save": "Save information"
-    },
     "student":{
-        "detail-teacher": {
-            "schedule": "Schedule",
-            "no-schedule": "The doctor does not have an appointment during this time, please choose another time!",
-            "choose":"Choose",
-            "book-free" : "and book (free)"
-
-        },
-        "extra-infor-teacher":{
-            "text-address":"Address of examination",
-            "price": "Price of examination",
-            "detail": "See details",
-            "payment": "The patient can pay the cost in the form of: ",
-            "hide-price":"Hide price list"
-
-        },
-        "booking-modal":{
-            "title": "Information to book a medical appointment",
-            "fullname": "Full Name",
-            "phoneNumber": "Phone Number",
-            "email": "Email",
-            "address": "Address",
-            "birthday": "Birthday",
-            "gender": "Genders",
-            "reason": "Reasons for medical examination",
-            "confirm":"Confirm",
-            "cancel":"Cancel",
-            "prices": "Price Check: ",
-            "freebooking":"Free Booking"
+        "detail-teacher": {        
+            "choose":"Choose"
         }
     },
     "admin": {
@@ -97,8 +61,6 @@
         "orderinfor": "Order information",
         "username": "Username",
         "phonenumber": "Phonenumber",
-        "recheck":"Recheck Order",
-        "back": "Back",
         "recheck":"Recheck Order",
         "back": "Back",
         "money": "Price",

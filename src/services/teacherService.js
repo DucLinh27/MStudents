@@ -22,10 +22,10 @@ const saveBulkScheduleTeacher = (data) => {
 };
 
 const getExtraInforTeacherById = (teacherId) => {
-  return axios.get(`/api/get-extra-infor-teacher-by-id?doctorId=${teacherId}`);
+  return axios.get(`/api/get-extra-infor-teacher-by-id?teacherId=${teacherId}`);
 };
 const getProfileTeacherById = (teacherId) => {
-  return axios.get(`/api/get-profile-teacher-by-id?doctorId=${teacherId}`);
+  return axios.get(`/api/get-profile-teacher-by-id?teacherId=${teacherId}`);
 };
 const postStudentOrderCourses = (data) => {
   return axios.post("/api/student-order-courses", data);

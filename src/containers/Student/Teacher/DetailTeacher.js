@@ -6,7 +6,7 @@ import { getDetailInforTeacher } from "../../../services/teacherService";
 import { LANGUAGES } from "../../../utils";
 import HomeFooter from "../../HomePage/Header/HomeFooter";
 
-class TeacherDoctor extends Component {
+class DetailTeacher extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,9 +33,9 @@ class TeacherDoctor extends Component {
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.topDoctorsRedux !== this.props.topDoctorsRedux) {
+    if (prevProps.topTeachersRedux !== this.props.topTeachersRedux) {
       this.setState({
-        arrDoctors: this.props.topDoctorsRedux,
+        arrTeachers: this.props.topTeachersRedux,
       });
     }
   }
@@ -52,8 +52,8 @@ class TeacherDoctor extends Component {
     return (
       <>
         <HomeHeader isShowBanner={false} />
-        <div className="doctor-detail-container">
-          <div className="intro-doctor">
+        <div className="teacher-detail-container">
+          <div className="intro-teacher">
             <div
               className="content-image"
               style={{
@@ -103,7 +103,7 @@ class TeacherDoctor extends Component {
                 );
               })}
           </div>
-          <div className="comment-doctor"></div>
+          <div className="comment-teacher"></div>
         </div>
         <HomeFooter />
       </>
@@ -121,4 +121,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeacherDoctor);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailTeacher);

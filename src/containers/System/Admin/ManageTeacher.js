@@ -2,20 +2,15 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
-import MarkdownIt from "markdown-it";
-import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import "./ManageTeacher.scss";
 import Select from "react-select";
 import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
-import { getDetailInforDoctor } from "../../../services/userService";
 import {
   deleteTeacherService,
   getAllTeachersInfor,
   getDetailInforTeacher,
 } from "../../../services/teacherService";
-
-const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageTeacher extends Component {
   constructor(props) {
@@ -140,9 +135,9 @@ class ManageTeacher extends Component {
         selectedCourses = "";
 
       if (res.data.Teacher_Infor) {
-        level = res.data.Doctor_Infor.level;
-        description = res.data.Doctor_Infor.description;
-        coursesId = res.data.Doctor_Infor.coursesId;
+        level = res.data.Teacher_Infor.level;
+        description = res.data.Teacher_Infor.description;
+        coursesId = res.data.Teacher_Infor.coursesId;
         selectedCourses = listCourses.find((item) => {
           return item && item.value === coursesId;
         });
@@ -192,20 +187,31 @@ class ManageTeacher extends Component {
     }
   };
   handleEditTeacher = (item) => {
+    // Find the teacher in the listTeachers array
+    const selectedTeacher = this.state.listTeachers.find(
+      (teacher) => teacher.value === item.teacherId
+    );
+    const selectedCourses = this.state.listCourses.find(
+      (courses) => courses.value === item.coursesId
+    );
+
     this.setState({
       id: item.id,
-      teacherId: item.name,
-      coursesId: item.video,
-      description: item.coursesId,
+      teacherId: item.teacherId,
+      coursesId: item.coursesId,
+      description: item.description,
       level: item.level,
+      selectedOption: selectedTeacher,
+      selectedCourses: selectedCourses,
+
       isEditing: true,
     });
   };
   render() {
     let { hashOldData } = this.state;
     return (
-      <div className="manage-doctor-container">
-        <div className="manage-doctor-title">
+      <div className="manage-teacher-container">
+        <div className="manage-teacher-title">
           <FormattedMessage id="admin.manage-teacher.title" />
         </div>
         <div className="more-infor">
@@ -267,8 +273,8 @@ class ManageTeacher extends Component {
           onClick={() => this.handleSaveContentMarkdown()}
           className={
             hashOldData === true
-              ? "save-content-doctor"
-              : "create-content-doctor"
+              ? "save-content-teacher"
+              : "create-content-teacher"
           }
         >
           {hashOldData === true ? (

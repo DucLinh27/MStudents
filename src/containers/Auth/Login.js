@@ -145,11 +145,11 @@ class Login extends Component {
               <span className="">Or login with:</span>
             </div>
             <div className="col-12 social-login">
-              <i className="fab fa-facebook social-icon fb"></i>
+              {/* <i className="fab fa-facebook social-icon fb"></i>
 
-              <i className="fab fa-google-plus social-icon gg"></i>
+              <i className="fab fa-google-plus social-icon gg"></i> */}
+              <LoginGoogleButton />
             </div>
-            <LoginGoogleButton />
           </div>
         </div>
       </div>

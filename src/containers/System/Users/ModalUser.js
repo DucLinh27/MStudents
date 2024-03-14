@@ -29,7 +29,6 @@ class ModalUSer extends Component {
   handleOnChangeInput = (event, id) => {
     let copyState = { ...this.state };
     copyState[id] = event.target.value;
-
     this.setState({ ...copyState });
   };
   checkValidaInput = () => {

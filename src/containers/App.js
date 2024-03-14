@@ -17,7 +17,6 @@ import ConfirmModal from "../components/ConfirmModal";
 import HomePage from "./HomePage/Header/HomePage.js";
 import CustomScrollbars from "../components/CustomScrollbars";
 import DetailTeacher from "./Student/Teacher/DetailTeacher.js";
-import VerifyEmail from "./Student/Emails/VerifyEmail";
 import DetailCourses from "./Student/Courses/DetailCourses";
 import Order from "../containers/Orders/Order";
 import PaymentReturn from "../containers/Orders/PaymentReturn";
@@ -84,10 +83,6 @@ class App extends Component {
                   <Route path={path.PAYMENT} component={PaymentReturn} />
                   <Route path={path.PROFILE} exact component={ProfileUser} />
                   <Route path={path.USER_COUSER} component={UserCourses} />
-                  {/* <Route
-                    path={path.VERIFY_EMAIL_BOOKING}
-                    component={VerifyEmail}
-                  /> */}
                 </Switch>
               </CustomScrollbars>
             </div>
