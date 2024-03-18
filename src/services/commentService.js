@@ -6,8 +6,8 @@ const createComments = (data) => {
 const getAllComments = () => {
   return axios.get(`/api/get-all-comment`);
 };
-const getDetailCommentsById = (id) => {
-  return axios.get(`/api/get-detail-comment-by-id?id=${id}`);
+const getDetailCommentsById = (videoId) => {
+  return axios.get(`/api/get-detail-comment-by-id?videoId=${videoId}`);
 };
 const editCommentService = (data) => {
   return axios.put("/api/edit-comment", data);

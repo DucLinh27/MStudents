@@ -9,6 +9,8 @@ import {
   createComments,
   editCommentService,
   getAllComments,
+  deleteCommentService,
+  getDetailCommentsById,
 } from "../../../services/commentService";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -29,8 +31,11 @@ class UserCourses extends React.Component {
       comments: [],
       currentVideoId: null,
       arrVideos: [],
+      arrComments: [],
+      commentsToShow: 5,
     };
   }
+
   async componentDidMount() {
     try {
       const orderId = this.props.match.params.id;
@@ -56,12 +61,11 @@ class UserCourses extends React.Component {
           console.log("No videos in course details:", courseDetails);
         }
         let videoId = null;
-        if (
-          courseDetails.data &&
-          courseDetails.data.courses.videos &&
-          courseDetails.data.courses.videos.length > 0
-        ) {
-          videoId = courseDetails.data.courses.videos[1].id; // Assuming the videoId is stored in the id property of the video object
+        if (courseDetails.data && courseDetails.data.courses.videos) {
+          const videoIds = courseDetails.data.courses.videos.map(
+            (video) => video.id
+          );
+          this.setState({ videoIds });
         }
         this.setState({
           videoDetails,
@@ -72,80 +76,109 @@ class UserCourses extends React.Component {
       console.error("Error fetching course details:", error);
     }
     try {
-      const response = await getAllComments();
-      console.log("Response:", response);
-      if (response.errCode === 0) {
-        const commentsArray = Array.isArray(response.data)
-          ? response.data
-          : Object.values(response.data);
-        this.setState({
-          arrComments: commentsArray,
-        });
-      } else {
-        console.error("Error fetching comment:", response.errMessage);
+      const { videoIds } = this.state;
+      console.log(videoIds);
+      for (const videoId of videoIds) {
+        const commentsDetails = await getDetailCommentsById(videoId);
+        console.log(commentsDetails);
+        if (commentsDetails && commentsDetails.errCode === 0) {
+          this.setState((prevState) => ({
+            arrComments: [
+              ...prevState.arrComments,
+              ...(Array.isArray(commentsDetails.data)
+                ? commentsDetails.data
+                : []),
+            ],
+          }));
+        }
       }
     } catch (error) {
-      console.error("Error fetching comment:", error);
+      console.error("Error fetching course details:", error);
     }
-
-    //Get user
   }
   componentDidUpdate(prevProps, prevState, snapshot) {}
-
+  // Add this method to your component
+  handleVideoNameClick = async (index, videoId) => {
+    this.setState(
+      {
+        selectedVideoIndex:
+          this.state.selectedVideoIndex === index ? null : index,
+        videoId: this.state.selectedVideoIndex === index ? null : videoId,
+      },
+      async () => {
+        // Add a callback to setState
+        if (this.state.videoId) {
+          const commentsDetails = await getDetailCommentsById(
+            this.state.videoId
+          );
+          if (commentsDetails && commentsDetails.errCode === 0) {
+            this.setState({
+              arrComments: Array.isArray(commentsDetails.data)
+                ? commentsDetails.data
+                : [],
+            });
+            console.log(commentsDetails.data);
+          }
+        } else {
+          this.setState({
+            arrComments: [],
+          });
+        }
+      }
+    );
+  };
+  toggleComments = () => {
+    this.setState((prevState) => ({
+      commentsToShow:
+        prevState.commentsToShow === 5 ? this.state.arrComments.length : 5,
+    }));
+  };
   showMyCourses = () => {
     this.setState({ activeTab: "myCourses" });
   };
   showMyComments = () => {
     this.setState({ activeTab: "myComments" });
   };
-  handleVideoNameClick = (index, videoId) => {
-    this.setState((prevState) => ({
-      selectedVideoIndex: prevState.selectedVideoIndex === index ? null : index,
-      videoId: prevState.selectedVideoIndex === index ? null : videoId,
-    }));
-  };
   handleChange = (event) => {
     this.setState({ inputValue: event.target.value });
   };
-
-  handleSaveNewVideo = async () => {
+  handleSaveNewComment = async () => {
     const { userId } = this.props;
+    const comment = this.state.name;
     const { videoId } = this.state;
+    console.log(videoId);
     let data = {
       ...this.state,
       userId,
       videoId,
+      comment,
     };
-    console.log(userId, videoId);
+
+    let res;
     if (this.state.isEditing) {
-      // Edit the class
-      let res = await editCommentService(data);
-      if (res && res.errCode === 0) {
-        toast.success("Edit comment successfully");
-        this.setState({
-          id: null,
-          name: { ...this.state.name, [videoId]: "" },
-          videoId: "",
-          userId: "",
-          isEditing: false,
-        });
-      } else {
-        toast.error("Edit comment error");
-        console.log(res);
-      }
+      res = await editCommentService(data);
     } else {
-      let res = await createComments(data);
-      if (res && res.errCode === 0) {
-        toast.success("Add new comment successfully");
-        this.setState({
-          name: this.state.name,
-          videoId: this.state.videoId,
-          userId: this.state.userId,
-        });
-      } else {
-        toast.error("Add new video Error");
-        console.log(res);
-      }
+      res = await createComments(data);
+    }
+
+    if (res && res.errCode === 0) {
+      toast.success(
+        this.state.isEditing
+          ? "Edit comment successfully"
+          : "Add new comment successfully"
+      );
+      this.setState({
+        id: null,
+        name: "",
+        videoId: "",
+        userId: "",
+        isEditing: false,
+      });
+    } else {
+      toast.error(
+        this.state.isEditing ? "Edit comment error" : "Add new video Error"
+      );
+      console.log(res);
     }
   };
   handleOnChangeInput = (event, id) => {
@@ -158,10 +191,7 @@ class UserCourses extends React.Component {
   render() {
     let { language } = this.props;
     const { userInfo, user } = this.props;
-    console.log(userInfo);
     let userGoogle = user.user;
-    console.log(this.state.videoDetails);
-
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -208,6 +238,25 @@ class UserCourses extends React.Component {
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                   ></iframe>
+                                  <div>
+                                    <h3>Comments</h3>
+                                    {this.state.arrComments.map(
+                                      (comment, index) => (
+                                        <div key={index}>
+                                          <p>
+                                            {comment.userId}: {comment.name}
+                                          </p>
+                                        </div>
+                                      )
+                                    )}
+                                    {this.state.arrComments.length > 5 && (
+                                      <button onClick={this.toggleComments}>
+                                        {this.state.commentsToShow === 5
+                                          ? "Show More"
+                                          : "Show Less"}
+                                      </button>
+                                    )}
+                                  </div>
                                   <div className="col-6 form-group" key={index}>
                                     <label>Comments</label>
                                     <input
@@ -219,8 +268,11 @@ class UserCourses extends React.Component {
                                       }
                                     />
                                     <button
+                                      className="btn btn-primary"
                                       type="submit"
-                                      onClick={() => this.handleSaveNewVideo()}
+                                      onClick={() =>
+                                        this.handleSaveNewComment()
+                                      }
                                     >
                                       Comment
                                     </button>

@@ -182,7 +182,6 @@ class ManageCourses extends Component {
       // If the input is not valid, stop the function
       return;
     }
-
     let data = {
       ...this.state,
       image: this.state.previewImageURL,
