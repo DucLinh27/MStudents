@@ -110,7 +110,6 @@ let handleGetAllUsers = async (req, res) => {
     users,
   });
 };
-
 let handleCreateNewUser = async (req, res) => {
   let message = await userService.createNewUser(req.body);
   return res.status(200).json(message);
@@ -169,6 +168,7 @@ let handleSearchUserByName = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   handleLoging: handleLoging,
   handleGetAllUsers: handleGetAllUsers,

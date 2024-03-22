@@ -44,6 +44,54 @@ let postOrderCourses = (data) => {
   });
 };
 
+let postForgotPassword = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.email) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing parameter!",
+        });
+      } else {
+        /// Generate a random password
+        let newPassword = Math.random().toString(36).slice(-8);
+
+        // Find the user and update their password
+        let user = await db.User.findOne({ where: { email: data.email } });
+        if (!user) {
+          resolve({
+            errCode: 2,
+            errMessage: "User not found",
+          });
+          return;
+        }
+
+        // Now update the user's password with the new password
+        // You should hash the new password before saving it
+        let hashedPassword = await bcrypt.hash(newPassword, 10); // Assuming bcrypt is used for hashing
+        user.password = hashedPassword;
+        await user.save();
+
+        console.log(`New password for user ${user.email} is ${newPassword}`);
+
+        // Send the new password to the user's email
+        let link = `Your new password is:${user} ${newPassword}. Please change it after logging in.`;
+        await emailService.sendPasswordResetEmail({
+          reciverEmail: data.email,
+          link,
+          newPassword,
+          user,
+        });
+        resolve({
+          errCode: 0,
+          errMessage: "A new password has been sent to your email",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let buildUrlEmail = (teacherId, token) => {
   let result = `${process.env.URL_REACT}/verify-booking?token=${token}&teacherId=${teacherId}`;
   return result;
@@ -89,4 +137,5 @@ module.exports = {
   postOrderCourses: postOrderCourses,
   buildUrlEmail: buildUrlEmail,
   postVerifyBookCourses: postVerifyBookCourses,
+  postForgotPassword: postForgotPassword,
 };

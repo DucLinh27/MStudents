@@ -93,23 +93,51 @@ let handleUserGoogle = async (data) => {
       //check if email already exists
       let user = await db.User.findOne({ where: { email: data.email } });
       if (user) {
+        const token = generateAccessToken({
+          id: user.id,
+          username: user.email,
+        });
+        const refreshToken = generateRefreshToken({
+          id: user.id,
+          username: user.email,
+        });
+
+        // Optionally save the tokens in the database
+        await db.Access_Token.create({ userId: user.id, token, refreshToken });
+
         resolve({
           errCode: 1,
           errMessage:
             "Your email already exists, Plz try another email address GOOGLE",
           userId: user.id,
+          token,
+          refreshToken,
         });
       } else {
         let newUser = await db.User.create({
           email: data.email,
           firstName: data.name,
         });
+
+        const token = generateAccessToken({
+          id: newUser.id,
+          username: newUser.email,
+        });
+        const refreshToken = generateRefreshToken({
+          id: newUser.id,
+          username: newUser.email,
+        });
+
+        // Optionally save the tokens in the database
+        // await db.Access_Token.create({ userId: newUser.id, token, refreshToken });
+
         resolve({
           errCode: 0,
           message: "Ok",
           userId: newUser.id,
+          token,
+          refreshToken,
         });
-        console.log(userId);
       }
     } catch (e) {
       reject(e);
@@ -308,7 +336,6 @@ let handleSearchUserByName = (name) => {
     }
   });
 };
-
 let updateStudents = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -349,7 +376,6 @@ let updateStudents = async (data) => {
     }
   });
 };
-
 let registerNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -470,36 +496,7 @@ let getAllCodeService = (typeInput) => {
   });
 };
 
-let forgotPassword = (email) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // Find the user by email
-      let user = await db.User.findOne({ where: { email } });
-      if (!user) {
-        resolve({ errCode: 1, errMessage: "User not found" });
-        return;
-      }
-
-      // Generate a unique token
-      let token = crypto.randomBytes(20).toString("hex");
-
-      // Save the token to the user's record
-      user.resetPasswordToken = token;
-      user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-      await user.save();
-
-      // Send an email to the user with the link to reset their password
-      let link = `http://your-app.com/reset-password?token=${token}`;
-      await sendPasswordResetEmail(email, link);
-
-      resolve({ errCode: 0, errMessage: "Password reset email sent" });
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
 module.exports = {
-  forgotPassword: forgotPassword,
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
   createNewUser: createNewUser,

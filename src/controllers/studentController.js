@@ -12,6 +12,19 @@ let postOrderCourses = async (req, res) => {
     });
   }
 };
+let postForgotPassword = async (req, res) => {
+  try {
+    let infor = await studentService.postForgotPassword(req.body);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server...",
+    });
+  }
+};
+
 let postVerifyBookCourses = async (req, res) => {
   try {
     let infor = await studentService.postVerifyBookCourses(req.body);
@@ -27,4 +40,5 @@ let postVerifyBookCourses = async (req, res) => {
 module.exports = {
   postOrderCourses: postOrderCourses,
   postVerifyBookCourses: postVerifyBookCourses,
+  postForgotPassword: postForgotPassword,
 };

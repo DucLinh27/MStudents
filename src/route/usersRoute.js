@@ -2,7 +2,6 @@ import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import passport from "passport";
-import { authMiddleware } from "../middleware/JWTAction";
 let router = express.Router();
 import cacheMiddleware from "../middleware/cacheMiddleware";
 
