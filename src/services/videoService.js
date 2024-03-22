@@ -19,11 +19,8 @@ const deleteVideosService = (inputId) => {
 const findVideosByName = (name) => {
   return axios.get(`/api/find-videos-by-name?name=${name}`);
 };
-const getVideosByCourseId = (id) => {
-  return axios.get(`/api//api/get-video-by-courseid?id=${id}`);
-};
+
 export {
-  getVideosByCourseId,
   findVideosByName,
   createNewVideos,
   getAllVideos,

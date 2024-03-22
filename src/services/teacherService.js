@@ -24,27 +24,13 @@ const saveBulkScheduleTeacher = (data) => {
 const getExtraInforTeacherById = (teacherId) => {
   return axios.get(`/api/get-extra-infor-teacher-by-id?teacherId=${teacherId}`);
 };
-const getProfileTeacherById = (teacherId) => {
-  return axios.get(`/api/get-profile-teacher-by-id?teacherId=${teacherId}`);
-};
+
 const postStudentOrderCourses = (data) => {
   return axios.post("/api/student-order-courses", data);
-};
-const postVerifyBookCourses = (data) => {
-  return axios.post("/api/verify-book-courses", data);
-};
-const getAllStudentForTeacher = (data) => {
-  return axios.get(
-    `/api/get-list-student-for-teacher?teacherId=${data.teacherId}&date=${data.date}`
-  );
-};
-const postSendRemedy = (data) => {
-  return axios.post("/api/send-remedy", data);
 };
 const editTeacherService = (data) => {
   return axios.put("/api/edit-teachers", data);
 };
-
 const deleteTeacherService = (inputId) => {
   return axios.delete("/api/delete-teachers", { data: { id: inputId } });
 };
@@ -55,11 +41,7 @@ export {
   getDetailInforTeacher,
   saveBulkScheduleTeacher,
   getExtraInforTeacherById,
-  getProfileTeacherById,
   postStudentOrderCourses,
-  postVerifyBookCourses,
-  getAllStudentForTeacher,
-  postSendRemedy,
   getAllTeachersInfor,
   editTeacherService,
   deleteTeacherService,

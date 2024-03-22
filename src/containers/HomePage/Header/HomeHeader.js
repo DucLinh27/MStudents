@@ -6,7 +6,6 @@ import logoeducation from "../../../assets/logoeducation.svg";
 import image1 from "../../../assets/image1.jpg";
 import kids_on_tablets_in_class from "../../../assets/kids_on_tablets_in_class.jpg";
 import image2 from "../../../assets/image3.jpg";
-
 import { LANGUAGES } from "../../../utils/constant";
 import { changeLanguageApp } from "../../../store/actions";
 import { FormattedMessage } from "react-intl";

@@ -7,10 +7,12 @@ import * as actions from "../../../store/actions";
 import { getDetailOrderById } from "../../../services/orderService";
 import {
   createComments,
+  createCommentsReply,
   editCommentService,
   getAllComments,
   deleteCommentService,
   getDetailCommentsById,
+  getDetailCommentsReplyById,
 } from "../../../services/commentService";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,10 +34,12 @@ class UserCourses extends React.Component {
       currentVideoId: null,
       arrVideos: [],
       arrComments: [],
+      arrReplies: [],
       commentsToShow: 5,
+      showCommentInput: false,
+      showCommentReply: null,
     };
   }
-
   async componentDidMount() {
     try {
       const orderId = this.props.match.params.id;
@@ -83,8 +87,8 @@ class UserCourses extends React.Component {
         console.log(commentsDetails);
         if (commentsDetails && commentsDetails.errCode === 0) {
           this.setState((prevState) => ({
-            arrComments: [
-              ...prevState.arrComments,
+            arrReplies: [
+              ...prevState.arrReplies,
               ...(Array.isArray(commentsDetails.data)
                 ? commentsDetails.data
                 : []),
@@ -96,6 +100,25 @@ class UserCourses extends React.Component {
       console.error("Error fetching course details:", error);
     }
   }
+  handleReplyClick = async (commentId) => {
+    if (this.state.showCommentReply === commentId) {
+      this.setState({ showCommentReply: null, arrReplies: [] });
+    } else {
+      this.setState({ showCommentReply: commentId });
+
+      // Get the details of the comment reply
+      const commentReplyDetails = await getDetailCommentsReplyById(commentId);
+      console.log(commentReplyDetails);
+      if (commentReplyDetails && commentReplyDetails.errCode === 0) {
+        // Handle the comment reply details here
+        console.log(commentReplyDetails.data);
+        this.setState({ arrReplies: commentReplyDetails.data });
+      } else {
+        // Handle the error here
+        console.log("Error getting comment reply details");
+      }
+    }
+  };
   componentDidUpdate(prevProps, prevState, snapshot) {}
   // Add this method to your component
   handleVideoNameClick = async (index, videoId) => {
@@ -111,6 +134,7 @@ class UserCourses extends React.Component {
           const commentsDetails = await getDetailCommentsById(
             this.state.videoId
           );
+          console.log(commentsDetails);
           if (commentsDetails && commentsDetails.errCode === 0) {
             this.setState({
               arrComments: Array.isArray(commentsDetails.data)
@@ -141,6 +165,46 @@ class UserCourses extends React.Component {
   };
   handleChange = (event) => {
     this.setState({ inputValue: event.target.value });
+  };
+  handleSaveNewCommentReply = async () => {
+    const { userId } = this.props;
+    const comment = this.state.name;
+    const { videoId, showCommentReply: commentId } = this.state;
+    console.log(videoId);
+    let data = {
+      ...this.state,
+      userId,
+      videoId,
+      comment,
+      commentId,
+    };
+    let res;
+    if (this.state.isEditing) {
+      res = await editCommentService(data);
+    } else {
+      res = await createCommentsReply(data);
+    }
+
+    if (res && res.errCode === 0) {
+      toast.success(
+        this.state.isEditing
+          ? "Edit comment successfully"
+          : "Add new comment successfully"
+      );
+      this.setState({
+        id: null,
+        name: "",
+        videoId: "",
+        userId: "",
+        commentId: "",
+        isEditing: false,
+      });
+    } else {
+      toast.error(
+        this.state.isEditing ? "Edit comment error" : "Add new video Error"
+      );
+      console.log(res);
+    }
   };
   handleSaveNewComment = async () => {
     const { userId } = this.props;
@@ -189,9 +253,6 @@ class UserCourses extends React.Component {
     });
   };
   render() {
-    let { language } = this.props;
-    const { userInfo, user } = this.props;
-    let userGoogle = user.user;
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -243,19 +304,95 @@ class UserCourses extends React.Component {
                                     {this.state.arrComments.map(
                                       (comment, index) => (
                                         <div key={index}>
-                                          <p>
-                                            {comment.userId}: {comment.name}
-                                          </p>
+                                          <div className="row comment">
+                                            <p>
+                                              {comment.User.firstName}:{" "}
+                                              {comment.name}
+                                            </p>
+                                            <p
+                                              className="reply-comment"
+                                              onClick={() =>
+                                                this.handleReplyClick(
+                                                  comment.id
+                                                )
+                                              }
+                                            >
+                                              Reply
+                                            </p>
+                                          </div>
+                                          {this.state.showCommentReply ===
+                                            comment.id &&
+                                            this.state.arrReplies && (
+                                              <div className="col-6 form-group replies">
+                                                {this.state.arrReplies.map(
+                                                  (reply, index) => (
+                                                    <div key={index}>
+                                                      <label className="name-input">
+                                                        {reply.User.firstName}:{" "}
+                                                        {reply.name}
+                                                      </label>
+                                                    </div>
+                                                  )
+                                                )}
+                                                <input
+                                                  className="form-control reply-input"
+                                                  type="text"
+                                                  value={this.state.name}
+                                                  onChange={(event) =>
+                                                    this.handleOnChangeInput(
+                                                      event,
+                                                      "name"
+                                                    )
+                                                  }
+                                                  placeholder="Your reply..."
+                                                />
+                                                <button
+                                                  className="btn btn-primary"
+                                                  type="submit"
+                                                  onClick={
+                                                    this
+                                                      .handleSaveNewCommentReply
+                                                  }
+                                                >
+                                                  Reply
+                                                </button>
+                                              </div>
+                                            )}
                                         </div>
                                       )
                                     )}
-                                    {this.state.arrComments.length > 5 && (
+                                    {this.state.showCommentInput &&
+                                      this.state.showCommentReply === null && (
+                                        <div className="col-6 form-group">
+                                          <label>Comments</label>
+                                          <input
+                                            className="form-control"
+                                            type="text"
+                                            value={this.state.name}
+                                            placeholder="Your comment..."
+                                            onChange={(event) =>
+                                              this.handleOnChangeInput(
+                                                event,
+                                                "name"
+                                              )
+                                            }
+                                          />
+                                          <button
+                                            className="btn btn-primary"
+                                            type="submit"
+                                            onClick={this.handleSaveNewComment}
+                                          >
+                                            Comment
+                                          </button>
+                                        </div>
+                                      )}
+                                    {/* {this.state.arrComments.length > 5 && (
                                       <button onClick={this.toggleComments}>
                                         {this.state.commentsToShow === 5
                                           ? "Show More"
                                           : "Show Less"}
                                       </button>
-                                    )}
+                                    )} */}
                                   </div>
                                   <div className="col-6 form-group" key={index}>
                                     <label>Comments</label>
