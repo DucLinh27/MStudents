@@ -26,6 +26,7 @@ import AllTeacher from "./HomePage/Body/AllTeacher.js";
 import Contact from "./HomePage/Body/Contact.js";
 import About from "./HomePage/Body/About.js";
 import UserCourses from "./Student/Users/UserCourses.js";
+import ForgotPassword from "./Auth/ForgotPassword.js";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -62,6 +63,10 @@ class App extends Component {
                   <Route
                     path={path.REGISTER}
                     component={userIsNotAuthenticated(Register)}
+                  />
+                  <Route
+                    path={path.FORGOT_PASSWORD}
+                    component={userIsNotAuthenticated(ForgotPassword)}
                   />
                   <Route
                     path={path.SYSTEM}

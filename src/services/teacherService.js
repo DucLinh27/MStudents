@@ -28,6 +28,7 @@ const getExtraInforTeacherById = (teacherId) => {
 const postStudentOrderCourses = (data) => {
   return axios.post("/api/student-order-courses", data);
 };
+
 const editTeacherService = (data) => {
   return axios.put("/api/edit-teachers", data);
 };

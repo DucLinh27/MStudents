@@ -23,6 +23,9 @@ const createRegisterUserServices = (data) => {
 const changeUserPassword = (data) => {
   return axios.post("/api/change-password", data);
 };
+const forgotPassword = (data) => {
+  return axios.post("/api/forgot-password", data);
+};
 const deleteUserServices = (userId) => {
   return axios.delete("api/delete-user", {
     data: {
@@ -55,4 +58,5 @@ export {
   createNewStudentsServices,
   findUsersByName,
   editStudentsServices,
+  forgotPassword,
 };

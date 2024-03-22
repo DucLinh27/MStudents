@@ -5,6 +5,7 @@ export const path = {
   CONTACT: "/contact",
   LOGIN: "/login",
   REGISTER: "/register",
+  FORGOT_PASSWORD: "/forgot-password",
   LOG_OUT: "/logout",
   SYSTEM: "/system",
   DETAIL_TEACHER: "/detail-teacher/:id",

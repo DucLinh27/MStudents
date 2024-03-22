@@ -78,6 +78,11 @@ class Login extends Component {
       this.props.history.push(`/register`);
     }
   };
+  handleForgotPassword = () => {
+    if (this.props.history) {
+      this.props.history.push(`/forgot-password`);
+    }
+  };
 
   render() {
     return (
@@ -135,7 +140,12 @@ class Login extends Component {
                 </span>
               </div>
               <div className="forgot">
-                <span className="forgot-password">Forgot your password?</span>
+                <span
+                  className="forgot-password"
+                  onClick={() => this.handleForgotPassword()}
+                >
+                  Forgot your password?
+                </span>
               </div>
             </div>
             <div className="col-12 text-center login-with mt-3">
