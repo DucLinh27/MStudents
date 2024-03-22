@@ -21,49 +21,23 @@ let initUsersRoutes = (app) => {
   router.post("/api/registerNewUser", userController.handleRegisterNewUser);
   router.post("/refresh-token", userController.refreshAccessToken);
   //User
-  router.get(
-    "/api/get-all-users",
-    authMiddleware,
-    userController.handleGetAllUsers
-  );
-  router.get(
-    "/api/get-all-students",
-    authMiddleware,
-    userController.handleGetAllStudent
-  );
+  router.get("/api/get-all-users", userController.handleGetAllUsers);
+  router.get("/api/get-all-students", userController.handleGetAllStudent);
   router.post(
     "/api/create-new-students",
-    authMiddleware,
     userController.handleCreateNewStudents
   );
-  router.post(
-    "/api/create-new-user",
-    authMiddleware,
-    userController.handleCreateNewUser
-  );
-  router.post(
-    "/api/change-password",
-    authMiddleware,
-    userController.changePasswordService
-  );
-  router.put("/api/edit-user", authMiddleware, userController.handleEditUser);
-  router.put(
-    "/api/edit-students",
-    authMiddleware,
-    userController.handleEditStudents
-  );
+  router.post("/api/create-new-user", userController.handleCreateNewUser);
+  router.post("/api/change-password", userController.changePasswordService);
+  router.put("/api/edit-user", userController.handleEditUser);
+  router.put("/api/edit-students", userController.handleEditStudents);
 
-  router.delete(
-    "/api/delete-user",
-    authMiddleware,
-    userController.handleDeleteUser
-  );
+  router.delete("/api/delete-user", userController.handleDeleteUser);
   //restApi
-  router.get("/api/allcode", authMiddleware, userController.getAllCode);
+  router.get("/api/allcode", userController.getAllCode);
   //restApi
   router.get(
     "/api/search-users-by-name",
-    authMiddleware,
     userController.handleSearchUserByName
   );
 

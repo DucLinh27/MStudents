@@ -1,6 +1,5 @@
 import db from "../models/index";
 import bcrypt from "bcryptjs";
-// import { getRoles } from "./JWTService";
 const salt = bcrypt.genSaltSync(10);
 import { Op } from "sequelize";
 import {
@@ -26,7 +25,6 @@ let handleUserLogin = (email, password) => {
       let userData = {};
       let isExist = await checkUserEmail(email);
       if (isExist) {
-        //user already exist
         let user = await db.User.findOne({
           attributes: [
             "id",
@@ -43,13 +41,7 @@ let handleUserLogin = (email, password) => {
           raw: true,
         });
         if (user) {
-          //compare password: dùng cách 1 hay cách 2 đều chạy đúng cả =))
-          // Cách 1: dùng asynchronous (bất đồng bộ)
           let check = await bcrypt.compare(password, user.password);
-
-          // Cách 2: dùng synchronous  (đồng bộ)
-          // let check = bcrypt.compareSync(password, user.password);
-
           if (check) {
             userData.errCode = 0;
             userData.errMessage = "OK";
@@ -58,17 +50,23 @@ let handleUserLogin = (email, password) => {
             userData.user = user;
 
             const token = generateAccessToken({
-              id: user._id,
-              username: user.username,
+              id: user.id,
+              username: user.email, // Assuming the email is the username
             });
 
             const refreshToken = generateRefreshToken({
-              id: user._id,
-              username: user.username,
+              id: user.id,
+              username: user.email, // Assuming the email is the username
             });
 
-            // res.json({ token, refreshToken });
-            console.log("refreshToken" + token);
+            // Lưu token và refresh token vào bảng access_token
+            await db.Access_Token.create({
+              userId: user.id,
+              token: token,
+              refreshToken: refreshToken,
+            });
+            userData.token = token;
+            userData.refreshToken = refreshToken;
           } else {
             userData.errCode = 3;
             userData.errMessage = "Wrong password";
@@ -77,15 +75,42 @@ let handleUserLogin = (email, password) => {
           userData.errCode = 2;
           userData.errMessage = `User not found`;
         }
-        console.log("userData from userService:", userData);
       } else {
-        //return error
         userData.errCode = 1;
         userData.errMessage = `Your's Email isn't exist in our system, plz try other email`;
       }
 
       resolve(userData);
       await getRoles(userData);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let handleUserGoogle = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check if email already exists
+      let user = await db.User.findOne({ where: { email: data.email } });
+      if (user) {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address GOOGLE",
+          userId: user.id,
+        });
+      } else {
+        let newUser = await db.User.create({
+          email: data.email,
+          firstName: data.name,
+        });
+        resolve({
+          errCode: 0,
+          message: "Ok",
+          userId: newUser.id,
+        });
+        console.log(userId);
+      }
     } catch (e) {
       reject(e);
     }
@@ -101,6 +126,78 @@ let checkUserEmail = (userEmail) => {
         resolve(true);
       } else {
         resolve(false);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let createNewUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let check = await checkUserEmail(data.email);
+      if (check === true) {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address",
+        });
+      } else {
+        let hashPassWordFromBcrypt = await hashUserPassword(data.password);
+
+        await db.User.create({
+          email: data.email,
+          password: hashPassWordFromBcrypt,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          address: data.address,
+          phonenumber: data.phonenumber,
+          gender: data.gender,
+          roleId: data.roleId,
+          positionId: data.positionId,
+          image: data.avatar,
+        });
+        resolve({
+          errCode: 0,
+          message: "Ok",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let createNewStudents = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Check if email already exists
+      let check = await checkUserEmail(data.email);
+      if (check === true) {
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address",
+        });
+      } else {
+        let hashPassWordFromBcrypt = await hashUserPassword(data.password);
+
+        await db.User.create({
+          email: data.email,
+          password: hashPassWordFromBcrypt,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          address: data.address,
+          phonenumber: data.phonenumber,
+          gender: data.gender,
+          roleId: "R3", // Set roleId to "R3"
+          positionId: data.positionId,
+          image: data.avatar,
+        });
+
+        resolve({
+          errCode: 0,
+          message: "Ok",
+        });
       }
     } catch (e) {
       reject(e);
@@ -211,43 +308,7 @@ let handleSearchUserByName = (name) => {
     }
   });
 };
-let createNewStudents = (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // Check if email already exists
-      let check = await checkUserEmail(data.email);
-      if (check === true) {
-        resolve({
-          errCode: 1,
-          errMessage:
-            "Your email already exists, Plz try another email address",
-        });
-      } else {
-        let hashPassWordFromBcrypt = await hashUserPassword(data.password);
 
-        await db.User.create({
-          email: data.email,
-          password: hashPassWordFromBcrypt,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          address: data.address,
-          phonenumber: data.phonenumber,
-          gender: data.gender,
-          roleId: "R3", // Set roleId to "R3"
-          positionId: data.positionId,
-          image: data.avatar,
-        });
-
-        resolve({
-          errCode: 0,
-          message: "Ok",
-        });
-      }
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
 let updateStudents = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -288,44 +349,7 @@ let updateStudents = async (data) => {
     }
   });
 };
-let createNewUser = (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // console.log("Cookies: ", req.cookies);
-      // res.cookie("Signed Cookies: ", "test coookie");
-      //check if email already exists
-      let check = await checkUserEmail(data.email);
-      if (check === true) {
-        resolve({
-          errCode: 1,
-          errMessage:
-            "Your email already exists, Plz try another email address",
-        });
-      } else {
-        let hashPassWordFromBcrypt = await hashUserPassword(data.password);
 
-        await db.User.create({
-          email: data.email,
-          password: hashPassWordFromBcrypt,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          address: data.address,
-          phonenumber: data.phonenumber,
-          gender: data.gender,
-          roleId: data.roleId,
-          positionId: data.positionId,
-          image: data.avatar,
-        });
-        resolve({
-          errCode: 0,
-          message: "Ok",
-        });
-      }
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
 let registerNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -445,35 +469,7 @@ let getAllCodeService = (typeInput) => {
     }
   });
 };
-let handleUserGoogle = async (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      //check if email already exists
-      let user = await db.User.findOne({ where: { email: data.email } });
-      if (user) {
-        resolve({
-          errCode: 1,
-          errMessage:
-            "Your email already exists, Plz try another email address GOOGLE",
-          userId: user.id,
-        });
-      } else {
-        let newUser = await db.User.create({
-          email: data.email,
-          firstName: data.name,
-        });
-        resolve({
-          errCode: 0,
-          message: "Ok",
-          userId: newUser.id,
-        });
-        console.log(userId);
-      }
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
+
 let forgotPassword = (email) => {
   return new Promise(async (resolve, reject) => {
     try {

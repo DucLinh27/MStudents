@@ -33,22 +33,6 @@ let postOrderCourses = (data) => {
             firstName: data.fullName,
           },
         });
-
-        // //create a booking record
-        // if (user && user[0]) {
-        //   await db.Order.findOrCreate({
-        //     where: { studentId: user[0].id },
-        //     defaults: {
-        //       statusId: "S1",
-        //       teacherId: data.teacherId,
-        //       studentId: user[0].id,
-        //       date: data.date,
-        //       timeType: data.timeType,
-        //       token: token,
-        //     },
-        //   });
-        // }
-
         resolve({
           errCode: 0,
           errMessage: "Save infor student successfully",

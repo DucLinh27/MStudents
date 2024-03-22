@@ -24,7 +24,6 @@ let createNewUser = async (data) => {
         }
     })
 }
-
 let hashUserPassword = (password) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -38,7 +37,6 @@ let hashUserPassword = (password) => {
         }
     })
 }
-
 let getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -51,7 +49,6 @@ let getAllUser = () => {
         }
     })``
 }
-
 let getUserInfoById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -71,7 +68,6 @@ let getUserInfoById = (userId) => {
         }
     })
 }
-
 let updateUserData = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -98,7 +94,6 @@ let updateUserData = (data) => {
         }
     })
 }
-
 let deleteUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {

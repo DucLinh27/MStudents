@@ -129,7 +129,6 @@ let editVideoService = (data) => {
     }
   });
 };
-
 let deleteVideoService = (inputId) => {
   return new Promise(async (resolve, reject) => {
     let video = await db.Videos.findOne({

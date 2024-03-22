@@ -188,43 +188,6 @@ let getExtraInforTeacherById = (idInput) => {
     }
   });
 };
-let getProfileTeacherById = (inputId) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      if (!inputId) {
-        resolve({
-          errCode: 1,
-          errMessage: "Messing required parameter missing",
-        });
-      } else {
-        let data = await db.User.findOne({
-          where: {
-            id: inputId,
-          },
-          attributes: {
-            exclude: ["password"],
-          },
-          include: [
-            {
-              model: db.Courses,
-              as: "courses",
-              attributes: ["id", "name", "image"],
-            },
-          ],
-          raw: false,
-          nest: true,
-        });
-        if (!data) data = {};
-        resolve({
-          errCode: 0,
-          data: data,
-        });
-      }
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
 let sendRemedy = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -295,7 +258,6 @@ let editTeacherService = (data) => {
     }
   });
 };
-
 let deleteTeacherService = (inputId) => {
   return new Promise(async (resolve, reject) => {
     let teacher = await db.Teacher_Infor.findOne({
@@ -349,7 +311,6 @@ module.exports = {
   saveDetailInforTeacher: saveDetailInforTeacher,
   getInforTeacherById: getInforTeacherById,
   getExtraInforTeacherById: getExtraInforTeacherById,
-  getProfileTeachervrById: getProfileTeacherById,
   sendRemedy: sendRemedy,
   getAllTeacherInfor: getAllTeacherInfor,
   editTeacherService: editTeacherService,

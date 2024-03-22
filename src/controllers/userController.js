@@ -39,18 +39,10 @@ let handleLoging = async (req, res) => {
   }
   let userData = await userService.handleUserLogin(email, password);
   console.log("userData:", userData);
-  let payload = {
-    email: userData.user.email,
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  };
-  let token = createJWT(payload);
-  res.cookie("jwt", token, { httpOnly: true, maxAge: 3600 * 1000 });
-  console.log("refreshtokens", req.cookies);
   return res.status(200).json({
     errCode: userData.errCode,
     message: userData.errMessage,
     user: userData.user ? userData.user : {},
-    token,
   });
 };
 // userController.js

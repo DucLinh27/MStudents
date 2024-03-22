@@ -9,6 +9,7 @@ import initPaymentsRoutes from "./route/paymentsRoute";
 import initStudentsRoutes from "./route/studentsRoute";
 import initTeachersRoutes from "./route/teachersRoute";
 import initVideosRoutes from "./route/videoRoute";
+import initCommentsRoutes from "./route/commentRoute";
 import connectDB from "./config/conectDB";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -82,6 +83,7 @@ initPaymentsRoutes(app);
 initStudentsRoutes(app);
 initTeachersRoutes(app);
 initVideosRoutes(app);
+initCommentsRoutes(app);
 connectDB();
 
 let port = process.env.PORT || 3000;

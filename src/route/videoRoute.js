@@ -5,33 +5,19 @@ import cacheMiddleware from "../middleware/cacheMiddleware";
 let router = express.Router();
 let initVideosRoutes = (app) => {
   //VideoController
-  router.post(
-    "/api/create-new-videos",
-    authMiddleware,
-    videoController.createVideos
-  );
+  router.post("/api/create-new-videos", videoController.createVideos);
   router.get(
     "/api/get-all-videos",
     // cacheMiddleware(300),
-    authMiddleware,
     videoController.getAllVideos
   );
   router.get(
     "/api/get-detail-videos-by-id",
-    // authMiddleware,
     videoController.getDetailVideosById
   );
-  router.put("/api/edit-video", authMiddleware, videoController.editVideo);
-  router.delete(
-    "/api/delete-video",
-    authMiddleware,
-    videoController.deleteVideo
-  );
-  router.get(
-    "/api/find-videos-by-name",
-    authMiddleware,
-    videoController.filterVideosByName
-  );
+  router.put("/api/edit-video", videoController.editVideo);
+  router.delete("/api/delete-video", videoController.deleteVideo);
+  router.get("/api/find-videos-by-name", videoController.filterVideosByName);
   return app.use("/", router);
 };
 module.exports = initVideosRoutes;

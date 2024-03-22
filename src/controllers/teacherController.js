@@ -62,18 +62,6 @@ let getExtraInforTeacherById = async (req, res) => {
     });
   }
 };
-let getProfileTeacherById = async (req, res) => {
-  try {
-    let infor = await teacherService.getProfileTeacherById(req.query.teacherId);
-    return res.status(200).json(infor);
-  } catch (e) {
-    console.log(e);
-    return res.status(200).json({
-      errCode: -1,
-      errMessage: "Error from server...",
-    });
-  }
-};
 
 let sendRemedy = async (req, res) => {
   try {
@@ -122,7 +110,6 @@ module.exports = {
   postInforTeacher: postInforTeacher,
   getDetailTeacherById: getDetailTeacherById,
   getExtraInforTeacherById: getExtraInforTeacherById,
-  getProfileTeacherById: getProfileTeacherById,
   sendRemedy: sendRemedy,
   getAllTeachersInfor: getAllTeachersInfor,
   editTeacher: editTeacher,

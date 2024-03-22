@@ -38,7 +38,6 @@ let createOrderService = (data) => {
     }
   });
 };
-
 let getOrderService = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -56,7 +55,6 @@ let getOrderService = () => {
     }
   });
 };
-
 let getOderByUserService = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -152,7 +150,6 @@ let editOrderService = (data) => {
     }
   });
 };
-
 let deleteOrderService = (inputId) => {
   return new Promise(async (resolve, reject) => {
     // console.log(inputId);

@@ -47,18 +47,7 @@ let filterCoursesByName = async (req, res) => {
     });
   }
 };
-let getVideosByCourseId = async (req, res) => {
-  try {
-    let infor = await coursesService.getVideosByCourseId(req.query.id);
-    return res.status(200).json(infor);
-  } catch (e) {
-    console.log(e);
-    return res.status(200).json({
-      errCode: -1,
-      errMessage: "Error from server...",
-    });
-  }
-};
+
 let editCourses = async (req, res) => {
   let data = req.body;
   let message = await coursesService.editCoursesService(data);
@@ -78,7 +67,6 @@ module.exports = {
   createCourses: createCourses,
   getAllCourses: getAllCourses,
   getDetailCoursesById: getDetailCoursesById,
-  getVideosByCourseId: getVideosByCourseId,
   editCourses: editCourses,
   deleteCourses: deleteCourses,
   filterCoursesByName: filterCoursesByName,
