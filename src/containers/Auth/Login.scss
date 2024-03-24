@@ -1,11 +1,6 @@
 .login-background {
   height: 100vh;
-  background: linear-gradient(
-    135deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-  );
-
+  // background: linear-gradient(135deg, #38c3223b 0%, #9c2dfdba 100%);
   .login-container {
     max-width: 500px;
     min-width: 300px;
@@ -20,6 +15,7 @@
     left: 0;
     right: 0;
     margin: auto;
+    opacity: 0.9;
 
     .login-content {
       padding: 20px;
@@ -42,7 +38,7 @@
 
       .social-login {
         text-align: center;
-        padding-right: 50px;
+        margin-left: 80px;
       }
 
       .login-password {
@@ -82,8 +78,24 @@
     cursor: pointer;
     background: linear-gradient(
       135deg,
-      rgba(34, 193, 195, 1) 0%,
+      rgb(195, 34, 174) 0%,
       rgba(253, 187, 45, 1) 100%
     );
   }
+}
+.login-image {
+  .header-image {
+    width: 800px;
+    height: 675px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+}
+.background {
+  width: 100%;
+  background: url("../../assets/school.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

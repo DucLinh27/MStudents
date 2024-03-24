@@ -31,10 +31,16 @@
     border-radius: 10px;
     height: 400px;
     margin: auto;
+    transition: 0.2s ease;
+    &:hover {
+      transform: translateY(-4px);
+      opacity: 0.9;
+    }
   }
   .right-contact {
     justify-content: space-between;
     margin-top: 70px;
+    transition: 0.2s ease;
   }
 
   .right-contact div {
@@ -63,12 +69,12 @@
 }
 .button_contents {
   margin-top: 50px;
+  transition: 0.2s ease;
+  &:hover {
+    transform: translateY(-5px);
+    opacity: 0.8;
+  }
   .button_courses {
-    transition: 0.2s ease;
-    &:hover {
-      transform: translateY(-5px);
-      opacity: 0.8;
-    }
     margin-bottom: 100px;
     background-color: #064ea4;
     color: white;

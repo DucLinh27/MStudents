@@ -61,13 +61,14 @@
       .slick-prev {
         left: -10 !important;
         z-index: 1000;
-        height: 48px !important;
+        height: 44px !important;
         width: 44px !important;
         background: #fff !important;
         border: 2px solid #d7d7d7 !important;
         &:hover {
           background: #d7d7d7 !important;
         }
+        border-radius: 50px;
       }
       .slick-prev:before,
       .slick-next:before {
@@ -76,7 +77,7 @@
       }
       .slick-next {
         right: -10 !important;
-        height: 48px !important;
+        height: 44px !important;
         z-index: 1000;
         width: 44px !important;
         background: #fff !important;
@@ -84,10 +85,7 @@
         &:hover {
           background: #eceaea !important;
         }
-      }
-      .slick-next:before {
-      }
-      .slick-prev:before {
+        border-radius: 50px;
       }
     }
   }

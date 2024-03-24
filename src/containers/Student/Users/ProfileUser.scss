@@ -63,23 +63,20 @@
   .infor-courses {
     .item-content {
       .video-content {
-        border: 1px solid #c92127;
         height: 80px;
         width: 100%;
       }
-      .name-content {
-        border: 1px solid green;
-        width: 100%;
+      .name-courses {
+        width: 75%;
       }
       .comment-content {
-        border: 1px solid grey;
         width: 100%;
       }
     }
   }
 }
 .btn-primary {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .comment {
   margin-left: 10px;

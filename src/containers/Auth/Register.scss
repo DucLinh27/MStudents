@@ -1,11 +1,5 @@
 .register-background {
   height: 100vh;
-  background: linear-gradient(
-    135deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-  );
-
   .register-container {
     max-width: 500px;
     min-width: 300px;
@@ -84,8 +78,8 @@
     cursor: pointer;
     background: linear-gradient(
       135deg,
-      rgba(34, 193, 195, 1) 0%,
-      rgba(253, 187, 45, 1) 100%
+      rgb(195, 34, 168) 0%,
+      rgb(45, 152, 253) 100%
     );
   }
   .login_inregis {
@@ -94,16 +88,23 @@
   .login_inregis2 {
     border-radius: 25px;
     width: 100%;
+    background: linear-gradient(
+      135deg,
+      rgb(104, 34, 195) 0%,
+      rgb(194, 45, 253) 100%
+    );
   }
 }
+.registerImage {
+  width: 100%;
+  background: url("../../assets/school.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .forgot-background {
   height: 100vh;
-  background: linear-gradient(
-    135deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-  );
-
   .register-container {
     height: 300px;
     width: 400px;
@@ -111,7 +112,7 @@
     border-radius: 20px;
     position: absolute;
     margin-top: 150px;
-    margin-left: 500px;
+    margin-left: 100px;
 
     .register-content {
       padding: 20px;
@@ -176,8 +177,8 @@
     cursor: pointer;
     background: linear-gradient(
       135deg,
-      rgba(34, 193, 195, 1) 0%,
-      rgba(253, 187, 45, 1) 100%
+      rgb(195, 34, 168) 0%,
+      rgb(45, 152, 253) 100%
     );
   }
   .login_inregis {
@@ -186,5 +187,17 @@
   .login_inregis2 {
     border-radius: 25px;
     width: 100%;
+    background: linear-gradient(
+      135deg,
+      rgb(104, 34, 195) 0%,
+      rgb(194, 45, 253) 100%
+    );
   }
+}
+.forgotImage {
+  width: 100%;
+  background: url("../../assets/school.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

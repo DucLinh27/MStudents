@@ -6,7 +6,9 @@
         "contact": "Liên hệ",
         "support": "Hỗ Trợ",
         "welcome": "Xin chào ",
-        "teachers": "Giáo viên"
+        "teachers": "Giáo viên",
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất"
     },
     "menu": {
        
@@ -73,18 +75,50 @@
     "money": "Thành tiền",
     "total": "Tổng Số Tiền",
     "confirmpayment": "Xác nhận thanh toán"      
-} , 
-"courses": 
+    } , 
+    "courses": 
     {
     "newcourses": "Khóa Học Nổi Bật",
     "explorecourse": "Khám phá tất cả các khóa học"
        
-} ,"teacher": 
-{
-"ourteacher": "Giáo viên của chúng tôi",
-"exploreteacher": "Khám phá tất cả giáo viên"
+    } ,
+    "teacher": 
+    {
+    "ourteacher": "Giáo viên của chúng tôi",
+    "exploreteacher": "Khám phá tất cả giáo viên"
    
-} 
+    },
+    "user_courses": 
+    {
+    "your_courses": "Khóa học của bạn",
+    "account": "Tài Khoản của bạn",
+    "comment": "Bình luận",
+    "replies": "Trả lời"
+    },
+    "profile_user": 
+    {
+    "your_courses": "Khóa học của bạn",
+    "your_information": "Thông tin cá nhân",
+    "account": "Tài Khoản của bạn",
+    "firstname": "Tên",
+    "lastname": "Họ",
+    "phonenumber": "Số điện thoại",
+    "address": "Địa chỉ",
+    "gender": "Giới tính",
+    "changePassword": "Đổi mật khẩu",
+    "newPassword": "Mật khẩu mới",
+    "oldPassword": "Mật khẩu cũ",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "detail": "Xem chi tiết"
+    },
+    "home-footer": {
+        "home": "Trang chủ",
+        "about": "Chúng tôi",
+        "courses": "Khóa học",
+        "contact": "Liên hệ",
+        "support": "Hỗ Trợ",
+        "teachers": "Giáo viên"   
+    }
     
     
 }

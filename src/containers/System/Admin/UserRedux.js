@@ -7,13 +7,13 @@ import "./UserRedux.scss";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import TableManageUser from "../Users/TableManageUser";
-import cloudinary from "cloudinary";
-
-cloudinary.config({
-  cloud_name: "dyfbye716",
-  api_key: "661796382489326",
-  api_secret: "J-lQnSxVlwfEMjyGTXSJ0dyVnQA",
-});
+import { toast } from "react-toastify";
+// import cloudinary from "cloudinary";
+// cloudinary.config({
+//   cloud_name: "dyfbye716",
+//   api_key: "661796382489326",
+//   api_secret: "J-lQnSxVlwfEMjyGTXSJ0dyVnQA",
+// });
 
 class UserRedux extends Component {
   constructor(props) {
@@ -33,6 +33,7 @@ class UserRedux extends Component {
       gender: "",
       position: "",
       role: "",
+      image: "",
       avatar: "",
       action: "",
       userEditId: "",
@@ -107,13 +108,12 @@ class UserRedux extends Component {
         );
 
         const result = await response.json();
-        // const resulturl = await result.response.url;
 
         console.log(result);
 
         this.setState({
           previewImageURL: result.secure_url,
-          avatar: result.secure_url, // Use the secure URL provided by Cloudinary
+          avatar: result.secure_url,
         });
         console.log("URL" + result.secure_url);
       } catch (error) {
@@ -129,33 +129,11 @@ class UserRedux extends Component {
   };
   handleSaveUser = async () => {
     let isValid = this.checkValidateInput();
-    if (isValid === false) return;
-
+    if (isValid === false) return; // Add return here
     let { action } = this.state;
+
     if (action === CRUD_ACTIONS.CREATE) {
       try {
-        // Check if an image is selected
-        if (!this.state.avatar) {
-          alert("Please select an image");
-          return;
-        }
-
-        // Upload image to Cloudinary
-        const formData = new FormData();
-        formData.append("file", this.state.avatar);
-        formData.append("upload_preset", "user_avatar"); // Replace with your Cloudinary upload preset
-
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dyfbye716/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        const result = await response.json();
-
-        // Send the URL to the backend along with other user data
         this.props.createNewUser({
           email: this.state.email,
           password: this.state.password,
@@ -166,7 +144,7 @@ class UserRedux extends Component {
           gender: this.state.gender,
           roleId: this.state.role,
           positionId: this.state.position,
-          avatar: result.secure_url, // Pass the Cloudinary URL
+          avatar: this.state.secure_url, // Pass the Cloudinary URL
         });
       } catch (error) {
         console.error("Error uploading image to Cloudinary", error);
@@ -188,32 +166,70 @@ class UserRedux extends Component {
         gender: this.state.gender,
         roleId: this.state.role,
         positionId: this.state.position,
-        avatar: this.state.avatar,
+        avatar: this.state.previewImageURL,
       });
     }
-
     setTimeout(() => {
       this.props.fetchUserRedux();
     }, 1000);
   };
   checkValidateInput = () => {
-    let isValid = true;
-    let arrCheck = [
-      "email",
-      "password",
-      "firstName",
-      "lastName",
-      "phoneNumber",
-      "address",
-    ];
-    for (let i = 0; i < arrCheck.length; i++) {
-      if (!this.state[arrCheck[i]]) {
-        isValid = false;
-        alert("This input is required: " + arrCheck[i]);
-        break;
-      }
-      return isValid;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      phoneNumber,
+      address,
+      avatar,
+    } = this.state;
+
+    // Check if email is valid
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      toast.warning("Email is required and must be valid");
+      return false;
     }
+
+    // Check if password is not empty
+    if (!password) {
+      toast.warning("Password is required");
+      return false;
+    }
+
+    // Check if firstName is not empty
+    if (!firstName) {
+      toast.warning("First name is required");
+      return false;
+    }
+
+    // Check if lastName is not empty
+    if (!lastName) {
+      toast.warning("Last name is required");
+      return false;
+    }
+
+    // Check if phoneNumber is valid
+    let phoneRegex = /^\d{10}$/; // This is for a 10-digit phone number. Adjust as needed.
+    if (!phoneNumber || !phoneRegex.test(phoneNumber)) {
+      toast.warning("Phone number is required and must be valid");
+      return false;
+    }
+
+    // Check if address is not empty
+    if (!address) {
+      toast.warning("Address is required");
+      return false;
+    }
+
+    // Check if avatar is not empty
+    if (!avatar) {
+      toast.warning("Avatar is required");
+      return false;
+    }
+
+    // If all checks pass, return true
+    return true;
   };
   onChangeInput = (event, id) => {
     let copyState = { ...this.state };
@@ -223,7 +239,6 @@ class UserRedux extends Component {
     });
   };
   handleEditUserFromParent = (user) => {
-    let imageBase64 = "";
     this.setState({
       email: user.email,
       password: "HARDCODE",
@@ -234,11 +249,12 @@ class UserRedux extends Component {
       position: user.positionId,
       role: user.roleId,
       gender: user.gender,
-      avatar: "",
-      previewImageURL: imageBase64,
+      avatar: user.image,
+      previewImageURL: user.image,
       action: CRUD_ACTIONS.EDIT,
       userEditId: user.id,
     });
+    console.log(user);
   };
   render() {
     let genders = this.state.genderArr;
@@ -257,7 +273,7 @@ class UserRedux extends Component {
       position,
       role,
     } = this.state;
-
+    console.log(this.state.previewImageURL);
     return (
       <div className="user-redux-container">
         <div className="title">CREATE A NEW TEACHERS</div>
@@ -427,7 +443,7 @@ class UserRedux extends Component {
                     })}
                 </select>
               </div>
-              <div className="col-3 mb-5">
+              <div className="col-3 mb-5 form-group-file">
                 <div className="previewImg-container">
                   <div>
                     <FormattedMessage id="manage-user.image" />
@@ -436,6 +452,7 @@ class UserRedux extends Component {
                     Tải ảnh<i className="fas fa-upload"></i>
                   </label>
                   <input
+                    className="form-control-file"
                     id="previewImg"
                     type="file"
                     hidden
@@ -469,7 +486,7 @@ class UserRedux extends Component {
               <div className="col-12 mb-5">
                 <TableManageUser
                   handleEditUserFromParentKey={this.handleEditUserFromParent}
-                  action={this.state.action}
+                  // action={this.state.action}
                 />
               </div>
             </div>
@@ -502,8 +519,8 @@ const mapDispatchToProps = (dispatch) => {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
     getPositionStart: () => dispatch(actions.fetchPositionStart()),
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
-    createNewUser: (data) => dispatch(actions.createNewUser(data)),
     fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
+    createNewUser: (data) => dispatch(actions.createNewUser(data)),
     editUserRedux: (data) => dispatch(actions.editUser(data)),
   };
 };

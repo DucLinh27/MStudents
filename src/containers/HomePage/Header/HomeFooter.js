@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import "./HomeFooter.scss";
+import { FormattedMessage } from "react-intl";
+
 class HomeFooter extends Component {
   constructor(props) {
     super(props);
@@ -38,19 +40,19 @@ class HomeFooter extends Component {
         <div className="footer-content">
           <div className="logo-footer row">
             <div className="child" onClick={() => this.returnToHome()}>
-              Home
+              <FormattedMessage id="home-footer.home" />
             </div>
             <div className="child" onClick={() => this.handleAboutPage()}>
-              About
+              <FormattedMessage id="home-footer.about" />
             </div>
             <div className="child" onClick={() => this.handleCoursesPage()}>
-              Courses
+              <FormattedMessage id="home-footer.courses" />
             </div>
             <div className="child" onClick={() => this.handleTeachersPage()}>
-              Teachers
+              <FormattedMessage id="home-footer.teachers" />
             </div>
             <div className="child" onClick={() => this.handleContactPage()}>
-              Contact
+              <FormattedMessage id="home-footer.contact" />
             </div>
           </div>
           <div className="contact-footer">© 2024 Company, Inc</div>

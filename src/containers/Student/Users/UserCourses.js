@@ -5,6 +5,7 @@ import "./ProfileUser.scss";
 import _ from "lodash";
 import * as actions from "../../../store/actions";
 import { getDetailOrderById } from "../../../services/orderService";
+import { FormattedMessage } from "react-intl";
 import {
   createComments,
   createCommentsReply,
@@ -168,7 +169,7 @@ class UserCourses extends React.Component {
   };
   handleSaveNewCommentReply = async () => {
     const { userId } = this.props;
-    const comment = this.state.name;
+    const comment = this.state.content;
     const { videoId, showCommentReply: commentId } = this.state;
     console.log(videoId);
     let data = {
@@ -193,7 +194,7 @@ class UserCourses extends React.Component {
       );
       this.setState({
         id: null,
-        name: "",
+        content: "",
         videoId: "",
         userId: "",
         commentId: "",
@@ -208,7 +209,7 @@ class UserCourses extends React.Component {
   };
   handleSaveNewComment = async () => {
     const { userId } = this.props;
-    const comment = this.state.name;
+    const comment = this.state.content;
     const { videoId } = this.state;
     console.log(videoId);
     let data = {
@@ -233,7 +234,7 @@ class UserCourses extends React.Component {
       );
       this.setState({
         id: null,
-        name: "",
+        content: "",
         videoId: "",
         userId: "",
         isEditing: false,
@@ -258,25 +259,24 @@ class UserCourses extends React.Component {
         <HomeHeader isShowBanner={false} />
         <div className="manage-user-container row">
           <div className="content-left col-4">
-            <h1>Tài Khoản</h1>
+            <h1>
+              <FormattedMessage id="user_courses.account" />
+            </h1>
 
             <div className="products" onClick={this.showMyCourses}>
-              Khóa học của tôi
-            </div>
-            <div className="evalute" onClick={this.showMyComments}>
-              Nhận xét
+              <FormattedMessage id="user_courses.your_courses" />
             </div>
           </div>
           <div className="content-right col-8">
             {this.state.activeTab === "myCourses" && (
               <div className="infor-courses">
-                <h1>Khoá Học Của Tôi</h1>
+                <h1>
+                  {" "}
+                  <FormattedMessage id="user_courses.your_courses" />
+                </h1>
                 <div className="item-content d-flex">
                   <table>
                     <tbody>
-                      <tr>
-                        <th>Your Courses</th>
-                      </tr>
                       {this.state.videoDetails.map((video, index) => (
                         <tr key={index}>
                           <td>
@@ -300,14 +300,17 @@ class UserCourses extends React.Component {
                                     allowFullScreen
                                   ></iframe>
                                   <div>
-                                    <h3>Comments</h3>
+                                    <h3>
+                                      {" "}
+                                      <FormattedMessage id="user_courses.comment" />
+                                    </h3>
                                     {this.state.arrComments.map(
                                       (comment, index) => (
                                         <div key={index}>
                                           <div className="row comment">
                                             <p>
                                               {comment.User.firstName}:{" "}
-                                              {comment.name}
+                                              {comment.content}
                                             </p>
                                             <p
                                               className="reply-comment"
@@ -317,7 +320,7 @@ class UserCourses extends React.Component {
                                                 )
                                               }
                                             >
-                                              Reply
+                                              <FormattedMessage id="user_courses.replies" />
                                             </p>
                                           </div>
                                           {this.state.showCommentReply ===
@@ -329,7 +332,7 @@ class UserCourses extends React.Component {
                                                     <div key={index}>
                                                       <label className="name-input">
                                                         {reply.User.firstName}:{" "}
-                                                        {reply.name}
+                                                        {reply.content}
                                                       </label>
                                                     </div>
                                                   )
@@ -337,11 +340,11 @@ class UserCourses extends React.Component {
                                                 <input
                                                   className="form-control reply-input"
                                                   type="text"
-                                                  value={this.state.name}
+                                                  value={this.state.content}
                                                   onChange={(event) =>
                                                     this.handleOnChangeInput(
                                                       event,
-                                                      "name"
+                                                      "content"
                                                     )
                                                   }
                                                   placeholder="Your reply..."
@@ -354,7 +357,7 @@ class UserCourses extends React.Component {
                                                       .handleSaveNewCommentReply
                                                   }
                                                 >
-                                                  Reply
+                                                  <FormattedMessage id="user_courses.replies" />
                                                 </button>
                                               </div>
                                             )}
@@ -364,16 +367,19 @@ class UserCourses extends React.Component {
                                     {this.state.showCommentInput &&
                                       this.state.showCommentReply === null && (
                                         <div className="col-6 form-group">
-                                          <label>Comments</label>
+                                          <label>
+                                            {" "}
+                                            <FormattedMessage id="user_courses.comment" />
+                                          </label>
                                           <input
                                             className="form-control"
                                             type="text"
-                                            value={this.state.name}
+                                            value={this.state.content}
                                             placeholder="Your comment..."
                                             onChange={(event) =>
                                               this.handleOnChangeInput(
                                                 event,
-                                                "name"
+                                                "content"
                                               )
                                             }
                                           />
@@ -382,26 +388,22 @@ class UserCourses extends React.Component {
                                             type="submit"
                                             onClick={this.handleSaveNewComment}
                                           >
-                                            Comment
+                                            <FormattedMessage id="user_courses.comment" />
                                           </button>
                                         </div>
                                       )}
-                                    {/* {this.state.arrComments.length > 5 && (
-                                      <button onClick={this.toggleComments}>
-                                        {this.state.commentsToShow === 5
-                                          ? "Show More"
-                                          : "Show Less"}
-                                      </button>
-                                    )} */}
                                   </div>
                                   <div className="col-6 form-group" key={index}>
                                     <label>Comments</label>
                                     <input
                                       className="form-control"
                                       type="text"
-                                      value={this.state.name}
+                                      value={this.state.content}
                                       onChange={(event) =>
-                                        this.handleOnChangeInput(event, "name")
+                                        this.handleOnChangeInput(
+                                          event,
+                                          "content"
+                                        )
                                       }
                                     />
                                     <button
@@ -411,7 +413,7 @@ class UserCourses extends React.Component {
                                         this.handleSaveNewComment()
                                       }
                                     >
-                                      Comment
+                                      <FormattedMessage id="user_courses.comment" />
                                     </button>
                                   </div>
                                 </>

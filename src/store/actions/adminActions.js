@@ -99,12 +99,12 @@ export const createNewUser = (data) => {
         dispatch(saveUserSuccess());
         dispatch(fetchAllUsersStart());
       } else {
-        toast.error("CREATE USER FAILED");
+        toast.error("USER ALREADY EXITS");
 
         dispatch(saveUserFailded());
       }
     } catch (e) {
-      toast.error("CREATE USER FAILED");
+      toast.error("USER ALREADY EXITS");
 
       dispatch(saveUserFailded());
     }
@@ -233,7 +233,6 @@ export const fetchAllUsersSuccess = (data) => ({
   type: actionTypes.FETCH_ALL_USERS_SUCCESS,
   users: data,
 });
-
 export const fetchAllUsersFailded = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAILDED,
 });
@@ -359,7 +358,6 @@ export const editCourses = (data) => {
     }
   };
 };
-
 export const editCoursesSuccess = () => ({
   type: actionTypes.EDIT_COURSES_SUCCESS,
 });
@@ -385,7 +383,6 @@ export const editOrder = (data) => {
     }
   };
 };
-
 export const editOrderSuccess = () => ({
   type: actionTypes.EDIT_ORDER_SUCCESS,
 });

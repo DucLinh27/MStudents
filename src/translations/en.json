@@ -6,7 +6,9 @@
         "teachers": "Teachers",
         "contact": "Contact",
         "support": "Support",
-        "welcome": "Welcome"
+        "welcome": "Welcome",
+        "login": "Login",
+        "logout": "Logout"
         
     },
     "menu": {
@@ -74,9 +76,40 @@
     "explorecourse": "Explore All Courses"
     } , 
     "teacher": 
-{
+    {
 "ourteacher": "Our Teacher",
 "exploreteacher": "Explore Teacher"
    
-} 
+    } ,
+    "user_courses": 
+    {
+    "your_courses": "Your Courses",
+    "account": "Your Account",
+    "comment": "Comment",
+    "replies": "Reply"
+    },
+    "profile_user": 
+    {
+    "your_courses": "Your Courses",
+    "your_information": "Your Information",
+    "account": "Your Account",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "phonenumber": "PhoneNumbers",
+    "address": "Address",
+    "gender": "Gender",
+    "changePassword": "Change Password",
+    "newPassword": "New Password",
+    "oldPassword": "Old Password",
+    "confirmPassword": "Confirm Password",
+    "detail": "See details"
+    },
+    "home-footer": {
+        "home": "Home",
+        "about": "About",
+        "courses": "Courses",
+        "teachers": "Teachers",
+        "contact": "Contact",
+        "support": "Support"
+    }
 } 

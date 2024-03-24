@@ -6,7 +6,7 @@ import _ from "lodash";
 import { changeUserPassword } from "../../../services/userService";
 import * as actions from "../../../store/actions";
 import { getOrderService } from "../../../services/orderService";
-
+import { FormattedMessage } from "react-intl";
 class ProfileUser extends Component {
   constructor(props) {
     super(props);
@@ -54,7 +54,6 @@ class ProfileUser extends Component {
   handleCheckboxChange = (event) => {
     this.setState({ changePassword: event.target.checked });
   };
-
   handleChangePassword = async () => {
     if (this.state.newPassword !== this.state.confirmPassword) {
       alert("Passwords do not match!");
@@ -107,13 +106,10 @@ class ProfileUser extends Component {
   showPersonalInfo = () => {
     this.setState({ activeTab: "personalInfo" });
   };
-
   showMyCourses = () => {
     this.setState({ activeTab: "myCourses" });
   };
-  showMyComments = () => {
-    this.setState({ activeTab: "myComments" });
-  };
+
   handleShowDetails = (item) => {
     // Handle any item-specific logic here...
     console.log("Course ID:", item);
@@ -137,21 +133,23 @@ class ProfileUser extends Component {
         <HomeHeader isShowBanner={false} />
         <div className="manage-user-container row">
           <div className="content-left col-4">
-            <h1>Tài Khoản</h1>
+            <h1>
+              <FormattedMessage id="profile_user.account" />
+            </h1>
             <div className="infor-account" onClick={this.showPersonalInfo}>
-              Thông tin cá nhân
+              <FormattedMessage id="profile_user.your_information" />
             </div>
             <div className="products" onClick={this.showMyCourses}>
-              Khóa học của tôi
-            </div>
-            <div className="evalute" onClick={this.showMyComments}>
-              Nhận xét
+              <FormattedMessage id="profile_user.your_courses" />
             </div>
           </div>
           <div className="content-right col-8">
             {this.state.activeTab === "personalInfo" && (
               <div className="infor-user">
-                <h1>Thông tin cá nhân</h1>
+                <h1>
+                  {" "}
+                  <FormattedMessage id="profile_user.your_information" />
+                </h1>
                 <div className="more-infor row">
                   <div className="email col-6">
                     <label>Email</label>
@@ -161,7 +159,6 @@ class ProfileUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "email");
                       }}
-                      // value={userInfo ? userInfo.email : ""}
                       value={
                         userInfo
                           ? userInfo.email
@@ -172,7 +169,10 @@ class ProfileUser extends Component {
                     />
                   </div>
                   <div className="firstName col-6">
-                    <label>FisrtName</label>
+                    <label>
+                      {" "}
+                      <FormattedMessage id="profile_user.firstname" />
+                    </label>
                     <input
                       className="form-control"
                       type="text"
@@ -189,7 +189,10 @@ class ProfileUser extends Component {
                     />
                   </div>
                   <div className="lastName col-6">
-                    <label>LastName</label>
+                    <label>
+                      {" "}
+                      <FormattedMessage id="profile_user.lastname" />
+                    </label>
                     <input
                       className="form-control"
                       type="text"
@@ -200,7 +203,10 @@ class ProfileUser extends Component {
                     />
                   </div>
                   <div className="phonenumber  col-6">
-                    <label>Phone number </label>
+                    <label>
+                      {" "}
+                      <FormattedMessage id="profile_user.phonenumber" />
+                    </label>
                     <input
                       className="form-control"
                       type="text"
@@ -211,7 +217,10 @@ class ProfileUser extends Component {
                     />
                   </div>
                   <div className="address col-6">
-                    <label>Address</label>
+                    <label>
+                      {" "}
+                      <FormattedMessage id="profile_user.address" />
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -222,7 +231,10 @@ class ProfileUser extends Component {
                     />
                   </div>
                   <div className="gender  col-6">
-                    <label>Gender</label>
+                    <label>
+                      {" "}
+                      <FormattedMessage id="profile_user.gender" />
+                    </label>
                     <input
                       className="form-control"
                       type="text"
@@ -243,13 +255,17 @@ class ProfileUser extends Component {
                     onChange={this.handleCheckboxChange}
                   />
                   <label className="fhs-checkbox">
-                    Đổi mật khẩu <span class="checkmark"></span>
+                    <FormattedMessage id="profile_user.changePassword" />
+                    <span class="checkmark"></span>
                   </label>
                 </div>
                 {this.state.changePassword && (
                   <div className="password-container">
                     <div className="password col-6">
-                      <label>Current Password</label>
+                      <label>
+                        {" "}
+                        <FormattedMessage id="profile_user.oldPassword" />
+                      </label>
                       <input
                         className="form-control"
                         type="password"
@@ -260,7 +276,10 @@ class ProfileUser extends Component {
                       />
                     </div>
                     <div className="newPassword col-6">
-                      <label>New Password</label>
+                      <label>
+                        {" "}
+                        <FormattedMessage id="profile_user.newPassword" />
+                      </label>
                       <input
                         className="form-control"
                         type="password"
@@ -271,7 +290,10 @@ class ProfileUser extends Component {
                       />
                     </div>
                     <div className="confirmPassword col-6">
-                      <label>Confirm Password</label>
+                      <label>
+                        {" "}
+                        <FormattedMessage id="profile_user.confirmPassword" />
+                      </label>
                       <input
                         className="form-control"
                         type="password"
@@ -294,25 +316,25 @@ class ProfileUser extends Component {
             )}
             {this.state.activeTab === "myCourses" && (
               <div className="infor-courses">
-                <h1>Khoá Học Của Tôi</h1>
+                <h1>
+                  {" "}
+                  <FormattedMessage id="profile_user.your_courses" />
+                </h1>
                 <div className="item-content d-flex">
                   <table>
                     <tbody>
-                      <tr>
-                        <th>Courses</th>
-
-                        <th>Action</th>
-                      </tr>
                       {arrOrders.map((item, index) => {
                         return (
                           <tr key={index}>
-                            <td>{item.courses.name}</td>
+                            <td className="name-courses">
+                              {item.courses.name}
+                            </td>
                             <td>
                               <button
-                                className="btn btn-primary"
+                                className="btn btn-primary ml-5"
                                 onClick={() => this.handleShowDetails(item)}
                               >
-                                Xem chi tiết
+                                <FormattedMessage id="profile_user.detail" />
                               </button>
                             </td>
                           </tr>
@@ -321,11 +343,6 @@ class ProfileUser extends Component {
                     </tbody>
                   </table>
                 </div>
-              </div>
-            )}
-            {this.state.activeTab === "myComments" && (
-              <div className="commments" onClick={this.showMyComments}>
-                <h1>Comments</h1>
               </div>
             )}
           </div>

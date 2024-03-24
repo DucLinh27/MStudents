@@ -6,9 +6,7 @@ import HomeFooter from "../../HomePage/Header/HomeFooter";
 import { getDetailCoursesById } from "../../../services/coursesService";
 import _ from "lodash";
 import * as actions from "../../../store/actions";
-import {
-  getOrderService,
-} from "../../../services/orderService";
+import { getOrderService } from "../../../services/orderService";
 
 class DetailCourses extends Component {
   constructor(props) {
@@ -202,10 +200,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: () => dispatch(actions.AddCart()),
-    DeleteCart: (courseId) => dispatch(actions.DeleteCart(courseId)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailCourses);

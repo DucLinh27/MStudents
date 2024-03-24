@@ -16,6 +16,11 @@
       width: 30%;
       display: flex;
       align-items: center;
+      transition: 0.2s ease;
+      &:hover {
+        transform: translateY(-2px);
+        opacity: 0.8;
+      }
       .header-logo {
         height: 100%;
         width: 100%;
@@ -35,10 +40,15 @@
       justify-content: space-around;
       align-items: center;
       list-style-type: none;
+
       .child-content {
         font-weight: 400;
         font-size: 18px;
         color: white;
+        transition: 0.2s ease;
+        &:hover {
+          font-size: 22px;
+        }
       }
     }
     .right-content {
@@ -47,39 +57,22 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+
       .btn {
         color: white;
-      }
-      .language-vi {
-        cursor: pointer;
-        opacity: 0.5;
-
-        // span {
-        //   color: white;
-        // }
-        &.active {
-          opacity: 1;
-          span {
-            color: black;
-          }
-        }
+        transition: 0.2s ease;
         &:hover {
-          opacity: 0.8;
+          font-size: 18px;
         }
       }
-      .language-en {
-        margin: 0 10px;
-        cursor: pointer;
-        opacity: 0.5;
-
-        &.active {
-          opacity: 1;
-          span {
-            color: black;
-          }
+      .language-select {
+        border-radius: 10px;
+        width: 50px;
+        height: 25px;
+        background-color: rgba(245, 243, 243, 0.87);
+        .language-vi {
         }
-        &:hover {
-          opacity: 0.8;
+        .language-en {
         }
       }
     }

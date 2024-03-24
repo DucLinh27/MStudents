@@ -71,44 +71,49 @@ class ForgotPassword extends Component {
   };
   render() {
     return (
-      <div className="forgot-background">
-        <div className="register-container">
-          <div className="register-content row">
-            <div className="col-12 text-center register-title">
-              Forgot Password
+      <>
+        <div className="row forgotImage">
+          <div className="col-6"></div>
+          <div className="forgot-background col-6">
+            <div className="register-container">
+              <div className="register-content row">
+                <div className="col-12 text-center register-title">
+                  Forgot Password
+                </div>
+                <div className="col-12 form-group">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    className="form-control login-input"
+                    placeholder="Enter your email...."
+                    onChange={(event) => {
+                      this.handleOnChangeInput(event, "email");
+                    }}
+                    value={this.state.email}
+                  />
+                </div>
+              </div>
+              <div className="col-12">
+                <button
+                  className="btn-register"
+                  onClick={() => this.handleForgotPassword()}
+                >
+                  Submit
+                </button>
+              </div>
+              <div className="col-12 login_inregis">
+                <button
+                  className="btn btn-success login_inregis2"
+                  type="submit"
+                  onClick={() => this.handleLogin()}
+                >
+                  Already've an account Login
+                </button>
+              </div>
             </div>
-            <div className="col-12 form-group">
-              <label>Email</label>
-              <input
-                type="text"
-                className="form-control login-input"
-                placeholder="Enter your email...."
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "email");
-                }}
-                value={this.state.email}
-              />
-            </div>
-          </div>
-          <div className="col-12">
-            <button
-              className="btn-register"
-              onClick={() => this.handleForgotPassword()}
-            >
-              Submit
-            </button>
-          </div>
-          <div className="col-12 login_inregis">
-            <button
-              className="btn btn-success login_inregis2"
-              type="submit"
-              onClick={() => this.handleLogin()}
-            >
-              Already've an account Login
-            </button>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

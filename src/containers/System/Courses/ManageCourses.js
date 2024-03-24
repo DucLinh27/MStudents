@@ -223,7 +223,6 @@ class ManageCourses extends Component {
           level: "",
           duration: "",
           lessons: "",
-
           teacherId: this.state.selectedOption.value,
         });
       } else {
@@ -237,7 +236,6 @@ class ManageCourses extends Component {
     const selectedTeacher = this.state.listTeachers.find(
       (teacher) => teacher.value === item.teacherId
     );
-
     this.setState({
       id: item.id,
       name: item.name,
@@ -251,6 +249,7 @@ class ManageCourses extends Component {
       isEditing: true,
       selectedOption: selectedTeacher, // Set the selectedOption to the selected teacher
     });
+    console.log(item);
   };
   filterCourses = (searchTerm) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -276,7 +275,6 @@ class ManageCourses extends Component {
       });
     }
   };
-
   handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
     let { listCourses } = this.state;

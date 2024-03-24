@@ -156,40 +156,31 @@ class HomeHeader extends Component {
                   onClick={() => this.props.history.push("/login")}
                   title="Log in"
                 >
-                  Log in
+                  <FormattedMessage id="home-header.login" />{" "}
                 </div>
               )}
 
-              <div
-                className={
-                  languages === LANGUAGES.VI
-                    ? "language-vi active"
-                    : "language-vi"
-                }
+              <select
+                className="language-select"
+                value={this.state.languages}
+                onChange={(event) => this.changeLanguage(event.target.value)}
               >
-                <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
+                <option className="language-vi" value={LANGUAGES.VI}>
                   VN
-                </span>
-              </div>
-
-              <div
-                className={
-                  languages === LANGUAGES.EN
-                    ? "language-en active"
-                    : "language-en"
-                }
-              >
-                <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
+                </option>
+                <option className="language-en" value={LANGUAGES.EN}>
                   EN
-                </span>
-              </div>
-
+                </option>
+              </select>
               <div
                 className="btn btn-logout"
                 onClick={processLogout}
                 title="Log out"
               >
-                <i className="fas fa-sign-out-alt"> Log out</i>
+                <i className="fas fa-sign-out-alt">
+                  {" "}
+                  <FormattedMessage id="home-header.logout" />
+                </i>
               </div>
             </div>
           </div>

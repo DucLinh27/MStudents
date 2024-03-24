@@ -1,1 +1,27 @@
 @import "../styles/common.scss";
+
+/* toastStyles.css */
+
+.Toastify__toast--success {
+  background: rgb(54, 51, 238);
+  border-radius: 5px;
+  margin-top: 22px;
+}
+
+.Toastify__toast--error {
+  background: #d32f2f;
+  border-radius: 5px;
+  margin-top: 22px;
+}
+
+.Toastify__toast--info {
+  background: #1976d2;
+  border-radius: 5px;
+  margin-top: 22px;
+}
+
+.Toastify__toast--warning {
+  background: #ffa000;
+  border-radius: 5px;
+  margin-top: 22px;
+}
