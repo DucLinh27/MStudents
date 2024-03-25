@@ -166,7 +166,7 @@ class UserRedux extends Component {
         gender: this.state.gender,
         roleId: this.state.role,
         positionId: this.state.position,
-        avatar: this.state.previewImageURL,
+        avatar: this.state.secure_url,
       });
     }
     setTimeout(() => {
@@ -255,6 +255,8 @@ class UserRedux extends Component {
       userEditId: user.id,
     });
     console.log(user);
+    console.log(user.avatar);
+    console.log(user.secure_url);
   };
   render() {
     let genders = this.state.genderArr;

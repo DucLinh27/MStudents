@@ -95,12 +95,6 @@ class DetailCourses extends Component {
       isOpenModalUser: !this.state.isOpenModalUser,
     });
   };
-  StarRating = ({ rating }) => {
-    const stars = [1, 2, 3, 4, 5].map((star) => (
-      <span key={star}> {star <= rating ? "⭐" : "☆"} </span>
-    ));
-    return <div>{stars}</div>;
-  };
   render() {
     // let { language } = this.props.language;
     let { dataDetailCourse, arrOrders } = this.state;
@@ -175,9 +169,6 @@ class DetailCourses extends Component {
                   <div className="item">
                     <i class="fas fa-mobile-alt mr-4"></i>Access From Any
                     Computer, Tablet or Mobile
-                  </div>
-                  <div className="row">
-                    Rating: <this.StarRating rating={this.state.orderCount} />
                   </div>
                 </div>
               </div>

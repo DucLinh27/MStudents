@@ -111,5 +111,10 @@
         "teachers": "Teachers",
         "contact": "Contact",
         "support": "Support"
+    },
+    "body": {
+        "title": "First Choice For Online Education Anywhere",
+        "content": "Learning English online on a website provides flexibility and convenience for  improving language skills. Participating in courses gives you the opportunity to learn from experienced teachers, experience interactive activities, and connect with a diverse learning community",
+        "button": "Our Courses"
     }
 } 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { getAllCourses } from "../../../services/coursesService";
@@ -13,6 +13,7 @@ class Courses extends Component {
       dataSpecialty: {},
     };
   }
+
   async componentDidMount() {
     let res = await getAllCourses();
     console.log(res);
@@ -60,12 +61,8 @@ class Courses extends Component {
                       <div className="section-item">
                         <div className="specialty-name">{item.name}</div>
                         <div className="specialty-subname">
-                          Lorem ipsum dolor sit amet, consectetur dolorili
-                          adipiscing elit. Felis donec massa aliquam id.Lorem
-                          ipsum dolor sit amet, consectetur dolorili adipiscing
-                          elit. Felis donec massa aliquam id.
+                          {item.description}
                         </div>
-                        <div className="specialty-avatar">{item.name}</div>
                       </div>
                     </div>
                   );

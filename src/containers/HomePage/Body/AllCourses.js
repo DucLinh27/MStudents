@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
-import { getAllCourses } from "../../../services/coursesService";
+import {
+  getAllCourses,
+  findCoursesByName,
+} from "../../../services/coursesService";
 import Slider from "react-slick";
 import "./AllCourses.scss";
 import { withRouter } from "react-router";
@@ -12,13 +15,18 @@ class AllCourses extends Component {
     super(props);
     this.state = {
       dataSpecialty: {},
+      filteredCourses: [],
+      arrCourses: [],
     };
   }
   async componentDidMount() {
     let res = await getAllCourses();
     console.log(res);
     if (res && res.errCode === 0) {
-      this.setState({ dataSpecialty: res.data ? res.data : [] });
+      this.setState({
+        filteredCourses: res.data ? res.data : [],
+        arrCourses: res.data ? res.data : [],
+      });
     }
   }
   handleDetailSpecialty = (item) => {
@@ -26,7 +34,33 @@ class AllCourses extends Component {
       this.props.history.push(`/detail-courses/${item.id}`);
     }
   };
+  filterCourses = (searchTerm) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredCourses = this.state.arrCourses.filter((course) =>
+      course.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+    this.setState({ filteredCourses });
+  };
+  handleSearch = async (event) => {
+    const searchValue = event.target.value;
+    if (searchValue) {
+      const response = await findCoursesByName(searchValue);
+      console.log(response);
+      if (response && response.errCode === 0 && Array.isArray(response.data)) {
+        this.setState({
+          searchCourses: response.data,
+          isSearching: true,
+        });
+      }
+    } else {
+      this.setState({
+        isSearching: false,
+      });
+    }
+  };
   render() {
+    let { filteredCourses } = this.state;
+    console.log("filteredCourses", filteredCourses);
     let { dataSpecialty } = this.state;
     console.log("data", dataSpecialty);
     return (
@@ -40,10 +74,19 @@ class AllCourses extends Component {
             Presenting Academy, the tech school of the future. We teach you the
             right skills to be prepared for tomorrow.
           </div>
+
+          <div className="search-inputs">
+            <input className="search-input"
+              type="text"
+              placeholder="Search courses..."
+              onChange={(event) => this.filterCourses(event.target.value)}
+            />
+          </div>
+
           <div className="section-body row">
-            {dataSpecialty &&
-              dataSpecialty.length > 0 &&
-              dataSpecialty.map((item, index) => {
+            {filteredCourses &&
+              filteredCourses.length > 0 &&
+              filteredCourses.map((item, index) => {
                 return (
                   <div className="item-courses col-5" key={index}>
                     <div

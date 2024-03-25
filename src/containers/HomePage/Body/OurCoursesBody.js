@@ -29,6 +29,11 @@ class OurCoursesBody extends Component {
       this.props.history.push(`/detail-courses/${item.id}`);
     }
   };
+  handleDetailAbout = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/about`);
+    }
+  };
   updateCurrentImage = () => {
     this.setState((prevState) => ({
       currentImage: (prevState.currentImage + 1) % images.length,
@@ -41,19 +46,22 @@ class OurCoursesBody extends Component {
       <>
         <div className="blog-containerour row">
           <div className="left-content col-6">
-            <h1>Apply now, start at interhigh this september</h1>
+            <h1>
+              <FormattedMessage id="body.title" />
+            </h1>
             <p>
-              A very warm welcome to Our School. We are a Co-Educational
-              Independent Day School. We value the uniqueness of each individual
-              and therefore we also welcome children of all faiths and cultures.
+              <FormattedMessage id="body.content" />
             </p>
             <div className="button_contents">
               <a href="/allcourses" className="button_courses">
-                Our Courses
+                <FormattedMessage id="body.button" />
               </a>
             </div>
           </div>
-          <div className="right-contents col-6"></div>
+          <div
+            className="right-contents col-6"
+            onClick={() => this.handleDetailAbout()}
+          ></div>
         </div>
       </>
     );
