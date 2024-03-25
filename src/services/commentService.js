@@ -2,17 +2,16 @@ const db = require("../models");
 let createComments = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.name || !data.videoId || !data.userId) {
+      if (!data.content || !data.videoId || !data.userId) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
         });
       } else {
         await db.Comment.create({
-          name: data.name,
+          content: data.content,
           videoId: data.videoId,
           userId: data.userId,
-          commentId: data.commentId,
         });
         resolve({
           errCode: 0,
@@ -27,14 +26,14 @@ let createComments = (data) => {
 let createCommentsReply = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.name || !data.videoId || !data.userId) {
+      if (!data.content || !data.videoId || !data.userId) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
         });
       } else {
         await db.Replies.create({
-          name: data.name,
+          content: data.content,
           videoId: data.videoId,
           userId: data.userId,
           commentId: data.commentId,
@@ -76,7 +75,7 @@ let getDetailCommentsReplyById = (inputId) => {
           where: {
             commentId: inputId,
           },
-          attributes: ["id", "name", "videoId", "userId"],
+          attributes: ["id", "content", "videoId", "userId"],
           include: [
             {
               model: db.User,
@@ -123,7 +122,7 @@ let getDetailCommentsById = (inputId) => {
           where: {
             videoId: inputId,
           },
-          attributes: ["id", "name", "videoId", "userId"],
+          attributes: ["id", "content", "videoId", "userId"],
           include: [
             {
               model: db.User,
@@ -171,7 +170,7 @@ let editCommentService = (data) => {
       });
       if (comment) {
         comment.id = data.id;
-        comment.name = data.name;
+        comment.content = data.content;
         comment.videoId = data.videoId;
         comment.userId = data.userId;
         await comment.save();

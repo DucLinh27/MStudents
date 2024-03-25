@@ -41,7 +41,6 @@ let editClasses = async (req, res) => {
   let message = await classesService.editClassesService(data);
   return res.status(200).json(message);
 };
-
 let filterClassesByName = async (req, res) => {
   try {
     let infor = await classesService.filterClassesByName(req.query.name);
@@ -64,6 +63,7 @@ let deleteClasses = async (req, res) => {
   let message = await classesService.deleteClassesService(req.body.id);
   return res.status(200).json(message);
 };
+
 module.exports = {
   createClasses: createClasses,
   getAllClasses: getAllClasses,

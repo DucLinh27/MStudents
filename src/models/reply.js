@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Replies.init(
     {
-      name: DataTypes.STRING,
+      content: DataTypes.STRING,
       videoId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       commentId: DataTypes.INTEGER,

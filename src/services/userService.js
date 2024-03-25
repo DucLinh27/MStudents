@@ -434,7 +434,7 @@ let deleteUSer = (userId) => {
 let updateUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.id || !data.gender) {
+      if (!data.id) {
         resolve({
           errCode: 2,
           errMessage: "The user does not exist",
@@ -445,6 +445,9 @@ let updateUser = async (data) => {
         raw: false,
       });
       if (user) {
+        (user.id = data.id),
+          (user.email = data.email),
+          (user.image = data.image);
         (user.firstName = data.firstName),
           (user.lastName = data.lastName),
           (user.address = data.address),
@@ -452,14 +455,12 @@ let updateUser = async (data) => {
           (user.roleId = data.roleId),
           (user.positionId = data.positionId),
           (user.gender = data.gender);
-        if (data.avatar) {
-          user.image = data.avatar;
-        }
         await user.save();
         resolve({
           errCode: 0,
           message: "The user has been updated successfully",
         });
+        console.log(user);
       } else {
         resolve({
           errCode: 1,

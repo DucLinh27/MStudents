@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      content: {
         type: Sequelize.STRING,
       },
       videoId: {
@@ -17,10 +17,6 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
       },
-      commentId: {
-        type: Sequelize.INTEGER,
-      },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

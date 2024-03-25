@@ -165,6 +165,12 @@ let filterVideosByName = (name) => {
             },
           },
           attributes: ["id", "name", "coursesId"],
+          include: [
+            {
+              model: db.Courses,
+              attributes: ["id", "name"],
+            },
+          ],
         });
         if (data) {
           resolve({

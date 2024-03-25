@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      content: {
         type: Sequelize.STRING,
       },
       videoId: {

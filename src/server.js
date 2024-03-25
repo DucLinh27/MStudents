@@ -27,22 +27,22 @@ app.use(cookieParser());
 app.use(cors({ origin: true }));
 // Cấu hình Cloudinary
 cloudinary.config({
-  cloud_name: "dyfbye716",
-  api_key: "661796382489326",
-  api_secret: "J-lQnSxVlwfEMjyGTXSJ0dyVnQA",
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRECt,
 });
 
 //congif paypal
 paypal.configure({
   mode: "sandbox", //sandbox or live
-  client_id: "sb-40nko28821456@business.example.com",
-  client_secret: "1f*c13I%",
+  client_id: process.env.PAYPAL_CLIENT_ID,
+  client_secret: process.env.PAYPAL_SECRET,
 });
 
 // Cài đặt Passport và sử dụng session
 app.use(
   require("express-session")({
-    secret: "duclinhjwt",
+    secret: process.env.PASSPORT_SECRET,
     resave: true,
     saveUninitialized: true,
   })
@@ -87,12 +87,12 @@ initCommentsRoutes(app);
 connectDB();
 
 let port = process.env.PORT || 3000;
-// app.use((req, res, next) => {
-//   return res.status(404).send({
-//     errCode: 404,
-//     message: "API not found",
-//   });
-// });
+app.use((req, res, next) => {
+  return res.status(404).send({
+    errCode: 404,
+    message: "API not found",
+  });
+});
 app.listen(port, () => {
   console.log("Backend Nodejs is running on the port: " + port);
 });
