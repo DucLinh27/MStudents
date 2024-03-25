@@ -369,7 +369,7 @@ class ManageVideos extends Component {
                     <tr key={index}>
                       <td>{item.name}</td>
                       <td>{item.video}</td>
-                      <td>{item.coursesId}</td>
+                      <td>{item.courses.name}</td>
                       <td>
                         <button
                           className="btn-edit"

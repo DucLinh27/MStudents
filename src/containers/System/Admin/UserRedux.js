@@ -127,32 +127,54 @@ class UserRedux extends Component {
     if (!this.state.previewImageURL) return;
     this.setState({ isOpen: true });
   };
-  handleSaveUser = async () => {
+  handleSaveUser = () => {
     let isValid = this.checkValidateInput();
     if (isValid === false) return; // Add return here
     let { action } = this.state;
+    console.log(this.state);
+    this.props.createNewUser({
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      address: this.state.address,
+      phonenumber: this.state.phoneNumber,
+      gender: this.state.gender,
+      roleId: this.state.role,
+      positionId: this.state.position,
+      avatar: this.state.secure_url, // Pass the Cloudinary URL
+    });
 
-    if (action === CRUD_ACTIONS.CREATE) {
-      try {
-        this.props.createNewUser({
-          email: this.state.email,
-          password: this.state.password,
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          address: this.state.address,
-          phonenumber: this.state.phoneNumber,
-          gender: this.state.gender,
-          roleId: this.state.role,
-          positionId: this.state.position,
-          avatar: this.state.secure_url, // Pass the Cloudinary URL
-        });
-      } catch (error) {
-        console.error("Error uploading image to Cloudinary", error);
-        console.error("Error message", error.message);
-        console.error("HTTP Code", error.http_code);
-        // Handle error as needed
-      }
-    }
+    // if (action === CRUD_ACTIONS.CREATE) {
+    //   try {
+    //     this.props.createNewUser({
+    //       email: this.state.email,
+    //       password: this.state.password,
+    //       firstName: this.state.firstName,
+    //       lastName: this.state.lastName,
+    //       address: this.state.address,
+    //       phonenumber: this.state.phoneNumber,
+    //       gender: this.state.gender,
+    //       roleId: this.state.role,
+    //       positionId: this.state.position,
+    //       avatar: this.state.secure_url, // Pass the Cloudinary URL
+    //     });
+    //   } catch (error) {
+    //     console.error("Error uploading image to Cloudinary", error);
+    //     console.error("Error message", error.message);
+    //     console.error("HTTP Code", error.http_code);
+    //     // Handle error as needed
+    //   }
+    // }
+
+    setTimeout(() => {
+      this.props.fetchUserRedux();
+    }, 1000);
+  };
+  handleEditUser = async () => {
+    let isValid = this.checkValidateInput();
+    if (isValid === false) return; // Add return here
+    let { action } = this.state;
     if (action === CRUD_ACTIONS.EDIT) {
       //fire edit user
       this.props.editUserRedux({
@@ -471,18 +493,10 @@ class UserRedux extends Component {
               </div>
               <div className="col-12 my-3">
                 <button
-                  className={
-                    this.state.action === CRUD_ACTIONS.EDIT
-                      ? "btn btn-warning"
-                      : "btn btn-primary"
-                  }
+                  className={"btn btn-primary"}
                   onClick={() => this.handleSaveUser()}
                 >
-                  {this.state.action === CRUD_ACTIONS.EDIT ? (
-                    <FormattedMessage id="manage-user.edit" />
-                  ) : (
-                    <FormattedMessage id="manage-user.save" />
-                  )}
+                  <FormattedMessage id="manage-user.save" />
                 </button>
               </div>
               <div className="col-12 mb-5">

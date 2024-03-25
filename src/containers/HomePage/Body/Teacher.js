@@ -73,9 +73,11 @@ class AllTeacher extends Component {
                             ></div>
                           </div>
                           <div className="section_teacher">
-                            <div className="name_teacher">{item.firstName}</div>
+                            <div className="name_teacher">
+                              {item.firstName} {item.lastName}
+                            </div>
                             <div className="des_teacher">
-                              {item.Teacher_Infor.level}
+                              Level: {item.Teacher_Infor.level}
                             </div>
                           </div>
                         </div>
