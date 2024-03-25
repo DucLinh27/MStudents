@@ -68,17 +68,20 @@ class AllCourses extends Component {
         <HomeHeader />
         <div className="allcourses-container">
           <div className="section-header">
-            <h1 className="title-section">OUR COURSES</h1>
+            <h1 className="title-section">
+              {" "}
+              <FormattedMessage id="allcourses.title" />
+            </h1>
           </div>
           <div className="text">
-            Presenting Academy, the tech school of the future. We teach you the
-            right skills to be prepared for tomorrow.
+            <FormattedMessage id="allcourses.body" />
           </div>
 
           <div className="search-inputs">
-            <input className="search-input"
+            <input
+              className="search-input"
               type="text"
-              placeholder="Search courses..."
+              <FormattedMessage id="allcourses.price" />
               onChange={(event) => this.filterCourses(event.target.value)}
             />
           </div>
@@ -104,7 +107,7 @@ class AllCourses extends Component {
                         {item.name}
                       </div>
                       <div className="specialty-avatar">
-                        Price: {item.price}
+                        <FormattedMessage id="allcourses.price" />: {item.price}
                       </div>
                       <div className="specialty-subname">
                         {item.description}

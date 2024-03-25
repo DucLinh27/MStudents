@@ -73,13 +73,16 @@
     "courses": 
     {
     "newcourses": "New Courses",
-    "explorecourse": "Explore All Courses"
+    "explorecourse": "Explore All Courses",
+    "body": "Embark on a transformative learning experience with our comprehensive English language courses, tailored to your proficiency level and learning goals."
     } , 
     "teacher": 
     {
-"ourteacher": "Our Teacher",
-"exploreteacher": "Explore Teacher"
-   
+    "ourteacher": "Our Teacher",
+    "exploreteacher": "Explore Teacher",
+    "body":"Unlock the power of language with our dedicated educators, guiding you through your English language journey.",
+    "level": "Level",
+    "loading": "Loading..."
     } ,
     "user_courses": 
     {
@@ -116,5 +119,21 @@
         "title": "First Choice For Online Education Anywhere",
         "content": "Learning English online on a website provides flexibility and convenience for  improving language skills. Participating in courses gives you the opportunity to learn from experienced teachers, experience interactive activities, and connect with a diverse learning community",
         "button": "Our Courses"
+    },
+    "about":{
+        "title":"About Our English Education",
+        "subtitle": "  Learn English with our expert teachers and effective curriculum.",
+        "description": "We are dedicated to providing the highest quality English language teaching and preparing our students for the English-speaking world. Our courses are designed to help students improve their reading, writing, listening, and speaking skills in English.",
+        "description2": "Our English education program is based on a comprehensive curriculum that covers all aspects of the English language. We offer courses for all levels, from beginners to advanced learners. Our teachers are highly qualified and experienced in teaching English as a second language.",
+        "description3":"In addition to our regular courses, we also offer specialized courses in business English, academic English, and test preparation. We use a variety of teaching methods to make learning English fun and effective. Our goal is to help our students achieve their English language goals and succeed in their academic or professional careers.",
+        "description4":"Learning English online on a website is an effective method to improve your language skills in a flexible and convenient way. On these learning websites, you can experience a wide range of courses from basic to advanced, suitable for all your levels and learning goals. By participating in these courses, you will have the opportunity to learn from experienced and specialized teachers, participate in interactive lectures, practice exercises, and language game activities to improve your skills. your listening, speaking, reading and writing skills. The online learning environment provides the flexibility for you to study anywhere and anytime that suits your schedule. You can access course materials, lectures and learning resources anytime, anywhere via your computer or mobile device. Furthermore, participating in online learning communities also helps you connect with other students from around the world, creating a rich and diverse learning environment. With convenience, flexibility and abundant resources, learning English online is an effective and fun way to develop your language skills."
+    },
+    "allcourses":{
+        "title": "OUR COURSES",
+        "search": "Search courses...",
+        "price": "Price",
+        "body": "Embark on a transformative learning experience with our comprehensive English language courses, tailored to your proficiency level and learning goals."
     }
+
+
 } 

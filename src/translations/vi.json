@@ -79,14 +79,17 @@
     "courses": 
     {
     "newcourses": "Khóa Học Nổi Bật",
-    "explorecourse": "Khám phá tất cả các khóa học"
+    "explorecourse": "Khám phá tất cả các khóa học",
+    "body": "Bắt tay vào trải nghiệm học tập mang tính thay đổi với các khóa học tiếng Anh toàn diện của chúng tôi, được điều chỉnh phù hợp với trình độ thông thạo và mục tiêu học tập của bạn."
        
     } ,
     "teacher": 
     {
     "ourteacher": "Giáo viên của chúng tôi",
-    "exploreteacher": "Khám phá tất cả giáo viên"
-   
+    "exploreteacher": "Khám phá tất cả giáo viên",
+    "body":"Khai phá sức mạnh của ngôn ngữ với các nhà giáo dục tận tâm của chúng tôi, hướng dẫn bạn trong suốt hành trình học tiếng Anh.",
+    "level": "Trình độ",
+    "loading": "Đang cập nhật..."
     },
     "user_courses": 
     {
@@ -123,6 +126,20 @@
         "title": "Lựa chọn đầu tiên cho giáo dục trực tuyến ở mọi nơi",
         "content": "Học tiếng Anh trực tuyến trên website mang lại sự linh hoạt và thuận tiện cho việc nâng cao kỹ năng ngôn ngữ. Tham gia các khóa học mang đến cho bạn cơ hội học hỏi từ các giáo viên giàu kinh nghiệm, trải nghiệm các hoạt động tương tác và kết nối với cộng đồng học tập đa dạng",
         "button": "Khóa học của chúng tôi"
+    },
+    "about":{
+        "title":"Giới thiệu về chương trình giáo dục tiếng Anh của chúng tôi",
+        "subtitle": "Học tiếng Anh với các giáo viên chuyên nghiệp của chúng tôi và chương trình giảng dạy hiệu quả.",
+        "description": "Chúng tôi cam kết cung cấp ngôn ngữ tiếng Anh chất lượng cao nhất giảng dạy và chuẩn bị cho học sinh của chúng tôi bước vào thế giới nói tiếng Anh. Các khóa học của chúng tôi được thiết kế để giúp sinh viên cải thiện khả năng đọc, kỹ năng viết, nghe và nói bằng tiếng Anh.",
+        "description2": "Chương trình giáo dục tiếng Anh của chúng tôi dựa trên một chương trình giảng dạy toàn diện bao gồm tất cả các khía cạnh của tiếng Anh. Chúng tôi cung cấp các khóa học cho mọi cấp độ, từ người mới bắt đầu đến người học nâng cao. Giáo viên của chúng tôi có trình độ chuyên môn cao và kinh nghiệm giảng dạy tiếng Anh như ngôn ngữ thứ hai.",
+        "description3":"Ngoài các khóa học thông thường, chúng tôi còn cung cấp các khóa học chuyên ngành về tiếng Anh thương mại, tiếng Anh học thuật và luyện thi. Chúng tôi sử dụng nhiều phương pháp giảng dạy khác nhau để làm cho việc học tiếng Anh trở nên thú vị và hiệu quả. Mục tiêu của chúng tôi là giúp sinh viên đạt được mục tiêu tiếng Anh và thành công trong học tập hoặc sự nghiệp nghề nghiệp.",
+        "description4": "Học tiếng Anh trực tuyến trên website là phương pháp hiệu quả để nâng cao khả năng ngôn ngữ của bạn một cách linh hoạt và thuận tiện. Trên các website học tập này, bạn có thể trải nghiệm rất nhiều khóa học từ cơ bản đến nâng cao, phù hợp với mọi trình độ và mục tiêu học tập của bạn. Khi tham gia các khóa học này, bạn sẽ có cơ hội học hỏi từ những giáo viên giàu kinh nghiệm và chuyên môn, tham gia các bài giảng tương tác, bài tập thực hành, hoạt động trò chơi ngôn ngữ để nâng cao kỹ năng của mình. kỹ năng nghe, nói, đọc và viết của bạn. Môi trường học trực tuyến mang đến cho bạn sự linh hoạt để học ở bất cứ đâu và bất cứ lúc nào phù hợp với lịch trình của bạn. Bạn có thể truy cập tài liệu khóa học, bài giảng và tài nguyên học tập mọi lúc, mọi nơi thông qua máy tính hoặc thiết bị di động của mình. Hơn nữa, việc tham gia các cộng đồng học tập trực tuyến còn giúp bạn kết nối với các học viên khác trên khắp thế giới, tạo nên một môi trường học tập phong phú và đa dạng. Với sự thuận tiện, linh hoạt và nguồn tài liệu dồi dào, học tiếng Anh trực tuyến là một cách hiệu quả và thú vị để phát triển kỹ năng ngôn ngữ của bạn."
+    },
+    "allcourses":{
+        "title": "KHÓA HỌC CỦA CHÚNG TÔI",
+        "search": "Tìm kiếm khóa học...",
+        "price": "Giá",
+        "body": "Bắt tay vào trải nghiệm học tập mang tính thay đổi với các khóa học tiếng Anh toàn diện của chúng tôi, được điều chỉnh phù hợp với trình độ thông thạo và mục tiêu học tập của bạn."
     }
     
     

@@ -32,16 +32,15 @@ class Courses extends Component {
     return (
       <div className="section-shares section-specialtys">
         <div className="section-container">
-          <div className="section-header">
-            <h2 className="title-section">
+          <div className="section-header ">
+            <h2 className="title-section ">
               <FormattedMessage id="courses.newcourses" />
             </h2>
-            <p>
-              Presenting Academy, the tech school of the future. We teach you
-              the right skills to be prepared for tomorrow.
+            <p className="">
+              <FormattedMessage id="courses.body" />
             </p>
           </div>
-          <div className="section-body">
+          <div className="section-body mt-3">
             <Slider {...this.props.settings}>
               {dataSpecialty &&
                 dataSpecialty.length > 0 &&

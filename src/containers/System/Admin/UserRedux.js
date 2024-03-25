@@ -142,31 +142,8 @@ class UserRedux extends Component {
       gender: this.state.gender,
       roleId: this.state.role,
       positionId: this.state.position,
-      avatar: this.state.secure_url, // Pass the Cloudinary URL
+      avatar: this.state.previewImageURL, // Pass the Cloudinary URL
     });
-
-    // if (action === CRUD_ACTIONS.CREATE) {
-    //   try {
-    //     this.props.createNewUser({
-    //       email: this.state.email,
-    //       password: this.state.password,
-    //       firstName: this.state.firstName,
-    //       lastName: this.state.lastName,
-    //       address: this.state.address,
-    //       phonenumber: this.state.phoneNumber,
-    //       gender: this.state.gender,
-    //       roleId: this.state.role,
-    //       positionId: this.state.position,
-    //       avatar: this.state.secure_url, // Pass the Cloudinary URL
-    //     });
-    //   } catch (error) {
-    //     console.error("Error uploading image to Cloudinary", error);
-    //     console.error("Error message", error.message);
-    //     console.error("HTTP Code", error.http_code);
-    //     // Handle error as needed
-    //   }
-    // }
-
     setTimeout(() => {
       this.props.fetchUserRedux();
     }, 1000);
@@ -188,12 +165,32 @@ class UserRedux extends Component {
         gender: this.state.gender,
         roleId: this.state.role,
         positionId: this.state.position,
-        avatar: this.state.secure_url,
+        image: this.state.previewImageURL,
       });
     }
     setTimeout(() => {
       this.props.fetchUserRedux();
     }, 1000);
+  };
+  handleEditUserFromParent = (user) => {
+    this.setState({
+      email: user.email,
+      password: "HARDCODE",
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phonenumber,
+      address: user.address,
+      position: user.positionId,
+      role: user.roleId,
+      gender: user.gender,
+      avatar: user.image,
+      previewImageURL: user.image,
+      action: CRUD_ACTIONS.EDIT,
+      userEditId: user.id,
+    });
+    console.log(user);
+    console.log(user.avatar);
+    console.log(user.image);
   };
   checkValidateInput = () => {
     const {
@@ -260,26 +257,7 @@ class UserRedux extends Component {
       ...copyState,
     });
   };
-  handleEditUserFromParent = (user) => {
-    this.setState({
-      email: user.email,
-      password: "HARDCODE",
-      firstName: user.firstName,
-      lastName: user.lastName,
-      phoneNumber: user.phonenumber,
-      address: user.address,
-      position: user.positionId,
-      role: user.roleId,
-      gender: user.gender,
-      avatar: user.image,
-      previewImageURL: user.image,
-      action: CRUD_ACTIONS.EDIT,
-      userEditId: user.id,
-    });
-    console.log(user);
-    console.log(user.avatar);
-    console.log(user.secure_url);
-  };
+
   render() {
     let genders = this.state.genderArr;
     let positions = this.state.positionArr;
@@ -493,10 +471,24 @@ class UserRedux extends Component {
               </div>
               <div className="col-12 my-3">
                 <button
-                  className={"btn btn-primary"}
-                  onClick={() => this.handleSaveUser()}
+                  className={
+                    this.state.action === CRUD_ACTIONS.EDIT
+                      ? "btn btn-warning"
+                      : "btn btn-primary"
+                  }
+                  onClick={() => {
+                    if (this.state.action === CRUD_ACTIONS.EDIT) {
+                      this.handleEditUser();
+                    } else {
+                      this.handleSaveUser();
+                    }
+                  }}
                 >
-                  <FormattedMessage id="manage-user.save" />
+                  {this.state.action === CRUD_ACTIONS.EDIT ? (
+                    <FormattedMessage id="manage-user.edit" />
+                  ) : (
+                    <FormattedMessage id="manage-user.save" />
+                  )}
                 </button>
               </div>
               <div className="col-12 mb-5">

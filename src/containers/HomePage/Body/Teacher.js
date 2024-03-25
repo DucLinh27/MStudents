@@ -48,8 +48,7 @@ class AllTeacher extends Component {
                 <FormattedMessage id="teacher.ourteacher" />
               </span>
               <p>
-                Presenting Academy, the tech school of the future. We teach you
-                the right skills to be prepared for tomorrow.
+                <FormattedMessage id="teacher.body" />
               </p>
             </div>
             <div className="section-body">
@@ -77,7 +76,12 @@ class AllTeacher extends Component {
                               {item.firstName} {item.lastName}
                             </div>
                             <div className="des_teacher">
-                              Level: {item.Teacher_Infor.level}
+                              <FormattedMessage id="teacher.level" />:{" "}
+                              {item.Teacher_Infor.level ? (
+                                item.Teacher_Infor.level
+                              ) : (
+                                <FormattedMessage id="teacher.loading" />
+                              )}
                             </div>
                           </div>
                         </div>
