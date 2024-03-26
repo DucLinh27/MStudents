@@ -9,6 +9,7 @@ import initPaymentsRoutes from "./route/paymentsRoute";
 import initStudentsRoutes from "./route/studentsRoute";
 import initTeachersRoutes from "./route/teachersRoute";
 import initVideosRoutes from "./route/videoRoute";
+import initContactsRoutes from "./route/contactRoute";
 import initCommentsRoutes from "./route/commentRoute";
 import connectDB from "./config/conectDB";
 import cors from "cors";
@@ -83,6 +84,8 @@ initPaymentsRoutes(app);
 initStudentsRoutes(app);
 initTeachersRoutes(app);
 initVideosRoutes(app);
+initContactsRoutes(app);
+
 initCommentsRoutes(app);
 connectDB();
 

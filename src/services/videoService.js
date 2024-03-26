@@ -28,14 +28,15 @@ let createVideos = (data) => {
 let getAllVideos = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Videos.findAll({});
-
-      // if (data && data.length > 0) {
-      //   data.map((item) => {
-      //     item.image = new Buffer(item.image, "base64").toString("binary");
-      //     return item;
-      //   });
-      // }
+      let data = await db.Videos.findAll({
+        include: [
+          {
+            model: db.Courses,
+            as: "courses",
+            attributes: ["id", "name"],
+          },
+        ],
+      });
       resolve({
         errCode: 0,
         errMessage: "OK!",
@@ -82,9 +83,6 @@ let getDetailVideosById = (inputId) => {
             data,
           });
         }
-        // if (data && data.image) {
-        //   data.image = new Buffer(data.image, "base64").toString("binary");
-        // }
         resolve({
           errCode: 0,
           errMessage: "OK!",
@@ -113,6 +111,7 @@ let editVideoService = (data) => {
         video.id = data.id;
         video.name = data.name;
         video.video = data.video;
+        video.coursesId = data.coursesId.value;
         await video.save();
         resolve({
           errCode: 0,

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Order, { foreignKey: "userId" });
       User.hasMany(models.Comment, { foreignKey: "userId" });
       User.hasMany(models.Access_Token, { foreignKey: "userId" });
+      User.hasMany(models.Contacts, { foreignKey: "userId" });
     }
   }
   User.init(
