@@ -357,10 +357,16 @@ class ManageCourses extends Component {
   render() {
     return (
       <div className="manage-sepcialty-container">
-        <div className="ms-title">Quan ly Courses</div>
+        <div className="ms-title">
+          {" "}
+          <FormattedMessage id="manage-courses.title" />
+        </div>
         <div className="add-new-specialty row">
           <div className="col-6 form-group">
-            <label>Tên Bài Học</label>
+            <label>
+              {" "}
+              <FormattedMessage id="manage-courses.name" />
+            </label>
             <input
               className="form-control"
               type="text"
@@ -370,7 +376,10 @@ class ManageCourses extends Component {
             />
           </div>
           <div className="col-3 form-group">
-            <label>Price</label>
+            <label>
+              {" "}
+              <FormattedMessage id="manage-courses.price" />
+            </label>
             <input
               className="form-control"
               type="text"
@@ -380,7 +389,10 @@ class ManageCourses extends Component {
             />
           </div>
           <div className="col-4 form-group">
-            <label>Level</label>
+            <label>
+              {" "}
+              <FormattedMessage id="manage-courses.level" />
+            </label>
             <select
               className="form-control"
               value={this.state.level}
@@ -402,7 +414,10 @@ class ManageCourses extends Component {
             />
           </div>
           <div className="col-2 form-group">
-            <label>Number Lessons</label>
+            <label>
+              {" "}
+              <FormattedMessage id="manage-courses.number_lessons" />
+            </label>
             <input
               className="form-control"
               type="text"
@@ -412,7 +427,6 @@ class ManageCourses extends Component {
             />
           </div>
           <div className="col-2 form-group-file">
-            {/* <label>Ảnh Bài Học</label> */}
             <div className="previewImg-container d-flex">
               <input
                 className="form-control-file"
@@ -422,7 +436,8 @@ class ManageCourses extends Component {
                 onChange={(event) => this.handleOnChangeImage(event)}
               />
               <label className="label-upload ml-2 pl-3" htmlFor="previewImg">
-                Tải ảnh<i className="fas fa-upload ml-2"></i>
+                <FormattedMessage id="manage-courses.image" />
+                <i className="fas fa-upload ml-2"></i>
               </label>
               <div
                 className="preview-image"
@@ -434,7 +449,8 @@ class ManageCourses extends Component {
             </div>
           </div>
           <div className="col-4 form-group">
-            <label> Choose a teacher</label>
+            <FormattedMessage id="manage-courses.teacher" />
+            <label></label>
             <Select
               value={this.state.selectedOption}
               onChange={this.handleChangeSelect}
@@ -445,7 +461,10 @@ class ManageCourses extends Component {
             />
           </div>
           <div className="col-6 form-group">
-            <label>Description</label>
+            <label>
+              {" "}
+              <FormattedMessage id="manage-courses.description" />
+            </label>
             <input
               className="form-control"
               type="text"
@@ -470,7 +489,7 @@ class ManageCourses extends Component {
               className="btn-save-specialty "
               onClick={() => this.handleSaveNewCourses()}
             >
-              Save
+              <FormattedMessage id="manage-courses.save" />
             </button>
           </div>
         </div>
@@ -478,11 +497,26 @@ class ManageCourses extends Component {
           <table>
             <tbody>
               <tr>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-courses.table_name" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-courses.table_image" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-courses.price" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-courses.description" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-courses.actions" />
+                </th>
               </tr>
 
               {this.state.filteredCourses &&

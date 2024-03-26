@@ -190,7 +190,8 @@ class HomeHeader extends Component {
             <div
               className="content-up row"
               style={{
-                backgroundImage: `url(${images[this.state.currentImage]})`,
+                position: 'relative',
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${images[this.state.currentImage]})`,
               }}
             >
               <div className="content-background">

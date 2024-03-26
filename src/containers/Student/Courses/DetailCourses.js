@@ -7,6 +7,7 @@ import { getDetailCoursesById } from "../../../services/coursesService";
 import _ from "lodash";
 import * as actions from "../../../store/actions";
 import { getOrderService } from "../../../services/orderService";
+import { FormattedMessage } from "react-intl";
 
 class DetailCourses extends Component {
   constructor(props) {
@@ -129,46 +130,60 @@ class DetailCourses extends Component {
                 </div>
                 <div className="container-courses">
                   <div className="about-courses">
-                    <h3>About the courses</h3>
+                    <h3>
+                      {" "}
+                      <FormattedMessage id="courses.about" />:
+                    </h3>
                     <p>{dataDetailCourse.description}</p>
                   </div>
                 </div>
               </div>
               <div className="right-content col-lg-4 col-md-6 col-sm-12">
                 <div className="right-up">
-                  <div className="price">Price: {dataDetailCourse.price} $</div>
+                  <div className="price">
+                    {" "}
+                    <FormattedMessage id="courses.price" />: :{" "}
+                    {dataDetailCourse.price} $
+                  </div>
                   <button
                     className="button_content"
                     onClick={() => this.handleOrder()}
                   >
-                    {courseExists ? "Xem Ngay" : "Mua Ngay"}
+                    {courseExists ? "See Now" : "Buy Now"}
                   </button>
                 </div>
                 <div className="right-down">
                   <div className="item">
-                    <i class="fas fa-user-graduate"></i> Teacher :{" "}
+                    <i class="fas fa-user-graduate mr-3"></i>
+                    {"    "}
+                    <FormattedMessage id="courses.teacher" />:{" "}
                     {dataDetailCourse.User
                       ? dataDetailCourse.User.firstName
                       : "Loading..."}
                   </div>
                   <div className="item">
-                    <i class="fas fa-sort-amount-up mr-3"></i>Level:{" "}
+                    <i class="fas fa-sort-amount-up mr-3"></i>{" "}
+                    <FormattedMessage id="courses.level" />:{" "}
                     {dataDetailCourse.level}
                   </div>
                   <div className="item">
-                    <i class="far fa-clock  mr-3"></i>Duration:{" "}
+                    <i class="far fa-clock  mr-3"></i>{" "}
+                    <FormattedMessage id="courses.duration" />:{" "}
                     {dataDetailCourse.duration}h
                   </div>
                   <div className="item">
-                    <i class="fas fa-video mr-3"></i>Lessons:{" "}
-                    {dataDetailCourse.lessons} lessons
+                    <i class="fas fa-video mr-3"></i>{" "}
+                    <FormattedMessage id="courses.lessons" />:{" "}
+                    {dataDetailCourse.lessons}{" "}
+                    <FormattedMessage id="courses.lesson" />
                   </div>
                   <div className="item">
-                    <i class="far fa-star mr-3"></i>Lifetime Access
+                    <i class="far fa-star mr-3"></i>{" "}
+                    <FormattedMessage id="courses.lifetime" />
                   </div>
                   <div className="item">
-                    <i class="fas fa-mobile-alt mr-4"></i>Access From Any
-                    Computer, Tablet or Mobile
+                    <i class="fas fa-mobile-alt mr-4"></i>{" "}
+                    <FormattedMessage id="courses.access" />:
                   </div>
                 </div>
               </div>

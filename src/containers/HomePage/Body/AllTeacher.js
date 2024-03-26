@@ -6,6 +6,8 @@ import "./AllTeacher.scss";
 import { withRouter } from "react-router";
 import HomeHeader from "../Header/HomeHeader";
 import HomeFooter from "../Header/HomeFooter";
+import { FormattedMessage } from "react-intl";
+
 class AllTeacher extends Component {
   constructor(props) {
     super(props);
@@ -37,10 +39,11 @@ class AllTeacher extends Component {
         <HomeHeader handleProfileUser={this.handleProfileUser} />
         <div className="allteacher-container">
           <div className="section-header">
-            <h1>OUR TEACHER</h1>
+            <h1>
+              <FormattedMessage id="allteacher.ourteacher" />
+            </h1>
             <div>
-              Presenting Academy, the tech school of the future. We teach you
-              the right skills to be prepared for tomorrow.
+              <FormattedMessage id="allteacher.body" />
             </div>
           </div>
           <div className="section-body row">

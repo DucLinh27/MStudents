@@ -5,6 +5,7 @@ import "./DetailTeacher.scss";
 import { getDetailInforTeacher } from "../../../services/teacherService";
 import { LANGUAGES } from "../../../utils";
 import HomeFooter from "../../HomePage/Header/HomeFooter";
+import { FormattedMessage } from "react-intl";
 
 class DetailTeacher extends Component {
   constructor(props) {
@@ -64,11 +65,13 @@ class DetailTeacher extends Component {
             ></div>
             <div className="pt-4">
               <div className="content-text">
-                Fullname: {detailTeacher.lastName} {detailTeacher.firstName}
+                <FormattedMessage id="teacher.fullname" />:{" "}
+                {detailTeacher.lastName} {detailTeacher.firstName}
               </div>
               <div className="content-text">Email: {detailTeacher.email}</div>
               <div className="content-text">
-                PhoneNumber: {detailTeacher.phonenumber}
+                <FormattedMessage id="teacher.fullname" />:{" "}
+                {detailTeacher.phonenumber}
               </div>
             </div>
           </div>
@@ -88,7 +91,7 @@ class DetailTeacher extends Component {
                         backgroundImage: `url(${item.image})`,
                       }}
                     ></div>
-                    <div className="section-item">
+                    <div className="section-item mt-3">
                       <div
                         className="specialty-name"
                         onClick={() => this.handleDetailSpecialty(item)}
@@ -103,7 +106,6 @@ class DetailTeacher extends Component {
                 );
               })}
           </div>
-          <div className="comment-teacher"></div>
         </div>
         <HomeFooter />
       </>

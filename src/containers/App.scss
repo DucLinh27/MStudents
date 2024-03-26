@@ -1,6 +1,11 @@
 @import "../styles/common.scss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 /* toastStyles.css */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 
 .Toastify__toast--success {
   background: rgb(54, 51, 238);

@@ -81,7 +81,7 @@ class AllCourses extends Component {
             <input
               className="search-input"
               type="text"
-              <FormattedMessage id="allcourses.price" />
+              placeholder="Search courses..."
               onChange={(event) => this.filterCourses(event.target.value)}
             />
           </div>

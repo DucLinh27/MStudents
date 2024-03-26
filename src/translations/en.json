@@ -38,7 +38,11 @@
         "address": "Address",
         "image": "Avatar",
         "save": "Save User",
-        "edit": "Save Changes"
+        "edit": "Save Changes",
+        "new_user": "Create a New User",
+        "add_user": "Create a new user",
+        "actions": "Actions"
+
     },
     "student":{
         "detail-teacher": {        
@@ -56,7 +60,9 @@
             "payment": "Payment",
             "province": "Province",
             "position": "Position",
-            "courses": "Choose a courses"      
+            "courses": "Choose a courses",
+            "manage_user": "Manage users with MStudents"  
+            
         }
     },
     "order": {
@@ -74,6 +80,15 @@
     {
     "newcourses": "New Courses",
     "explorecourse": "Explore All Courses",
+    "price": "Price",
+    "about": "Description the courses",
+    "teacher": "Teacher",
+    "level": "Level",
+    "duration": "Duration",
+    "lessons": "Number Lessons",
+    "lesson": "lessons",
+    "lifetime": "Lifetime Access",
+    "access": "Access From Any Computer, Tablet or Mobile",
     "body": "Embark on a transformative learning experience with our comprehensive English language courses, tailored to your proficiency level and learning goals."
     } , 
     "teacher": 
@@ -82,7 +97,9 @@
     "exploreteacher": "Explore Teacher",
     "body":"Unlock the power of language with our dedicated educators, guiding you through your English language journey.",
     "level": "Level",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "fullname": "Full Name",
+    "phonenumber": "Phone Number"
     } ,
     "user_courses": 
     {
@@ -133,7 +150,47 @@
         "search": "Search courses...",
         "price": "Price",
         "body": "Embark on a transformative learning experience with our comprehensive English language courses, tailored to your proficiency level and learning goals."
+    },
+    "allteacher": 
+    {
+    "ourteacher": "Our Teacher",
+    "body":"Unlock the power of language with our dedicated educators, guiding you through your English language journey.",
+    "level": "Level",
+    "loading": "Loading..."
+    },
+    "manage-courses":{
+        "title": "Manage Courses",
+        "name": "Name Course",
+        "price": "Price",
+        "level": "Level",
+        "duration": "Duration",
+        "number_lessons": "Number Lessons",
+        "image": "Load image",
+        "teacher": "Choose a teacher",
+        "description": "Description",
+        "table_name":"Name",
+        "table_image":"Image",
+        "actions": "Actions",
+        "save": "Save"
+    },
+    "manage-videos":{
+        "title": "Manage Videos",
+        "name": "Name Video",
+        "change_ways": "Change Ways Upload Video",
+        "link": "Link Courses ",
+        "ytblink": "YouTube Embed Link",
+        "courses": "Courses",
+        "table_name":"Name",
+        "actions": "Actions",
+        "save": "Save"
+    },
+    "manage-orders":{
+        "title": "Manage Orders",
+        "name": "User Name ",
+        "phonenumber": "Phone Number",
+        "payment": "Payment",
+        "courses": "Courses",
+        "total_price":"Total Price",
+        "actions": "Actions"
     }
-
-
 } 

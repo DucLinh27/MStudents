@@ -53,33 +53,26 @@ class Contact extends Component {
           <div className="left-contents col-6">
             <h3>CONTACT FORM</h3>
             <form>
-              <label for="fname">First Name</label>
+              <label for="lname">Email</label>
+              <input
+                type="text"
+                id="lname"
+                name="email"
+                placeholder="Your email.."
+              />
+
+              <label for="fname">Full Name</label>
               <input
                 type="text"
                 id="fname"
                 name="firstname"
-                placeholder="Your name.."
+                placeholder="Your name..."
               />
 
-              <label for="lname">Last Name</label>
-              <input
-                type="text"
-                id="lname"
-                name="lastname"
-                placeholder="Your last name.."
-              />
-
-              <label for="country">Country</label>
-              <select id="country" name="country">
-                <option value="australia">Australia</option>
-                <option value="canada">Canada</option>
-                <option value="usa">USA</option>
-              </select>
-
-              <label for="subject">Subject</label>
+              <label for="subject">Feedback</label>
               <textarea
-                id="subject"
-                name="subject"
+                id="fname"
+                name="fname"
                 placeholder="Write something.."
                 style={{ height: "200px" }}
               ></textarea>
@@ -93,21 +86,21 @@ class Contact extends Component {
               <h3>Our Location</h3>
             </div>
             <div>
-              <p>123 Street, New York, USA</p>
+              <p>Tho Quang Street, Da Nang, Viet Nam</p>
             </div>
             <div>
               <i class="fas fa-mobile-alt"></i>
               <h3>Call Us</h3>
             </div>
             <div>
-              <p>+012 345 6789</p>
+              <p>+084 982328999</p>
             </div>
             <div>
               <i class="fas fa-envelope"></i>
               <h3>Email Us</h3>
             </div>
             <div>
-              <p>mail@domain.com</p>
+              <p>trungtammstudents@domain.com</p>
             </div>
           </div>
         </div>

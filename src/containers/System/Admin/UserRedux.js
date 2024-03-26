@@ -278,7 +278,9 @@ class UserRedux extends Component {
     console.log(this.state.previewImageURL);
     return (
       <div className="user-redux-container">
-        <div className="title">CREATE A NEW TEACHERS</div>
+        <div className="title">
+          <FormattedMessage id="manage-user.new_user" />
+        </div>
         <div className="user-redux-body">
           <div className="container">
             <div className="row">

@@ -46,8 +46,27 @@
         font-size: 18px;
         color: white;
         transition: 0.2s ease;
+        width: 90px;
+        cursor: pointer;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          background-color: white;
+          bottom: 0;
+          left: 0;
+          transition: width 0.2s ease;
+        }
+
         &:hover {
           font-size: 22px;
+
+          &::after {
+            width: 100%;
+          }
         }
       }
     }
@@ -151,12 +170,10 @@
 .home-header-banner {
   .content-up {
     height: 800px;
-    background: url("../../../assets/kids_on_tablets_in_class.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     flex-direction: column;
-    opacity: 0.9;
     .content-background {
       text-align: center;
       color: white;

@@ -10,6 +10,7 @@ import {
 import ModalUser from "./ModalUser";
 import { emitter } from "../../../utils/emitter";
 import ModalEditUser from "./ModalEditUser";
+import { FormattedMessage } from "react-intl";
 
 class UserManage extends Component {
   constructor(props) {
@@ -128,7 +129,10 @@ class UserManage extends Component {
           />
         )}
 
-        <div className="title text-center">Manage users with MStudents</div>
+        <div className="title text-center">
+          {" "}
+          <FormattedMessage id="manage-user.manage_user" />
+        </div>
         <div className="search-inputs">
           <input
             type="text"
@@ -140,13 +144,24 @@ class UserManage extends Component {
           <table>
             <tbody>
               <tr>
-                <th>Emmail</th>
-                <th>FisrtName</th>
-                <th>LastName</th>
-                <th>Address</th>
-                <th>Actions</th>
+                <th>Email</th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-user.firstname" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-user.lastname" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-user.address" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-user.actions" />
+                </th>
               </tr>
-
               {this.state.filteredUsers &&
                 this.state.filteredUsers.map((item, index) => {
                   return (
@@ -181,7 +196,8 @@ class UserManage extends Component {
             className="btn btn-primary px-3"
             onClick={() => this.handleAddNewUser()}
           >
-            <i className="fas fa-plus"></i> Add new users
+            <i className="fas fa-plus"></i>{" "}
+            <FormattedMessage id="manage-user.add_user" />
           </button>
         </div>
       </div>

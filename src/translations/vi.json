@@ -38,9 +38,12 @@
         "address": "Địa chỉ",
         "image": "Ảnh đại diện",
         "save": " Lưu người dùng",
-        "edit": "Lưu thay đổi"
+        "edit": "Lưu thay đổi",
+        "new_user": "Tạo người dùng mới",
+        "manage_user": "Quản lý người dùng với MStudents",
+        "actions": "Hành động" ,
+        "add_user": "Tạo người dùng mới"
     },  
-   
     "student":{
         "detail-teacher": {
      
@@ -52,7 +55,7 @@
     },
     "admin": {
         "manage-teacher": {
-            "title": "Tạo thông tin Teachers",
+            "title": "Tạo thông tin Giáo viên",
             "select-teacher": "Chọn giáo viên",
             "intro": "Thông tin giới thiệu",
             "add": "Tạo thông tin",
@@ -75,13 +78,21 @@
     "money": "Thành tiền",
     "total": "Tổng Số Tiền",
     "confirmpayment": "Xác nhận thanh toán"      
-    } , 
+    }, 
     "courses": 
     {
     "newcourses": "Khóa Học Nổi Bật",
     "explorecourse": "Khám phá tất cả các khóa học",
-    "body": "Bắt tay vào trải nghiệm học tập mang tính thay đổi với các khóa học tiếng Anh toàn diện của chúng tôi, được điều chỉnh phù hợp với trình độ thông thạo và mục tiêu học tập của bạn."
-       
+    "price": "Giá khóa học",
+    "about": "Mô tả khóa học",
+    "teacher": "Giáo viên",
+    "level": "Trình độ",
+    "duration": "Khoảng thời gian",
+    "lessons": "Số lượng bài học",
+    "lesson": "bài học",
+    "lifetime": "Truy cập trọn đời",
+    "access": "Truy cập từ bất kỳ Máy tính, Máy tính bảng hoặc Điện thoại di động",
+    "body": "Bắt tay vào trải nghiệm học tập mang tính thay đổi với các khóa học tiếng Anh toàn diện của chúng tôi, được điều chỉnh phù hợp với trình độ thông thạo và mục tiêu học tập của bạn." 
     } ,
     "teacher": 
     {
@@ -89,7 +100,10 @@
     "exploreteacher": "Khám phá tất cả giáo viên",
     "body":"Khai phá sức mạnh của ngôn ngữ với các nhà giáo dục tận tâm của chúng tôi, hướng dẫn bạn trong suốt hành trình học tiếng Anh.",
     "level": "Trình độ",
-    "loading": "Đang cập nhật..."
+    "loading": "Đang cập nhật...",
+    "fullname": "Họ và tên",
+    "phonenumber": "Số điện thoại"
+
     },
     "user_courses": 
     {
@@ -140,7 +154,35 @@
         "search": "Tìm kiếm khóa học...",
         "price": "Giá",
         "body": "Bắt tay vào trải nghiệm học tập mang tính thay đổi với các khóa học tiếng Anh toàn diện của chúng tôi, được điều chỉnh phù hợp với trình độ thông thạo và mục tiêu học tập của bạn."
+    },
+    "allteacher": 
+    {
+    "ourteacher": "Giáo viên của chúng tôi",
+    "body":"Khai phá sức mạnh của ngôn ngữ với các nhà giáo dục tận tâm của chúng tôi, hướng dẫn bạn trong suốt hành trình học tiếng Anh.",
+    "level": "Trình độ",
+    "loading": "Đang cập nhật..."
+    },
+    "manage-videos":{
+        "title": "Quản lý video",    
+        "name": "Tên video",
+        "change_ways": "Thay đổi cách tải video lên",
+        "courses":"Khóa học",
+        "ytblink": "Liên kết YouTube",
+        "link": "Link video",
+        "table_name":"Tên video",
+        "actions": "Chức năng",
+        "save": "Lưu thông tin"
+    },
+    "manage-orders":{
+        "title": "Quản lý đơn hàng",
+        "name": "Tên người dùng",
+        "phonenumber": "Số điện thoại",
+        "payment": "Thanh toán",
+        "courses": "Khóa học",
+        "total_price":"Tổng giá tiền",
+        "actions": "Hành động"
     }
+
     
     
 }

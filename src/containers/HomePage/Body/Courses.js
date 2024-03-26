@@ -13,7 +13,6 @@ class Courses extends Component {
       dataSpecialty: {},
     };
   }
-
   async componentDidMount() {
     let res = await getAllCourses();
     console.log(res);

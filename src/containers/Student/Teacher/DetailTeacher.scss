@@ -3,7 +3,8 @@
   .intro-teacher {
     display: flex;
     margin: 65px 150px 0 150px;
-    border: 1px solid grey;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
     .content-image {
       width: 20%;
@@ -40,7 +41,14 @@
   .detail-infor-courses {
     background-color: #f9f9f9;
     display: flex;
-    margin: 30px 10px 30px 150px;
+    margin: 30px 0px 30px 150px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    width: 79%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
     h3 {
       font-size: 17px;
     }
@@ -49,24 +57,23 @@
       height: 100px;
     }
     img-courses {
-      width: 100px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
       height: 200px;
+      margin-top: 50px;
     }
     .item-courses {
-      margin-right: 100px;
+      margin: 20px 0;
       .bg-image {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         width: 450px;
         height: 300px;
         border-radius: 10px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-      }
-      .section-item {
-        
-        .specialty-name {
-        
-        }
       }
     }
   }

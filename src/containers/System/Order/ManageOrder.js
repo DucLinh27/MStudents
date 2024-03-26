@@ -116,7 +116,10 @@ class ManageOrder extends Component {
             editUser={this.doEditUSer}
           />
         )}
-        <div className="title text-center">Manage Orders</div>
+        <div className="title text-center">
+          {" "}
+          <FormattedMessage id="manage-orders.title" />
+        </div>
         <div className="search-inputs">
           <input
             type="text"
@@ -128,20 +131,36 @@ class ManageOrder extends Component {
           <table>
             <tbody>
               <tr>
-               
-                <th>Username</th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-orders.name" />
+                </th>
                 <th>Email</th>
-                <th>Phone Number</th>
-                <th>Payment</th>
-                <th>Courses</th>
-                <th>Total Price</th>
-                <th>Action</th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-orders.phonenumber" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-orders.payment" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-orders.courses" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-orders.total_price" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-orders.actions" />
+                </th>
               </tr>
               {this.state.filteredOrders &&
                 this.state.filteredOrders.map((item, index) => {
                   return (
                     <tr key={index}>
-                    
                       <td>{item.username}</td>
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>

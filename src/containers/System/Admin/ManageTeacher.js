@@ -111,7 +111,6 @@ class ManageTeacher extends Component {
       });
     }
   }
-
   handleSaveContentMarkdown = () => {
     let { hashOldData } = this.state;
     this.props.saveDetailTeacher({
@@ -122,7 +121,6 @@ class ManageTeacher extends Component {
       coursesId: this.state.selectedCourses.value,
     });
   };
-
   handleChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
     let { listCourses } = this.state;
