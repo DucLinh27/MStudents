@@ -46,6 +46,10 @@ export const adminMenu = [
         name: "menu.admin.manage-order",
         link: "/system/manage-order",
       },
+      {
+        name: "manage-contact.title",
+        link: "/system/manage-contact",
+      },
     ],
   },
 ];

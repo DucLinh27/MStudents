@@ -189,6 +189,7 @@ class ManageCourses extends Component {
         ? this.state.selectedOption.value
         : null,
     };
+    console.log(data);
 
     if (this.state.isEditing) {
       // Edit the class

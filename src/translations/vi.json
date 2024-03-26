@@ -181,6 +181,12 @@
         "courses": "Khóa học",
         "total_price":"Tổng giá tiền",
         "actions": "Hành động"
+    },
+    "manage-contact":{
+        "title": "Quản lý liên hệ",
+        "fullname": "Họ và tên",
+        "feedback": "Phản hồi",
+        "actions": "Hành động"
     }
 
     

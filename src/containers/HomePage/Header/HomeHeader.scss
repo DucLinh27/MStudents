@@ -22,7 +22,6 @@
         opacity: 0.8;
       }
       .header-logo {
-        height: 100%;
         width: 100%;
         cursor: pointer;
         transform: scale(0.5, 0.5);
@@ -76,12 +75,51 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-
       .btn {
         color: white;
         transition: 0.2s ease;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          background-color: white;
+          bottom: 0;
+          left: 0;
+          transition: width 0.2s ease;
+        }
+
         &:hover {
-          font-size: 18px;
+          font-size: 15px;
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+      .welcome {
+        transition: 0.2s ease;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          background-color: white;
+          bottom: 0;
+          left: 0;
+          transition: width 0.2s ease;
+        }
+
+        &:hover {
+          font-size: 15px;
+
+          &::after {
+            width: 100%;
+          }
         }
       }
       .language-select {

@@ -8,6 +8,7 @@ import ManageCourses from "../containers/System/Courses/ManageCourses";
 import ManageTeacher from "../containers/System/Admin/ManageTeacher";
 import ManageVideos from "../containers/System/Videos/ManageVideos";
 import ManageOrder from "../containers/System/Order/ManageOrder";
+import ManageContact from "../containers/System/Contact/ManageContact";
 
 class System extends Component {
   render() {
@@ -24,6 +25,8 @@ class System extends Component {
               <Route path="/system/manage-teachers" component={ManageTeacher} />
               <Route path="/system/manage-videos" component={ManageVideos} />
               <Route path="/system/manage-order" component={ManageOrder} />
+              <Route path="/system/manage-contact" component={ManageContact} />
+
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

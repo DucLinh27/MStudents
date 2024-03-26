@@ -115,15 +115,31 @@ class ManageVideos extends Component {
       ...stateCopy,
     });
   };
+  handleChangeSelectCourses = async (selectedCourses, name) => {
+    let stateName = name.name;
+    let stateCopy = { ...this.state };
+    stateCopy[stateName] = selectedCourses;
+    this.setState({
+      ...stateCopy,
+      selectedCourses,
+    });
+    console.log(selectedCourses);
+  };
   handleSaveNewVideo = async () => {
     if (!this.validateFields()) {
       // If the input is not valid, stop the function
       return;
     }
+
+    let coursesId = this.state.selectedCourses
+      ? this.state.selectedCourses.label
+      : "";
+    console.log(coursesId);
     let data = {
       ...this.state,
       image: this.state.previewImageURL,
     };
+    console.log(this.state.selectedCourses.label);
     if (this.state.isEditing) {
       // Edit the class
       let res = await editVideosService(data);
@@ -133,7 +149,7 @@ class ManageVideos extends Component {
           id: null,
           name: "",
           video: "",
-          coursesId: "",
+          coursesId: this.state.selectedCourses.value,
           isEditing: false,
         });
       } else {
@@ -145,9 +161,9 @@ class ManageVideos extends Component {
       if (res && res.errCode === 0) {
         toast.success("Add new video successfully");
         this.setState({
-          name: this.state.name,
-          video: this.state.previewImageURL,
-          coursesId: this.state.coursesId.value,
+          name: "",
+          video: "",
+          coursesId: coursesId,
         });
       } else {
         toast.error("Add new video Error");
@@ -162,41 +178,32 @@ class ManageVideos extends Component {
       this.setState({ video: srcMatch[1] });
     }
   };
-  handleChangeSelectCourses = async (selectedCourses, name) => {
-    let stateName = name.name;
-    let stateCopy = { ...this.state };
-    stateCopy[stateName] = selectedCourses;
-    this.setState({
-      ...stateCopy,
-    });
-  };
-  handleDeleteVideo = async (video) => {
-    try {
-      const response = await deleteVideosService(video);
-      if (response && response.errCode === 0) {
-        this.props.deleteVideo(video);
-      } else {
-        console.error("Error deleting order:", response.errMessage);
-      }
-    } catch (error) {
-      console.error("Error deleting order:", error);
-    }
-  };
+
   handleEditVideo = (item) => {
+    console.log("Item coursesId:", item.coursesId);
+    console.log("List of courses:", this.state.listCourses);
+
     const selectedCourses = this.state.listCourses.find(
       (courses) => courses.value === item.coursesId
     );
-    this.setState({
-      id: item.id,
-      name: item.name,
-      video: item.video,
-      coursesId: item.coursesId,
-      selectedCourses: selectedCourses,
-      isEditing: true,
-    });
+    console.log(selectedCourses);
+
+    if (selectedCourses) {
+      this.setState({
+        id: item.id,
+        name: item.name,
+        video: item.video,
+        coursesId: item.coursesId,
+        selectedCourses: selectedCourses,
+        isEditing: true,
+      });
+      console.log(item.coursesId);
+    } else {
+      console.error("No matching course found for coursesId:", item.coursesId);
+    }
   };
   validateFields = () => {
-    const { name, video, selectedCourses } = this.state;
+    const { name, video } = this.state;
 
     // Check if video name is not empty
     if (!name) {
@@ -209,14 +216,6 @@ class ManageVideos extends Component {
       alert("YouTube embed link is required");
       return false;
     }
-
-    // // Check if a course is selected
-    // if (!selectedCourses) {
-    //   alert("Please select a course");
-    //   return false;
-    // }
-
-    // If all checks pass, return true
     return true;
   };
   openPreviewVideo = () => {
@@ -256,21 +255,28 @@ class ManageVideos extends Component {
       }
     }
   };
+  handleDeleteVideo = async (video) => {
+    try {
+      const response = await deleteVideosService(video);
+      if (response && response.errCode === 0) {
+        this.props.deleteVideo(video);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
   render() {
     let previewVideoURL = this.state.previewVideoURL;
     console.log(previewVideoURL);
     return (
       <div className="manage-sepcialty-container">
-        <div className="ms-title">
-          {" "}
-          <FormattedMessage id="manage-videos.title" />
-        </div>
+        <div className="ms-title">Manage VIDEOS</div>
         <div className="add-new-specialty row">
           <div className="col-6 form-group">
-            <label>
-              {" "}
-              <FormattedMessage id="manage-videos.name" />
-            </label>
+            <label>Tên Video Bài Học</label>
             <input
               className="form-control"
               type="text"
@@ -280,10 +286,7 @@ class ManageVideos extends Component {
           </div>
           {this.state.isEmbedLink ? (
             <div className="col-4 form-group">
-              <label>
-                {" "}
-                <FormattedMessage id="manage-videos.ytblink" />
-              </label>
+              <label>YouTube Embed Link</label>
               <input
                 className="form-control"
                 type="text"
@@ -328,7 +331,7 @@ class ManageVideos extends Component {
               }))
             }
           >
-            <FormattedMessage id="manage-videos.change_ways" />
+            Change Ways Upload Video
           </button>
           <div className="col-4 form-group">
             <label>
@@ -365,21 +368,10 @@ class ManageVideos extends Component {
           <table>
             <tbody>
               <tr>
-                <th>
-                  {" "}
-                  <FormattedMessage id="manage-videos.table_name" />
-                </th>
-                <th>
-                  <FormattedMessage id="manage-videos.link" />
-                </th>
-                <th>
-                  {" "}
-                  <FormattedMessage id="manage-videos.courses" />
-                </th>
-                <th>
-                  {" "}
-                  <FormattedMessage id="manage-videos.actions" />
-                </th>
+                <th>Name</th>
+                <th>Link Courses</th>
+                <th>CoursesId</th>
+                <th>Actions</th>
               </tr>
 
               {this.state.filteredVideos &&

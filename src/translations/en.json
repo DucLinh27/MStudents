@@ -192,5 +192,11 @@
         "courses": "Courses",
         "total_price":"Total Price",
         "actions": "Actions"
+    },
+    "manage-contact":{
+        "title": "Manage Contact",
+        "fullname": "Full Name",
+        "feedback": "Feedback",
+        "actions": "Actions"
     }
 } 

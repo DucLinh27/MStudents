@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
-import logoeducation from "../../../assets/logoeducation.svg";
+import logoeducation from "../../../assets/logonew.png";
 import image1 from "../../../assets/image1.jpg";
 import kids_on_tablets_in_class from "../../../assets/kids_on_tablets_in_class.jpg";
 import image2 from "../../../assets/image3.jpg";
@@ -190,8 +190,10 @@ class HomeHeader extends Component {
             <div
               className="content-up row"
               style={{
-                position: 'relative',
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${images[this.state.currentImage]})`,
+                position: "relative",
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${
+                  images[this.state.currentImage]
+                })`,
               }}
             >
               <div className="content-background">

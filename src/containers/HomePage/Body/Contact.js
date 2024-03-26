@@ -7,29 +7,76 @@ import "./Contact.scss";
 import { withRouter } from "react-router";
 import HomeFooter from "../Header/HomeFooter";
 import HomeHeader from "../Header/HomeHeader";
-
+import {
+  createNewContacts,
+  getAllContacts,
+} from "../../../services/contactService";
+import { toast } from "react-toastify";
 class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSpecialty: {},
+      email: "",
+      fullname: "",
+      feedback: "",
     };
   }
   async componentDidMount() {
-    let res = await getAllCourses();
+    let res = await getAllContacts();
     console.log(res);
-    if (res && res.errCode === 0) {
-      this.setState({ dataSpecialty: res.data ? res.data : [] });
-    }
   }
-  handleDetailSpecialty = (item) => {
-    if (this.props.history) {
-      this.props.history.push(`/detail-courses/${item.id}`);
+  handleSaveNewContacts = async () => {
+    if (!this.validateFields()) {
+      return;
+    }
+    const { userId } = this.props;
+    let data = {
+      ...this.state,
+      userId,
+    };
+    let res = await createNewContacts(data);
+    if (res && res.errCode === 0) {
+      this.setState({
+        id: null,
+        email: "",
+        fullname: "",
+        feedback: "",
+        isEditing: false,
+      });
+      toast.success("Add new contact successfully");
+    } else {
+      toast.error("Add new contact Error");
     }
   };
+  validateFields = () => {
+    const { email, fullname, feedback } = this.state;
+    // Check if email is valid
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      toast.warning("Email is required and must be valid");
+      return false;
+    }
+    // Check if video name is not empty
+    if (!fullname) {
+      alert("Fullname is required");
+      return false;
+    }
+
+    // Check if YouTube embed link is not empty
+    if (!feedback) {
+      alert("feedback is required");
+      return false;
+    }
+    return true;
+  };
+  handleOnChangeInput = (event, id) => {
+    let stateCopy = { ...this.state };
+    stateCopy[id] = event.target.value;
+    this.setState({
+      ...stateCopy,
+    });
+  };
   render() {
-    let { dataSpecialty } = this.state;
-    console.log("data", dataSpecialty);
     return (
       <>
         <HomeHeader />
@@ -52,33 +99,44 @@ class Contact extends Component {
         <div className="blog-containers row">
           <div className="left-contents col-6">
             <h3>CONTACT FORM</h3>
-            <form>
-              <label for="lname">Email</label>
+            <div>
+              <label for="email">Email</label>
               <input
                 type="text"
-                id="lname"
                 name="email"
                 placeholder="Your email.."
+                onChange={(event) => this.handleOnChangeInput(event, "email")}
               />
 
-              <label for="fname">Full Name</label>
+              <label for="fullname">Full Name</label>
               <input
+                className="fullname"
                 type="text"
-                id="fname"
                 name="firstname"
                 placeholder="Your name..."
+                onChange={(event) =>
+                  this.handleOnChangeInput(event, "fullname")
+                }
               />
-
               <label for="subject">Feedback</label>
               <textarea
-                id="fname"
+                className="fullname"
                 name="fname"
                 placeholder="Write something.."
-                style={{ height: "200px" }}
+                onChange={(event) =>
+                  this.handleOnChangeInput(event, "feedback")
+                }
               ></textarea>
 
-              <input type="submit" value="Submit" />
-            </form>
+              <button
+                type="submit"
+                value="Submit"
+                className="btn btn-primary "
+                onClick={(event) => this.handleSaveNewContacts()}
+              >
+                Save
+              </button>
+            </div>
           </div>
           <div className="right-contact col-6">
             <div>
@@ -114,6 +172,10 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    userInfo: state.user.userInfo,
+    user: state.user,
+    userId: state.user.userInfo?.id || state.user.user?.userId,
+
     //inject
   };
 };
