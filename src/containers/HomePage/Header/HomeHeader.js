@@ -1,9 +1,10 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import logoeducation from "../../../assets/logonew.png";
 import image1 from "../../../assets/image1.jpg";
+import vietnam from "../../../assets/vietnam.webp";
+import england from "../../../assets/england.png";
 import kids_on_tablets_in_class from "../../../assets/kids_on_tablets_in_class.jpg";
 import image2 from "../../../assets/image3.jpg";
 import { LANGUAGES } from "../../../utils/constant";
@@ -11,14 +12,23 @@ import { changeLanguageApp } from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
 import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
-const images = [kids_on_tablets_in_class, image1, image2];
+import ReactSelect from "react-select";
 
+const options = [
+  { value: LANGUAGES.VI, image: vietnam },
+  { value: LANGUAGES.EN, image: england },
+];
+const images = [kids_on_tablets_in_class, image1, image2];
 class HomeHeader extends Component {
   constructor(props) {
     super(props);
     this.state = { currentImage: 0 };
   }
-
+  formatOptionLabel = (option) => (
+    <div>
+      <img width={50} height={30} src={option.image} alt={option.label} />
+    </div>
+  );
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
@@ -87,7 +97,17 @@ class HomeHeader extends Component {
     console.log(userGoogle);
 
     //Check isLogin
+    const customStyles = {
+      indicatorSeparator: () => ({}), // Hide the indicator separator
+      dropdownIndicator: () => ({ display: "none" }),
+      option: (provided, state) => ({
+        ...provided,
+      }),
 
+      control: () => ({
+        width: 70,
+      }),
+    };
     return (
       <React.Fragment>
         <div className="home-header-container">
@@ -96,6 +116,7 @@ class HomeHeader extends Component {
               <img
                 className="header-logo"
                 src={logoeducation}
+                alt="bg"
                 onClick={() => this.returnToHome()}
               ></img>
             </div>
@@ -160,18 +181,13 @@ class HomeHeader extends Component {
                 </div>
               )}
 
-              <select
-                className="language-select"
-                value={this.state.languages}
-                onChange={(event) => this.changeLanguage(event.target.value)}
-              >
-                <option className="language-vi" value={LANGUAGES.VI}>
-                  VN
-                </option>
-                <option className="language-en" value={LANGUAGES.EN}>
-                  EN
-                </option>
-              </select>
+              <ReactSelect
+                defaultValue={options[0]}
+                styles={customStyles}
+                options={options}
+                formatOptionLabel={this.formatOptionLabel}
+                onChange={(option) => this.changeLanguage(option.value)}
+              />
               <div
                 className="btn btn-logout"
                 onClick={processLogout}

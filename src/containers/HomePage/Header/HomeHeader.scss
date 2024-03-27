@@ -34,18 +34,17 @@
       }
     }
     .center-content {
-      width: 40%;
+      width: 45%;
       display: flex;
       justify-content: space-around;
       align-items: center;
       list-style-type: none;
-
       .child-content {
         font-weight: 400;
         font-size: 18px;
         color: white;
         transition: 0.2s ease;
-        width: 90px;
+        width: 100px;
         cursor: pointer;
         position: relative;
 
@@ -79,7 +78,6 @@
         color: white;
         transition: 0.2s ease;
         position: relative;
-
         &::after {
           content: "";
           position: absolute;
@@ -123,17 +121,26 @@
         }
       }
       .language-select {
-        border-radius: 10px;
-        width: 50px;
-        height: 25px;
+        // border-radius: 10px;
+        width: 70px;
+        height: 40px;
         background-color: rgba(245, 243, 243, 0.87);
         .language-vi {
+          .vietnam-logo {
+            width: 20px;
+            height: 20px;
+          }
         }
         .language-en {
+          .england-logo {
+            width: 20px;
+            height: 20px;
+          }
         }
       }
     }
   }
+
   //Tablet
   @media (max-width: 1024px) {
     // tablet

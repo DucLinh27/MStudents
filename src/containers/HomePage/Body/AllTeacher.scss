@@ -9,6 +9,13 @@
       margin-bottom: 50px;
       .item-teacher {
         margin-right: 90px;
+        transition: 0.2s ease;
+        margin-top: 15px;
+
+        &:hover {
+          transform: translateY(-7px);
+          opacity: 0.8;
+        }
         .bg-image {
           width: 350px;
           height: 400px;
