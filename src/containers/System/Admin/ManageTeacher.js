@@ -115,7 +115,7 @@ class ManageTeacher extends Component {
     let { hashOldData } = this.state;
     this.props.saveDetailTeacher({
       description: this.state.description,
-      teacherId: this.state.selectedOption.value,
+      userId: this.state.selectedOption.value,
       action: hashOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE,
       level: this.state.level,
       coursesId: this.state.selectedCourses.value,
@@ -187,7 +187,7 @@ class ManageTeacher extends Component {
   handleEditTeacher = (item) => {
     // Find the teacher in the listTeachers array
     const selectedTeacher = this.state.listTeachers.find(
-      (teacher) => teacher.value === item.teacherId
+      (teacher) => teacher.value === item.userId
     );
     const selectedCourses = this.state.listCourses.find(
       (courses) => courses.value === item.coursesId
@@ -195,7 +195,7 @@ class ManageTeacher extends Component {
 
     this.setState({
       id: item.id,
-      teacherId: item.teacherId,
+      userId: item.userId,
       coursesId: item.coursesId,
       description: item.description,
       level: item.level,
@@ -299,7 +299,7 @@ class ManageTeacher extends Component {
                 this.state.arrTeachers.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.teacherId}</td>
+                      <td>{item.userId}</td>
                       <td>{item.coursesId}</td>
                       <td>{item.description}</td>
                       <td>{item.level}</td>

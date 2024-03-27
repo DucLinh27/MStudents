@@ -185,7 +185,7 @@ class ManageCourses extends Component {
     let data = {
       ...this.state,
       image: this.state.previewImageURL,
-      teacherId: this.state.selectedOption
+      userId: this.state.selectedOption
         ? this.state.selectedOption.value
         : null,
     };
@@ -205,7 +205,7 @@ class ManageCourses extends Component {
           level: "",
           duration: "",
           lessons: "",
-          teacherId: this.state.selectedOption.value,
+          userId: this.state.selectedOption.value,
           isEditing: false,
         });
       } else {
@@ -224,7 +224,7 @@ class ManageCourses extends Component {
           level: "",
           duration: "",
           lessons: "",
-          teacherId: this.state.selectedOption.value,
+          userId: this.state.selectedOption.value,
         });
       } else {
         toast.error("Add new courses Error");
@@ -235,7 +235,7 @@ class ManageCourses extends Component {
   handleEditCourses = (item) => {
     // Find the teacher in the listTeachers array
     const selectedTeacher = this.state.listTeachers.find(
-      (teacher) => teacher.value === item.teacherId
+      (teacher) => teacher.value === item.userId
     );
     this.setState({
       id: item.id,
