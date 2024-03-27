@@ -11,7 +11,7 @@ let createCourses = (data) => {
         !data.level ||
         !data.duration ||
         !data.lessons ||
-        !data.teacherId
+        !data.userId
       ) {
         resolve({
           errCode: 1,
@@ -26,7 +26,7 @@ let createCourses = (data) => {
           level: data.level,
           duration: data.duration,
           lessons: data.lessons,
-          teacherId: data.teacherId,
+          userId: data.userId,
         });
         resolve({
           errCode: 0,
@@ -74,7 +74,7 @@ let getDetailCoursesById = (inputId) => {
             "level",
             "duration",
             "lessons",
-            "teacherId",
+            "userId",
           ],
           include: [
             {
@@ -138,7 +138,7 @@ let filterCoursesByName = (name) => {
             "level",
             "duration",
             "lessons",
-            "teacherId",
+            "userId",
           ],
           include: [
             {

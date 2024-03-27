@@ -134,7 +134,7 @@ var getExtraInforTeacherById = /*#__PURE__*/function () {
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
-          return _teacherService["default"].getExtraInforTeacherById(req.query.teacherId);
+          return _teacherService["default"].getExtraInforTeacherById(req.query.userId);
         case 3:
           infor = _context5.sent;
           return _context5.abrupt("return", res.status(200).json(infor));

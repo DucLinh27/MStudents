@@ -51,7 +51,7 @@ let getDetailTeacherById = async (req, res) => {
 let getExtraInforTeacherById = async (req, res) => {
   try {
     let infor = await teacherService.getExtraInforTeacherById(
-      req.query.teacherId
+      req.query.userId
     );
     return res.status(200).json(infor);
   } catch (e) {

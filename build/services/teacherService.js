@@ -84,7 +84,7 @@ var getAllTeacherInfor = function getAllTeacherInfor() {
 };
 var checkRequireFields = function checkRequireFields(inputData) {
   console.log(inputData);
-  var arrFields = ["teacherId", "description", "level", "coursesId"];
+  var arrFields = ["userId", "description", "level", "coursesId"];
   var isValid = true;
   var element = "";
   for (var i = 0; i < arrFields.length; i++) {
@@ -129,7 +129,7 @@ var saveDetailInforTeacher = /*#__PURE__*/function () {
                     }
                     _context3.next = 9;
                     return _index["default"].Teacher_Infor.create({
-                      teacherId: inputData.teacherId,
+                      userId: inputData.userId,
                       description: inputData.description,
                       level: inputData.level,
                       coursesId: inputData.coursesId
@@ -145,7 +145,7 @@ var saveDetailInforTeacher = /*#__PURE__*/function () {
                     _context3.next = 14;
                     return _index["default"].Teacher_Infor.findOne({
                       where: {
-                        teacherId: inputData.teacherId
+                        userId: inputData.userId
                       },
                       raw: false
                     });
@@ -162,7 +162,7 @@ var saveDetailInforTeacher = /*#__PURE__*/function () {
                     _context3.next = 21;
                     return _index["default"].Teacher_Infor.findOne({
                       where: {
-                        teacherId: inputData.teacherId
+                        userId: inputData.userId
                       }
                     });
                   case 21:
@@ -171,7 +171,7 @@ var saveDetailInforTeacher = /*#__PURE__*/function () {
                       _context3.next = 31;
                       break;
                     }
-                    teacherInfor.teacherId = inputData.teacherId;
+                    teacherInfor.userId = inputData.userId;
                     teacherInfor.coursesId = inputData.coursesId;
                     teacherInfor.description = inputData.description;
                     teacherInfor.level = inputData.level;
@@ -183,7 +183,7 @@ var saveDetailInforTeacher = /*#__PURE__*/function () {
                   case 31:
                     _context3.next = 33;
                     return _index["default"].Teacher_Infor.create({
-                      teacherId: inputData.teacherId,
+                      userId: inputData.userId,
                       coursesId: inputData.coursesId,
                       level: inputData.level,
                       description: inputData.description
@@ -314,10 +314,10 @@ var getExtraInforTeacherById = function getExtraInforTeacherById(idInput) {
             _context7.next = 7;
             return _index["default"].Teacher_Infor.findOne({
               where: {
-                teacherId: idInput
+                userId: idInput
               },
               attributes: {
-                exclude: ["id", "teacherId"]
+                exclude: ["id", "userId"]
               },
               include: [{
                 model: _index["default"].Courses,
@@ -360,7 +360,7 @@ var sendRemedy = function sendRemedy(data) {
         while (1) switch (_context8.prev = _context8.next) {
           case 0:
             _context8.prev = 0;
-            if (!(!data.email || !data.teacherId || !data.studentId || !data.timeType)) {
+            if (!(!data.email || !data.userId || !data.studentId || !data.timeType)) {
               _context8.next = 5;
               break;
             }
@@ -374,7 +374,7 @@ var sendRemedy = function sendRemedy(data) {
             _context8.next = 7;
             return _index["default"].Booking.findOne({
               where: {
-                teacherId: data.teacherId,
+                userId: data.userId,
                 studentId: data.studentId,
                 timeType: data.timeType,
                 statusId: "S2"
@@ -444,7 +444,7 @@ var editTeacherService = function editTeacherService(data) {
               break;
             }
             teacher.id = data.id;
-            teacher.teacherId = data.teacherId;
+            teacher.userId = data.userId;
             teacher.coursesId = data.coursesId;
             teacher.description = data.description;
             teacher.level = data.level;

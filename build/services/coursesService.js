@@ -16,7 +16,7 @@ var createCourses = function createCourses(data) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            if (!(!data.name || !data.image || !data.price || !data.description || !data.level || !data.duration || !data.lessons || !data.teacherId)) {
+            if (!(!data.name || !data.image || !data.price || !data.description || !data.level || !data.duration || !data.lessons || !data.userId)) {
               _context.next = 5;
               break;
             }
@@ -36,7 +36,7 @@ var createCourses = function createCourses(data) {
               level: data.level,
               duration: data.duration,
               lessons: data.lessons,
-              teacherId: data.teacherId
+              userId: data.userId
             });
           case 7:
             resolve({
@@ -119,7 +119,7 @@ var getDetailCoursesById = function getDetailCoursesById(inputId) {
               where: {
                 id: inputId
               },
-              attributes: ["id", "name", "price", "image", "description", "level", "duration", "lessons", "teacherId"],
+              attributes: ["id", "name", "price", "image", "description", "level", "duration", "lessons", "userId"],
               include: [{
                 model: db.Videos,
                 as: "videos",
@@ -192,7 +192,7 @@ var filterCoursesByName = function filterCoursesByName(name) {
               where: {
                 name: _defineProperty({}, _sequelize.Op.like, "%" + name + "%")
               },
-              attributes: ["id", "name", "price", "image", "description", "level", "duration", "lessons", "teacherId"],
+              attributes: ["id", "name", "price", "image", "description", "level", "duration", "lessons", "userId"],
               include: [{
                 model: db.Videos,
                 as: "videos",

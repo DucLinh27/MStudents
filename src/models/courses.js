@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "coursesId",
         as: "videos",
       });
-      Courses.belongsTo(models.User, { foreignKey: "teacherId" });
+      Courses.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
   Courses.init(
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       level: DataTypes.STRING,
       duration: DataTypes.INTEGER,
       lessons: DataTypes.INTEGER,
-      teacherId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -21,7 +21,7 @@ let postOrderCourses = (data) => {
           reciverEmail: data.email,
           studentName: data.fullName,
           language: data.language,
-          redirectLink: buildUrlEmail(data.teacherId, token),
+          redirectLink: buildUrlEmail(data.userId, token),
         });
 
         //upsert student
@@ -92,15 +92,15 @@ let postForgotPassword = (data) => {
     }
   });
 };
-let buildUrlEmail = (teacherId, token) => {
-  let result = `${process.env.URL_REACT}/verify-booking?token=${token}&teacherId=${teacherId}`;
+let buildUrlEmail = (userId, token) => {
+  let result = `${process.env.URL_REACT}/verify-booking?token=${token}&userId=${userId}`;
   return result;
 };
 
 let postVerifyBookCourses = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.token || !data.teacherId) {
+      if (!data.token || !data.userId) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter!",
@@ -108,7 +108,7 @@ let postVerifyBookCourses = (data) => {
       } else {
         let appointment = await db.Booking.findOne({
           where: {
-            teacherId: data.teacherId,
+            userId: data.userId,
             token: data.token,
             statusId: "S1",
           },

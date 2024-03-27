@@ -18,7 +18,7 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
               },
-              teacherId: {
+              userId: {
                 type: Sequelize.INTEGER,
                 allowNull: false
               },

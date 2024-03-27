@@ -36,7 +36,7 @@ let getAllTeacherInfor = () => {
 };
 let checkRequireFields = (inputData) => {
   console.log(inputData);
-  let arrFields = ["teacherId", "description", "level", "coursesId"];
+  let arrFields = ["userId", "description", "level", "coursesId"];
   let isValid = true;
   let element = "";
   for (let i = 0; i < arrFields.length; i++) {
@@ -64,14 +64,14 @@ let saveDetailInforTeacher = async (inputData) => {
         //update to markdown
         if (inputData.action === "CREATE") {
           await db.Teacher_Infor.create({
-            teacherId: inputData.teacherId,
+            userId: inputData.userId,
             description: inputData.description,
             level: inputData.level,
             coursesId: inputData.coursesId,
           });
         } else if (inputData.action === "EDIT") {
           let teacher = await db.Teacher_Infor.findOne({
-            where: { teacherId: inputData.teacherId },
+            where: { userId: inputData.userId },
             raw: false,
           });
           if (teacher) {
@@ -85,12 +85,12 @@ let saveDetailInforTeacher = async (inputData) => {
 
         //update to Teacher infor table
         let teacherInfor = await db.Teacher_Infor.findOne({
-          where: { teacherId: inputData.teacherId },
+          where: { userId: inputData.userId },
         });
 
         if (teacherInfor) {
           //update
-          (teacherInfor.teacherId = inputData.teacherId),
+          (teacherInfor.userId = inputData.userId),
             (teacherInfor.coursesId = inputData.coursesId),
             (teacherInfor.description = inputData.description),
             (teacherInfor.level = inputData.level),
@@ -98,7 +98,7 @@ let saveDetailInforTeacher = async (inputData) => {
         } else {
           //create
           await db.Teacher_Infor.create({
-            teacherId: inputData.teacherId,
+            userId: inputData.userId,
             coursesId: inputData.coursesId,
             level: inputData.level,
             description: inputData.description,
@@ -162,10 +162,10 @@ let getExtraInforTeacherById = (idInput) => {
       } else {
         let data = await db.Teacher_Infor.findOne({
           where: {
-            teacherId: idInput,
+            userId: idInput,
           },
           attributes: {
-            exclude: ["id", "teacherId"],
+            exclude: ["id", "userId"],
           },
           include: [
             {
@@ -191,7 +191,7 @@ let getExtraInforTeacherById = (idInput) => {
 let sendRemedy = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.email || !data.teacherId || !data.studentId || !data.timeType) {
+      if (!data.email || !data.userId || !data.studentId || !data.timeType) {
         resolve({
           errCode: 1,
           errMessage: "Messing required parameter missing",
@@ -200,7 +200,7 @@ let sendRemedy = (data) => {
         //updte patient status
         let appointment = await db.Booking.findOne({
           where: {
-            teacherId: data.teacherId,
+            userId: data.userId,
             studentId: data.studentId,
             timeType: data.timeType,
             statusId: "S2",
@@ -238,7 +238,7 @@ let editTeacherService = (data) => {
       });
       if (teacher) {
         teacher.id = data.id;
-        teacher.teacherId = data.teacherId;
+        teacher.userId = data.userId;
         teacher.coursesId = data.coursesId;
         teacher.description = data.description;
         teacher.level = data.level;

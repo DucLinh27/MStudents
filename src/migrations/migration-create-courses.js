@@ -29,7 +29,7 @@ module.exports = {
       lessons: {
         type: Sequelize.INTEGER,
       },
-      teacherId: {
+      userId: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

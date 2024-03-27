@@ -37,10 +37,10 @@ module.exports = function (sequelize, DataTypes) {
           as: "Role"
         });
         User.hasOne(models.Teacher_Infor, {
-          foreignKey: "teacherId"
+          foreignKey: "userId"
         });
         User.hasMany(models.Courses, {
-          foreignKey: "teacherId"
+          foreignKey: "userId"
         });
         User.hasMany(models.Order, {
           foreignKey: "userId"

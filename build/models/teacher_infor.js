@@ -27,13 +27,13 @@ module.exports = function (sequelize, DataTypes) {
       value: function associate(models) {
         // define association here
         Teacher_Infor.belongsTo(models.User, {
-          foreignKey: "teacherId"
+          foreignKey: "userId"
         });
       }
     }]);
   }(Model);
   Teacher_Infor.init({
-    teacherId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     coursesId: DataTypes.INTEGER,
     description: DataTypes.STRING,
     level: DataTypes.STRING

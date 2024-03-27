@@ -37,7 +37,7 @@ var postOrderCourses = function postOrderCourses(data) {
               reciverEmail: data.email,
               studentName: data.fullName,
               language: data.language,
-              redirectLink: buildUrlEmail(data.teacherId, token)
+              redirectLink: buildUrlEmail(data.userId, token)
             });
           case 8:
             _context.next = 10;
@@ -157,8 +157,8 @@ var postForgotPassword = function postForgotPassword(data) {
     };
   }());
 };
-var buildUrlEmail = function buildUrlEmail(teacherId, token) {
-  var result = "".concat(process.env.URL_REACT, "/verify-booking?token=").concat(token, "&teacherId=").concat(teacherId);
+var buildUrlEmail = function buildUrlEmail(userId, token) {
+  var result = "".concat(process.env.URL_REACT, "/verify-booking?token=").concat(token, "&userId=").concat(userId);
   return result;
 };
 var postVerifyBookCourses = function postVerifyBookCourses(data) {
@@ -169,7 +169,7 @@ var postVerifyBookCourses = function postVerifyBookCourses(data) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            if (!(!data.token || !data.teacherId)) {
+            if (!(!data.token || !data.userId)) {
               _context3.next = 5;
               break;
             }
@@ -183,7 +183,7 @@ var postVerifyBookCourses = function postVerifyBookCourses(data) {
             _context3.next = 7;
             return _index["default"].Booking.findOne({
               where: {
-                teacherId: data.teacherId,
+                userId: data.userId,
                 token: data.token,
                 statusId: "S1"
               },

@@ -36,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
           as: "videos"
         });
         Courses.belongsTo(models.User, {
-          foreignKey: "teacherId"
+          foreignKey: "userId"
         });
       }
     }]);
@@ -49,7 +49,7 @@ module.exports = function (sequelize, DataTypes) {
     level: DataTypes.STRING,
     duration: DataTypes.INTEGER,
     lessons: DataTypes.INTEGER,
-    teacherId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER
   }, {
     sequelize: sequelize,
     modelName: "Courses"

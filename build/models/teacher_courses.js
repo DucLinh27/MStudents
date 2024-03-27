@@ -30,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
     }]);
   }(Model);
   Teacher_Courses.init({
-    teacherId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     coursesId: DataTypes.INTEGER
   }, {
     sequelize: sequelize,
