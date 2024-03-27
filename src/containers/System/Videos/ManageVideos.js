@@ -273,10 +273,16 @@ class ManageVideos extends Component {
     console.log(previewVideoURL);
     return (
       <div className="manage-sepcialty-container">
-        <div className="ms-title">Manage VIDEOS</div>
+        <div className="ms-title">
+          {" "}
+          <FormattedMessage id="manage-videos.title" />
+        </div>
         <div className="add-new-specialty row">
           <div className="col-6 form-group">
-            <label>Tên Video Bài Học</label>
+            <label>
+              {" "}
+              <FormattedMessage id="manage-videos.name" />
+            </label>
             <input
               className="form-control"
               type="text"
@@ -286,7 +292,10 @@ class ManageVideos extends Component {
           </div>
           {this.state.isEmbedLink ? (
             <div className="col-4 form-group">
-              <label>YouTube Embed Link</label>
+              <label>
+                {" "}
+                <FormattedMessage id="manage-videos.ytblink" />
+              </label>
               <input
                 className="form-control"
                 type="text"
@@ -368,10 +377,22 @@ class ManageVideos extends Component {
           <table>
             <tbody>
               <tr>
-                <th>Name</th>
-                <th>Link Courses</th>
-                <th>CoursesId</th>
-                <th>Actions</th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-videos.name" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-videos.link" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-videos.courses" />
+                </th>
+                <th>
+                  {" "}
+                  <FormattedMessage id="manage-videos.actions" />
+                </th>
               </tr>
 
               {this.state.filteredVideos &&

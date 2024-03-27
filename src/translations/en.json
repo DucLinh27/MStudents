@@ -198,5 +198,32 @@
         "fullname": "Full Name",
         "feedback": "Feedback",
         "actions": "Actions"
+    },
+    "payment":{
+        "title": "Your Order",
+        "username": "User Name",
+        "phonenumber": "Phone Number",
+        "payment": "Payment",
+        "courses": "Courses",
+        "total_price": "Total Price",
+        "status": "Status",
+        "actions": "Action",
+        "order_detail": "Order Details",
+        "status2": "Status: Paid",
+        "back": "Back",
+        "close": "Close",
+        "see_details": "See Details"
+    },
+    "contact":{
+        "title": "First Choice For Online Education Anywhere",
+        "content": "Learning English online on a website provides flexibility and convenience for  improving language skills. Participating in courses gives you the opportunity to learn from experienced teachers, experience interactive activities, and connect with a diverse learning community",
+        "button": "Our Courses",
+        "contact": "Contact Form" ,
+        "fullname": "Full Name",
+        "feedback": "Feedback",
+        "save": "Save",
+        "our_location": "Our Location",
+        "call": "Call Us",
+        "email": "Email Us"
     }
 } 

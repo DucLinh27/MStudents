@@ -82,15 +82,15 @@ class Contact extends Component {
         <HomeHeader />
         <div className="blog-containerss row">
           <div className="left-content col-6">
-            <h1>Apply now, start at interhigh this september</h1>
+            <h1>
+              <FormattedMessage id="contact.title" />
+            </h1>
             <p>
-              A very warm welcome to Our School. We are a Co-Educational
-              Independent Day School. We value the uniqueness of each individual
-              and therefore we also welcome children of all faiths and cultures.
+              <FormattedMessage id="contact.content" />
             </p>
             <div className="button_contents">
               <a href="/allcourses" className="button_courses">
-                Our Courses
+                <FormattedMessage id="contact.button" />
               </a>
             </div>
           </div>
@@ -98,17 +98,24 @@ class Contact extends Component {
         </div>
         <div className="blog-containers row">
           <div className="left-contents col-6">
-            <h3>CONTACT FORM</h3>
-            <div>
+            <h3>
+              {" "}
+              <FormattedMessage id="contact.contact" />
+            </h3>
+            <div className="row contact-form">
               <label for="email">Email</label>
               <input
+                className="email"
                 type="text"
                 name="email"
                 placeholder="Your email.."
                 onChange={(event) => this.handleOnChangeInput(event, "email")}
               />
 
-              <label for="fullname">Full Name</label>
+              <label for="fullname">
+                {" "}
+                <FormattedMessage id="contact.fullname" />
+              </label>
               <input
                 className="fullname"
                 type="text"
@@ -118,9 +125,12 @@ class Contact extends Component {
                   this.handleOnChangeInput(event, "fullname")
                 }
               />
-              <label for="subject">Feedback</label>
+              <label for="subject">
+                {" "}
+                <FormattedMessage id="contact.feedback" />
+              </label>
               <textarea
-                className="fullname"
+                className="feedback"
                 name="fname"
                 placeholder="Write something.."
                 onChange={(event) =>
@@ -134,28 +144,37 @@ class Contact extends Component {
                 className="btn btn-primary "
                 onClick={(event) => this.handleSaveNewContacts()}
               >
-                Save
+                <FormattedMessage id="contact.save" />
               </button>
             </div>
           </div>
           <div className="right-contact col-6">
             <div>
               <i class="fas fa-map-marker-alt"></i>
-              <h3>Our Location</h3>
+              <h3>
+                {" "}
+                <FormattedMessage id="contact.our_location" />
+              </h3>
             </div>
             <div>
               <p>Tho Quang Street, Da Nang, Viet Nam</p>
             </div>
             <div>
               <i class="fas fa-mobile-alt"></i>
-              <h3>Call Us</h3>
+              <h3>
+                {" "}
+                <FormattedMessage id="contact.call" />
+              </h3>
             </div>
             <div>
               <p>+084 982328999</p>
             </div>
             <div>
               <i class="fas fa-envelope"></i>
-              <h3>Email Us</h3>
+              <h3>
+                {" "}
+                <FormattedMessage id="contact.email" />
+              </h3>
             </div>
             <div>
               <p>trungtammstudents@domain.com</p>

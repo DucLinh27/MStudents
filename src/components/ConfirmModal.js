@@ -69,7 +69,6 @@ class ConfirmModal extends Component {
                         </button>
                     </div>
                 </div>
-
                 <div className="modal-body">
                     <div className="confirm-modal-content">
                         <div className="row">

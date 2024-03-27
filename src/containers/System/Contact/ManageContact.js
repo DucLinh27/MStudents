@@ -6,32 +6,55 @@ import {
   getAllContacts,
   getDetailContactsById,
 } from "../../../services/contactService";
-import * as actions from "../../../store/actions";
+import Modal from "react-bootstrap/Modal";
 
 class ManageContact extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrContacts: [],
+      filteredContacts: [],
+      selectedFeedback: null,
+      showModal: false,
+      showModalCancle: false,
     };
   }
-
+  handleDetailContact = () => {
+    this.setState((prevState) => ({ showModal: !prevState.showModal }));
+  };
   async componentDidMount() {
     try {
-      const contacts = await getAllContacts();
-      console.log("Contacts:", contacts);
-      const contactsArray = Array.isArray(contacts)
-        ? contacts
-        : Object.values(contacts);
-      this.setState({
-        arrContacts: contactsArray,
-      });
-      console.log(contactsArray);
+      const response = await getAllContacts();
+      console.log("Response:", response);
+
+      if (response.errCode === 0) {
+        const contactsArray = Array.isArray(response.data)
+          ? response.data
+          : Object.values(response.data);
+        this.setState({
+          arrContacts: contactsArray,
+        });
+      } else {
+        console.error("Error fetching video:", response.errMessage);
+      }
     } catch (error) {
-      console.error("Error fetching contacts:", error);
+      console.error("Error fetching video:", error);
     }
   }
-  async componentDidUpdate(prevProps, prevState, snapshot) {}
+  async componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.arrContacts !== prevState.arrContacts) {
+      this.setState({ filteredContacts: this.state.arrContacts });
+    }
+  }
+  filterContacts = (searchTerm) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredContacts = this.state.arrContacts.filter((video) =>
+      video.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+
+    this.setState({ filteredContacts });
+    console.log(filteredContacts);
+  };
 
   render() {
     return (
@@ -53,25 +76,14 @@ class ManageContact extends Component {
                   {" "}
                   <FormattedMessage id="manage-contact.feedback" />
                 </th>
-                <th>
-                  {" "}
-                  <FormattedMessage id="manage-contact.actions" />
-                </th>
               </tr>
-              {this.state.arrContacts &&
-                this.state.arrContacts.map((item, index) => {
-                  console.log(item); // Check each item in the render method
+              {this.state.filteredContacts &&
+                this.state.filteredContacts.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.email}</td>
                       <td>{item.fullname}</td>
                       <td>{item.feedback}</td>
-                      {/* <td>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => this.handleDeleteUser(item)}
-                        ></button>
-                      </td> */}
                     </tr>
                   );
                 })}
@@ -88,9 +100,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteOrder: (order) => dispatch(actions.deleteOrder(order)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageContact);

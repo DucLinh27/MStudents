@@ -187,6 +187,33 @@
         "fullname": "Họ và tên",
         "feedback": "Phản hồi",
         "actions": "Hành động"
+    },
+    "payment":{
+        "title": "Đơn hàng của bạn",
+        "username": "Tên người dùng",
+        "phonenumber": "Số điện thoại",
+        "payment": "Thanh toán",
+        "courses": "Khóa học",
+        "total_price": "Tổng giá tiền",
+        "status": "Tình trạng",
+        "actions": "Hành động",
+        "order_detail": "Chi tiết đơn hàng",
+        "status2": "Tình trạng: Đã thanh toán",
+        "back": "Trở về",
+        "close": "Đóng",
+        "see_details": "Xem chi tiết"
+    },
+    "contact":{
+        "title": "Lựa chọn đầu tiên cho giáo dục trực tuyến ở mọi nơi",
+        "content": "Học tiếng Anh trực tuyến trên website mang lại sự linh hoạt và thuận tiện cho việc nâng cao kỹ năng ngôn ngữ. Tham gia các khóa học mang đến cho bạn cơ hội học hỏi từ các giáo viên giàu kinh nghiệm, trải nghiệm các hoạt động tương tác và kết nối với cộng đồng học tập đa dạng",
+        "button": "Khóa học của chúng tôi",
+        "contact": "Thông tin liên hệ" ,
+        "fullname": "Họ và tên",
+        "feedback": "Phản hồi",
+        "save": "Lưu thông tin",
+        "our_location": "Vị trí của chúng tôi",
+        "call": "Gọi chúng tôi",
+        "email": "Email của chúng tôi"
     }
 
     

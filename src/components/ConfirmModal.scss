@@ -9,7 +9,7 @@
 
   hr {
     border: none;
-    border-bottom: 1px solid $border;;
+    border-bottom: 1px solid $border;
     width: 100%;
     margin: 10px 15px 5px 15px;
   }
@@ -23,7 +23,7 @@
       }
     }
   }
-  
+
   .custom-form-group {
     margin: 5px 0;
 
@@ -33,4 +33,10 @@
     }
   }
 }
-
+.modal-content {
+  width: 700px;
+  margin-right: 1000px;
+}
+.modal-dialog {
+  margin-left: 370px;
+}
