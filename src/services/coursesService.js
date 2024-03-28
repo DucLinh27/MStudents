@@ -190,6 +190,7 @@ let editCoursesService = (data) => {
         courses.level = data.level;
         courses.duration = data.duration;
         courses.lessons = data.lessons;
+        courses.userId = data.userId;
         await courses.save();
         resolve({
           errCode: 0,
