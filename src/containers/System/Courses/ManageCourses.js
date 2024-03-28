@@ -189,7 +189,7 @@ class ManageCourses extends Component {
         ? this.state.selectedOption.value
         : null,
     };
-    console.log(data);
+    console.log(data.userId);
 
     if (this.state.isEditing) {
       // Edit the class
@@ -293,7 +293,9 @@ class ManageCourses extends Component {
       this.setState({
         hashOldData: true,
         selectedCourses: selectedCourses,
+        selectedOption: selectedOption,
       });
+      console.log(selectedCourses);
     } else {
       this.setState({
         hashOldData: false,
@@ -376,7 +378,7 @@ class ManageCourses extends Component {
               placeholder="Courses name..."
             />
           </div>
-          <div className="col-3 form-group">
+          <div className="col-4 form-group">
             <label>
               {" "}
               <FormattedMessage id="manage-courses.price" />
@@ -427,7 +429,7 @@ class ManageCourses extends Component {
               placeholder="Lessons..."
             />
           </div>
-          <div className="col-2 form-group-file">
+          <div className="col-4 form-group-file">
             <div className="previewImg-container d-flex">
               <input
                 className="form-control-file"
@@ -529,7 +531,7 @@ class ManageCourses extends Component {
                         <img
                           src={item.image}
                           alt={item.name}
-                          style={{ width: "50px", height: "50px" }}
+                          style={{ width: "80px", height: "50px" }}
                         />
                       </td>
                       <td>{item.price}</td>

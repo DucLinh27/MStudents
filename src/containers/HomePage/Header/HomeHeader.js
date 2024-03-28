@@ -15,8 +15,8 @@ import * as actions from "../../../store/actions";
 import ReactSelect from "react-select";
 
 const options = [
-  { value: LANGUAGES.VI, image: vietnam },
   { value: LANGUAGES.EN, image: england },
+  { value: LANGUAGES.VI, image: vietnam },
 ];
 const images = [kids_on_tablets_in_class, image1, image2];
 class HomeHeader extends Component {

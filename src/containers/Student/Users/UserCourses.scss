@@ -1,12 +1,103 @@
-.user-courses-container {
-  margin-top: 60px;
-  height: 100%;
+.manage-user-courses {
+  padding: 5px;
+  margin-top: 100px;
+  margin-right: 100px;
+  margin-left: 100px;
+
   .content-left {
-    background-color: red;
+    border: 1px solid #e8e8e8;
+    .infor-account {
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 0;
+    }
+    .products {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 0;
+    }
+    .evalute {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 0;
+    }
   }
   .content-right {
-    background-color: green;
+    border: 1px solid #e8e8e8;
+    padding-left: 50px;
+    .changePassword {
+      padding: 5px;
+
+      label {
+        cursor: pointer;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+      input {
+        height: 17px;
+        width: 17px;
+      }
+    }
+    .password-container {
+      .password {
+      }
+    }
+    .button-save {
+      background: #c92127;
+      height: 40px;
+      width: 200px;
+      color: white;
+      font-weight: 500;
+      font-size: 16px;
+      border: none;
+      font-weight: 700;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  }
+  .more-infor {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 15px;
+    .password {
+    }
+  }
+  .infor-courses {
+    .item-content {
+      .video-content {
+        height: 80px;
+        width: 100%;
+      }
+      .name-courses {
+        width: 75%;
+      }
+      .comment-content {
+        width: 100%;
+      }
+      .comment {
+        margin-left: 10px;
+        .reply-comment {
+          margin-top: 5px;
+          margin-left: 10px;
+          font-size: 10px;
+        }
+      }
+      .replies {
+        margin-left: 50px;
+        font-size: 14px;
+        .btn-primary {
+          margin-top: 5px;
+        }
+      }
+      .btn-edit {
+        padding-bottom: 30px;
+        font-size: 12px;
+        width: 25px;
+        margin-left: 10px;
+      }
+      .btn-delete {
+        padding-bottom: 30px;
+        width: 25px;
+        font-size: 12px;
+      }
+    }
   }
 }
-
-

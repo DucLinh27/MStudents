@@ -103,6 +103,7 @@ class DetailCourses extends Component {
     const { userInfo, user } = this.props;
     console.log(user);
     console.log(userInfo);
+    console.log(dataDetailCourse);
     // Check if the course already exists in the orders for the current user
     const userId = this.props.user.userInfo?.id || this.props.user.user?.userId;
     // Check if the course already exists in the orders for the current user

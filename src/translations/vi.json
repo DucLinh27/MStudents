@@ -162,6 +162,21 @@
     "level": "Trình độ",
     "loading": "Đang cập nhật..."
     },
+    "manage-courses":{
+        "title": "Quản lý khóa học",
+        "name": "Tên khóa học",
+        "price": "Giá khóa học",
+        "level": "Độ khó",
+        "duration": "Thời lượng",
+        "number_lessons": "Số lượng bài học",
+        "image": "Tải ảnh",
+        "teacher": "Chọn giáo viên",
+        "description": "Mô tả",
+        "table_name":"Tên khóa học",
+        "table_image":"Ảnh khóa học",
+        "actions": "Chức năng",
+        "save": "Lưu "
+    },
     "manage-videos":{
         "title": "Quản lý video",    
         "name": "Tên video",

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import HomeHeader from "../../HomePage/Header/HomeHeader";
-import "./ProfileUser.scss";
+import "./UserCourses.scss";
 import _ from "lodash";
 import * as actions from "../../../store/actions";
 import { getDetailOrderById } from "../../../services/orderService";
@@ -14,6 +14,8 @@ import {
   deleteCommentService,
   getDetailCommentsById,
   getDetailCommentsReplyById,
+  deleteRepliesService,
+  editRepliesService,
 } from "../../../services/commentService";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -39,6 +41,7 @@ class UserCourses extends React.Component {
       commentsToShow: 5,
       showCommentInput: false,
       showCommentReply: null,
+      showActions: false,
     };
   }
   async componentDidMount() {
@@ -181,7 +184,7 @@ class UserCourses extends React.Component {
     };
     let res;
     if (this.state.isEditing) {
-      res = await editCommentService(data);
+      res = await editRepliesService(data);
     } else {
       res = await createCommentsReply(data);
     }
@@ -207,7 +210,7 @@ class UserCourses extends React.Component {
       console.log(res);
     }
   };
-  handleSaveNewComment = async () => {
+  handleSaveNewComment = async (commentId) => {
     const { userId } = this.props;
     const comment = this.state.content;
     const { videoId } = this.state;
@@ -241,11 +244,54 @@ class UserCourses extends React.Component {
       });
     } else {
       toast.error(
-        this.state.isEditing ? "Edit comment error" : "Add new video Error"
+        this.state.isEditing ? "Edit comment error" : "Add new comment Error"
       );
       console.log(res);
     }
   };
+  handleEditComment = (item) => {
+    this.setState({
+      id: item.id,
+      content: item.content,
+      videoId: item.videoId,
+      userId: item.userId,
+      isEditing: true,
+    });
+  };
+  handleEditReplies = (item) => {
+    this.setState({
+      id: item.id,
+      content: item.content,
+      commentId: item.commentId,
+      userId: item.userId,
+      isEditing: true,
+    });
+  };
+  handleDeleteReplies = async (video) => {
+    try {
+      const response = await deleteRepliesService(video);
+      if (response && response.errCode === 0) {
+        this.props.deleteVideo(video);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+  handleDeleteComment = async (video) => {
+    try {
+      const response = await deleteCommentService(video);
+      if (response && response.errCode === 0) {
+        this.props.deleteVideo(video);
+      } else {
+        console.error("Error deleting order:", response.errMessage);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
   handleOnChangeInput = (event, id) => {
     let stateCopy = { ...this.state };
     stateCopy[id] = event.target.value;
@@ -253,11 +299,14 @@ class UserCourses extends React.Component {
       ...stateCopy,
     });
   };
+  handleCommentClick = () => {
+    this.setState({ showActions: !this.state.showActions });
+  };
   render() {
     return (
       <>
         <HomeHeader isShowBanner={false} />
-        <div className="manage-user-container row">
+        <div className="manage-user-courses row">
           <div className="content-left col-4">
             <h1>
               <FormattedMessage id="user_courses.account" />
@@ -304,25 +353,56 @@ class UserCourses extends React.Component {
                                       {" "}
                                       <FormattedMessage id="user_courses.comment" />
                                     </h3>
+
+                                    {/* Comment ALL */}
                                     {this.state.arrComments.map(
                                       (comment, index) => (
                                         <div key={index}>
                                           <div className="row comment">
-                                            <p>
+                                            <p
+                                              onClick={this.handleCommentClick}
+                                            >
                                               {comment.User.firstName}:{" "}
                                               {comment.content}
                                             </p>
-                                            <p
-                                              className="reply-comment"
-                                              onClick={() =>
-                                                this.handleReplyClick(
-                                                  comment.id
-                                                )
-                                              }
-                                            >
-                                              <FormattedMessage id="user_courses.replies" />
-                                            </p>
+
+                                            {this.state.showActions && (
+                                              <>
+                                                <p
+                                                  className="reply-comment"
+                                                  onClick={() =>
+                                                    this.handleReplyClick(
+                                                      comment.id
+                                                    )
+                                                  }
+                                                >
+                                                  <FormattedMessage id="user_courses.replies" />
+                                                </p>
+                                                <button
+                                                  className="btn-edit"
+                                                  onClick={() =>
+                                                    this.handleEditComment(
+                                                      comment
+                                                    )
+                                                  }
+                                                >
+                                                  <i className="fas fa-pencil-alt"></i>
+                                                </button>
+                                                <button
+                                                  className="btn-delete"
+                                                  onClick={() =>
+                                                    this.handleDeleteComment(
+                                                      comment
+                                                    )
+                                                  }
+                                                >
+                                                  <i className="fas fa-trash"></i>
+                                                </button>
+                                              </>
+                                            )}
                                           </div>
+
+                                          {/* Replies  */}
                                           {this.state.showCommentReply ===
                                             comment.id &&
                                             this.state.arrReplies && (
@@ -334,9 +414,30 @@ class UserCourses extends React.Component {
                                                         {reply.User.firstName}:{" "}
                                                         {reply.content}
                                                       </label>
+                                                      <button
+                                                        className="btn-edit"
+                                                        onClick={() =>
+                                                          this.handleEditReplies(
+                                                            reply
+                                                          )
+                                                        }
+                                                      >
+                                                        <i className="fas fa-pencil-alt"></i>
+                                                      </button>
+                                                      <button
+                                                        className="btn-delete"
+                                                        onClick={() =>
+                                                          this.handleDeleteReplies(
+                                                            reply
+                                                          )
+                                                        }
+                                                      >
+                                                        <i className="fas fa-trash"></i>
+                                                      </button>
                                                     </div>
                                                   )
                                                 )}
+
                                                 <input
                                                   className="form-control reply-input"
                                                   type="text"
@@ -394,7 +495,9 @@ class UserCourses extends React.Component {
                                       )}
                                   </div>
                                   <div className="col-6 form-group" key={index}>
-                                    <label>Comments</label>
+                                    <label>
+                                      <FormattedMessage id="user_courses.comment" />
+                                    </label>
                                     <input
                                       className="form-control"
                                       type="text"
@@ -407,7 +510,7 @@ class UserCourses extends React.Component {
                                       }
                                     />
                                     <button
-                                      className="btn btn-primary"
+                                      className="btn btn-primary mt-2"
                                       type="submit"
                                       onClick={() =>
                                         this.handleSaveNewComment()

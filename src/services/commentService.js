@@ -24,8 +24,15 @@ const editCommentService = (data) => {
 const deleteCommentService = (inputId) => {
   return axios.delete("/api/delete-comment", { data: { id: inputId } });
 };
-
+const editRepliesService = (data) => {
+  return axios.put("/api/edit-replies", data);
+};
+const deleteRepliesService = (inputId) => {
+  return axios.delete("/api/delete-replies", { data: { id: inputId } });
+};
 export {
+  editRepliesService,
+  deleteRepliesService,
   createComments,
   getAllComments,
   getDetailCommentsById,
